@@ -1,0 +1,2 @@
+chdir C:\Project\Brain\SpatialIndex\bin\
+TOUCH.exe -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i C:\Project\Brain\SpatialIndex\data\RandomData-10K.bin C:\Project\Brain\SpatialIndex\data\RandomData-Normal-500-250-10K.bin

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="apps">
+        <in>JoinAlgorithm.cpp</in>
+        <in>PBSMHash.cpp</in>
+        <in>ResultPairs.cpp</in>
+        <in>RtreeJoin.cpp</in>
+        <in>S3Hash.cpp</in>
+        <in>SpatialGridHash.cpp</in>
+        <in>Statistics.cpp</in>
+        <in>TOUCH.cpp</in>
+        <in>TOUCHlike.cpp</in>
+        <in>TreeEntry.cpp</in>
+        <in>TreeNode.cpp</in>
+        <in>cTOUCH.cpp</in>
+        <in>dTOUCH.cpp</in>
+        <in>main.cpp</in>
+      </df>
+      <df name="build">
+        <df name="CMakeFiles">
+          <df name="3.0.2">
+            <df name="CompilerIdC">
+              <in>CMakeCCompilerId.c</in>
+            </df>
+            <df name="CompilerIdCXX">
+              <in>CMakeCXXCompilerId.cpp</in>
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="src">
+        <in>BBPTextFileReader.cpp</in>
+        <in>Bitmap.cpp</in>
+        <in>Box.cpp</in>
+        <in>BufferedFile.cpp</in>
+        <in>Cone.cpp</in>
+        <in>DataFileReader.cpp</in>
+        <in>ExternalSort.cpp</in>
+        <in>HilbertRtreeIndex.cpp</in>
+        <in>KDIndex.cpp</in>
+        <in>Mesh.cpp</in>
+        <in>Metadata.cpp</in>
+        <in>PayLoad.cpp</in>
+        <in>PriorityRtreeIndex.cpp</in>
+        <in>RtreeIndex.cpp</in>
+        <in>STRIndex.cpp</in>
+        <in>SeedBuilder.cpp</in>
+        <in>Segment.cpp</in>
+        <in>Soma.cpp</in>
+        <in>SpatialObject.cpp</in>
+        <in>SpatialObjectFactory.cpp</in>
+        <in>SpatialObjectStream.cpp</in>
+        <in>SpatialQuery.cpp</in>
+        <in>Sphere.cpp</in>
+        <in>Synapse.cpp</in>
+        <in>Timer.cpp</in>
+        <in>Triangle.cpp</in>
+        <in>Vertex.cpp</in>
+        <in>hilbert.cpp</in>
+      </df>
+      <df name="wrapper">
+        <in>FLATwrapper.cpp</in>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>build/Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>build/Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>build</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <cTool>
+            <incDir>
+              <pElem>build/CMakeFiles/3.0.2/CompilerIdC</pElem>
+            </incDir>
+          </cTool>
+        </makeTool>
+      </makefileType>
+      <item path="apps/JoinAlgorithm.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/PBSMHash.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/ResultPairs.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/RtreeJoin.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/S3Hash.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/SpatialGridHash.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/Statistics.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/TOUCH.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/TOUCHlike.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/TreeEntry.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/TreeNode.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/cTOUCH.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/dTOUCH.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/main.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="build/CMakeFiles/3.0.2/CompilerIdC/CMakeCCompilerId.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+      </item>
+      <item path="build/CMakeFiles/3.0.2/CompilerIdCXX/CMakeCXXCompilerId.cpp"
+            ex="false"
+            tool="1"
+            flavor2="4">
+      </item>
+      <folder path="0/apps">
+        <ccTool>
+          <incDir>
+            <pElem>apps</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="0/build">
+        <ccTool>
+          <incDir>
+            <pElem>build/CMakeFiles/3.0.2/CompilerIdCXX</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="0/src">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="0/wrapper">
+        <ccTool>
+          <incDir>
+            <pElem>wrapper</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <item path="src/BBPTextFileReader.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Bitmap.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Box.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/BufferedFile.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Cone.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/DataFileReader.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/ExternalSort.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/HilbertRtreeIndex.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/KDIndex.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Mesh.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Metadata.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/PayLoad.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/PriorityRtreeIndex.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/RtreeIndex.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/STRIndex.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/SeedBuilder.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Segment.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Soma.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/SpatialObject.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/SpatialObjectFactory.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/SpatialObjectStream.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/SpatialQuery.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Sphere.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Synapse.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Timer.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Triangle.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/Vertex.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="src/hilbert.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="wrapper/FLATwrapper.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
