@@ -1,7 +1,7 @@
 #include "DataFileReader.hpp"
 #include "SpatialQuery.hpp"
 //#include "HilbertRtreeIndex.hpp"
-#include "Segment.hpp"
+
 #include "hilbert.hpp"
 #include <set>
 #include <list>
@@ -9,37 +9,14 @@
 #include <queue>
 #include <algorithm>
 #include <limits>
-#include <cmath>
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
 
+#include "TOUCH.h"
+#include "cTOUCH.h"
+#include "dTOUCH.h"
+#include "S3Hash.h"
 
-#define algo_NL				0	//Nested Loop
-#define algo_PS				1	//Plane-Sweeping
-#define	algo_SGrid			2	//Spatial Grid Hash Join
-#define	algo_S3				3	//Size Separation Spatial
-#define	algo_TOUCH			4	//TOUCH:Spatial Hierarchical Hash Join
-#define	algo_PBSM			5	//Partition Based Spatial-Merge Join
-#define	algo_cTOUCH			6	//Partition Based Spatial-Merge Join
-#define	algo_dTOUCH			7	//Partition Based Spatial-Merge Join
-
-#define No_Sort					0
-#define Hilbert_Sort			1
-#define X_axis_Sort				2
-#define STR_Sort				3
 
 int base = 2; // the base for S3 and SH algorithms
-
-using namespace FLAT;
-using namespace std;
-
-typedef boost::unordered_set<SpatialObject*> SpatialObjectSet;
-typedef vector<SpatialObject*> SpatialObjectList;
-typedef SpatialObjectList HashValue;
-typedef pair<uint64,HashValue*> ValuePair;
-typedef boost::unordered_map <uint64,HashValue*> HashTable;
-typedef pair<SpatialObject*,SpatialObject*> ResultPair;
-typedef boost::unordered_set< ResultPair > ResultList;
 
 //Global variables
 int localPartitions = 100;					//The local join resolution
@@ -50,12 +27,13 @@ int PartitioningType                     = Hilbert_Sort;	// Sorting algorithm
 int runs				=  1;				// # of runs
 double epsilon				=  1.5;				// the epsilon of the similarity join
 int partitions				=  4;				// # of partitions: in S3 is # of levels; in SGrid is resolution
+                                                    //@todo partitions is number of buckets in the TOUCH (entries per leaf)
 
 const int types				=  2;
 const int max_assignment_level          =  3;			//for dTOUCH - maximum assignment level
 
-string infile_dsA = "..//data//RandomData-100K.bin";
-string infile_dsB = "..//data//RandomData-1600K.bin";
+string input_dsA = "..//data//RandomData-100K.bin";
+string input_dsB = "..//data//RandomData-1600K.bin";
 
 SpatialObjectList dsA, dsB;					//A is smaller than B
 
@@ -65,404 +43,7 @@ unsigned int numA = 0 ,numB = 0;		//number of elements to be read from datasets
 Box universeA, universeB;
 Timer dataLoad;	//The time for copying the data to memory
 Timer Ljoin;// The time for local join
-/*
- *Only for testing and debugging purpose
- */
-vector<uint64> ItemPerLevel; int LVL;
-/*
- * End
- */
 
-#define PAGE_SIZE 4096 // 4096
-#define OBJECT_SIZE 48
-#define NODE_FANOUT PAGE_SIZE/(OBJECT_SIZE+8)
-#define LEAF_FANOUT PAGE_SIZE/OBJECT_SIZE
-
-//The tree data structure for the hierarchical approaches.
-//a TreeNode contains many TreeEntry
-//The TreeEntry of a leaf level stores the object while the others store the MBR of their universe together with their pointer to their children TreeNode
-
-
-
-vector<TreeEntry*> vdsAll;	//vector of the mixed Objects and their MBRs
-vector<TreeEntry*> vdsA;	//vector of the Objects and their MBRs of the smaller dataset ??@todo smallest?
-vector<TreeEntry*> vdsB;       
-
-uint64 size_dsA,size_dsB;
-
-
-
-
-// Comparator of the sort functions for the partitioning
-
-// for testing
-inline double distance(SpatialObject* sobj1, SpatialObject* sobj2)
-{
-	vector<Vertex> vertices;
-	Box mbr = sobj2->getMBR();
-	Box::getAllVertices(sobj1->getMBR(),vertices);
-	double dist = 10000000;
-	for (unsigned int i=0;i<vertices.size();++i)
-		dist = min( mbr.pointDistance(vertices.at(i)) , dist);
-
-	return dist;
-}
-// for testing
-inline double objSize(SpatialObject* sobj)
-{
-	vector<Vertex> vertices;
-	Box mbr = sobj->getMBR();
-	return (mbr.high[0]-mbr.low[0])*(mbr.high[1]-mbr.low[1])*(mbr.high[2]-mbr.low[2]);
-}
-
-// for testestDSting
-void testDS(SpatialObjectList& A, SpatialObjectList& B)
-{
-        double aveD,stdD;
-	aveD = 0;
-	stdD = 0;
-	double sum=0,sqsum = 0,dist;
-	uint64 count=0;
-	ofstream lg; lg.open("DS.txt",ofstream::app);
-	if(PartitioningType == 10)
-	{
-		//compute the average distance
-	for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
-		for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-		{
-			count++;
-			dist = distance(*itA , *itB);
-			sum += dist;
-			sqsum += dist*dist;
-			if( count % 1000000 == 0 )
-			{
-				aveD = sum / (double)count;
-				stdD = sqrt((sqsum/(double)count)-aveD*aveD);
-				cout << count << ": ave=" << aveD << " std=" << stdD << endl;
-				lg << count << ":" << aveD << "," << stdD << ";";
-				if(count >= 100000000)
-				{
-					aveD = sum / (double)count;
-					stdD = sqrt((sqsum/(double)count)-aveD*aveD);
-					lg << "\n ***distance*** \n" << file_dsA << '\n' << file_dsB << '\n' << aveD << "," << stdD << ";" << endl;
-
-					lg.close();
-					return;
-				}
-			}
-
-		}
-	aveD = sum / (double)count;
-	stdD = sqrt((sqsum/(double)count)-aveD*aveD);
-	lg << "\n *** \n" << file_dsA << '\n' << file_dsB << '\n' << aveD << "," << stdD << ";" << endl;
-	}
-	else
-	{
-		//compute the average of size
-		for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
-		{
-			count++;
-			dist = objSize(*itA);
-			sum += dist;
-			sqsum += dist*dist;
-			if( count % 1000 == 0 )
-			{
-				aveD = sum / (double)count;
-				stdD = sqrt((sqsum/(double)count)-aveD*aveD);
-				cout << count << ": ave=" << aveD << " std=" << stdD << endl;
-				lg << count << ":" << aveD << "," << stdD << ";";
-				if(count >= 10000)
-				{
-					aveD = sum / (double)count;
-					stdD = sqrt((sqsum/(double)count)-aveD*aveD);
-					lg << "\n ***SIZE*** \n" << file_dsA << '\n' << aveD << "," << stdD << ";" << endl;
-
-					lg.close();
-					return;
-				}
-			}
-		}
-		aveD = sum / (double)count;
-		stdD = sqrt((sqsum/(double)count)-aveD*aveD);
-		lg << "\n ***SIZE*** \n" << file_dsA << '\n' << aveD << "," << stdD << ";" << endl;
-	}
-	lg.close();
-}
-
-
-//Nested Loop join algorithm
-void NL(SpatialObjectList& A, SpatialObjectList& B,  ResultPairs& results)
-{
-	for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
-		for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-			if ( istouching(*itA , *itB) )
-				results.addPair( *itA , *itB );
-}
-
-//Plane-sweeping join algorithm
-void PS(SpatialObjectList& A, SpatialObjectList& B,  ResultPairs& results)
-{
-
-	//Sort the datasets based on their lower x coordinate
-	stats.sorting.start();
-	std::sort(A.begin(), A.end(), Comparator_Xaxis());
-	//cout<<"Sort A Done."<<endl;
-	std::sort(B.begin(), B.end(), Comparator_Xaxis());
-	//cout<<"Sort B Done."<<endl;
-	stats.sorting.stop();
-
-	//sweep
-	uint64 iA=0,iB=0;
-	while(iA<A.size() && iB<B.size())
-	{
-		//cout<<iA<< " " <<iB<<endl;
-		if(A.at(iA)->getMBR().low[0] < B.at(iB)->getMBR().low[0])
-		{
-			uint64 i = iB;
-			spaceUnit border = A.at(iA)->getMBR().high[0]+epsilon;
-			while(i<B.size() && B.at(i)->getMBR().low[0] < border)
-			{
-				if ( istouching(B.at(i) , A.at(iA)) )
-				{
-					if (B.at(i)->type == 1)
-						results.addPair( B.at(i),A.at(iA) );
-					else
-						results.addPair( A.at(iA), B.at(i));
-				}
-				i++;
-			}
-			iA++;
-		}
-		else
-		{
-			uint64 i = iA;
-			spaceUnit border = B.at(iB)->getMBR().high[0]+epsilon;
-			while(i<A.size() &&  A.at(i)->getMBR().low[0] < border)
-				{
-				if ( istouching(B.at(iB) , A.at(i)) )
-				{
-					if (B.at(iB)->type == 1)
-						results.addPair( B.at(iB),A.at(i) );
-					else
-						results.addPair( A.at(i), B.at(iB));
-				}
-				i++;
-			}
-			iB++;
-		}
-	}
-}
-
-//Nested Loop join algorithm
-void NL(TreeNode* node, SpatialObjectList& B,  ResultPairs& results)
-{
-	for(vector<TreeEntry*>::iterator itA = node->entries.begin(); itA != node->entries.end(); ++itA)
-		for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-			if ( istouching((*itA)->obj , *itB) )
-				results.addPair( (*itA)->obj , *itB );
-}
-
-//Plane-sweeping join algorithm
-void PS(TreeNode* node, SpatialObjectList& B,  ResultPairs& results)
-{
-	//Sort the datasets based on their lower x coordinate
-	stats.sorting.start();
-	std::sort(node->entries.begin(), node->entries.end(), ComparatorTree_Xaxis());
-	//cout<<"Sort A Done."<<endl;
-	std::sort(B.begin(), B.end(), Comparator_Xaxis());
-	//cout<<"Sort B Done."<<endl;
-	stats.sorting.stop();
-
-	//sweep
-	uint64 iA=0,iB=0;
-	while(iA<node->entries.size() && iB<B.size())
-	{
-		if(node->entries.at(iA)->mbr.low[0] < B.at(iB)->getMBR().low[0])
-		{
-			uint64 i = iB;
-			spaceUnit border = node->entries.at(iA)->mbr.high[0];//+epsilon;
-			while(i<B.size() && B.at(i)->getMBR().low[0] < border)
-			{
-				if ( istouching(B.at(i) , node->entries.at(iA)->obj) )
-					results.addPair( B.at(i),node->entries.at(iA)->obj );
-				i++;
-			}
-			iA++;
-		}
-		else
-		{
-			uint64 i = iA;
-			spaceUnit border = B.at(iB)->getMBR().high[0];//+epsilon;
-			while(i<node->entries.size() &&  node->entries.at(i)->mbr.low[0] < border)
-			{
-				if ( istouching(B.at(iB) , node->entries.at(i)->obj) )
-					results.addPair( B.at(iB),node->entries.at(i)->obj );
-				i++;
-			}
-			iB++;
-		}
-	}
-}
-
-
-//Plane-sweeping join algorithm for cTOUCH <--------------
-void PS(SpatialObject* A, SpatialObjectList& B,  ResultPairs& results)
-{
-	//@todo sorting???
-    for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-		if ( istouching(A , (*itB)) )
-			results.addPair( A,(*itB) );
-}
-
-
-//Nested Loop join algorithm cTOUCH
-void NL(SpatialObject* A, SpatialObjectList& B,  ResultPairs& results)
-{
-	for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-		if ( istouching(A , *itB) )
-			results.addPair( A , *itB );
-}
-
-//Nested Loop join algorithm
-void NL(SpatialObjectList& A, SpatialObjectList& B,  ResultList& results)
-{
-	for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
-		for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-			if ( istouching(*itA , *itB) )
-			{
-				stats.deDuplicate.start();
-				uint64 temp = results.size();
-				if(PartitioningType == 4)// To have some clue!
-					stats.results++;
-				else{
-				results.insert(ResultPair(*itA , *itB) );
-				if(temp == results.size())
-					stats.duplicates++;
-				else
-					stats.results++;
-				}
-				stats.deDuplicate.stop();
-			}
-}
-
-//Plane-sweeping join algorithm
-void PS(SpatialObjectList& A, SpatialObjectList& B,  ResultList& results)
-{
-
-	//Sort the datasets based on their lower x coordinate
-	stats.sorting.start();
-	std::sort(A.begin(), A.end(), Comparator_Xaxis());
-	//cout<<"Sort A Done."<<endl;
-	std::sort(B.begin(), B.end(), Comparator_Xaxis());
-	//cout<<"Sort B Done."<<endl;
-	stats.sorting.stop();
-
-	//sweep
-	uint64 iA=0,iB=0;
-	while(iA<A.size() && iB<B.size())
-	{
-		//cout<<iA<< " " <<iB<<endl;
-		if(A.at(iA)->getMBR().low[0] < B.at(iB)->getMBR().low[0])
-		{
-			uint64 i = iB;
-			spaceUnit border = A.at(iA)->getMBR().high[0]+epsilon;
-			while(i<B.size() && B.at(i)->getMBR().low[0] < border)
-			{
-				if ( istouching(B.at(i) , A.at(iA)) )
-				{
-					stats.deDuplicate.start();
-					uint64 temp = results.size();
-					if(PartitioningType == 4)
-						stats.results++;
-					else{
-							results.insert(ResultPair( B.at(i),A.at(iA)) );
-							
-						if(temp == results.size())
-							stats.duplicates++;
-						else
-							stats.results++;
-					}
-					stats.deDuplicate.stop();
-				}
-
-				i++;
-			}
-			iA++;
-		}
-		else
-		{
-			uint64 i = iA;
-			spaceUnit border = B.at(iB)->getMBR().high[0]+epsilon;
-			while(i<A.size() &&  A.at(i)->getMBR().low[0] < border)
-			{
-				if ( istouching(B.at(iB) , A.at(i)) )
-				{
-					stats.deDuplicate.start();
-					uint64 temp = results.size();
-					if(PartitioningType == 4)
-						stats.results++;
-					else{
-							results.insert(ResultPair( B.at(i),A.at(iA)) );
-					if(temp == results.size())
-						stats.duplicates++;
-					else
-						stats.results++;
-					}
-					stats.deDuplicate.stop();
-				}
-
-				i++;
-			}
-			iB++;
-		}
-	}
-}
-
-//The local join for joining two buckets
-void JOIN(SpatialObjectList& A, SpatialObjectList& B,  ResultPairs& results) //type is for result array ordering
-{
-	Ljoin.start();
-	//cout<<"join " << A.size() << " and " <<B.size()<<endl;
-	if(localJoin == algo_NL)
-		NL(A,B,results);
-	else
-		PS(A,B,results);
-	Ljoin.stop();
-}
-
-void JOIN(SpatialObjectList& A, SpatialObjectList& B,  ResultList& results)
-{
-	Ljoin.start();
-	//cout<<"join " << A.size() << " and " <<B.size()<<endl;
-	if(localJoin == algo_NL)
-		NL(A,B,results);
-	else
-		PS(A,B,results);
-	Ljoin.stop();
-}
-
-void JOIN(TreeNode* node, SpatialObjectList& B,  ResultPairs& results)
-{
-	Ljoin.start();
-	//cout<<"join " << A.size() << " and " <<B.size()<<endl;
-	if(localJoin == algo_NL)
-		NL(node,B,results);
-	else
-		PS(node,B,results);
-	Ljoin.stop();
-}
-
-
-//JOIN for cTOUCH <--------
-void JOIN(SpatialObject* obj, SpatialObjectList& B,  ResultPairs& results)
-{
-	Ljoin.start();
-	if(localJoin == algo_NL)
-		NL(obj,B,results);
-	else
-		PS(obj,B,results);
-	Ljoin.stop();
-}
 
 void usage(const char *program_name) {
 
@@ -510,8 +91,8 @@ void parse_args(int argc, const char* argv[]) {
 		case 'i':
             if (++x < argc)
             {
-                file_dsA=argv[x];
-                file_dsB=argv[++x];
+                input_dsA=argv[x];
+                input_dsB=argv[++x];
             }
             else
             {
@@ -581,10 +162,8 @@ void SGrid()
 	cout << "Done\nAnalysis " ;
 	spatialGridHash->analyze(dsA,dsB);
 	cout << "Done\nProbing ";
-	ResultList SGresults;
-	spatialGridHash->probe(dsB , SGresults);
+	spatialGridHash->probe(dsB);
 	cout << "\nDone." << endl;
-	//stats.results = SGresults.size();
 	delete spatialGridHash;
 }
 
@@ -645,10 +224,12 @@ void PBSM()
 	delete pbsmHash;
 }
 
-void cTOUCH(ResultPairs& cTOUCHResults)
+void dTOUCH()
 {
 
-	TOUCHJoin* touch = new TOUCHJoin(partitions);
+	TOUCH* touch = new cTOUCH(partitions);
+        cout << "Reading files" << endl;
+        
 	cout << "Forming the partitions" << endl;
 	touch->createPartitions();
 	cout << "Assigning the objects of B" << endl;
@@ -661,10 +242,27 @@ void cTOUCH(ResultPairs& cTOUCHResults)
 	cout << "Done." << endl;
 }
 
-void TOUCH(ResultPairs& TOUCHResults)
+void cTOUCH()
 {
 
-	TOUCHJoin* touch = new TOUCHJoin(partitions);
+	TOUCH* touch = new cTOUCH(partitions);
+        cout << "Reading files" << endl;
+        
+	cout << "Forming the partitions" << endl;
+	touch->createPartitions();
+	cout << "Assigning the objects of B" << endl;
+	touch->assignment();
+	cout << "Assigning Done." << endl;
+	touch->analyze(dsA,dsB);
+	cout << "Analysis Done" << endl;
+	cout << "Probing, doing the join" << endl;
+	touch->probe();
+	cout << "Done." << endl;
+}
+
+void TOUCH()
+{
+	TOUCH* touch = new TOUCH(partitions);
 	cout << "Forming the partitions" << endl;
 	touch->createPartitions();
 	cout << "Assigning the objects of B" << endl;
@@ -681,41 +279,29 @@ int main(int argc, const char* argv[])
 {
 	//Parsing the arguments
 	parse_args(argc, argv);
-	//Reading the datasets and allocating memory
-	readBinaryInput();
-
-	if(PartitioningType >= 10)
-	{
-		testDS(dsA,dsB);
-		return 1;
-	}
-
-	ResultPairs results;
-	stats.total.start();
-
+	
 	switch(algorithm)
 	{
 		case algo_NL:
-			NL(dsA,dsB,results);
+                        //@todo - as a part of other join algorithm
 		break;
 		case algo_PS:
-			cout << "Unsupported in this version" << endl;
-			//PS(dsA,dsB,results);
+			//@todo
 		break;
 		case algo_TOUCH:
-			TOUCH(results);
+			TOUCH();
 		break;
 		case algo_cTOUCH:
-			cTOUCH(results);
+			cTOUCH();
 		break;
 		case algo_dTOUCH:
-			dTOUCH(results);
+			dTOUCH();
 		break;
 		case algo_SGrid:
 			SGrid();
 		break;
 		case algo_S3:
-			S3(results);
+			S3();
 		break;
 		case algo_PBSM:
 			PBSM();
@@ -725,10 +311,6 @@ int main(int argc, const char* argv[])
 			exit(0);
 		break;
 	}
-
-	stats.total.stop();
-	//Reporting
-	stats.print();
 
 	cout<<"Terminated."<<endl;
 	return 1;

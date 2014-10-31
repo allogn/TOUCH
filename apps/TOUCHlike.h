@@ -11,27 +11,24 @@
 #include "JoinAlgorithm.h"
 #include "TreeNode.h"
 #include "TreeEntry.h"
-#include "Statistics.h"
 
 class TOUCHlike : public JoinAlgorithm {
 public:
-    TOUCHlikeAlgorithm();
-    TOUCHlikeAlgorithm(const TOUCHlikeAlgorithm& orig);
-    virtual ~TOUCHlikeAlgorithm();
+    TOUCHlike();
+    virtual ~TOUCHlike();
+    
+    printTOUCH();
     
 protected:
     unsigned int leafsize, nodesize;
     unsigned int totalnodes;
     int Levels;
     
+    vector<uint64> ItemPerLevel; int LVL;
+    
     std::vector<TreeNode*> tree;
     std::vector<TreeEntry*> nextInput;
     TreeEntry* root;
-        
-private:
-    unsigned int leafsize, nodesize;
-    unsigned int totalnodes;
-    int Levels;
 };
 
 #endif	/* TOUCHLIKEALGORITHM_H */

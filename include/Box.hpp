@@ -21,20 +21,20 @@ namespace FLAT
 		Vertex high;
 		bool isEmpty;
 		Box()
-			{
-				isEmpty=true;
-			}
+                {
+                        isEmpty=true;
+                }
 		Box(bool empty)
 		{
 			isEmpty=empty;
 		}
 
 		Box(const Vertex &low, const Vertex &high)
-			{
-				this->low  = low;
-				this->high = high;
-				isEmpty=false;
-			}
+                {
+                        this->low  = low;
+                        this->high = high;
+                        isEmpty=false;
+                }
 
 		~Box()
 		{

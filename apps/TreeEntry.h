@@ -7,18 +7,21 @@
 #ifndef TREEENTRY_H
 #define	TREEENTRY_H
 
+#include "Box.hpp"
+#include "SpatialObject.hpp"
+
 class TreeEntry
 {
 public:
 	FLAT::Box mbrK[types]; //combined black and light MBR of each type
-	FLAT::Box mbr; //mbr used for sorting
+	FLAT::Box mbr; //mbr used for sorting or old TOUCH versions
 
 	FLAT::Box mbrSelfD[types]; //mbr's of objects which were assigned to current node
 	
 	FLAT::Box mbrL[types]; //light mbr
 	FLAT::Box mbrD[types]; //dark mbr
 	
-	FLAT::uint64 childIndex;	// or file offset for external memory index
+	FLAT::uint64 childIndex;
 	FLAT::uint64 parentIndex;
 	SpatialObject* obj;
 	

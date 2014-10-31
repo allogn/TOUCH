@@ -6,25 +6,26 @@
 
 #include "TOUCH.h"
 
-TOUCH::TOUCH() {
-    stats.initialize.start();
+TOUCH::TOUCH(int buckets) {
+    initialize.start();
 
-    stats.gridSize = buckets;
+    gridSize = buckets;
 
     leafsize = ceil((double)vdsA.size()/(double)buckets);
     nodesize = base;
 
-    stats.initialize.stop();
-}
-
-TOUCH::TOUCH(const TOUCH& orig) {
+    initialize.stop();
+    total.start();
 }
 
 TOUCH::~TOUCH() {
+    total.stop();
+    //Reporting
+    print(); //@todo verbose
     delete &tree;
 }
 
-void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level);
+void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
 {
     TreeNode* prNode = new TreeNode(Level);
     FLAT::Box mbr;
@@ -49,7 +50,7 @@ void TOUCH::createTreeLevel(vector<TreeEntry*>& input,int Level)
     if (Level==0) nodeSize = leafsize;
     else nodeSize = nodesize;
 
-    stats.sorting.start();
+    sorting.start();
     if(PartitioningType != No_Sort)
     {
             std::sort(input.begin(),input.end(),Comparator());
@@ -88,31 +89,31 @@ void TOUCH::createTreeLevel(vector<TreeEntry*>& input,int Level)
                     i++;
             }
     }
-    stats.sorting.stop();
+    sorting.stop();
 
-        cout << "Sort "<< input.size()<< " items in " << stats.sorting << endl;
+    cout << "Sort "<< input.size()<< " items in " << sorting << endl;
 
 
-        vector<TreeEntry*> entries;
-        for (vector<TreeEntry*>::iterator it=input.begin();it!=input.end();++it)
-        {
-                if (entries.size()<nodeSize)
-                {
-                        entries.push_back(*it);
-                        if (entries.size()>=nodeSize)
-                        {
-                                writeNode(entries,Level);
-                                entries.clear();
-                        }
-                }
-        }
-        if (!entries.empty())
-                writeNode(entries,Level);
+    vector<TreeEntry*> entries;
+    for (vector<TreeEntry*>::iterator it=input.begin();it!=input.end();++it)
+    {
+            if (entries.size()<nodeSize)
+            {
+                    entries.push_back(*it);
+                    if (entries.size()>=nodeSize)
+                    {
+                            writeNode(entries,Level);
+                            entries.clear();
+                    }
+            }
+    }
+    if (!entries.empty())
+            writeNode(entries,Level);
 }
 
 void TOUCH::createPartitions()
 {
-        stats.partition.start();
+        partition.start();
         // Build PRtree levels from bottom up
         Levels = 0;
         totalnodes = 0;
@@ -128,12 +129,12 @@ void TOUCH::createPartitions()
 
         cout << "Levels " << Levels << endl;
 
-        stats.partition.stop();
+        partition.stop();
 }
 
 void TOUCH::assignment(const SpatialObjectList& ds)
 {
-        stats.building.start();
+        building.start();
         bool overlaps;
         bool assigned;
         for (unsigned int i=0;i<ds.size();++i)
@@ -164,7 +165,7 @@ void TOUCH::assignment(const SpatialObjectList& ds)
                                         else
                                         {
                                                 //should be assigned to this level
-                                                ptr->attachedObjs.push_back(obj);
+                                                ptr->attachedObjs[0].push_back(obj);
                                                 assigned = true;
                                                 break;
                                         }
@@ -175,23 +176,23 @@ void TOUCH::assignment(const SpatialObjectList& ds)
                         if(!overlaps)
                         {
                                 //filtered
-                                stats.filtered ++;
+                                filtered ++;
                                 break;
                         }
                         ptr = tree.at(nextNode->childIndex);
                         if(ptr->leafnode /*|| ptr->level < 2*/)
                         {
-                                ptr->attachedObjs.push_back(obj);
+                                ptr->attachedObjs[0].push_back(obj);
                                 break;
                         }
                 }
         }
 
-        stats.building.stop();
+        building.stop();
 }
 
 
-void TOUCH::joinIntenalnodetoleafs(uint64 ancestorNodeID, ResultPairs& results)
+void TOUCH::joinIntenalnodetoleafs(uint64 ancestorNodeID)
 {
         SpatialGridHash* spatialGridHash;
         queue<uint64> leaves;
@@ -201,11 +202,11 @@ void TOUCH::joinIntenalnodetoleafs(uint64 ancestorNodeID, ResultPairs& results)
         {
                 //constructing the grid for the current internal node that we want to join it with all its desendet leaf nodes
                 //spatialGridHash = new SpatialGridHash(localUniverse,localPartitions);
-                stats.deDuplicate.start();
+                resultPairs.deDuplicate.start();
                 //spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
                 spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
                 spatialGridHash->build(ancestorNode->attachedObjs);
-                stats.deDuplicate.stop();
+                resultPairs.deDuplicate.stop();
         }
 
         leaves.push(ancestorNodeID);
@@ -215,26 +216,24 @@ void TOUCH::joinIntenalnodetoleafs(uint64 ancestorNodeID, ResultPairs& results)
                 leaves.pop();
                 if(leaf->leafnode)
                 {
-                        stats.comparing.start();
+                        comparing.start();
                         // join leaf->entries and vect
 
                         if(localJoin == algo_SGrid)// && localPartitions < internalObjsCount)// && internal->level >0)
                         {
                                 ResultList temp;
                                 spatialGridHash->probe(leaf , temp);
-                                stats.duplicates -= temp.size();
-                                //The following or stats.results += temp.size();
+                                resultPairs.duplicates -= temp.size();
+                                //The following or results += temp.size();
                                 for (ResultList::iterator it=temp.begin(); it!=temp.end(); ++it)
                                 {
-                                        results.addPair(it->first,it->second);
+                                        resultPairs.addPair(it->first,it->second); //@todo why not (*it)??
                                 }
                         }
                         else
-                                JOIN(leaf,ancestorNode->attachedObjs,results);
+                                JOIN(leaf,ancestorNode->attachedObjs);
 
-                        stats.comparing.stop();
-                        //else if(PartitioningType == 2)
-                                //joinVectorLeaf(leaf,hb,results);
+                        comparing.stop();
                 }
                 else
                 {
@@ -246,10 +245,10 @@ void TOUCH::joinIntenalnodetoleafs(uint64 ancestorNodeID, ResultPairs& results)
         }
 }
         
-void TOUCH::probe(ResultPairs& results)
+void TOUCH::probe()
 {
         //For every cell of A join it with its corresponding cell of B
-        stats.probing.start();
+        probing.start();
         queue<uint64> Qnodes;
 
         TreeNode* currentNode;
@@ -274,7 +273,7 @@ void TOUCH::probe(ResultPairs& results)
                 //join the internal node with all *its* leaves
 
                 // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
-                if(currentNode->attachedObjs.size()==0)
+                if(currentNode->attachedObjs[0].size()==0)
                         continue;
 
                 // just to display the level of the BFS traversal
@@ -284,24 +283,24 @@ void TOUCH::probe(ResultPairs& results)
                         cout << "\n### Level " << lvl <<endl;
                 }
 
-                joinIntenalnodetoleafs(currentNodeID, results);
+                joinIntenalnodetoleafs(currentNodeID);
 
                 //if(localJoin == algo_SGrid && localPartitions < internalObjsCount)
                 //	delete spatialGridHash;
         }
-        stats.probing.stop();
+        probing.stop();
 
 }
 	
 void TOUCH::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
 {
 
-        stats.analyzing.start();
+        analyzing.start();
         uint64 emptyCells=0;
         uint64 sum=0,sqsum=0;
         double differenceSquared=0;
-        stats.footprint += vdsA.size()*(sizeof(TreeEntry*));
-        stats.footprint += dsB.size()*(sizeof(SpatialObject*));
+        footprint += vdsA.size()*(sizeof(TreeEntry*));
+        footprint += dsB.size()*(sizeof(SpatialObject*));
         LVL = Levels;
         //vector<uint64> ItemPerLevel;
         ItemPerLevel.reserve(Levels);
@@ -315,16 +314,16 @@ void TOUCH::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
                 ItemPerLevel[tree.at(ni)->level]+=ptrs;
                 sum += ptrs;
                 sqsum += ptrs*ptrs;
-                if (stats.max<ptrs) stats.max = ptrs;
+                if (max<ptrs) max = ptrs;
 
         }
         for(int i = 0 ; i<Levels ; i++)
                 cout<< "level " << i << " items " << ItemPerLevel[i] <<endl;
 
-        stats.footprint += sum*sizeof(SpatialObject*) + tree.size()*(sizeof(TreeNode*));
-        stats.avg = (sum+0.0) / (tree.size());
-        stats.percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
-        differenceSquared = ((double)sqsum/(double)tree.size())-stats.avg*stats.avg;
-        stats.std = sqrt(differenceSquared);
-        stats.analyzing.stop();
+        footprint += sum*sizeof(SpatialObject*) + tree.size()*(sizeof(TreeNode*));
+        avg = (sum+0.0) / (tree.size());
+        percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
+        differenceSquared = ((double)sqsum/(double)tree.size())-avg*avg;
+        std = sqrt(differenceSquared);
+        analyzing.stop();
 }

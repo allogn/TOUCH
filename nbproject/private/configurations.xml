@@ -6,23 +6,23 @@
         <in>JoinAlgorithm.cpp</in>
         <in>JoinAlgorithm.h</in>
         <in>PBSMHash.cpp</in>
+        <in>PBSMHash.h</in>
         <in>ResultPairs.cpp</in>
         <in>ResultPairs.h</in>
-        <in>RtreeJoin.cpp</in>
         <in>S3Hash.cpp</in>
+        <in>S3Hash.h</in>
         <in>SpatialGridHash.cpp</in>
-        <in>Statistics.cpp</in>
-        <in>Statistics.h</in>
+        <in>SpatialGridHash.h</in>
         <in>TOUCH.cpp</in>
         <in>TOUCH.h</in>
         <in>TOUCHlike.cpp</in>
         <in>TOUCHlike.h</in>
-        <in>TreeEntry.cpp</in>
         <in>TreeEntry.h</in>
-        <in>TreeNode.cpp</in>
         <in>TreeNode.h</in>
         <in>cTOUCH.cpp</in>
+        <in>cTOUCH.h</in>
         <in>dTOUCH.cpp</in>
+        <in>dTOUCH.h</in>
         <in>main.cpp</in>
       </df>
       <df name="bin">
@@ -128,8 +128,6 @@
         <in>hilbert.hpp</in>
       </df>
       <df name="lib">
-      </df>
-      <df name="New Folder">
       </df>
       <df name="run">
       </df>

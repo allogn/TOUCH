@@ -15,18 +15,17 @@
 
 class TOUCH : public TOUCHlike {
 public:
-    TOUCH();
-    TOUCH(const TOUCH& orig);
+    TOUCH(int buckets);
     virtual ~TOUCH();
     
     void analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB);
     void createPartitions();
     void assignment(const SpatialObjectList& ds);
-    void probe(ResultPairs& results);
+    void probe();
 private:
     void writeNode(std::vector<TreeEntry*> objlist,int Level);
     void createTreeLevel(vector<TreeEntry*>& input,int Level);
-    void joinIntenalnodetoleafs(uint64 ancestorNodeID, ResultPairs& results);
+    void joinIntenalnodetoleafs(uint64 ancestorNodeID);
 };
 
 #endif	/* TOUCH_H */

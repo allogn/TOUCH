@@ -5,17 +5,18 @@
       <df name="apps">
         <in>JoinAlgorithm.cpp</in>
         <in>PBSMHash.cpp</in>
+        <in>PBSMHash.h</in>
         <in>ResultPairs.cpp</in>
-        <in>RtreeJoin.cpp</in>
         <in>S3Hash.cpp</in>
+        <in>S3Hash.h</in>
         <in>SpatialGridHash.cpp</in>
-        <in>Statistics.cpp</in>
+        <in>SpatialGridHash.h</in>
         <in>TOUCH.cpp</in>
         <in>TOUCHlike.cpp</in>
-        <in>TreeEntry.cpp</in>
-        <in>TreeNode.cpp</in>
         <in>cTOUCH.cpp</in>
+        <in>cTOUCH.h</in>
         <in>dTOUCH.cpp</in>
+        <in>dTOUCH.h</in>
         <in>main.cpp</in>
       </df>
       <df name="build">
@@ -102,27 +103,29 @@
       </item>
       <item path="apps/PBSMHash.cpp" ex="false" tool="1" flavor2="4">
       </item>
-      <item path="apps/ResultPairs.cpp" ex="false" tool="1" flavor2="4">
+      <item path="apps/PBSMHash.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="apps/RtreeJoin.cpp" ex="false" tool="1" flavor2="4">
+      <item path="apps/ResultPairs.cpp" ex="false" tool="1" flavor2="4">
       </item>
       <item path="apps/S3Hash.cpp" ex="false" tool="1" flavor2="4">
       </item>
+      <item path="apps/S3Hash.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="apps/SpatialGridHash.cpp" ex="false" tool="1" flavor2="4">
       </item>
-      <item path="apps/Statistics.cpp" ex="false" tool="1" flavor2="4">
+      <item path="apps/SpatialGridHash.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="apps/TOUCH.cpp" ex="false" tool="1" flavor2="4">
       </item>
       <item path="apps/TOUCHlike.cpp" ex="false" tool="1" flavor2="4">
       </item>
-      <item path="apps/TreeEntry.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="apps/TreeNode.cpp" ex="false" tool="1" flavor2="4">
-      </item>
       <item path="apps/cTOUCH.cpp" ex="false" tool="1" flavor2="4">
       </item>
+      <item path="apps/cTOUCH.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="apps/dTOUCH.cpp" ex="false" tool="1" flavor2="4">
+      </item>
+      <item path="apps/dTOUCH.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="apps/main.cpp" ex="false" tool="1" flavor2="4">
       </item>
