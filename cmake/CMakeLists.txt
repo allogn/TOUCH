@@ -7,23 +7,23 @@ SET(MACHINE bbplinsrv)
 	MESSAGE (STATUS "Detected Sadegh Laptop")
 	INCLUDE_DIRECTORIES (
 	  ${CMAKE_SOURCE_DIR}/../include/
-	  C:/Project/Brain/boost/include/ 
-	  C:/Project/Brain/bbpdias/BBPSDK/include/
-	  C:/Project/Brain/HDF5/include/
-	  C:/Project/Brain/RTree/include/
+	  /usr/include/boost/ 
+	  ${CMAKE_SOURCE_DIR}/../lib/bbpdias/BBPSDK/include/
+	  ${CMAKE_SOURCE_DIR}/../lib/HDF5/include/
+	  ${CMAKE_SOURCE_DIR}/../lib/RTree/include/
 	)
 	
-	LINK_DIRECTORIES ( 
-	   C:/Project/Brain/boost/lib/ 
-	   C:/Project/Brain/bbpdias/BBPSDK/
-	   C:/Project/Brain/HDF5/lib/
-	   C:/Project/Brain/RTree/
-	)    
+#	LINK_DIRECTORIES ( 
+#	   C:/Project/boost/lib/ 
+#	   ${CMAKE_SOURCE_DIR}/../lib/bbpdias/BBPSDK/
+#	   ${CMAKE_SOURCE_DIR}/../lib/HDF5/lib/
+#	   ${CMAKE_SOURCE_DIR}/../lib/Brain/RTree/
+#	)    
 	
-	SET(BBPSDK_LIB bbpsdk)
-	SET(HDF5_LIB hdf5)
-	SET(RTREE_LIB spatialindex)
-	SET(BOOST_LIB libboost_program_options-mgw48-mt-1_56.dll libboost_filesystem-mgw48-mt-1_56.dll libboost_thread-mgw48-mt-1_56.dll libboost_system-mgw48-mt-1_56.dll)
+#	SET(BBPSDK_LIB bbpsdk)
+#	SET(HDF5_LIB hdf5)
+#	SET(RTREE_LIB spatialindex)
+#	SET(BOOST_LIB libboost_program_options-mgw48-mt-1_56.dll libboost_filesystem-mgw48-mt-1_56.dll libboost_thread-mgw48-mt-1_56.dll libboost_system-mgw48-mt-1_56.dll)
 	ADD_DEFINITIONS("-O3 -Wall -DPROFILING -DFATAL -DDEBUG -DINFORMATION -DPROGRESS ")
 	OPTION(MAKE_EXECUTABLES "Make the executables." ON)
 

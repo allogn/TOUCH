@@ -1,3 +1,3 @@
-file(REMOVE_RECURSE
-  "C:/Project/Brain/SpatialIndex/lib/libFLATIndex.a"
+FILE(REMOVE_RECURSE
+  "/media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a"
 )

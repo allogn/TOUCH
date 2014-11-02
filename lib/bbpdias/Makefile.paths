@@ -1,0 +1,3 @@
+INCLUDE_PATHS := -IC:\Project\Brain\boost\include -IC:\Project\Brain\HDF5\include 
+LIB_PATHS := -LC:\Project\Brain\HDF5\lib -LC:\Project\Brain\boost\lib
+BOOST_LIBS := -llibboost_program_options-mgw34-mt -llibboost_filesystem-mgw34-mt -llibboost_thread-mgw34-mt -llibboost_system-mgw34-mt

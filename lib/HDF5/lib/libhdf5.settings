@@ -1,0 +1,56 @@
+	    SUMMARY OF THE HDF5 CONFIGURATION
+	    =================================
+
+General Information:
+-------------------
+		   HDF5 Version: 1.8.3
+		  Configured on: Mon Sep  7 13:17:42 WEDT 2009
+		  Configured by: thomas-pc\thomas@Thomas-PC
+		 Configure mode: production
+		    Host system: i686-pc-mingw32
+	      Uname information: MINGW32_NT-6.0 THOMAS-PC 1.0.11(0.46/3/2) 2009-07-11 17:46 i686 Msys
+		       Byte sex: little-endian
+		      Libraries: 
+	     Installation point: c:/tmp/hdf5
+
+Compiling Options:
+------------------
+               Compilation Mode: production
+                     C Compiler: /mingw/bin/gcc
+	       CFLAGS/H5_CFLAGS: / 
+           CPPFLAGS/H5_CPPFLAGS: /  -DNDEBUG -UH5_DEBUG_API
+               Shared Libraries: yes
+               Static Libraries: yes
+  Statically Linked Executables: no
+		Extra libraries:   -lm -lws2_32
+		       Archiver: ar
+			 Ranlib: ranlib
+	      Debugged Packages: 
+		    API Tracing: no
+
+Languages:
+----------
+                        Fortran: no
+                            C++: yes
+                   C++ Compiler: g++
+                      C++ Flags: 
+
+Features:
+---------
+                  Parallel HDF5: no
+             High Level library: yes
+                   Threadsafety: no
+            Default API Mapping: v18
+ With Deprecated Public Symbols: yes
+         I/O filters (external): 
+         I/O filters (internal): shuffle,fletcher32,nbit,scaleoffset
+                            MPE: no
+                     Direct VFD: no
+                        dmalloc: no
+Clear file buffers before write: yes
+           Using memory checker: no
+         Function Stack Tracing: no
+                           GPFS: no
+      Strict File Format Checks: no
+   Optimization Instrumentation: no
+ Linux Large File Support (LFS): no

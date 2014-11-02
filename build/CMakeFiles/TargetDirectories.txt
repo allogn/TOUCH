@@ -1,3 +1,2 @@
-C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir
-C:/Project/Brain/SpatialIndex/build/CMakeFiles/TOUCH.dir
-C:/Project/Brain/SpatialIndex/build/CMakeFiles/reTOUCH.dir
+/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir
+/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/main.dir

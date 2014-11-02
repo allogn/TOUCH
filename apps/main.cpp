@@ -1,49 +1,18 @@
-#include "DataFileReader.hpp"
-#include "SpatialQuery.hpp"
-//#include "HilbertRtreeIndex.hpp"
-
-#include "hilbert.hpp"
-#include <set>
-#include <list>
-#include <stack>
-#include <queue>
-#include <algorithm>
-#include <limits>
-
 #include "TOUCH.h"
-#include "cTOUCH.h"
-#include "dTOUCH.h"
-#include "S3Hash.h"
 
-
-int base = 2; // the base for S3 and SH algorithms
-
-//Global variables
+int PartitioningTypeMain = Hilbert_Sort;	// Sorting algorithm
 int localPartitions = 100;					//The local join resolution
 bool verbose				=  false;		// Output everything or not?
-int algorithm				=  algo_TOUCH;		// Choose the algorithm
+int algorithm				=  algo_NL;		// Choose the algorithm
 int localJoin				=  algo_NL;		// Choose the algorithm for joining the buckets, The local join
-int PartitioningType                     = Hilbert_Sort;	// Sorting algorithm
-int runs				=  1;				// # of runs
+int runs					=  1;				// # of runs
 double epsilon				=  1.5;				// the epsilon of the similarity join
 int partitions				=  4;				// # of partitions: in S3 is # of levels; in SGrid is resolution
-                                                    //@todo partitions is number of buckets in the TOUCH (entries per leaf)
-
-const int types				=  2;
-const int max_assignment_level          =  3;			//for dTOUCH - maximum assignment level
+unsigned int numA = 0 ,numB = 0;		//number of elements to be read from datasets
+int base = 2; // the base for S3 and SH algorithms
 
 string input_dsA = "..//data//RandomData-100K.bin";
 string input_dsB = "..//data//RandomData-1600K.bin";
-
-SpatialObjectList dsA, dsB;					//A is smaller than B
-
-DataFileReader *inputA, *inputB;
-string logfilename = "SJ.LOG";
-unsigned int numA = 0 ,numB = 0;		//number of elements to be read from datasets
-Box universeA, universeB;
-Timer dataLoad;	//The time for copying the data to memory
-Timer Ljoin;// The time for local join
-
 
 void usage(const char *program_name) {
 
@@ -114,7 +83,7 @@ void parse_args(int argc, const char* argv[]) {
 			sscanf(argv[++x], "%u", &runs);
             break;
 		case 't':       /* Testing */
-			sscanf(argv[++x], "%u", &PartitioningType);
+			sscanf(argv[++x], "%u", &PartitioningTypeMain);
             break;
 		case 'e':       /* epsilon */
 			sscanf(argv[++x], "%lf", &epsilon);
@@ -135,144 +104,167 @@ void parse_args(int argc, const char* argv[]) {
     }
 }
 
-
-
-// The following functions are for creating the corresponding object of their specified join method
-
-//Spatial Grid Hash Join algorithm
-void SGrid()
-{
-	Box universe;
-	//Box::combine(inputA->universe,inputB->universe,universe);
-	if(numA > 0 && numB > 0)
-	{
-		universe = universeA;
-	}
-	else
-	{
-		universe = inputA->universe;
-	}
-
-	Box::expand(universe,epsilon);
-	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
-	SpatialGridHash* spatialGridHash = new SpatialGridHash(universe,partitions);
-
-	cout << "Buidling ";
-	spatialGridHash->build(dsA);
-	cout << "Done\nAnalysis " ;
-	spatialGridHash->analyze(dsA,dsB);
-	cout << "Done\nProbing ";
-	spatialGridHash->probe(dsB);
-	cout << "\nDone." << endl;
-	delete spatialGridHash;
-}
-
-//Size Separation Spatial join algorithm
-void S3(ResultPairs& S3Results)
-{
-	Box universe;
-	if(numA > 0 && numB > 0)
-	{
-		Box::combine(universeA,universeB,universe);
-	}
-	else
-	{
-		Box::combine(inputA->universe,inputB->universe,universe);
-	}
-
-	Box::expand(universe,epsilon);
-	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
-	Box::combine(inputA->universe,inputB->universe,universe);
-	S3Hash* s3Hash = new S3Hash(universe,partitions);
-
-	cout << "Building Started" << endl;
-	s3Hash->build(dsA, dsB);
-	cout << "Building Done" << endl;
-	s3Hash->analyze(dsA,dsB);
-	cout << "Analysis Done" << endl;
-	s3Hash->probe(S3Results);
-
-	cout << "Probing Done" << endl;
-	delete s3Hash;
-}
-
-//Partition Based Spatial-Merge join algorithm
-void PBSM()
-{
-	ResultList PBSMResults;
-	Box universe;
-	if(numA > 0 && numB > 0)
-	{
-		universe = universeA;
-	}
-	else
-	{
-		universe = inputA->universe;
-	}
-
-	Box::expand(universe,epsilon);
-	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
-	PBSMHash* pbsmHash = new PBSMHash(universe,partitions);
-
-	cout << "Building Started" << endl;
-	pbsmHash->build(dsA, dsB);
-	cout << "Building Done" << endl;
-	pbsmHash->analyze(dsA,dsB);
-	cout << "Analysis Done" << endl;
-	pbsmHash->probe(PBSMResults);
-	cout << "Probing Done" << endl;
-	delete pbsmHash;
-}
-
-void dTOUCH()
-{
-
-	TOUCH* touch = new cTOUCH(partitions);
-        cout << "Reading files" << endl;
-        
-	cout << "Forming the partitions" << endl;
-	touch->createPartitions();
-	cout << "Assigning the objects of B" << endl;
-	touch->assignment();
-	cout << "Assigning Done." << endl;
-	touch->analyze(dsA,dsB);
-	cout << "Analysis Done" << endl;
-	cout << "Probing, doing the join" << endl;
-	touch->probe();
-	cout << "Done." << endl;
-}
-
-void cTOUCH()
-{
-
-	TOUCH* touch = new cTOUCH(partitions);
-        cout << "Reading files" << endl;
-        
-	cout << "Forming the partitions" << endl;
-	touch->createPartitions();
-	cout << "Assigning the objects of B" << endl;
-	touch->assignment();
-	cout << "Assigning Done." << endl;
-	touch->analyze(dsA,dsB);
-	cout << "Analysis Done" << endl;
-	cout << "Probing, doing the join" << endl;
-	touch->probe();
-	cout << "Done." << endl;
-}
-
-void TOUCH()
+//
+//
+//// The following functions are for creating the corresponding object of their specified join method
+//
+////Spatial Grid Hash Join algorithm
+//void SGrid()
+//{
+//	Box universe;
+//	//Box::combine(inputA->universe,inputB->universe,universe);
+//	if(numA > 0 && numB > 0)
+//	{
+//		universe = universeA;
+//	}
+//	else
+//	{
+//		universe = inputA->universe;
+//	}
+//
+//	Box::expand(universe,epsilon);
+//	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
+//	SpatialGridHash* spatialGridHash = new SpatialGridHash(universe,partitions);
+//
+//	cout << "Buidling ";
+//	spatialGridHash->build(dsA);
+//	cout << "Done\nAnalysis " ;
+//	spatialGridHash->analyze(dsA,dsB);
+//	cout << "Done\nProbing ";
+//	spatialGridHash->probe(dsB);
+//	cout << "\nDone." << endl;
+//	delete spatialGridHash;
+//}
+//
+////Size Separation Spatial join algorithm
+//void S3(ResultPairs& S3Results)
+//{
+//	Box universe;
+//	if(numA > 0 && numB > 0)
+//	{
+//		Box::combine(universeA,universeB,universe);
+//	}
+//	else
+//	{
+//		Box::combine(inputA->universe,inputB->universe,universe);
+//	}
+//
+//	Box::expand(universe,epsilon);
+//	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
+//	Box::combine(inputA->universe,inputB->universe,universe);
+//	S3Hash* s3Hash = new S3Hash(universe,partitions);
+//
+//	cout << "Building Started" << endl;
+//	s3Hash->build(dsA, dsB);
+//	cout << "Building Done" << endl;
+//	s3Hash->analyze(dsA,dsB);
+//	cout << "Analysis Done" << endl;
+//	s3Hash->probe(S3Results);
+//
+//	cout << "Probing Done" << endl;
+//	delete s3Hash;
+//}
+//
+////Partition Based Spatial-Merge join algorithm
+//void PBSM()
+//{
+//	ResultList PBSMResults;
+//	Box universe;
+//	if(numA > 0 && numB > 0)
+//	{
+//		universe = universeA;
+//	}
+//	else
+//	{
+//		universe = inputA->universe;
+//	}
+//
+//	Box::expand(universe,epsilon);
+//	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
+//	PBSMHash* pbsmHash = new PBSMHash(universe,partitions);
+//
+//	cout << "Building Started" << endl;
+//	pbsmHash->build(dsA, dsB);
+//	cout << "Building Done" << endl;
+//	pbsmHash->analyze(dsA,dsB);
+//	cout << "Analysis Done" << endl;
+//	pbsmHash->probe(PBSMResults);
+//	cout << "Probing Done" << endl;
+//	delete pbsmHash;
+//}
+//
+//void dTOUCH()
+//{
+//
+//	TOUCH* touch = new cTOUCH(partitions);
+//        cout << "Reading files" << endl;
+//        
+//	cout << "Forming the partitions" << endl;
+//	touch->createPartitions();
+//	cout << "Assigning the objects of B" << endl;
+//	touch->assignment();
+//	cout << "Assigning Done." << endl;
+//	touch->analyze(dsA,dsB);
+//	cout << "Analysis Done" << endl;
+//	cout << "Probing, doing the join" << endl;
+//	touch->probe();
+//	cout << "Done." << endl;
+//}
+//
+//void cTOUCH()
+//{
+//
+//	TOUCH* touch = new cTOUCH(partitions);
+//        cout << "Reading files" << endl;
+//        
+//	cout << "Forming the partitions" << endl;
+//	touch->createPartitions();
+//	cout << "Assigning the objects of B" << endl;
+//	touch->assignment();
+//	cout << "Assigning Done." << endl;
+//	touch->analyze(dsA,dsB);
+//	cout << "Analysis Done" << endl;
+//	cout << "Probing, doing the join" << endl;
+//	touch->probe();
+//	cout << "Done." << endl;
+//}
+//
+void doTOUCH()
 {
 	TOUCH* touch = new TOUCH(partitions);
+        
+        touch->PartitioningType = PartitioningTypeMain;
+        touch->base = base;
+        touch->localPartitions = localPartitions;	
+        touch->verbose  =  verbose;		
+        touch->algorithm    =  algorithm;	
+        touch->localJoin    =  localJoin;	
+        touch->epsilon	=  epsilon;	
+        touch->partitions   = partitions;
+        
+        
+        touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions" << endl;
 	touch->createPartitions();
 	cout << "Assigning the objects of B" << endl;
-	touch->assignment(dsB);
+	touch->assignment();
 	cout << "Assigning Done." << endl;
-	touch->analyze(dsA,dsB);
+	touch->analyze();
 	cout << "Analysis Done" << endl;
 	cout << "Probing, doing the join" << endl;
 	touch->probe();
 	cout << "Done." << endl;
+}
+
+void NLalgo()
+{
+    cout << "New NL join algorithm created" << endl;
+    JoinAlgorithm* nl = new JoinAlgorithm();
+    cout << "Reading data" << endl;
+    nl->readBinaryInput(input_dsA, input_dsB);
+    cout << "Nested loop join" << endl;
+    nl->NL(nl->dsA, nl->dsB);
+    
 }
 
 int main(int argc, const char* argv[])
@@ -283,29 +275,29 @@ int main(int argc, const char* argv[])
 	switch(algorithm)
 	{
 		case algo_NL:
-                        //@todo - as a part of other join algorithm
+                    NLalgo();
 		break;
 		case algo_PS:
 			//@todo
 		break;
 		case algo_TOUCH:
-			TOUCH();
+			doTOUCH();
 		break;
-		case algo_cTOUCH:
-			cTOUCH();
-		break;
-		case algo_dTOUCH:
-			dTOUCH();
-		break;
-		case algo_SGrid:
-			SGrid();
-		break;
-		case algo_S3:
-			S3();
-		break;
-		case algo_PBSM:
-			PBSM();
-		break;
+//		case algo_cTOUCH:
+//			cTOUCH();
+//		break;
+//		case algo_dTOUCH:
+//			dTOUCH();
+//		break;
+//		case algo_SGrid:
+//			SGrid();
+//		break;
+//		case algo_S3:
+//			S3();
+//		break;
+//		case algo_PBSM:
+//			PBSM();
+//		break;
 		default:
 			cout<<"No such an algorithm!"<<endl;
 			exit(0);
@@ -313,5 +305,5 @@ int main(int argc, const char* argv[])
 	}
 
 	cout<<"Terminated."<<endl;
-	return 1;
+	return 0;
 }

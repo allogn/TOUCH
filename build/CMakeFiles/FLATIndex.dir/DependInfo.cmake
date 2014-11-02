@@ -1,52 +1,57 @@
 # The set of languages for which implicit dependencies are needed:
-set(CMAKE_DEPENDS_LANGUAGES
+SET(CMAKE_DEPENDS_LANGUAGES
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Project/Brain/SpatialIndex/src/BBPTextFileReader.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/BBPTextFileReader.obj"
-  "C:/Project/Brain/SpatialIndex/src/Bitmap.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Bitmap.obj"
-  "C:/Project/Brain/SpatialIndex/src/Box.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Box.obj"
-  "C:/Project/Brain/SpatialIndex/src/BufferedFile.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/BufferedFile.obj"
-  "C:/Project/Brain/SpatialIndex/src/Cone.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Cone.obj"
-  "C:/Project/Brain/SpatialIndex/src/DataFileReader.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/DataFileReader.obj"
-  "C:/Project/Brain/SpatialIndex/src/ExternalSort.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/ExternalSort.obj"
-  "C:/Project/Brain/SpatialIndex/src/HilbertRtreeIndex.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/HilbertRtreeIndex.obj"
-  "C:/Project/Brain/SpatialIndex/src/KDIndex.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/KDIndex.obj"
-  "C:/Project/Brain/SpatialIndex/src/Mesh.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Mesh.obj"
-  "C:/Project/Brain/SpatialIndex/src/Metadata.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Metadata.obj"
-  "C:/Project/Brain/SpatialIndex/src/PayLoad.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/PayLoad.obj"
-  "C:/Project/Brain/SpatialIndex/src/PriorityRtreeIndex.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/PriorityRtreeIndex.obj"
-  "C:/Project/Brain/SpatialIndex/src/RtreeIndex.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/RtreeIndex.obj"
-  "C:/Project/Brain/SpatialIndex/src/STRIndex.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/STRIndex.obj"
-  "C:/Project/Brain/SpatialIndex/src/SeedBuilder.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/SeedBuilder.obj"
-  "C:/Project/Brain/SpatialIndex/src/Segment.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Segment.obj"
-  "C:/Project/Brain/SpatialIndex/src/Soma.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Soma.obj"
-  "C:/Project/Brain/SpatialIndex/src/SpatialObject.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/SpatialObject.obj"
-  "C:/Project/Brain/SpatialIndex/src/SpatialObjectFactory.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/SpatialObjectFactory.obj"
-  "C:/Project/Brain/SpatialIndex/src/SpatialObjectStream.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/SpatialObjectStream.obj"
-  "C:/Project/Brain/SpatialIndex/src/SpatialQuery.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/SpatialQuery.obj"
-  "C:/Project/Brain/SpatialIndex/src/Sphere.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Sphere.obj"
-  "C:/Project/Brain/SpatialIndex/src/Synapse.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Synapse.obj"
-  "C:/Project/Brain/SpatialIndex/src/Timer.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Timer.obj"
-  "C:/Project/Brain/SpatialIndex/src/Triangle.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Triangle.obj"
-  "C:/Project/Brain/SpatialIndex/src/Vertex.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/Vertex.obj"
-  "C:/Project/Brain/SpatialIndex/src/hilbert.cpp" "C:/Project/Brain/SpatialIndex/build/CMakeFiles/FLATIndex.dir/C_/Project/Brain/SpatialIndex/src/hilbert.obj"
+SET(CMAKE_DEPENDS_CHECK_CXX
+  "/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Box.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Cone.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Cone.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeIndex.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeIndex.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/KDIndex.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/KDIndex.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Mesh.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Metadata.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/STRIndex.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/STRIndex.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Segment.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Soma.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFactory.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFactory.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectStream.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectStream.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Sphere.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Sphere.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Synapse.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Synapse.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Timer.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Timer.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Triangle.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Triangle.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/Vertex.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o"
+  "/media/alvis/Data/Term2/SpatialIndex/src/hilbert.cpp" "/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/hilbert.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Targets to which this target links.
-set(CMAKE_TARGET_LINKED_INFO_FILES
+SET(CMAKE_TARGET_LINKED_INFO_FILES
   )
 
 # The include file search paths:
-set(CMAKE_C_TARGET_INCLUDE_PATH
-  "C:/Project/Brain/SpatialIndex/cmake/../include"
-  "C:/Project/Brain/boost/include"
-  "C:/Project/Brain/bbpdias/BBPSDK/include"
-  "C:/Project/Brain/HDF5/include"
-  "C:/Project/Brain/RTree/include"
+SET(CMAKE_C_TARGET_INCLUDE_PATH
+  "/media/alvis/Data/Term2/SpatialIndex/cmake/../include"
+  "/usr/include/boost"
+  "/media/alvis/Data/Term2/SpatialIndex/cmake/../lib/bbpdias/BBPSDK/include"
+  "/media/alvis/Data/Term2/SpatialIndex/cmake/../lib/HDF5/include"
+  "/media/alvis/Data/Term2/SpatialIndex/cmake/../lib/RTree/include"
   )
-set(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
-set(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
-set(CMAKE_ASM_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+SET(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+SET(CMAKE_ASM_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
