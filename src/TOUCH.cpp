@@ -1,7 +1,6 @@
 /* 
  * File:   TOUCH.cpp
  * 
- * Original TOUCH Spatial Join algorithm
  */
 
 #include "TOUCH.h"

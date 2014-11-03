@@ -1,6 +1,5 @@
 /* 
  * File:   TOUCH.h
- * Author: Alvis
  *
  * 
  */

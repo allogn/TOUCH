@@ -1,7 +1,6 @@
 /*
  *  File: SpatialJoin.cpp
  *  Authors: Sadegh Nobari, Alvis Logins
- *  
  * 
  *  Implementation of Spatial join algorithms
  * 
@@ -262,9 +261,10 @@ void doTOUCH()
         touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
         touch->localPartitions = localPartitions;	
         touch->verbose  =  verbose;		
-        touch->algorithm    =  algorithm;	
         touch->localJoin    =  localJoin;	
         touch->epsilon	=  epsilon;	
+        touch->numA = numA;
+        touch->numB = numB;
         
         touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions" << endl;
@@ -285,11 +285,18 @@ void NLalgo()
 {
     cout << "New NL join algorithm created" << endl;
     JoinAlgorithm* nl = new JoinAlgorithm();
+            
+    nl->verbose  =  verbose;
+    nl->epsilon = epsilon;
+    nl->numA = numA;
+    nl->numB = numB;
+    
     cout << "Reading data" << endl;
     nl->readBinaryInput(input_dsA, input_dsB);
     cout << "Nested loop join" << endl;
     nl->NL(nl->dsA, nl->dsB);
     
+    nl->print();
 }
 
 int main(int argc, const char* argv[])
