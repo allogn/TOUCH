@@ -27,128 +27,88 @@ JoinAlgorithm::JoinAlgorithm() {
     base = 2; // the base for S3 and SH algorithms
     logfilename = "SJ.LOG";
     epsilon = 1.5;
+    numA = 0, numB = 0;
 }
 
 JoinAlgorithm::~JoinAlgorithm() {
 }
 
 void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
+    
+    cout << "Start reading the datasets" << endl;
 
-     unsigned int numA = 0, numB = 0;		//number of elements to be read from datasets
-	cout << "Start reading the datasets" << endl;
-	///////////////////////// Load Data //////////////////////////////
+    file_dsA = in_dsA;
+    file_dsB = in_dsB;
 
-        file_dsA = in_dsA;
-        file_dsB = in_dsB;
-        
-        FLAT::DataFileReader *inputA = new FLAT::DataFileReader(file_dsA);
-        FLAT::DataFileReader *inputB = new FLAT::DataFileReader(file_dsB);
-        
-        TreeEntry* newEntry;
+    FLAT::DataFileReader *inputA = new FLAT::DataFileReader(file_dsA);
+    FLAT::DataFileReader *inputB = new FLAT::DataFileReader(file_dsB);
 
-	//////////////////////// Error Checking //////////////////////////
-	//if (inputA->objectType!=SEGMENT) {cout << "Only works for Segment type objects"; exit(0);}
-	//if (inputB->objectType!=SEGMENT) {cout << "Only works for Segment type objects"; exit(0);}
-	//////////////////////////////////////////////////////////////////
+    TreeEntry* newEntry;
 
-	dataLoad.start();
+    dataLoad.start();
 
-	if(numA > 0 && numB > 0)
-	{
-		size_dsA = numA;
-		size_dsB = numB;
-		cout << "size of A:" << size_dsA << "# from " << inputA->objectCount << "# " << size_dsA*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
-		cout << "size of B:" << size_dsB << "# from " << inputB->objectCount << "# " << size_dsB*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
-		FLAT::Box mbr;
-		for (int i=0;i<DIMENSION;i++)
-		{
-			universeA.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
-			universeA.high.Vector[i]  = std::numeric_limits<FLAT::spaceUnit>::min();
-			universeB.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
-			universeB.high.Vector[i]  = std::numeric_limits<FLAT::spaceUnit>::min();
-		}
-		FLAT::SpatialObject* sobj;
-                
-                dsA.reserve(size_dsA);
-                while(inputA->hasNext() && numA-- != 0)
-                {
-                        sobj = inputA->getNext();
-                        mbr = sobj->getMBR();
-                        for (int i=0;i<DIMENSION;i++)
-                        {
-                                universeA.low.Vector[i] = min(universeA.low.Vector[i],mbr.low.Vector[i]);
-                                universeA.high.Vector[i] = max(universeA.high.Vector[i],mbr.high.Vector[i]);
-                        }
-                        sobj->type = 0;
-                        sobj->cost = 0;
-                        
-                        newEntry = new TreeEntry(sobj);
-                        vdsA.push_back(newEntry);
-                        dsA.push_back(sobj);
-                        vdsAll.push_back(newEntry);
-                        if  (verbose)
-                            cout << "A" << size_dsA - numA << ":" << mbr.low << " " << mbr.high << endl;
-                }
-                        
-		dsB.reserve(size_dsB);
-		while (inputB->hasNext() && numB-- != 0)
-		{
-			sobj = inputB->getNext();
-			mbr = sobj->getMBR();
-			for (int i=0;i<DIMENSION;i++)
-			{
-				universeB.low.Vector[i] = min(universeB.low.Vector[i],mbr.low.Vector[i]);
-				universeB.high.Vector[i] = max(universeB.high.Vector[i],mbr.high.Vector[i]);
-			}
-			sobj->type = 1;
-			sobj->cost = 0;
-			dsB.push_back(sobj);
-			if(verbose)
-                            cout << "B" << size_dsB - numB << ":" << mbr.low << " " << mbr.high << endl;
-		}
+    size_dsA = numA;
+    size_dsB = numB;
+    cout << "size of A:" << size_dsA << "# from " << inputA->objectCount << "# " 
+                    << size_dsA*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
+    cout << "size of B:" << size_dsB << "# from " << inputB->objectCount << "# " 
+                    << size_dsB*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
+    
+    FLAT::Box mbr;
+    for (int i=0;i<DIMENSION;i++)
+    {
+            universeA.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
+            universeA.high.Vector[i]  = std::numeric_limits<FLAT::spaceUnit>::min();
+            universeB.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
+            universeB.high.Vector[i]  = std::numeric_limits<FLAT::spaceUnit>::min();
+    }
+    FLAT::SpatialObject* sobj;
 
+    dsA.reserve(size_dsA);
+    while(inputA->hasNext() && ((numA-- != 0) || (numA == 0 && numB == 0)))
+    {
+            sobj = inputA->getNext();
+            mbr = sobj->getMBR();
+            for (int i=0;i<DIMENSION;i++)
+            {
+                    universeA.low.Vector[i] = min(universeA.low.Vector[i],mbr.low.Vector[i]);
+                    universeA.high.Vector[i] = max(universeA.high.Vector[i],mbr.high.Vector[i]);
+            }
+            sobj->type = 0;
+            sobj->cost = 0;
 
-	}
-	else
-	{
-	if(inputA->objectCount > inputB->objectCount)
-		swap(inputA,inputB);
+            newEntry = new TreeEntry(sobj);
+            newEntry->expand(epsilon); //@todo in new touch when assigning - also must expand??
+            vdsA.push_back(newEntry);
+            dsA.push_back(sobj);
+            vdsAll.push_back(newEntry);
+            if  (verbose)
+                cout << "A" << size_dsA - numA << ":" << mbr.low << " " << mbr.high << endl;
+    }
 
-	size_dsA = inputA->objectCount;
-	size_dsB = inputB->objectCount;
-	cout << "size of A:" << size_dsA << "# " << size_dsA*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
-	cout << "size of B:" << size_dsB << "# " << size_dsB*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
+    dsB.reserve(size_dsB);
+    while (inputB->hasNext() && ((numB-- != 0) || (numA == 0 && numB == 0)))
+    {
+            sobj = inputB->getNext();
+            mbr = sobj->getMBR();
+            for (int i=0;i<DIMENSION;i++)
+            {
+                    universeB.low.Vector[i] = min(universeB.low.Vector[i],mbr.low.Vector[i]);
+                    universeB.high.Vector[i] = max(universeB.high.Vector[i],mbr.high.Vector[i]);
+            }
+            sobj->type = 1;
+            sobj->cost = 0;
 
-	if(algorithm == algo_TOUCH)
-	{
-		FLAT::SpatialObject* sobj;
-		while(inputA->hasNext())
-		{
-			sobj = inputA->getNext();
-			sobj->type = 0;
-			sobj->cost = 0;
-			vdsA.push_back(new TreeEntry(sobj));
-			//delete sobj;
-		}
-	}
-	else
-	{
-		dsA.reserve(size_dsA);
-		while (inputA->hasNext())
-		{
-			dsA.push_back(inputA->getNext());
-			dsA.back()->type = 0;
-			dsA.back()->cost = 0;
-		}
-	}
-	dsB.reserve(size_dsB);
-	while (inputB->hasNext())
-		dsB.push_back(inputB->getNext());
-		dsB.back()->type = 1;
-		dsB.back()->cost = 0;
-	}
+            newEntry = new TreeEntry(sobj);
+            newEntry->expand(epsilon); //@todo in new touch when assigning - also must expand??
+            vdsB.push_back(newEntry);
+            dsB.push_back(sobj);
+            vdsAll.push_back(newEntry);
+            if(verbose)
+                cout << "B" << size_dsB - numB << ":" << mbr.low << " " << mbr.high << endl;
+    }
 
-	dataLoad.stop();
+    dataLoad.stop();
 
     cout << "Reading Completed." << endl;
 

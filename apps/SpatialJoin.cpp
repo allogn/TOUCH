@@ -1,15 +1,35 @@
+/*
+ *  File: SpatialJoin.cpp
+ *  Authors: Sadegh Nobari, Alvis Logins
+ *  
+ * 
+ *  Implementation of Spatial join algorithms
+ * 
+ *  Structure:
+ *  - SpatialJoin main file parses input arguments
+ *  - Every spatial join algorithm corresponds to one class in scr/include dir
+ *  - Class hierarchy is introduced:
+ *      <Join algorithm>.h 
+ *              -> TOUCHlike.h (if derivative from TOUCH) 
+ *                      -> JoinAlgorithm.h
+ * 
+ */
+
 #include "TOUCH.h"
 
-int PartitioningTypeMain = Hilbert_Sort;	// Sorting algorithm
-int localPartitions = 100;					//The local join resolution
-bool verbose				=  false;		// Output everything or not?
-int algorithm				=  algo_NL;		// Choose the algorithm
-int localJoin				=  algo_NL;		// Choose the algorithm for joining the buckets, The local join
-int runs					=  1;				// # of runs
-double epsilon				=  1.5;				// the epsilon of the similarity join
-int partitions				=  4;				// # of partitions: in S3 is # of levels; in SGrid is resolution
-unsigned int numA = 0 ,numB = 0;		//number of elements to be read from datasets
-int base = 2; // the base for S3 and SH algorithms
+/*
+ * Input parameters
+ */
+int PartitioningTypeMain                = Hilbert_Sort;     // Sorting algorithm
+int localPartitions                     = 100;              //The local join resolution
+bool verbose				=  false;           // Output everything or not?
+int algorithm				=  algo_NL;         // Choose the algorithm
+int localJoin				=  algo_NL;         // Choose the algorithm for joining the buckets, The local join
+int runs				=  1;               // # of runs //@todo unsupported
+double epsilon				=  1.5;             // the epsilon of the similarity join
+int partitions				=  4;               // # of partitions: in S3 is # of levels; in SGrid is resolution. fanout.
+unsigned int numA = 0 ,numB = 0;                            //number of elements to be read from datasets
+int base                                = 2;                // the base for S3 and SH algorithms. Leafnode size.
 
 string input_dsA = "..//data//RandomData-100K.bin";
 string input_dsB = "..//data//RandomData-1600K.bin";
@@ -29,8 +49,8 @@ void usage(const char *program_name) {
     printf("      7:dTOUCH:Spatial Hierarchical Has\n");
     printf("\n");
     printf("   -J               Algorithm for joining the buckets\n");
-    printf("   -p               # of partitions\n");
-    printf("   -b               the number of cells to be merged in the hierarchy\n");
+    printf("   -p               # of partitions (fanout)\n");
+    printf("   -b               the number of cells to be merged in the hierarchy (leaf size)\n");
     printf("   -e               Epsilon of the similarity join\n");
     printf("   -r               # of runs\n");
     printf("   -i <path> <path>  Dataset A followed by B\n");
@@ -44,6 +64,7 @@ void usage(const char *program_name) {
 void parse_args(int argc, const char* argv[]) {
 
     int x;
+    int t;
     if(argc<2)
     {
     	usage(argv[0]);
@@ -77,12 +98,13 @@ void parse_args(int argc, const char* argv[]) {
 			sscanf(argv[++x], "%u", &numB);
             break;
 		case 'J':
+                                /* Join algorithm */
 			sscanf(argv[++x], "%u", &localJoin);
 			break;
 		case 'r':       /* # of runs */
 			sscanf(argv[++x], "%u", &runs);
             break;
-		case 't':       /* Testing */
+		case 't':       /* Partition type */
 			sscanf(argv[++x], "%u", &PartitioningTypeMain);
             break;
 		case 'e':       /* epsilon */
@@ -95,7 +117,9 @@ void parse_args(int argc, const char* argv[]) {
 			sscanf(argv[++x], "%u", &base);
             break;
 		case 'v':       /* verbose */
-			verbose = true;
+                        t = 1;
+			sscanf(argv[++x], "%u", &t);
+                        verbose = (t == 1) ? true : false;
             break;
         default:
             fprintf(stderr, "Error: Invalid command line parameter, %c\n", argv[x][1]);
@@ -241,7 +265,6 @@ void doTOUCH()
         touch->localJoin    =  localJoin;	
         touch->epsilon	=  epsilon;	
         touch->partitions   = partitions;
-        
         
         touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions" << endl;

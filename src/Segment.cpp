@@ -99,6 +99,7 @@ namespace FLAT
 		Box::coveringBox(end,projectionEnd,boxEnd);
 
 		Box::combine(boxBegin,boxEnd,box);
+                
 		return box;
 		}
 

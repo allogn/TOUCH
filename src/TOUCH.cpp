@@ -31,10 +31,9 @@ void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
     for (std::vector<TreeEntry*>::iterator it=objlist.begin(); it!=objlist.end(); ++it)
     {
             prNode->entries.push_back(*it);
-            FLAT::Box::combine((*it)->mbr,mbr,mbr);
+            mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
     }
     childIndex = tree.size();
-
     tree.push_back(prNode);
     nextInput.push_back(new TreeEntry(mbr,childIndex));
 }
@@ -157,7 +156,6 @@ void TOUCH::assignment()
                 {
                         overlaps = false;
                         assigned = false;
-                        cout << ptr->entries.size() << endl;
                         for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
                         {    
                                 if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) )
@@ -176,7 +174,6 @@ void TOUCH::assignment()
                                         }
                                 }
                         }
-                        cout << ";;;" <<endl;
                         if(assigned)
                                 break;
                         if(!overlaps)

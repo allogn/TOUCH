@@ -49,6 +49,7 @@ public:
     int base; // the base for S3 and SH algorithms
     string logfilename;
     double epsilon;
+    unsigned int numA, numB;		//number of elements to be read from datasets
     
     
     FLAT::Box universeA, universeB;

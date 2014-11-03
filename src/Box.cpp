@@ -354,17 +354,17 @@ namespace FLAT
 
 		Box combined;
 		Vertex* zero= new Vertex(0,0,0);
-		if((b1.high==*zero && b1.low == *zero)!=b1.isEmpty)
-		{
-			cout<<b1.isEmpty<<" AJAB:"<<b1<< " z:"<<*zero<<endl;
-
-		}
-
-		if((b2.high==*zero && b2.low == *zero)!=b2.isEmpty)
-		{
-			cout<<b2.isEmpty<<" AJAB2:"<<b2<< " z:"<<*zero<<endl;
-
-		}
+//		if((b1.high==*zero && b1.low == *zero)!=b1.isEmpty)
+//		{
+//			cout<<b1.isEmpty<<" AJAB:"<<b1<< " z:"<<*zero<<endl;
+//
+//		}
+//
+//		if((b2.high==*zero && b2.low == *zero)!=b2.isEmpty)
+//		{
+//			cout<<b2.isEmpty<<" AJAB2:"<<b2<< " z:"<<*zero<<endl;
+//
+//		} //@todo good check but too much
 
 		if(b1.isEmpty)
 			if(b2.isEmpty)
@@ -380,6 +380,7 @@ namespace FLAT
 					combined.high.Vector[i]=(b1.high.Vector[i]>=b2.high.Vector[i])?b1.high.Vector[i]:b2.high.Vector[i];
 				}
 		combined.isEmpty=false;
+                return combined;
 	}
 
 	// Calculate Bounding Box over a Polyherdra

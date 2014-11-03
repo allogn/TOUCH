@@ -95,7 +95,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.o
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/GlobalCommon.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/JoinAlgorithm.h
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/ResultPairs.h
- /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Segment.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectStream.hpp
@@ -206,14 +205,11 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIn
  /media/alvis/Data/Term2/SpatialIndex/cmake/../lib/RTree/include/tools/Tools.h
  /media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.cpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o
- /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/GlobalCommon.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/ResultPairs.h
- /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Segment.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Timer.hpp
- /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Vertex.hpp
  /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
@@ -322,7 +318,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/GlobalCommon.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/JoinAlgorithm.h
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/ResultPairs.h
- /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Segment.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialGridHash.h
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
@@ -394,7 +389,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.o
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/GlobalCommon.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/JoinAlgorithm.h
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/ResultPairs.h
- /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Segment.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialGridHash.h
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
@@ -414,7 +408,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.o
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/GlobalCommon.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/JoinAlgorithm.h
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/ResultPairs.h
- /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Segment.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
  /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectStream.hpp

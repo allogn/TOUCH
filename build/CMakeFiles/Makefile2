@@ -88,38 +88,38 @@ clean: CMakeFiles/FLATIndex.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/main.dir
+# Target rules for target CMakeFiles/SpatialJoin.dir
 
 # All Build rule for target.
-CMakeFiles/main.dir/all: CMakeFiles/FLATIndex.dir/all
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+CMakeFiles/SpatialJoin.dir/all: CMakeFiles/FLATIndex.dir/all
+	$(MAKE) -f CMakeFiles/SpatialJoin.dir/build.make CMakeFiles/SpatialJoin.dir/depend
+	$(MAKE) -f CMakeFiles/SpatialJoin.dir/build.make CMakeFiles/SpatialJoin.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles  34
-	@echo "Built target main"
-.PHONY : CMakeFiles/main.dir/all
+	@echo "Built target SpatialJoin"
+.PHONY : CMakeFiles/SpatialJoin.dir/all
 
 # Include target in all.
-all: CMakeFiles/main.dir/all
+all: CMakeFiles/SpatialJoin.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/main.dir/rule: cmake_check_build_system
+CMakeFiles/SpatialJoin.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles 34
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SpatialJoin.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles 0
-.PHONY : CMakeFiles/main.dir/rule
+.PHONY : CMakeFiles/SpatialJoin.dir/rule
 
 # Convenience name for target.
-main: CMakeFiles/main.dir/rule
-.PHONY : main
+SpatialJoin: CMakeFiles/SpatialJoin.dir/rule
+.PHONY : SpatialJoin
 
 # clean rule for target.
-CMakeFiles/main.dir/clean:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
-.PHONY : CMakeFiles/main.dir/clean
+CMakeFiles/SpatialJoin.dir/clean:
+	$(MAKE) -f CMakeFiles/SpatialJoin.dir/build.make CMakeFiles/SpatialJoin.dir/clean
+.PHONY : CMakeFiles/SpatialJoin.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/main.dir/clean
+clean: CMakeFiles/SpatialJoin.dir/clean
 .PHONY : clean
 
 #=============================================================================

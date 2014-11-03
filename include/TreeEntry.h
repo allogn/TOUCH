@@ -10,7 +10,6 @@
 #define TYPES 2
 
 #include <Box.hpp>
-#include <SpatialObject.hpp>
 
 class TreeEntry
 {
@@ -34,7 +33,7 @@ public:
             obj = object;
             mbrL[obj->type] = obj->getMBR();
             mbr = obj->getMBR();
-            FLAT::Box::expand(mbr,1.5); //@todo get epsilon here
+            mbr.isEmpty = false; //@todo all mbr's are empty at the beginning!!!
 	}
 
 	//make an Internal item
@@ -51,9 +50,13 @@ public:
 		mbrL[0] = MbrA;
 		parentIndex = 0;
 		childIndex = child;
-		FLAT::Box::combine(MbrB,MbrA,mbr); //for sorting
+		mbr = FLAT::Box::combineSafe(MbrB,MbrA); // sorting if cTOUCH
 	}
 
+        void expand(double epsilon)
+        {
+            FLAT::Box::expand(mbr,epsilon);
+        }
 };
 
 

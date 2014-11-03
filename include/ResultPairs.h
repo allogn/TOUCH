@@ -13,7 +13,7 @@
 #ifndef RESULTPAIRS_H
 #define	RESULTPAIRS_H
 
-#include "Segment.hpp"
+#include "SpatialObject.hpp"
 #include <vector>
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
