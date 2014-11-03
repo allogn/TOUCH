@@ -26,10 +26,10 @@ bool verbose				=  false;           // Output everything or not?
 int algorithm				=  algo_NL;         // Choose the algorithm
 int localJoin				=  algo_NL;         // Choose the algorithm for joining the buckets, The local join
 int runs				=  1;               // # of runs //@todo unsupported
-double epsilon				=  1.5;             // the epsilon of the similarity join
-int partitions				=  4;               // # of partitions: in S3 is # of levels; in SGrid is resolution. fanout.
+double epsilon				=  0.5;             // the epsilon of the similarity join
+int partitions				=  100;               // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
 unsigned int numA = 0 ,numB = 0;                            //number of elements to be read from datasets
-int base                                = 2;                // the base for S3 and SH algorithms. Leafnode size.
+int base                                = 2;                // the base for S3 and SH algorithms. fanout.
 
 string input_dsA = "..//data//RandomData-100K.bin";
 string input_dsB = "..//data//RandomData-1600K.bin";
@@ -49,8 +49,8 @@ void usage(const char *program_name) {
     printf("      7:dTOUCH:Spatial Hierarchical Has\n");
     printf("\n");
     printf("   -J               Algorithm for joining the buckets\n");
-    printf("   -p               # of partitions (fanout)\n");
-    printf("   -b               the number of cells to be merged in the hierarchy (leaf size)\n");
+    printf("   -p               # of partitions (leaf size)\n");
+    printf("   -b               the number of cells to be merged in the hierarchy (fanout)\n");
     printf("   -e               Epsilon of the similarity join\n");
     printf("   -r               # of runs\n");
     printf("   -i <path> <path>  Dataset A followed by B\n");
@@ -98,7 +98,7 @@ void parse_args(int argc, const char* argv[]) {
 			sscanf(argv[++x], "%u", &numB);
             break;
 		case 'J':
-                                /* Join algorithm */
+                                /* Local join algorithm */
 			sscanf(argv[++x], "%u", &localJoin);
 			break;
 		case 'r':       /* # of runs */
@@ -255,16 +255,16 @@ void parse_args(int argc, const char* argv[]) {
 //
 void doTOUCH()
 {
-	TOUCH* touch = new TOUCH(partitions);
+	TOUCH* touch = new TOUCH();
         
         touch->PartitioningType = PartitioningTypeMain;
-        touch->base = base;
+        touch->nodesize = base;
+        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
         touch->localPartitions = localPartitions;	
         touch->verbose  =  verbose;		
         touch->algorithm    =  algorithm;	
         touch->localJoin    =  localJoin;	
         touch->epsilon	=  epsilon;	
-        touch->partitions   = partitions;
         
         touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions" << endl;
@@ -274,9 +274,11 @@ void doTOUCH()
 	cout << "Assigning Done." << endl;
 	touch->analyze();
 	cout << "Analysis Done" << endl;
-	cout << "Probing, doing the join" << endl;
+	cout << "Probing, doing the join1" << endl;
 	touch->probe();
 	cout << "Done." << endl;
+        
+        touch->printTOUCH();
 }
 
 void NLalgo()

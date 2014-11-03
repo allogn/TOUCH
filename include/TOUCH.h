@@ -16,7 +16,7 @@
 
 class TOUCH : public TOUCHlike {
 public:
-    TOUCH(int buckets);
+    TOUCH();
     virtual ~TOUCH();
     
     void analyze();
@@ -46,7 +46,6 @@ public:
     //Plane-sweeping join algorithm
     void PS(TreeNode* node, SpatialObjectList& B)
     {
-
         //Sort the datasets based on their lower x coordinate
         sorting.start();
         std::sort(node->entries.begin(), node->entries.end(), ComparatorTree_Xaxis());

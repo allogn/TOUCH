@@ -25,7 +25,7 @@ JoinAlgorithm::JoinAlgorithm() {
     
     verbose				=  false;
     base = 2; // the base for S3 and SH algorithms
-    logfilename = "SJ.LOG";
+    logfilename = "SJ.LOG"; //@todo add to parameters
     epsilon = 1.5;
     numA = 0, numB = 0;
 }
@@ -47,8 +47,8 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
 
     dataLoad.start();
 
-    size_dsA = numA;
-    size_dsB = numB;
+    size_dsA = (numA < inputA->objectCount && (numA != 0))?numA:inputA->objectCount;
+    size_dsB = (numB < inputB->objectCount && (numB != 0))?numB:inputB->objectCount;
     cout << "size of A:" << size_dsA << "# from " << inputA->objectCount << "# " 
                     << size_dsA*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
     cout << "size of B:" << size_dsB << "# from " << inputB->objectCount << "# " 
@@ -65,7 +65,8 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     FLAT::SpatialObject* sobj;
 
     dsA.reserve(size_dsA);
-    while(inputA->hasNext() && ((numA-- != 0) || (numA == 0 && numB == 0)))
+    numA = size_dsA;
+    while(inputA->hasNext() && (numA-- != 0))
     {
             sobj = inputA->getNext();
             mbr = sobj->getMBR();
@@ -87,7 +88,8 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     }
 
     dsB.reserve(size_dsB);
-    while (inputB->hasNext() && ((numB-- != 0) || (numA == 0 && numB == 0)))
+    numB = size_dsB;
+    while (inputB->hasNext() && (numB-- != 0))
     {
             sobj = inputB->getNext();
             mbr = sobj->getMBR();

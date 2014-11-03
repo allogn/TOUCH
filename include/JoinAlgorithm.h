@@ -197,10 +197,7 @@ protected:
             //if(algorithm == algo_NL || algorithm == algo_PS)
             //	Box::expand(mbr,epsilon);
             FLAT::Box::getAllVertices(sobj1->getMBR(),vertices);
-            if(algorithm == algo_TOUCH)
-                    ItemsCompared++;
-            else
-                    ItemsCompared++;
+            ItemsCompared++;
             for (unsigned int i=0;i<vertices.size();++i)
                     if (mbr.pointDistance(vertices.at(i)) < epsilon)
                             return true;
@@ -211,10 +208,7 @@ protected:
     {
             return istouchingV(sobj1,sobj2);
 
-            if(algorithm == algo_TOUCH)
-                    ItemsCompared++;
-            else
-                    ItemsCompared++;
+            ItemsCompared++;
             return (FLAT::Vertex::distance(sobj1->getCenter(),sobj2->getCenter()) < epsilon );
     }
 

@@ -1,23 +1,18 @@
 /* 
  * File:   TOUCH.cpp
- * Author: Alvis
  * 
+ * Original TOUCH Spatial Join algorithm
  */
 
 #include "TOUCH.h"
 
-TOUCH::TOUCH(int buckets) {
+TOUCH::TOUCH() {
     algorithm = algo_TOUCH; //@todo do it for all
-    
-    gridSize = buckets;
-    localPartitions = 100;
-    nodesize = base;
+    total.start(); // timing
 }
 
 TOUCH::~TOUCH() {
     total.stop();
-    //Reporting
-    print(); //@todo verbose
     delete &tree;
 }
 
@@ -41,8 +36,6 @@ void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
 void TOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
 {
     
-    leafsize = ceil((double)vdsA.size()/(double)gridSize);
-    
     unsigned int nodeSize;
     FLAT::uint64 itemsD1;
     FLAT::uint64 itemsD2;
@@ -50,7 +43,8 @@ void TOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
     
     if (Level==0) nodeSize = leafsize;
     else nodeSize = nodesize;
-
+    cout << nodeSize << endl;
+    
     sorting.start();
     switch (PartitioningType)
     {
@@ -158,7 +152,7 @@ void TOUCH::assignment()
                         assigned = false;
                         for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
                         {    
-                                if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) )
+                                if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) ) //@todo safe if cTOUCH
                                 {
                                         if(!overlaps)
                                         {
@@ -227,7 +221,9 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
                                 spatialGridHash->probe(leaf);
                         }
                         else
+                        {
                                 JOIN(leaf,ancestorNode->attachedObjs[0]);
+                        }
 
                         comparing.stop();
                 }

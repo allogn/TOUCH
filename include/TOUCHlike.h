@@ -1,8 +1,10 @@
 /* 
  * File:   TOUCHlikeAlgorithm.h
- * Author: Alvis
+ * Author: Alvis Logins
  *
- * Created on 30 октября 2014 г., 13:45
+ * Intermediate level between TOUCH-like spatial algorithms and JoinAlgorithm.
+ * Accumulates all common features of TOUCH-like algorithms.
+ * 
  */
 
 #ifndef TOUCHLIKEALGORITHM_H
@@ -20,14 +22,14 @@ public:
     void printTOUCH();
     
     int PartitioningType;	// Sorting algorithm
-    int localPartitions;					//The local join resolution
-    
-protected:
+    int localPartitions;	//The local join resolution
     unsigned int leafsize, nodesize;
     unsigned int totalnodes;
     int Levels;
     
-    vector<FLAT::uint64> ItemPerLevel; int LVL;
+protected:
+    
+    vector<FLAT::uint64> ItemPerLevel; int LVL; //for statistics
     
     std::vector<TreeNode*> tree;
     std::vector<TreeEntry*> nextInput;
