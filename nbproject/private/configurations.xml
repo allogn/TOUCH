@@ -101,6 +101,7 @@
         <in>Triangle.hpp</in>
         <in>VTKDataFile.hpp</in>
         <in>Vertex.hpp</in>
+        <in>cTOUCH.h</in>
         <in>dTOUCH.h</in>
         <in>hilbert.hpp</in>
       </df>
@@ -841,6 +842,7 @@
         <in>Timer.cpp</in>
         <in>Triangle.cpp</in>
         <in>Vertex.cpp</in>
+        <in>cTOUCH.cpp</in>
         <in>dTOUCH.cpp</in>
         <in>hilbert.cpp</in>
       </df>

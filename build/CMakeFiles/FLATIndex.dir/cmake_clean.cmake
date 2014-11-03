@@ -4,6 +4,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Cone.o"
+  "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.o"

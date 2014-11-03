@@ -50,6 +50,7 @@
         <in>Timer.cpp</in>
         <in>Triangle.cpp</in>
         <in>Vertex.cpp</in>
+        <in>cTOUCH.cpp</in>
         <in>dTOUCH.cpp</in>
         <in>hilbert.cpp</in>
       </df>
@@ -234,7 +235,11 @@
       </item>
       <item path="src/Vertex.cpp" ex="false" tool="1" flavor2="4">
       </item>
-      <item path="src/dTOUCH.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/cTOUCH.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/dTOUCH.cpp" ex="false" tool="1" flavor2="4">
         <ccTool flags="0">
         </ccTool>
       </item>

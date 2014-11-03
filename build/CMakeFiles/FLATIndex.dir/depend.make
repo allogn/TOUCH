@@ -436,6 +436,24 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o: /medi
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Vertex.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o: /media/alvis/Data/Term2/SpatialIndex/src/Vertex.cpp
 
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/BufferedFile.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/DataFileReader.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/GlobalCommon.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/JoinAlgorithm.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/ResultPairs.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectStream.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Timer.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeEntry.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeNode.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Vertex.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/cTOUCH.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/hilbert.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.cpp
+
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/BufferedFile.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/cmake/../include/DataFileReader.hpp

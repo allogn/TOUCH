@@ -16,6 +16,7 @@
 
 #include "TOUCH.h"
 #include "dTOUCH.h"
+#include "cTOUCH.h"
 
 /*
  * Input parameters
@@ -252,25 +253,37 @@ void dodTOUCH()
         
         touch->printTOUCH();
 }
-//
-//void cTOUCH()
-//{
-//
-//	TOUCH* touch = new cTOUCH(partitions);
-//        cout << "Reading files" << endl;
-//        
-//	cout << "Forming the partitions" << endl;
-//	touch->createPartitions();
-//	cout << "Assigning the objects of B" << endl;
-//	touch->assignment();
-//	cout << "Assigning Done." << endl;
-//	touch->analyze(dsA,dsB);
-//	cout << "Analysis Done" << endl;
-//	cout << "Probing, doing the join" << endl;
-//	touch->probe();
-//	cout << "Done." << endl;
-//}
-//
+
+void docTOUCH()
+{
+
+	cTOUCH* touch = new cTOUCH();
+        
+        touch->PartitioningType = PartitioningTypeMain;
+        touch->nodesize = base;
+        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
+        touch->localPartitions = localPartitions;	
+        touch->verbose  =  verbose;		
+        touch->localJoin    =  localJoin;	
+        touch->epsilon	=  epsilon;	
+        touch->numA = numA;
+        touch->numB = numB;
+        
+        touch->readBinaryInput(input_dsA, input_dsB);
+	cout << "Forming the partitions" << endl;
+	touch->createPartitions();
+	cout << "Assigning the objects of B" << endl;
+	touch->assignment();
+	cout << "Assigning Done." << endl;
+	touch->analyze();
+	cout << "Analysis Done" << endl;
+	cout << "Probing, doing the join1" << endl;
+	touch->probe();
+	cout << "Done." << endl;
+        
+        touch->printTOUCH();
+}
+
 void doTOUCH()
 {
 	TOUCH* touch = new TOUCH();
@@ -334,9 +347,9 @@ int main(int argc, const char* argv[])
 		case algo_TOUCH:
 			doTOUCH();
 		break;
-//		case algo_cTOUCH:
-//			cTOUCH();
-//		break;
+		case algo_cTOUCH:
+			docTOUCH();
+		break;
 		case algo_dTOUCH:
 			dodTOUCH();
 		break;
