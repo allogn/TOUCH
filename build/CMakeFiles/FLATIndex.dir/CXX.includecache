@@ -86,17 +86,13 @@ string
 Box.hpp
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCH.h
+/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
 vector
 -
 queue
 -
-TOUCHlike.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
-SpatialGridHash.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialGridHash.h
-
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
+cmath
+-
 JoinAlgorithm.h
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/JoinAlgorithm.h
 TreeNode.h
@@ -136,21 +132,15 @@ iostream
 math.h
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/math.h
 
+/media/alvis/Data/Term2/SpatialIndex/cmake/../include/dTOUCH.h
+TOUCHlike.h
+/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
+SpatialGridHash.h
+/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialGridHash.h
+
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/hilbert.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.cpp
-JoinAlgorithm.h
-/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.h
-
-/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.cpp
-SpatialGridHash.h
-/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.h
-
-/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.cpp
-TOUCH.h
-/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.h
-
-/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.cpp
-TOUCHlike.h
-/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.h
+/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.cpp
+dTOUCH.h
+/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.h
 

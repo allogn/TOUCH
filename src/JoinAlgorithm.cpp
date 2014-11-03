@@ -103,7 +103,7 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
 
             newEntry = new TreeEntry(sobj);
             newEntry->expand(epsilon); //@todo in new touch when assigning - also must expand??
-            vdsB.push_back(newEntry);
+            //vdsB.push_back(newEntry); @todo is it needed elsewhere? in dTOUCH it must be empty at the beginning
             dsB.push_back(sobj);
             vdsAll.push_back(newEntry);
             if(verbose)

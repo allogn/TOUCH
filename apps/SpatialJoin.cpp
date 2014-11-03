@@ -15,6 +15,7 @@
  */
 
 #include "TOUCH.h"
+#include "dTOUCH.h"
 
 /*
  * Input parameters
@@ -216,23 +217,41 @@ void parse_args(int argc, const char* argv[]) {
 //	delete pbsmHash;
 //}
 //
-//void dTOUCH()
-//{
-//
-//	TOUCH* touch = new cTOUCH(partitions);
-//        cout << "Reading files" << endl;
-//        
-//	cout << "Forming the partitions" << endl;
-//	touch->createPartitions();
-//	cout << "Assigning the objects of B" << endl;
-//	touch->assignment();
-//	cout << "Assigning Done." << endl;
-//	touch->analyze(dsA,dsB);
-//	cout << "Analysis Done" << endl;
-//	cout << "Probing, doing the join" << endl;
-//	touch->probe();
-//	cout << "Done." << endl;
-//}
+void dodTOUCH()
+{
+	dTOUCH* touch = new dTOUCH();
+        
+        touch->PartitioningType = PartitioningTypeMain;
+        touch->nodesize = base;
+        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
+        touch->localPartitions = localPartitions;	
+        touch->verbose  =  verbose;		
+        touch->localJoin    =  localJoin;	
+        touch->epsilon	=  epsilon;	
+        touch->numA = numA;
+        touch->numB = numB;
+        
+        touch->readBinaryInput(input_dsA, input_dsB);
+	cout << "Forming the partitions A" << endl;
+	touch->createPartitionsA();
+	cout << "Assigning the objects of B" << endl;
+	touch->assignmentA();
+	cout << "Assigning Done." << endl;
+        
+        cout << "Forming the partitions B" << endl;
+	touch->createPartitionsB();
+	cout << "Assigning the objects of A" << endl;
+	touch->assignmentB();
+	cout << "Assigning Done." << endl;
+        
+	touch->analyze();
+	cout << "Analysis Done" << endl;
+	cout << "Probing, doing the join1" << endl;
+	touch->probe();
+	cout << "Done." << endl;
+        
+        touch->printTOUCH();
+}
 //
 //void cTOUCH()
 //{
@@ -318,9 +337,9 @@ int main(int argc, const char* argv[])
 //		case algo_cTOUCH:
 //			cTOUCH();
 //		break;
-//		case algo_dTOUCH:
-//			dTOUCH();
-//		break;
+		case algo_dTOUCH:
+			dodTOUCH();
+		break;
 //		case algo_SGrid:
 //			SGrid();
 //		break;

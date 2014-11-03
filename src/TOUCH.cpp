@@ -11,8 +11,8 @@ TOUCH::TOUCH() {
 }
 
 TOUCH::~TOUCH() {
-    total.stop();
     delete &tree;
+    total.stop();
 }
 
 void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
@@ -42,7 +42,6 @@ void TOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
     
     if (Level==0) nodeSize = leafsize;
     else nodeSize = nodesize;
-    cout << nodeSize << endl;
     
     sorting.start();
     switch (PartitioningType)

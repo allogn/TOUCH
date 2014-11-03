@@ -1,8 +1,6 @@
 /* 
  * File:   JoinAlgorithm.h
- * Author: Alvis
- *
- * Pure virtual class for every Spatial Join algorithm used in the project
+ * 
  */
 
 #ifndef JOINALGORITHM_H
