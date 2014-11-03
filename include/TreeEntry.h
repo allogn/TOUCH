@@ -48,6 +48,8 @@ public:
 	{
 		mbrL[1] = MbrB;
 		mbrL[0] = MbrA;
+                mbrK[0] = MbrA;
+                mbrK[1] = MbrB;
 		parentIndex = 0;
 		childIndex = child;
 		mbr = FLAT::Box::combineSafe(MbrB,MbrA); // sorting if cTOUCH

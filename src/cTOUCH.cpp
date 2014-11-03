@@ -255,7 +255,7 @@ void cTOUCH::assignment()
                                     //start updating from the first ancestor, but in the object only update SelfMBR
 
                                     ancestorEntry->mbrSelfD[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrSelfD[current_type], objMBR);
-                                    ancestorEntry->mbrK[current_type] = FLAT::Box::combine(ancestorEntry->mbrSelfD[current_type], ancestorEntry->mbrK[current_type]);
+                                    ancestorEntry->mbrK[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrSelfD[current_type], ancestorEntry->mbrK[current_type]);
 
                                     /*
                                      * Update MBR's and costs of ancestors
@@ -267,8 +267,8 @@ void cTOUCH::assignment()
                                         ancestorNode = tree.at(ancestorEntry->parentIndex);
                                         ancestorEntry = ancestorNode->parentEntry;
 
-                                        ancestorEntry->mbrD[current_type] = FLAT::Box::combine(ancestorEntry->mbrD[current_type], objMBR);
-                                        ancestorEntry->mbrK[current_type] = FLAT::Box::combine(ancestorEntry->mbrD[current_type], ancestorEntry->mbrK[current_type]);
+                                        ancestorEntry->mbrD[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrD[current_type], objMBR);
+                                        ancestorEntry->mbrK[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrD[current_type], ancestorEntry->mbrK[current_type]);
 
                                         //here - update cost
                                         for (SpatialObjectList::iterator it = ancestorNode->attachedObjs[current_type].begin();
