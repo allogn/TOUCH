@@ -76,6 +76,7 @@
         <in>PriorityRtreeIndex.hpp</in>
         <in>ResultPairs.h</in>
         <in>RtreeIndex.hpp</in>
+        <in>S3Hash.h</in>
         <in>STRIndex.hpp</in>
         <in>SeedBuilder.hpp</in>
         <in>Segment.hpp</in>
@@ -822,10 +823,12 @@
         <in>KDIndex.cpp</in>
         <in>Mesh.cpp</in>
         <in>Metadata.cpp</in>
+        <in>PBSMHash.cpp</in>
         <in>PayLoad.cpp</in>
         <in>PriorityRtreeIndex.cpp</in>
         <in>ResultPairs.cpp</in>
         <in>RtreeIndex.cpp</in>
+        <in>S3Hash.cpp</in>
         <in>STRIndex.cpp</in>
         <in>SeedBuilder.cpp</in>
         <in>Segment.cpp</in>

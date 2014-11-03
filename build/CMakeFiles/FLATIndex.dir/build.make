@@ -49,9 +49,32 @@ include CMakeFiles/FLATIndex.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/FLATIndex.dir/flags.make
 
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o: CMakeFiles/FLATIndex.dir/flags.make
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o: /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o -c /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.i
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.s
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.requires:
+.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.requires
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.requires
+	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.provides.build
+.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.provides
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o
+
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o: /media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o -c /media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.cpp
 
@@ -74,7 +97,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileRead
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o: /media/alvis/Data/Term2/SpatialIndex/src/Bitmap.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o -c /media/alvis/Data/Term2/SpatialIndex/src/Bitmap.cpp
 
@@ -97,7 +120,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o.provid
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o: /media/alvis/Data/Term2/SpatialIndex/src/Box.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o -c /media/alvis/Data/Term2/SpatialIndex/src/Box.cpp
 
@@ -120,7 +143,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o.provides.
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.o: /media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.o -c /media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.cpp
 
@@ -143,7 +166,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BufferedFile.o.
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Cone.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Cone.o: /media/alvis/Data/Term2/SpatialIndex/src/Cone.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Cone.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Cone.o -c /media/alvis/Data/Term2/SpatialIndex/src/Cone.cpp
 
@@ -166,7 +189,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Cone.o.provides
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o -c /media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.cpp
 
@@ -189,7 +212,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.o.provid
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.o: /media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.o -c /media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.cpp
 
@@ -212,7 +235,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/DataFileReader.
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o: /media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o -c /media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.cpp
 
@@ -235,7 +258,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/dTOUCH.o.provid
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.o: /media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.o -c /media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.cpp
 
@@ -258,7 +281,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ExternalSort.o.
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/hilbert.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/hilbert.o: /media/alvis/Data/Term2/SpatialIndex/src/hilbert.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/hilbert.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/hilbert.o -c /media/alvis/Data/Term2/SpatialIndex/src/hilbert.cpp
 
@@ -281,7 +304,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/hilbert.o.provi
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeIndex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeIndex.o: /media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeIndex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeIndex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeIndex.o -c /media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeIndex.cpp
 
@@ -304,7 +327,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/HilbertRtreeInd
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.o: /media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.o -c /media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.cpp
 
@@ -327,7 +350,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/JoinAlgorithm.o
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/KDIndex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/KDIndex.o: /media/alvis/Data/Term2/SpatialIndex/src/KDIndex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/KDIndex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/KDIndex.o -c /media/alvis/Data/Term2/SpatialIndex/src/KDIndex.cpp
 
@@ -350,7 +373,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/KDIndex.o.provi
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o: /media/alvis/Data/Term2/SpatialIndex/src/Mesh.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o -c /media/alvis/Data/Term2/SpatialIndex/src/Mesh.cpp
 
@@ -373,7 +396,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o.provides
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o: /media/alvis/Data/Term2/SpatialIndex/src/Metadata.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o -c /media/alvis/Data/Term2/SpatialIndex/src/Metadata.cpp
 
@@ -396,7 +419,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o.prov
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o: /media/alvis/Data/Term2/SpatialIndex/src/PayLoad.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o -c /media/alvis/Data/Term2/SpatialIndex/src/PayLoad.cpp
 
@@ -417,9 +440,32 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o.provi
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o
 
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o: CMakeFiles/FLATIndex.dir/flags.make
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o: /media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_18)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o -c /media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.cpp
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.i
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.s
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o.requires:
+.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o.requires
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o.requires
+	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o.provides.build
+.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o.provides
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o
+
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o: /media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o -c /media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.cpp
 
@@ -440,32 +486,9 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIn
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o
 
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o: CMakeFiles/FLATIndex.dir/flags.make
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o: /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_18)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o -c /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.i
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.s
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.requires:
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.requires
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.requires
-	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.provides.build
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.provides
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o
-
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o: /media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_19)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o -c /media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.cpp
 
@@ -486,9 +509,32 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o.pr
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o
 
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o: CMakeFiles/FLATIndex.dir/flags.make
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o: /media/alvis/Data/Term2/SpatialIndex/src/S3Hash.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_21)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o -c /media/alvis/Data/Term2/SpatialIndex/src/S3Hash.cpp
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SpatialIndex/src/S3Hash.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.i
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SpatialIndex/src/S3Hash.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.s
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o.requires:
+.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o.requires
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o.requires
+	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o.provides.build
+.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o.provides
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o
+
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o: /media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_20)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_22)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o -c /media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.cpp
 
@@ -511,7 +557,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o.p
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o: /media/alvis/Data/Term2/SpatialIndex/src/Segment.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_21)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_23)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o -c /media/alvis/Data/Term2/SpatialIndex/src/Segment.cpp
 
@@ -534,7 +580,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o.provi
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o: /media/alvis/Data/Term2/SpatialIndex/src/Soma.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_22)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_24)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o -c /media/alvis/Data/Term2/SpatialIndex/src/Soma.cpp
 
@@ -557,7 +603,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o.provides
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.o: /media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_23)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_25)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.o -c /media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash.cpp
 
@@ -580,7 +626,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialGridHash
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.o: /media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_24)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_26)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.o -c /media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.cpp
 
@@ -603,7 +649,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObject.o
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFactory.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFactory.o: /media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFactory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_25)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_27)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFactory.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFactory.o -c /media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFactory.cpp
 
@@ -626,7 +672,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectFa
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectStream.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectStream.o: /media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectStream.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_26)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_28)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectStream.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectStream.o -c /media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectStream.cpp
 
@@ -649,7 +695,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialObjectSt
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.o: /media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_27)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_29)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.o -c /media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.cpp
 
@@ -672,7 +718,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SpatialQuery.o.
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Sphere.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Sphere.o: /media/alvis/Data/Term2/SpatialIndex/src/Sphere.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_28)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_30)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Sphere.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Sphere.o -c /media/alvis/Data/Term2/SpatialIndex/src/Sphere.cpp
 
@@ -695,7 +741,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Sphere.o.provid
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/STRIndex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/STRIndex.o: /media/alvis/Data/Term2/SpatialIndex/src/STRIndex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_29)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_31)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/STRIndex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/STRIndex.o -c /media/alvis/Data/Term2/SpatialIndex/src/STRIndex.cpp
 
@@ -718,7 +764,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/STRIndex.o.prov
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Synapse.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Synapse.o: /media/alvis/Data/Term2/SpatialIndex/src/Synapse.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_30)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_32)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Synapse.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Synapse.o -c /media/alvis/Data/Term2/SpatialIndex/src/Synapse.cpp
 
@@ -741,7 +787,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Synapse.o.provi
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Timer.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Timer.o: /media/alvis/Data/Term2/SpatialIndex/src/Timer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_31)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_33)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Timer.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Timer.o -c /media/alvis/Data/Term2/SpatialIndex/src/Timer.cpp
 
@@ -764,7 +810,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Timer.o.provide
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.o: /media/alvis/Data/Term2/SpatialIndex/src/TOUCH.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_32)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_34)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.o -c /media/alvis/Data/Term2/SpatialIndex/src/TOUCH.cpp
 
@@ -787,7 +833,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCH.o.provide
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.o: /media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_33)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_35)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.o -c /media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.cpp
 
@@ -810,7 +856,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/TOUCHlike.o.pro
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Triangle.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Triangle.o: /media/alvis/Data/Term2/SpatialIndex/src/Triangle.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_34)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_36)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Triangle.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Triangle.o -c /media/alvis/Data/Term2/SpatialIndex/src/Triangle.cpp
 
@@ -833,7 +879,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Triangle.o.prov
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o: /media/alvis/Data/Term2/SpatialIndex/src/Vertex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_35)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles $(CMAKE_PROGRESS_37)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o -c /media/alvis/Data/Term2/SpatialIndex/src/Vertex.cpp
 
@@ -856,6 +902,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Vertex.o.provid
 
 # Object files for target FLATIndex
 FLATIndex_OBJECTS = \
+"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o" \
@@ -872,9 +919,10 @@ FLATIndex_OBJECTS = \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o" \
+"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o" \
-"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o" \
+"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o" \
@@ -895,6 +943,7 @@ FLATIndex_OBJECTS = \
 # External object files for target FLATIndex
 FLATIndex_EXTERNAL_OBJECTS =
 
+/media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o
@@ -911,9 +960,10 @@ FLATIndex_EXTERNAL_OBJECTS =
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o
+/media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o
-/media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o
+/media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o
 /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o
@@ -940,6 +990,7 @@ FLATIndex_EXTERNAL_OBJECTS =
 CMakeFiles/FLATIndex.dir/build: /media/alvis/Data/Term2/SpatialIndex/lib/libFLATIndex.a
 .PHONY : CMakeFiles/FLATIndex.dir/build
 
+CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o.requires
@@ -956,9 +1007,10 @@ CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Ter
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o.requires
+CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o.requires
-CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o.requires
+CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o.requires

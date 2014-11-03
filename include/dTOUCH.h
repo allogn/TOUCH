@@ -39,7 +39,6 @@ public:
     void createPartitionsB();
         
     void assignmentA(); // assignment of objects B to tree A
-    void assignmentBrc(TreeEntry* targetEntry);
     void assignmentB();
 
     void joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode*>& tree, TreeEntry* root);

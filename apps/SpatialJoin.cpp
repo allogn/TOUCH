@@ -17,6 +17,8 @@
 #include "TOUCH.h"
 #include "dTOUCH.h"
 #include "cTOUCH.h"
+#include "S3Hash.h"
+#include "PBSMHash.h"
 
 /*
  * Input parameters
@@ -129,14 +131,10 @@ void parse_args(int argc, const char* argv[]) {
     }
 }
 
-//
-//
-//// The following functions are for creating the corresponding object of their specified join method
-//
-////Spatial Grid Hash Join algorithm
-//void SGrid()
-//{
-//	Box universe;
+//Spatial Grid Hash Join algorithm
+void SGrid()
+{
+//	FLAT::Box universe;
 //	//Box::combine(inputA->universe,inputB->universe,universe);
 //	if(numA > 0 && numB > 0)
 //	{
@@ -147,7 +145,7 @@ void parse_args(int argc, const char* argv[]) {
 //		universe = inputA->universe;
 //	}
 //
-//	Box::expand(universe,epsilon);
+//	FLAT::Box::expand(universe,epsilon);
 //	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
 //	SpatialGridHash* spatialGridHash = new SpatialGridHash(universe,partitions);
 //
@@ -159,24 +157,24 @@ void parse_args(int argc, const char* argv[]) {
 //	spatialGridHash->probe(dsB);
 //	cout << "\nDone." << endl;
 //	delete spatialGridHash;
-//}
-//
-////Size Separation Spatial join algorithm
-//void S3(ResultPairs& S3Results)
-//{
-//	Box universe;
+}
+
+//Size Separation Spatial join algorithm
+void S3()
+{
+//	FLAT::Box universe;
 //	if(numA > 0 && numB > 0)
 //	{
-//		Box::combine(universeA,universeB,universe);
+//		FLAT::Box::combine(universeA,universeB,universe);
 //	}
 //	else
 //	{
-//		Box::combine(inputA->universe,inputB->universe,universe);
+//		FLAT::Box::combine(inputA->universe,inputB->universe,universe);
 //	}
 //
-//	Box::expand(universe,epsilon);
+//	FLAT::Box::expand(universe,epsilon);
 //	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
-//	Box::combine(inputA->universe,inputB->universe,universe);
+//	FLAT::Box::combine(inputA->universe,inputB->universe,universe);
 //	S3Hash* s3Hash = new S3Hash(universe,partitions);
 //
 //	cout << "Building Started" << endl;
@@ -188,13 +186,12 @@ void parse_args(int argc, const char* argv[]) {
 //
 //	cout << "Probing Done" << endl;
 //	delete s3Hash;
-//}
-//
-////Partition Based Spatial-Merge join algorithm
-//void PBSM()
-//{
-//	ResultList PBSMResults;
-//	Box universe;
+}
+
+//Partition Based Spatial-Merge join algorithm
+void PBSM()
+{
+//	FLAT::Box universe;
 //	if(numA > 0 && numB > 0)
 //	{
 //		universe = universeA;
@@ -204,7 +201,7 @@ void parse_args(int argc, const char* argv[]) {
 //		universe = inputA->universe;
 //	}
 //
-//	Box::expand(universe,epsilon);
+//	FLAT::Box::expand(universe,epsilon);
 //	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
 //	PBSMHash* pbsmHash = new PBSMHash(universe,partitions);
 //
@@ -216,8 +213,8 @@ void parse_args(int argc, const char* argv[]) {
 //	pbsmHash->probe(PBSMResults);
 //	cout << "Probing Done" << endl;
 //	delete pbsmHash;
-//}
-//
+}
+
 void dodTOUCH()
 {
 	dTOUCH* touch = new dTOUCH();
@@ -331,6 +328,24 @@ void NLalgo()
     nl->print();
 }
 
+void PSalgo()
+{
+    cout << "New NL join algorithm created" << endl;
+    JoinAlgorithm* nl = new JoinAlgorithm();
+            
+    nl->verbose  =  verbose;
+    nl->epsilon = epsilon;
+    nl->numA = numA;
+    nl->numB = numB;
+    
+    cout << "Reading data" << endl;
+    nl->readBinaryInput(input_dsA, input_dsB);
+    cout << "Nested loop join" << endl;
+    nl->PS(nl->dsA, nl->dsB);
+    
+    nl->print();
+}
+
 int main(int argc, const char* argv[])
 {
 	//Parsing the arguments
@@ -342,7 +357,7 @@ int main(int argc, const char* argv[])
                     NLalgo();
 		break;
 		case algo_PS:
-			//@todo
+                    PSalgo();
 		break;
 		case algo_TOUCH:
 			doTOUCH();
@@ -353,15 +368,15 @@ int main(int argc, const char* argv[])
 		case algo_dTOUCH:
 			dodTOUCH();
 		break;
-//		case algo_SGrid:
-//			SGrid();
-//		break;
-//		case algo_S3:
-//			S3();
-//		break;
-//		case algo_PBSM:
-//			PBSM();
-//		break;
+		case algo_SGrid:
+			SGrid();
+		break;
+		case algo_S3:
+			S3();
+		break;
+		case algo_PBSM:
+			PBSM();
+		break;
 		default:
 			cout<<"No such an algorithm!"<<endl;
 			exit(0);

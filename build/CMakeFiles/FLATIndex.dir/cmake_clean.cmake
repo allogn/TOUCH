@@ -1,4 +1,5 @@
 FILE(REMOVE_RECURSE
+  "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/BBPTextFileReader.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Bitmap.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Box.o"
@@ -15,9 +16,10 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Mesh.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Metadata.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PayLoad.o"
+  "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PBSMHash.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/PriorityRtreeIndex.o"
-  "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/ResultPairs.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/RtreeIndex.o"
+  "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/S3Hash.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/SeedBuilder.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Segment.o"
   "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SpatialIndex/src/Soma.o"

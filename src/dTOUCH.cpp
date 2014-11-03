@@ -191,6 +191,7 @@ void dTOUCH::assignmentA()
                         if(ptr->level > maxAssignmentLevel)
                         {
                             vdsB.push_back(new TreeEntry(obj));
+                            vdsB.back()->expand(epsilon);
                         }
                         else
                         {
@@ -225,84 +226,66 @@ void dTOUCH::assignmentA()
     }
 }
 
-void dTOUCH::assignmentBrc(TreeEntry* targetEntry)
+void dTOUCH::assignmentB()
 {
-        bool overlaps;
-        bool assigned;
-        TreeNode* targetNode = treeA.at(targetEntry->childIndex);
-        if (targetNode->leafnode)
+    building.start();
+    int overlaps;
+    int assigned_level;
+    bool assigned;
+    
+    for (unsigned int i=0;i<dsA.size();++i)
+    {
+        FLAT::SpatialObject* obj = dsA.at(i);
+        FLAT::Box objMBR = obj->getMBR();
+
+        TreeEntry* nextNode;
+        TreeNode* ptr = treeB.at(rootB->childIndex);
+
+        while(true)
         {
-                //if(i%1000==0)cout<<i<<endl;
-                for (vector<TreeEntry*>::iterator it = targetNode->entries.begin(); it != targetNode->entries.end(); it++)
+            overlaps = false;
+            assigned = false;
+            for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
+            {    
+                if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) ) //@todo safe if cTOUCH
                 {
-                        FLAT::SpatialObject* obj = (*it)->obj;
-                        FLAT::Box objMBR = obj->getMBR();
-                        //objMBR.low = objMBR.low - epsilon;
-                        //objMBR.high = objMBR.high + epsilon;
-
-                        TreeEntry* nextNode;
-                        TreeNode* ptr = treeB.at(rootB->childIndex);
-                        nextNode = NULL;
-
-                        while(true)
-                        {
-                                overlaps = false;
-                                assigned = false;
-                                for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
-                                {
-                                        if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) )
-                                        {
-                                                if(!overlaps)
-                                                {
-                                                        overlaps = true;
-                                                        nextNode = ptr->entries.at(cChild);
-                                                }
-                                                else
-                                                {
-                                                        //should be assigned to this level
-                                                        ptr->attachedObjs[0].push_back(obj);
-                                                        //delete object from the first tree
-                                                        //put a flag
-                                                        assigned = true;
-                                                        break;
-                                                }
-                                        }
-                                }
-
-                                if(assigned)
-                                        break;
-                                if(!overlaps)
-                                {
-                                        //filtered
-                                        filtered ++;
-                                        break;
-                                }
-                                ptr = treeB.at(nextNode->childIndex);
-                                if(ptr->leafnode /*|| ptr->level < 2*/)
-                                {
-                                        ptr->attachedObjs[0].push_back(obj);
-                                        break;
-                                }
-
-                        }
+                    if(overlaps++ == 0)
+                    {
+                        overlaps = true;
+                        nextNode = ptr->entries.at(cChild);
+                    }
+                    else
+                    {
+                        
+                        ptr->attachedObjs[0].push_back(obj);
+                        assigned = true;
+                        assigned_level = ptr->level;
+                        break;
+                    }
                 }
-
-        }
-        else
-        {
-                for(vector<TreeEntry*>::iterator it = targetNode->entries.begin();
-                                it != targetNode->entries.end(); it++)
+            }
+            if(assigned)
+            {
+                obj->cost = overlaps*((pow(nodesize,assigned_level+1)-1)/(nodesize - 1) - 1);
+                break;
+            }
+            if(!overlaps)
+            {
+                    //filtered
+                    filtered ++;
+                    break;
+                }
+                ptr = treeB.at(nextNode->childIndex);
+                if(ptr->leafnode /*|| ptr->level < 2*/)
                 {
-                        assignmentBrc((*it));
+                    //intersects only with one entry in the leaf
+                    ptr->attachedObjs[0].push_back(obj);
+                    obj->cost = 1; // one object only.
+                    break;
                 }
         }
-}
-
-void dTOUCH::assignmentB() //using A tree, that was already built
-{
-        building.start();
-        assignmentBrc(rootA);
-        building.stop();
+    }
+    building.stop();
 }
 
 
@@ -363,7 +346,6 @@ void dTOUCH::probe()
         std::queue<FLAT::uint64> Qnodes;
 
         TreeNode* currentNode;
-        FLAT::Box localUniverse;
 
         Qnodes.push(rootA->childIndex);
         //uni.push(root->mbr);
