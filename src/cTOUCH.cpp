@@ -99,10 +99,10 @@ void cTOUCH::probe()
 }
 
 /*
-Create new node according to set of TreeEntries. Entries can be of both types,
-So create to entries that point to the new node of two types.
-Create entry iff it is not empty
-*/
+ * Create new node according to set of TreeEntries. Entries can be of both types,
+ * So create to entries that point to the new node of two types.
+ * Create entry iff it is not empty
+ */
 void cTOUCH::writeNode(vector<TreeEntry*> objlist,int Level)
 {
         TreeNode* prNode = new TreeNode(Level);
@@ -117,10 +117,8 @@ void cTOUCH::writeNode(vector<TreeEntry*> objlist,int Level)
         {
                 prNode->entries.push_back(*it);
 
-
-                FLAT::Box::combine((*it)->mbrL[0],mbrA,mbrA);
-
-                FLAT::Box::combine((*it)->mbrL[1],mbrB,mbrB);
+                mbrA = FLAT::Box::combineSafe((*it)->mbrL[0],mbrA);
+                mbrB = FLAT::Box::combineSafe((*it)->mbrL[1],mbrB);
 
                 (*it)->parentIndex = childIndex; //parent index of children = childIndex of new Entry				
 
@@ -158,168 +156,189 @@ void cTOUCH::createTreeLevel(vector<TreeEntry*>& input,int Level)
 
 void cTOUCH::assignment()
 {
-        building.start();
-        queue<FLAT::uint64> Qnodes;
-        TreeNode* currentNode;
-        FLAT::Box localUniverse;
+    building.start();
+    queue<FLAT::uint64> Qnodes;
+    TreeNode* currentNode;
 
-        bool overlaps;
-        bool assigned;
+    bool overlaps;
+    bool assigned;
 
-        TreeNode* ptr;
-        TreeEntry* nextNode;
-        TreeEntry* ancestorEntry;
-        TreeNode* ancestorNode;
-        FLAT::Box objMBR;
-        FLAT::SpatialObject* obj;
+    TreeNode* ptr;
+    TreeEntry* nextNode;
+    TreeEntry* ancestorEntry;
+    TreeNode* ancestorNode;
+    FLAT::Box objMBR;
+    FLAT::SpatialObject* obj;
 
-        bool canFilter; //flag that shows if current object intersects SelfMbr on some level. If so, it can not be filtered
+    bool canFilter; //flag that shows if current object intersects SelfMbr on some level. If so, it can not be filtered
 
-        Qnodes.push(root->childIndex);
+    Qnodes.push(root->childIndex);
 
-
-        //getting all leaf nodes and assigned objects to leafs
-        while(Qnodes.size()>0)
+    //getting all leaf nodes and assigned objects to leafs
+    while(Qnodes.size()>0)
+    {
+        FLAT::uint64 currentNodeID = Qnodes.front(); //take one node. if leaf -  assign its objects. if not - go further
+        currentNode = tree.at(currentNodeID);
+        Qnodes.pop();
+        if(currentNode->leafnode)
         {
-                FLAT::uint64 currentNodeID = Qnodes.front(); //take one node. if leaf -  assign it. if not - go further
-                currentNode = tree.at(currentNodeID);
-                Qnodes.pop();
-                if(currentNode->leafnode)
+            /* 
+             * Get all objects of one color -> assign them
+             * delete mbr of assigned objects and update tree
+             * get all objects of opposite color and do the same
+             * then delete all node from light tree
+             */
+            
+            for (int current_type = 0; current_type <= 1; current_type++) // take two colors successively
+            {
+                /*
+                 * For each object in the leaf node of type <current_type>
+                 * do the assignment to the tree from the top
+                 */
+                for (unsigned int i=0;i<currentNode->entries.size();++i)
                 {
-                        //get all objects of one color -> assign them
-                        //delete mbr of assigned objects and update tree
-                        //get all objects of opposite color and do the same
-                        //then delete all node from light tree
-                        for (int current_type = 0; current_type <= 1; current_type++) // take two colors successively
+                    obj = currentNode->entries.at(i)->obj;
+                    if (obj->type != current_type)
+                    {
+                            continue;
+                    }
+                    objMBR = obj->getMBR();
+                    FLAT::Box::expand(objMBR, epsilon);
+
+                    ptr = tree.at(root->childIndex);
+                    canFilter = true;
+
+                    /*
+                     * Start traversing tree from the top and assign object <obj>
+                     */
+                    while(true)
+                    {
+                        overlaps = false;
+                        assigned = false;
+                        for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
                         {
-                                for (unsigned int i=0;i<currentNode->entries.size();++i)
+
+                            /*
+                             * Check the intersection with black node
+                             * That is combination of:
+                             *  - dark current
+                             *  - dark of descendants
+                             *  - light current
+                             */
+                            if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbrK[current_type]) )
+                            {
+                                if(!overlaps)
                                 {
-                                        obj = currentNode->entries.at(i)->obj;
-                                        if (obj->type != current_type)
-                                        {
-                                                continue;
-                                        }
-                                        objMBR = obj->getMBR();
+                                    overlaps = true;
 
-                                        ptr = tree.at(root->childIndex);
-                                        canFilter = true;
+                                    /*
+                                     * If <obj> intersects with one of Current Dark Mbr
+                                     * it can not be filtered anymore
+                                     */
+                                    if (canFilter == true && FLAT::Box::overlap(objMBR, ptr->entries.at(cChild)->mbrSelfD[current_type]))
+                                    {
+                                        canFilter = false;
+                                    }
 
-                                        while(true) //traverse all tree from top to bottom and assign obj
-                                        {
-                                                overlaps = false;
-                                                assigned = false;
-                                                for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
-                                                {
-
-                                                        if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbrK[current_type]) ) // here mbr is dark+light
-                                                        {
-                                                                if(!overlaps)
-                                                                {
-                                                                        overlaps = true;
-
-                                                                        if (canFilter == true && FLAT::Box::overlap(objMBR, ptr->entries.at(cChild)->mbrSelfD[current_type]))
-                                                                        {
-                                                                                canFilter = false;
-                                                                        }
-
-                                                                        nextNode = ptr->entries.at(cChild);
-                                                                }
-                                                                else
-                                                                {
-                                                                        //should be assigned to this level
-                                                                        ptr->attachedObjs[current_type].push_back(obj);
-
-                                                                        //update the cost function of current object according to level in the tree
-                                                                        obj->cost += pow(partitions,ptr->level);
-
-                                                                        ancestorEntry = ptr->parentEntry;  // take entry for the node where we assigning
-
-                                                                        //start updating from the first ancestor, but in the object only update SelfMBR
-
-                                                                        FLAT::Box::combine(ancestorEntry->mbrSelfD[current_type], objMBR, ancestorEntry->mbrSelfD[current_type]);
-                                                                        FLAT::Box::combine(ancestorEntry->mbrSelfD[current_type], ancestorEntry->mbrK[current_type], ancestorEntry->mbrK[current_type]);
-
-                                                                        while (1)
-                                                                        {
-                                                                                if (ancestorEntry->parentIndex == 0)
-                                                                                        break; // we are at root
-                                                                                ancestorNode = tree.at(ancestorEntry->parentIndex);
-                                                                                ancestorEntry = ancestorNode->parentEntry;
-
-                                                                                FLAT::Box::combine(ancestorEntry->mbrD[current_type], objMBR, ancestorEntry->mbrD[current_type]);
-                                                                                FLAT::Box::combine(ancestorEntry->mbrD[current_type], ancestorEntry->mbrK[current_type], ancestorEntry->mbrK[current_type]);
-
-                                                                                //here - update cost
-                                                                                for (SpatialObjectList::iterator it = ancestorNode->attachedObjs[current_type].begin();
-                                                                                                it != ancestorNode->attachedObjs[current_type].end(); it++)
-                                                                                {
-                                                                                        (*it)->cost++;
-                                                                                }
-
-                                                                        }
-
-                                                                        assigned = true;
-                                                                        break;
-                                                                }
-                                                        }
-                                                }
-
-                                                if(assigned)
-                                                                break;
-                                                if(!overlaps && canFilter == true)
-                                                {
-                                                                //filtered
-                                                                filtered ++;
-                                                                break;
-                                                }
-
-                                                ptr = tree.at(nextNode->childIndex);
-
-                                                if(ptr->leafnode)
-                                                {
-                                                                ptr->attachedObjs[obj->type].push_back(obj);
-                                                                break;
-                                                }
-                                        }
+                                    nextNode = ptr->entries.at(cChild);
                                 }
-
-                                //here - delete all leaf node and update light tree and black tree
-                                //do not delete - only earse mbr's
-                                ancestorEntry = currentNode->parentEntry;
-                                while (1)
+                                else
                                 {
+                                    //should be assigned to this level
+                                    ptr->attachedObjs[current_type].push_back(obj);
+
+                                    //update the cost function of current object according to level in the tree
+                                    obj->cost += pow(partitions,ptr->level);
+
+                                    ancestorEntry = ptr->parentEntry;  // take entry for the node where we assigning
+
+                                    //start updating from the first ancestor, but in the object only update SelfMBR
+
+                                    ancestorEntry->mbrSelfD[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrSelfD[current_type], objMBR);
+                                    ancestorEntry->mbrK[current_type] = FLAT::Box::combine(ancestorEntry->mbrSelfD[current_type], ancestorEntry->mbrK[current_type]);
+
+                                    /*
+                                     * Update MBR's and costs of ancestors
+                                     */
+                                    while (1)
+                                    {
                                         if (ancestorEntry->parentIndex == 0)
-                                                break; // we are at root
+                                            break; // we are at root
                                         ancestorNode = tree.at(ancestorEntry->parentIndex);
                                         ancestorEntry = ancestorNode->parentEntry;
 
-                                        ancestorEntry->mbrL[current_type].isEmpty = true;
-                                        for (vector<TreeEntry*>::iterator it=ancestorNode->entries.begin();
-                                                                                                          it!=ancestorNode->entries.end(); ++it)
+                                        ancestorEntry->mbrD[current_type] = FLAT::Box::combine(ancestorEntry->mbrD[current_type], objMBR);
+                                        ancestorEntry->mbrK[current_type] = FLAT::Box::combine(ancestorEntry->mbrD[current_type], ancestorEntry->mbrK[current_type]);
+
+                                        //here - update cost
+                                        for (SpatialObjectList::iterator it = ancestorNode->attachedObjs[current_type].begin();
+                                            it != ancestorNode->attachedObjs[current_type].end(); it++)
                                         {
-                                                FLAT::Box::combine((*it)->mbrL[current_type],
-                                                                ancestorEntry->mbrL[current_type],ancestorEntry->mbrL[current_type]);
+                                            (*it)->cost++;
                                         }
-                                        FLAT::Box::combine(ancestorEntry->mbrD[current_type],ancestorEntry->mbrL[current_type],
-                                                                                                        ancestorEntry->mbrK[current_type]); //update black
-                                        FLAT::Box::combine(ancestorEntry->mbrSelfD[current_type],ancestorEntry->mbrK[current_type],
-                                                                                                                                                        ancestorEntry->mbrK[current_type]);
+
+                                    }
+
+                                    assigned = true;
+                                    break;
                                 }
-
+                            }
                         }
 
-
-                }
-                else
-                {
-                        for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
+                        if(assigned)
+                            break;
+                        if(!overlaps && canFilter == true)
                         {
-                                Qnodes.push(currentNode->entries.at(child)->childIndex);
+                            //filtered
+                            filtered ++;
+                            break;
                         }
-                }
-        }
 
-        building.stop();
+                        ptr = tree.at(nextNode->childIndex);
+
+                        if(ptr->leafnode)
+                        {
+                            ptr->attachedObjs[obj->type].push_back(obj);
+                            break;
+                        }
+                    }
+                }
+                /* End of object assignment */
+
+                //here - delete all leaf node and update light tree and black tree
+                //do not delete - only earse mbr's
+                ancestorEntry = currentNode->parentEntry;
+                while (1)
+                {
+                    if (ancestorEntry->parentIndex == 0)
+                            break; // we are at root
+                    ancestorNode = tree.at(ancestorEntry->parentIndex);
+                    ancestorEntry = ancestorNode->parentEntry;
+
+                    ancestorEntry->mbrL[current_type].isEmpty = true;
+                    for (vector<TreeEntry*>::iterator it=ancestorNode->entries.begin();
+                                                                                      it!=ancestorNode->entries.end(); ++it)
+                    {
+                            FLAT::Box::combine((*it)->mbrL[current_type],
+                                            ancestorEntry->mbrL[current_type],ancestorEntry->mbrL[current_type]);
+                    }
+                    FLAT::Box::combine(ancestorEntry->mbrD[current_type],ancestorEntry->mbrL[current_type],
+                                                                                    ancestorEntry->mbrK[current_type]); //update black
+                    FLAT::Box::combine(ancestorEntry->mbrSelfD[current_type],ancestorEntry->mbrK[current_type],
+                                        ancestorEntry->mbrK[current_type]);
+                }
+            }
+        }
+        else
+        {
+            for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
+            {
+                    Qnodes.push(currentNode->entries.at(child)->childIndex);
+            }
+        }
+    }
+
+    building.stop();
 }
 
 void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID)
@@ -388,7 +407,7 @@ void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
         }
 
         /*
-         * A -> B //@todo decide which first
+         * A -> B
          */
         if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
         {

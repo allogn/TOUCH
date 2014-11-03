@@ -1,15 +1,18 @@
-// cTOUCH: Spatial Hierarchical Hash Join
+/*
+ * File: cTOUCH.h
+ * Author: Alvis Logins
+ * 
+ * Complex TOUCH modification of TOUCH algorithm
+ * Do the spatial join by creating colorful R-Tree
+ * 
+ */
 
 #include "TOUCHlike.h"
 
 
 class cTOUCH : public TOUCHlike
 {
-
 private:
-
-    FLAT::uint64 totalGridCells;
-	
 
     //Plane-sweeping join algorithm for cTOUCH <--------------
     void PS(FLAT::SpatialObject* A, SpatialObjectList& B)
@@ -58,6 +61,7 @@ public:
 	~cTOUCH()
 	{
 		delete &tree;
+                total.stop();
 	}
 	void createPartitions()
 	{
