@@ -108,6 +108,10 @@ namespace FLAT
 	// Do 2 Boxes overlap Any Volume?
 	inline bool Box::overlap (const Box &b1,const Box &b2)
 	{
+            //Safe here
+            if (b1.isEmpty || b2.isEmpty)
+                return false;
+            
 		for (int i=0;i<DIMENSION;i++)
 		{
 			bool overlap=false;

@@ -49,6 +49,8 @@ private:
 		*/
 		void writeNode(vector<TreeEntry*> objlist,int Level);
 		void createTreeLevel(vector<TreeEntry*>& input,int Level);
+                
+                void assign(TreeNode* ptr, FLAT::SpatialObject* obj); //update parents
 
 public:
 

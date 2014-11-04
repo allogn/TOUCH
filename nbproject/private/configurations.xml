@@ -29,8 +29,6 @@
           </df>
           <df name="FLATIndex.dir">
           </df>
-          <df name="Progress">
-          </df>
           <df name="SpatialJoin.dir">
             <df name="media">
               <df name="alvis">
@@ -892,7 +890,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>main.exe -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i C:\Project\Brain\SpatialIndex\data\RandomData-10K.bin C:\Project\Brain\SpatialIndex\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>main -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i C:\Project\Brain\SpatialIndex\data\RandomData-10K.bin C:\Project\Brain\SpatialIndex\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>main -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i ..\data\RandomData-10K.bin ..\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
@@ -902,8 +899,9 @@
           <runcommandpicklistitem>./main -a 4 -p 100 -e 10 -b 3 -t 1 -J 2 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./SpatialJoin -a 4 -p 100 -e 10 -b 3 -t 1 -J 2 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./SpatialJoin -a 4 -p 100 -e 10 -b 3 -t 1 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
+          <runcommandpicklistitem>./SpatialJoin -a 6 -p 100 -e 10 -b 3 -t 1 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin -n 1000 1000</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>./SpatialJoin -a 4 -p 100 -e 10 -b 3 -t 1 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommand>
+        <runcommand>./SpatialJoin -a 6 -p 100 -e 10 -b 3 -t 1 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin -n 1000 1000</runcommand>
         <rundir>/media/alvis/Data/Term2/SpatialIndex/bin</rundir>
         <buildfirst>false</buildfirst>
         <terminal-type>0</terminal-type>

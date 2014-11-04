@@ -34,6 +34,7 @@ public:
             mbrL[obj->type] = obj->getMBR();
             mbr = obj->getMBR();
             mbr.isEmpty = false; //@todo all mbr's are empty at the beginning!!!
+            mbrL[obj->type].isEmpty = false;
 	}
 
 	//make an Internal item
