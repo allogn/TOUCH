@@ -58,7 +58,7 @@ public:
 
         void expand(double epsilon)
         {
-            FLAT::Box::expand(mbr,epsilon);
+            FLAT::Box::expand(mbr,epsilon * 1./2.); // all objects must also be expanded on epsilon/2
         }
 };
 

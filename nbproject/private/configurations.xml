@@ -28,6 +28,18 @@
           <df name="CMakeTmp">
           </df>
           <df name="FLATIndex.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SpatialIndex">
+                      <df name="src">
+                      </df>
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
           </df>
           <df name="SpatialJoin.dir">
             <df name="media">

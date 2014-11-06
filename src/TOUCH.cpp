@@ -137,6 +137,7 @@ void TOUCH::assignment()
                 FLAT::SpatialObject* obj = dsB.at(i);
                 FLAT::Box objMBR = obj->getMBR();
                 objMBR.isEmpty = false;
+                FLAT::Box::expand(objMBR,epsilon * 1./2.);
                 //objMBR.low = objMBR.low - epsilon;
                 //objMBR.high = objMBR.high + epsilon;
 

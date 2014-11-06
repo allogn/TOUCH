@@ -169,7 +169,7 @@ void dTOUCH::assignmentA()
         FLAT::SpatialObject* obj = dsB.at(i);
         FLAT::Box objMBR = obj->getMBR();
         objMBR.isEmpty = false;
-
+        FLAT::Box::expand(objMBR,epsilon * 1./2.);
         TreeEntry* nextNode;
         TreeNode* ptr = treeA.at(rootA->childIndex);
 
@@ -239,7 +239,7 @@ void dTOUCH::assignmentB()
         FLAT::SpatialObject* obj = dsA.at(i);
         FLAT::Box objMBR = obj->getMBR();
         objMBR.isEmpty = false;
-
+        FLAT::Box::expand(objMBR,epsilon * 1./2.);
         TreeEntry* nextNode;
         TreeNode* ptr = treeB.at(rootB->childIndex);
 

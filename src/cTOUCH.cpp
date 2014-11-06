@@ -245,9 +245,8 @@ void cTOUCH::assignment()
                             continue;
                     }
                     objMBR = obj->getMBR();
-                    FLAT::Box::expand(objMBR, epsilon);
                     objMBR.isEmpty = false;
-
+                    FLAT::Box::expand(objMBR,epsilon * 1./2.);
                     ptr = tree.at(root->childIndex);
                     canFilter = true;
 
@@ -355,19 +354,18 @@ void cTOUCH::assignment()
 
     building.stop();
 }
-int ass = 0;
+
 void cTOUCH::assign(TreeNode* ptr, FLAT::SpatialObject* obj)
 {
     int current_type = obj->type;
-    int opType = (current_type == 0)?1:0;; // opposite type
+    int opType = (current_type == 0)?1:0; // opposite type
     
     TreeEntry* ancestorEntry;
     TreeNode* ancestorNode;
     
     FLAT::Box objMBR = obj->getMBR();
-    FLAT::Box::expand(objMBR, epsilon);
     objMBR.isEmpty = false;
-    
+    FLAT::Box::expand(objMBR,epsilon * 1./2.);
     //should be assigned to this level
     ptr->attachedObjs[current_type].push_back(obj);
 
@@ -416,9 +414,8 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
         nodes.push(ancestorNodeID);
         
         FLAT::Box objMBR = obj->getMBR();
-        FLAT::Box::expand(objMBR, epsilon);
         objMBR.isEmpty = false;
-        
+        FLAT::Box::expand(objMBR,epsilon * 1./2.);
         while(nodes.size()>0)
         {
                 //start from checking children, each for intersection of MBR
@@ -428,20 +425,23 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
                 nodeID = nodes.front();
                 node = tree.at(nodeID);
                 nodes.pop();
+                
+                if (node->leafnode == true)
+                    continue;
 
                 //intersect with all non-null children
                 for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
                 {
+                        downnode = tree.at(node->entries.at(child)->childIndex );
                         //if intersects
+                        if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrSelfD[opType]))
+                        {
+                                JOIN(obj, downnode->attachedObjs[opType]);
+                        } 
                         if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrD[opType]))
                         {
-                                downnode = tree.at(node->entries.at(child)->childIndex );
-                                JOIN(obj, downnode->attachedObjs[opType]);
-
-                                //add child to the queue if it is not a leaf (even in dark)
-                                if (downnode->leafnode == false)
-                                        nodes.push(node->entries.at(child)->childIndex);
-                        }
+                            nodes.push(node->entries.at(child)->childIndex);
+                        } 
                 }
 
         }
