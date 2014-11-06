@@ -47,55 +47,43 @@ void cTOUCH::analyze()
 
 void cTOUCH::probe()
 {
-        //For every cell of A join it with its corresponding cell of B
-        probing.start();
-        queue<FLAT::uint64> Qnodes;
+    probing.start();
+    queue<FLAT::uint64> Qnodes;
+    TreeNode* currentNode;
+    Qnodes.push(root->childIndex);
 
-        TreeNode* currentNode;
-        FLAT::Box localUniverse;
+    int lvl = Levels;
+    // A BFS on the tree then for each find all its leaf nodes by another BFS
+    while(Qnodes.size()>0)
+    {
+        FLAT::uint64 currentNodeID = Qnodes.front();
+        currentNode = tree.at(currentNodeID);
+        Qnodes.pop();
 
-        Qnodes.push(root->childIndex);
-
-        int lvl = Levels;
-        // A BFS on the tree then for each find all its leaf nodes by another BFS
-        while(Qnodes.size()>0)
-        {
-                FLAT::uint64 currentNodeID = Qnodes.front();
-                currentNode = tree.at(currentNodeID);
-                Qnodes.pop();
-
-                //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
-                if(!currentNode->leafnode)
-                        for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
-                        {
-                                 //@todo - do not delete them above, only make black box empty
-                                if (!(currentNode->entries.at(child)->mbrK[0].isEmpty))
-                                {
-                                        Qnodes.push(currentNode->entries.at(child)->childIndex);
-                                }
-                        }
-
-                        //Join assigned to current node objects to all objects
-                        //assigned below to dark nodes
-
-                // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
-                if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()==0)
-                        continue;
-
-                // just to display the level of the BFS traversal
-                if(lvl!=currentNode->level)
+        //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
+        if(!currentNode->leafnode)
+            for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
+            {
+                if (!(currentNode->entries.at(child)->mbrK[0].isEmpty))
                 {
-                        lvl = currentNode->level;
-                        cout << "\n### Level " << lvl << "; Enter childIndex: " << currentNodeID << endl;
+                    Qnodes.push(currentNode->entries.at(child)->childIndex);
                 }
+            }
 
-                joinIntenalnodetoleafs(currentNodeID); //join node -> join each object -> join object to down tree -> join object with list of objects
+        // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
+        if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()==0)
+            continue;
 
-                //if(localJoin == algo_SGrid && localPartitions < internalObjsCount)
-                //	delete spatialGridHash;
+        // just to display the level of the BFS traversal
+        if(lvl!=currentNode->level)
+        {
+                lvl = currentNode->level;
+                cout << "\n### Level " << lvl << "; Enter childIndex: " << currentNodeID << endl;
         }
-        probing.stop();
 
+        joinIntenalnodetoleafs(currentNodeID); //join node -> join each object -> join object to down tree -> join object with list of objects
+    }
+    probing.stop();
 }
 
 /*
@@ -129,15 +117,62 @@ void cTOUCH::writeNode(vector<TreeEntry*> objlist,int Level)
         tree.push_back(prNode);
         nextInput.push_back(new TreeEntry(mbrA,mbrB,childIndex));
         prNode->parentEntry = nextInput.back();
-        
-        cout << "--" << nextInput.back()->mbrK[1] << endl;
 }
 
 void cTOUCH::createTreeLevel(vector<TreeEntry*>& input,int Level)
 {
-        unsigned int nodeSize;
-        if (Level==0) nodeSize = leafsize;
-        else nodeSize = nodesize;
+    
+    unsigned int nodeSize;
+    
+    FLAT::uint64 itemsD1;
+    FLAT::uint64 itemsD2;
+    FLAT::uint64 i;
+    
+    if (Level==0) nodeSize = leafsize;
+    else nodeSize = nodesize;
+        sorting.start();
+    switch (PartitioningType)
+    {
+        case Hilbert_Sort:
+            std::sort(input.begin(),input.end(),ComparatorHilbert());
+            break;
+        case STR_Sort:
+            cout<< "Node size " << nodeSize << endl;
+            itemsD1 = nodeSize * nodeSize;
+            itemsD2 = nodeSize;
+            std::sort(input.begin(),input.end(),Comparator());
+            i=0;
+            while(true)
+            {
+                    if((i+1)*itemsD1 < input.size())
+                            std::sort(input.begin()+i*itemsD1, input.begin()+(i+1)*itemsD1 ,ComparatorY());
+                    else
+                    {
+                            std::sort(input.begin()+i*itemsD1, input.end() ,ComparatorY());
+                            break;
+                    }
+                    i++;
+            }
+            i=0;
+            while(true)
+            {
+                    if((i+1)*itemsD2 < input.size())
+                            std::sort(input.begin()+i*itemsD2, input.begin()+(i+1)*itemsD2 ,ComparatorZ());
+                    else
+                    {
+                            std::sort(input.begin()+i*itemsD2, input.end() ,ComparatorZ());
+                            break;
+                    }
+                    i++;
+            }
+        case No_Sort:
+            break;
+        default:
+            std::sort(input.begin(),input.end(),Comparator());
+            break;
+    }
+    sorting.stop();
+    
 
         vector<TreeEntry*> entries;
         for (vector<TreeEntry*>::iterator it=input.begin();it!=input.end();++it)
@@ -373,17 +408,22 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
 {
         queue<FLAT::uint64> nodes;
         int nodeID;
-        int opType;
+        
+        int opType = (obj->type)?0:1;
+        
         TreeNode* node;
         TreeNode* downnode;
         nodes.push(ancestorNodeID);
+        
+        FLAT::Box objMBR = obj->getMBR();
+        FLAT::Box::expand(objMBR, epsilon);
+        objMBR.isEmpty = false;
+        
         while(nodes.size()>0)
         {
                 //start from checking children, each for intersection of MBR
                 // then if intersects - check the assign objects of child
                 // and if it is not a leaf node and intersects -> add to the queue
-
-
 
                 nodeID = nodes.front();
                 node = tree.at(nodeID);
@@ -393,8 +433,7 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
                 for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
                 {
                         //if intersects
-                        opType = (obj->type)?0:1;
-                        if (FLAT::Box::overlap(obj->getMBR(), node->entries.at(child)->mbrD[opType]))
+                        if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrD[opType]))
                         {
                                 downnode = tree.at(node->entries.at(child)->childIndex );
                                 JOIN(obj, downnode->attachedObjs[opType]);
@@ -411,49 +450,49 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
 void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 {
 
-        //check for intersection all nodes below, where smth was attached with opposite color.
-        comparing.start();
+    //check for intersection all nodes below, where smth was attached with opposite color.
+    comparing.start();
 
-        TreeNode* node = tree.at(ancestorNodeID);
-        // here @todo check function and parallelize
-        /*
-         * A -> B_below
-         */
+    TreeNode* node = tree.at(ancestorNodeID);
+    // here @todo check function and parallelize
+    /*
+     * A -> B_below
+     */
+    for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
+                                                    it != node->attachedObjs[0].end(); it++)
+    {
+        joinInternalobjecttodesc((*it), ancestorNodeID);
+    }
+
+    /*
+     * B -> A_below
+     */
+    for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
+                                                    it != node->attachedObjs[1].end(); it++)
+    {
+        joinInternalobjecttodesc((*it), ancestorNodeID);
+    }
+
+    /*
+     * A -> B
+     */
+    if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
+    {
         for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
                                                         it != node->attachedObjs[0].end(); it++)
         {
-                joinInternalobjecttodesc((*it), ancestorNodeID);
+            JOIN((*it), node->attachedObjs[1]);
         }
-
-        /*
-         * B -> A_below
-         */
+    }
+    else
+    {
         for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
-                                                        it != node->attachedObjs[1].end(); it++)
+                                it != node->attachedObjs[1].end(); it++)
         {
-                joinInternalobjecttodesc((*it), ancestorNodeID);
+            JOIN((*it), node->attachedObjs[0]);
         }
-
-        /*
-         * A -> B
-         */
-        if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
-        {
-                for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
-                                                                it != node->attachedObjs[0].end(); it++)
-                {
-                        JOIN((*it), node->attachedObjs[1]);
-                }
-        }
-        else
-        {
-                for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
-                                        it != node->attachedObjs[1].end(); it++)
-                {
-                        JOIN((*it), node->attachedObjs[0]);
-                }
-        }
+    }
 
 
-        comparing.stop();
+    comparing.stop();
 }

@@ -50,6 +50,8 @@
       <df name="data">
       </df>
       <df name="doc">
+        <df name="Images">
+        </df>
       </df>
       <df name="include">
         <in>AxonReader.hpp</in>
