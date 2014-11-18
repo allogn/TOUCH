@@ -308,7 +308,7 @@ void cTOUCH::assignment()
                                 break;
                             }
                             //filtered
-                            filtered ++;
+                            filtered[current_type] ++;
                             break;
                         }
                         ptr = tree.at(nextNode->childIndex);
@@ -481,7 +481,10 @@ void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
         for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
                                                         it != node->attachedObjs[0].end(); it++)
         {
-            JOIN((*it), node->attachedObjs[1]);
+            FLAT::Box mbr = (*it)->getMBR();
+            mbr.isEmpty = false;
+            if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[1]))
+                    JOIN((*it), node->attachedObjs[1]);
         }
     }
     else
@@ -489,7 +492,12 @@ void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
         for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
                                 it != node->attachedObjs[1].end(); it++)
         {
-            JOIN((*it), node->attachedObjs[0]);
+            FLAT::Box mbr = (*it)->getMBR();
+            mbr.isEmpty = false;
+            if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[0]))
+            {
+                    JOIN((*it), node->attachedObjs[0]);
+            }
         }
     }
 

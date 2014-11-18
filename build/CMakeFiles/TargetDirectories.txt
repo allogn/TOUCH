@@ -1,2 +1,2 @@
-/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/FLATIndex.dir
-/media/alvis/Data/Term2/SpatialIndex/build/CMakeFiles/SpatialJoin.dir
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndex.dir
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/SpatialJoin.dir

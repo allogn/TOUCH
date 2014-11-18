@@ -26,6 +26,9 @@ public:
 	FLAT::uint64 childIndex;
 	FLAT::uint64 parentIndex;
 	FLAT::SpatialObject* obj;
+        
+        
+        FLAT::uint64 num[TYPES];// number of objects assigned below
 	
 	// make a Leaf item
 	TreeEntry(FLAT::SpatialObject* object)
@@ -40,6 +43,7 @@ public:
 	//make an Internal item
 	TreeEntry(const FLAT::Box& Mbr, FLAT::uint64 child) //left for compatibility
 	{
+                mbrL[0] = Mbr;
 		mbr = Mbr;
 		childIndex = child;
 		parentIndex = 0;

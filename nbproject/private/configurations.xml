@@ -32,8 +32,10 @@
               <df name="alvis">
                 <df name="Data">
                   <df name="Term2">
-                    <df name="SpatialIndex">
-                      <df name="src">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="src">
+                        </df>
                       </df>
                     </df>
                   </df>
@@ -46,8 +48,10 @@
               <df name="alvis">
                 <df name="Data">
                   <df name="Term2">
-                    <df name="SpatialIndex">
-                      <df name="apps">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
                       </df>
                     </df>
                   </df>
@@ -119,6 +123,7 @@
         <in>cTOUCH.h</in>
         <in>dTOUCH.h</in>
         <in>hilbert.hpp</in>
+        <in>reTOUCH.h</in>
       </df>
       <df name="lib">
         <df name="bbpdias">
@@ -315,8 +320,6 @@
                       <in>Segment_Voxel_Mapping.h</in>
                     </df>
                     <df name="Readers">
-                      <df name="File">
-                      </df>
                       <in>Mesh_Reader.h</in>
                       <in>Microcircuit_Composition_Reader.h</in>
                       <in>Microcircuit_Reader.h</in>
@@ -862,6 +865,7 @@
         <in>cTOUCH.cpp</in>
         <in>dTOUCH.cpp</in>
         <in>hilbert.cpp</in>
+        <in>reTOUCH.cpp</in>
       </df>
       <df name="wrapper">
         <in>FLATwrapper.cpp</in>

@@ -173,7 +173,7 @@ void TOUCH::assignment()
                         if(!overlaps)
                         {
                                 //filtered
-                                filtered ++;
+                                filtered[0] ++;
                                 break;
                         }
                         ptr = tree.at(nextNode->childIndex);

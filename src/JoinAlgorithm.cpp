@@ -10,7 +10,8 @@
 JoinAlgorithm::JoinAlgorithm() {
     hashprobe = 0;
     footprint=0;
-    filtered=0;
+    filtered[0]=0;
+    filtered[1] = 0;
     maxMappedObjects=0;
     avg=0;
     std=0;
@@ -70,6 +71,7 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     {
             sobj = inputA->getNext();
             mbr = sobj->getMBR();
+            mbr.isEmpty = false;
             for (int i=0;i<DIMENSION;i++)
             {
                     universeA.low.Vector[i] = min(universeA.low.Vector[i],mbr.low.Vector[i]);
@@ -93,6 +95,7 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     {
             sobj = inputB->getNext();
             mbr = sobj->getMBR();
+            mbr.isEmpty = false;
             for (int i=0;i<DIMENSION;i++)
             {
                     universeB.low.Vector[i] = min(universeB.low.Vector[i],mbr.low.Vector[i]);
@@ -136,6 +139,9 @@ void JoinAlgorithm::print()
                 case algo_dTOUCH:
                         algoname = "dTOUCH";
                 break;
+                case algo_reTOUCH:
+                        algoname = "reTOUCH";
+                break;
                 case algo_SGrid:
                         algoname = "SGrid";
                 break;
@@ -163,6 +169,9 @@ void JoinAlgorithm::print()
                 break;
                 case algo_dTOUCH:
                         basealgo = "dTOUCH";
+                break;
+                case algo_reTOUCH:
+                        algoname = "reTOUCH";
                 break;
                 case algo_SGrid:
                         basealgo = "SGrid";
@@ -207,7 +216,8 @@ void JoinAlgorithm::print()
         << "Compared # " << ItemsCompared << " % " << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB) << '\n'
         << "Duplicates " << resultPairs.duplicates << " Selectivity " << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB) << '\n'
         << "Results " << resultPairs.results << '\n'
-        << "filtered " << filtered	<< " repA " << repA	<< " repB " << repB << '\n'
+        << "filtered A " << filtered[0]	<< "; filtered B " << filtered[1] << "\n"
+        << "repA " << repA	<< " repB " << repB << '\n'
 
         << "Times: total " << total << '\n'
         << " loading " << dataLoad << " init " << initialize	<< " build " << building << " probe " << probing << '\n'
@@ -236,7 +246,8 @@ void JoinAlgorithm::print()
         << " Duplicates " << resultPairs.duplicates
         << " Results " << resultPairs.results
         << " Selectivity " << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB)
-        << " filtered " << filtered
+        << " filtered A " << filtered[0]
+        << " filtered B " << filtered[1]
         << " repA " << repA
         << " repB " << repB
 

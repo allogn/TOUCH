@@ -212,7 +212,7 @@ void dTOUCH::assignmentA()
             if(!overlaps)
             {
                     //filtered
-                    filtered ++;
+                    filtered[1] ++;
                     break;
                 }
                 ptr = treeA.at(nextNode->childIndex);
@@ -274,7 +274,7 @@ void dTOUCH::assignmentB()
             if(!overlaps)
             {
                     //filtered
-                    filtered ++;
+                    filtered[0] ++;
                     break;
                 }
                 ptr = treeB.at(nextNode->childIndex);
@@ -487,36 +487,4 @@ void dTOUCH::printTOUCH() {
     
     print(); // print statistics of JoinAlgorithm
     
-    ofstream fout(logfilename.c_str(),ios_base::app);
-    
-    //// A tree
-    FLAT::uint64 comparisons = 0;
-    for(int i = 0 ; i<LVLA ; i++)
-        comparisons += pow(base,i)*(leafsize*ItemPerLevelA[i]);
-    
-    fout << " LocalJoinResolution " << localPartitions <<  " ExpectedComparisons " << comparisons << "(#) = " <<
-    100*((double)comparisons/(double)(size_dsA*size_dsB)) << "(%)"
-        << " sortType " << PartitioningType <<
-        " Filtered " <<	filtered << "(#) = " << 100*(double)filtered/(double)size_dsB << "(%) Level";
-
-    for(int i = 0 ; i<LVLA ; i++)
-        fout << " " << i << " : " << ItemPerLevelA[i] << "(#) = " 
-             <<  100*(double)ItemPerLevelA[i]/(double)size_dsA << "(%)";
-    
-        //// B tree
-    comparisons = 0;
-    for(int i = 0 ; i<LVLB ; i++)
-        comparisons += pow(base,i)*(leafsize*ItemPerLevelB[i]);
-    
-    fout << " LocalJoinResolution " << localPartitions <<  " ExpectedComparisons " << comparisons << "(#) = " <<
-    100*((double)comparisons/(double)(size_dsA*size_dsB)) << "(%)"
-        << " sortType " << PartitioningType <<
-        " Filtered " <<	filtered << "(#) = " << 100*(double)filtered/(double)size_dsB << "(%) Level";
-
-    for(int i = 0 ; i<LVLB ; i++)
-        fout << " " << i << " : " << ItemPerLevelB[i] << "(#) = " 
-             <<  100*(double)ItemPerLevelB[i]/(double)size_dsA << "(%)";
-    
-    
-    fout.close();
 }

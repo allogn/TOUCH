@@ -137,18 +137,18 @@ void PBSMHash::build(SpatialObjectList& a, SpatialObjectList& b)
                 Box::expand(mbr,exp);
                 if (!Box::overlap(mbr,universe))
                 {
-                        filtered ++;
+                        filtered[0] ++;
                         continue;
                 }
 
                 int xMin,yMin,zMin;
                 int xMax,yMax,zMax;
-                bool filtered = false;
-                filtered |= vertex2GridLocation(mbr.low,xMin,yMin,zMin,true);
-                filtered |= vertex2GridLocation(mbr.high,xMax,yMax,zMax,false);
+                filtered[0] = false;
+                filtered[0] |= vertex2GridLocation(mbr.low,xMin,yMin,zMin,true);
+                filtered[0] |= vertex2GridLocation(mbr.high,xMax,yMax,zMax,false);
 
-                if(filtered)
-                        filtered ++;
+                if(filtered[0])
+                        filtered[0] ++;
                 else
                 {
                 for(int x=xMin; x<=xMax; x++)

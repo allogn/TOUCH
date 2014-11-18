@@ -30,7 +30,7 @@ void TOUCHlike::printTOUCH() {
     fout << " LocalJoinResolution " << localPartitions <<  " ExpectedComparisons " << comparisons << "(#) = " <<
     100*((double)comparisons/(double)(size_dsA*size_dsB)) << "(%)"
         << " sortType " << PartitioningType <<
-        " Filtered " <<	filtered << "(#) = " << 100*(double)filtered/(double)size_dsB << "(%) Level";
+        " Filtered " <<	filtered[0] << "(#) = " << 100*(double)filtered[0]/(double)size_dsB << "(%) Level";
 
     for(int i = 0 ; i<LVL ; i++)
         fout << " " << i << " : " << ItemPerLevel[i] << "(#) = " 

@@ -19,6 +19,7 @@ public:
 	int level;
 	
 	std::vector<FLAT::SpatialObject*> attachedObjs[TYPES];
+        std::vector<FLAT::SpatialObject*> attachedObjsAns;
     
 	TreeNode(int Level)
 	{

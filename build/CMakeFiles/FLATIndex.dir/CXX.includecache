@@ -6,31 +6,31 @@
 
 #IncludeRegexTransform: 
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 SpatialObject.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 Vertex.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/Vertex.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Vertex.hpp
 vector
 -
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/BufferedFile.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
 SpatialObject.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 fstream
 -
 iostream
 -
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/DataFileReader.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 SpatialObjectStream.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectStream.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
 BufferedFile.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/BufferedFile.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
 Box.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/GlobalCommon.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
 stdlib.h
 -
 string.h
@@ -38,27 +38,27 @@ string.h
 stdint.h
 -
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/JoinAlgorithm.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
 string
 -
 limits
 -
 DataFileReader.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/DataFileReader.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 ResultPairs.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/ResultPairs.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/ResultPairs.h
 TreeNode.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeNode.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
 hilbert.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/hilbert.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
 Box.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 DataFileReader.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/DataFileReader.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/ResultPairs.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/ResultPairs.h
 SpatialObject.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 vector
 -
 boost/unordered_map.hpp
@@ -66,23 +66,23 @@ boost/unordered_map.hpp
 boost/unordered_set.hpp
 -
 Timer.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/Timer.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 SpatialObjectFactory.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
 GlobalCommon.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/GlobalCommon.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
 string
 -
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectStream.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
 Box.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
 vector
 -
 queue
@@ -90,13 +90,13 @@ queue
 cmath
 -
 JoinAlgorithm.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/JoinAlgorithm.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
 TreeNode.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeNode.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
 TreeEntry.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeEntry.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/Timer.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 windows.h
 -
 ctime
@@ -108,33 +108,33 @@ sys/time.h
 iostream
 -
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeEntry.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
 Box.hpp
 -
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeNode.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
 TreeEntry.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeEntry.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
 vector
 -
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/Vertex.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Vertex.hpp
 SpatialObject.hpp
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 cassert
 -
 iostream
 -
 math.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/math.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/math.h
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/cTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/reTOUCH.h
 TOUCHlike.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/hilbert.hpp
-
-/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.cpp
-cTOUCH.h
-/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.cpp
+reTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.h
 

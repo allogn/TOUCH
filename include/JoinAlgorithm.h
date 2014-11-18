@@ -23,6 +23,7 @@
 #define	algo_PBSM			5	//Partition Based Spatial-Merge Join
 #define	algo_cTOUCH			6	//Partition Based Spatial-Merge Join
 #define	algo_dTOUCH			7	//Partition Based Spatial-Merge Join
+#define	algo_reTOUCH			8	//Partition Based Spatial-Merge Join
 
 #define No_Sort				0
 #define Hilbert_Sort                    1
@@ -104,7 +105,7 @@ protected:
         FLAT::uint64 ItemsCompared;
 	FLAT::uint64 gridSize;
 
-	FLAT::uint64 filtered;
+	FLAT::uint64 filtered[TYPES];
 	FLAT::uint64 hashprobe;
 	double repA;
 	double repB;
