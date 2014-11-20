@@ -50,6 +50,7 @@ void usage(const char *program_name) {
     printf("      5:Partition Based Spatial-Merge Join\n");
     printf("      6:cTOUCH:Spatial Hierarchical Has\n");
     printf("      7:dTOUCH:Spatial Hierarchical Has\n");
+    printf("      8:reTOUCH:Spatial Hierarchical Has\n");
     printf("\n");
     printf("   -J               Algorithm for joining the buckets\n");
     printf("   -p               # of partitions (leaf size)\n");
