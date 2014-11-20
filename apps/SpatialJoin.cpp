@@ -273,8 +273,10 @@ void docTOUCH()
 	touch->assignment();
 	cout << "Assigning Done." << endl;
 	touch->analyze();
-	cout << "Analysis Done" << endl;
-	cout << "Probing, doing the join1" << endl;
+	cout << "Analysis Done, counting grids if necessary." << endl;
+        if(localJoin == algo_SGrid)
+            touch->countSpatialGrid();
+	cout << "Probing, doing the join" << endl;
 	touch->probe();
 	cout << "Done." << endl;
         

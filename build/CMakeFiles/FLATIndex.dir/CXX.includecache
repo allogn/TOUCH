@@ -68,7 +68,11 @@ boost/unordered_set.hpp
 Timer.hpp
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Timer.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObject.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
+JoinAlgorithm.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 SpatialObjectFactory.hpp
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/SpatialObjectFactory.hpp
 
@@ -82,7 +86,11 @@ string
 Box.hpp
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Box.hpp
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCH.h
+TOUCHlike.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
 vector
 -
 queue
@@ -94,7 +102,9 @@ JoinAlgorithm.h
 TreeNode.h
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeNode.h
 TreeEntry.h
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/TreeEntry.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
+SpatialGridHash.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
 
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/Timer.hpp
 windows.h
@@ -128,13 +138,42 @@ iostream
 math.h
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/math.h
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/cTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/cTOUCH.h
+TOUCHlike.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/dTOUCH.h
+TOUCHlike.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
+SpatialGridHash.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/reTOUCH.h
 TOUCHlike.h
 /media/alvis/Data/Term2/SpatialIndex/cmake/../include/TOUCHlike.h
 
-/media/alvis/Data/Term2/SpatialIndex/cmake/../include/hilbert.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.cpp
+SpatialGridHash.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.h
 
-/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.cpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.cpp
+TOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.h
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.cpp
+TOUCHlike.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.h
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.cpp
 cTOUCH.h
-/media/alvis/Data/Term2/SpatialIndex/src/cTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.h
 
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.cpp
+dTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.h
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.cpp
+reTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.h

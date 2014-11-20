@@ -97,6 +97,6 @@ public:
 	void joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID);
         
 	void probe();
-        
+        void countSpatialGrid();
 	void analyze();
 };

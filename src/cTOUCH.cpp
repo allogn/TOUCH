@@ -433,10 +433,24 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
                 for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
                 {
                         downnode = tree.at(node->entries.at(child)->childIndex );
+                        
                         //if intersects
                         if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrSelfD[opType]))
                         {
+                            if(localJoin == algo_SGrid)
+                            {
+                                downnode->spatialGridHash[opType]->probe(obj);
+                                downnode->spatialGridHash[opType]->resultPairs.deDuplicateTime.start();
+                                downnode->spatialGridHash[opType]->resultPairs.deDuplicate();
+                                downnode->spatialGridHash[opType]->resultPairs.deDuplicateTime.stop();
+
+                                this->ItemsCompared += downnode->spatialGridHash[opType]->ItemsCompared;
+                                this->resultPairs.results += downnode->spatialGridHash[opType]->resultPairs.results;
+                            }
+                            else
+                            {
                                 JOIN(obj, downnode->attachedObjs[opType]);
+                            }
                         } 
                         if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrD[opType]))
                         {
@@ -447,6 +461,21 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
         }
 }
 
+void cTOUCH::countSpatialGrid()
+{
+    gridCalculate.start();
+    for (int type = 0; type < TYPES; type++)
+    {
+        for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+        {
+            (*it)->spatialGridHash[type] = new SpatialGridHash(root->mbr,localPartitions);
+            (*it)->spatialGridHash[type]->epsilon = this->epsilon;
+            (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
+        }
+    }
+    gridCalculate.stop();
+}
+
 void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 {
 
@@ -454,6 +483,7 @@ void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
     comparing.start();
 
     TreeNode* node = tree.at(ancestorNodeID);
+    
     // here @todo check function and parallelize
     /*
      * A -> B_below
@@ -478,18 +508,54 @@ void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
      */
     if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
     {
-        for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
-                                                        it != node->attachedObjs[0].end(); it++)
+        if(localJoin == algo_SGrid)
         {
-            JOIN((*it), node->attachedObjs[1]);
+            node->spatialGridHash[0]->probe(node->attachedObjs[1]);
+            node->spatialGridHash[0]->resultPairs.deDuplicateTime.start();
+            node->spatialGridHash[0]->resultPairs.deDuplicate();
+            node->spatialGridHash[0]->resultPairs.deDuplicateTime.stop();
+        
+            this->ItemsCompared += node->spatialGridHash[0]->ItemsCompared;
+            this->resultPairs.results += node->spatialGridHash[0]->resultPairs.results;
         }
+        else
+        {
+            for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
+                                                            it != node->attachedObjs[0].end(); it++)
+            {
+                FLAT::Box mbr = (*it)->getMBR();
+                mbr.isEmpty = false;
+                if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[1]))
+                        JOIN((*it), node->attachedObjs[1]);
+            }
+        }
+        
+        
     }
     else
     {
-        for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
-                                it != node->attachedObjs[1].end(); it++)
+        if(localJoin == algo_SGrid)
         {
-            JOIN((*it), node->attachedObjs[0]);
+            node->spatialGridHash[1]->probe(node->attachedObjs[0]);
+            node->spatialGridHash[1]->resultPairs.deDuplicateTime.start();
+            node->spatialGridHash[1]->resultPairs.deDuplicate();
+            node->spatialGridHash[1]->resultPairs.deDuplicateTime.stop();
+        
+            this->ItemsCompared += node->spatialGridHash[1]->ItemsCompared;
+            this->resultPairs.results += node->spatialGridHash[1]->resultPairs.results;
+        }
+        else
+        {
+            for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
+                                    it != node->attachedObjs[1].end(); it++)
+            {
+                FLAT::Box mbr = (*it)->getMBR();
+                mbr.isEmpty = false;
+                if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[0]))
+                {
+                        JOIN((*it), node->attachedObjs[0]);
+                }
+            }
         }
     }
 

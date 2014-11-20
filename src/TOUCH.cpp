@@ -192,18 +192,16 @@ void TOUCH::assignment()
 void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 {
         SpatialGridHash* spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
+        spatialGridHash->epsilon = this->epsilon;
         queue<FLAT::uint64> leaves;
         TreeNode* leaf, *ancestorNode;
         ancestorNode = tree.at(ancestorNodeID);
         if( localJoin == algo_SGrid )// && localPartitions < internalObjsCount)// && internal->level >0)
         {
                 //constructing the grid for the current internal node that we want to join it with all its desendet leaf nodes
-                //spatialGridHash = new SpatialGridHash(localUniverse,localPartitions);
-                resultPairs.deDuplicateTime.start();
-                //spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
-                spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
+                gridCalculate.start();
                 spatialGridHash->build(ancestorNode->attachedObjs[0]);
-                resultPairs.deDuplicateTime.stop();
+                gridCalculate.stop();
         }
 
         leaves.push(ancestorNodeID);
@@ -218,13 +216,13 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 
                         if(localJoin == algo_SGrid)// && localPartitions < internalObjsCount)// && internal->level >0)
                         {
-                                spatialGridHash->probe(leaf);
+                            spatialGridHash->probe(leaf);
                         }
                         else
                         {
-                                JOIN(leaf,ancestorNode->attachedObjs[0]);
+                            JOIN(leaf,ancestorNode->attachedObjs[0]);
                         }
-
+                        
                         comparing.stop();
                 }
                 else
@@ -235,6 +233,17 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
                         }
                 }
         }
+        
+        if(localJoin == algo_SGrid)
+        {
+            spatialGridHash->resultPairs.deDuplicateTime.start();
+            spatialGridHash->resultPairs.deDuplicate();
+            spatialGridHash->resultPairs.deDuplicateTime.stop();
+        
+            this->ItemsCompared += spatialGridHash->ItemsCompared;
+            this->resultPairs.results += spatialGridHash->resultPairs.results;
+        }
+        
 }
         
 void TOUCH::probe()

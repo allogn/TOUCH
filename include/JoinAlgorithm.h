@@ -100,7 +100,7 @@ public:
     //Plane-sweeping join algorithm
     void PS(SpatialObjectList& A, SpatialObjectList& B);
     
-protected:
+//protected:
         FLAT::uint64 ItemsCompared;
 	FLAT::uint64 gridSize;
 
@@ -124,6 +124,7 @@ protected:
 	FLAT::Timer comparing;
 	FLAT::Timer partition;
     
+        FLAT::Timer gridCalculate;
     
     struct Comparator : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
     {

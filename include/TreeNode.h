@@ -10,6 +10,8 @@
 #include "TreeEntry.h"
 #include <vector>
 
+class SpatialGridHash;
+
 class TreeNode
 {
 public:
@@ -17,6 +19,7 @@ public:
 	TreeEntry* parentEntry;
 	bool leafnode;
 	int level;
+        SpatialGridHash* spatialGridHash[TYPES];    
 	
 	std::vector<FLAT::SpatialObject*> attachedObjs[TYPES];
     

@@ -17,6 +17,7 @@
 #include "JoinAlgorithm.h"
 #include "TreeNode.h"
 #include "TreeEntry.h"
+#include "SpatialGridHash.h"
 
 class TOUCHlike : public JoinAlgorithm {
 public:

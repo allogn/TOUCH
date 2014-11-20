@@ -92,16 +92,55 @@ void SpatialGridHash::clear()
         // delete	it->second;
 }
 
+void SpatialGridHash::probe(FLAT::SpatialObject*& obj)
+{
+        probing.start();
+        
+        //set to zero variables to use same grid many times
+        filtered[obj->type] = 0;
+        hashprobe = 0;
+        resultPairs = ResultPairs();
+        
+        vector<FLAT::uint64> cells;
+        if (!getProjectedCells( obj , cells ))
+        {
+                filtered[obj->type]++;
+                return;
+        }
+        ///// Get Unique Objects from Grid Hash in Vicinity
+        hashprobe += cells.size();
+        for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
+        {
+                HashTable::iterator it = gridHashTable.find(*j);
+                if (it==gridHashTable.end()) continue;
+                HashValue* soList = it->second;
+                for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
+                        if ( istouching( obj , *k) )
+                        {
+                            resultPairs.addPair(obj , *k);
+                        }
+        }
+
+        probing.stop();
+}
+
 
 void SpatialGridHash::probe(const SpatialObjectList& dsB)
 {
         probing.start();
+ 
+        filtered[0] = 0;
+        filtered[1] = 0;
+        hashprobe = 0;
+        resultPairs = ResultPairs();
+        
+        
         for(SpatialObjectList::const_iterator i=dsB.begin(); i!=dsB.end(); ++i)
         {
                 vector<FLAT::uint64> cells;
                 if (!getProjectedCells( *i , cells ))
                 {
-                        filtered++;
+                        filtered[(*i)->type]++;
                         continue;
                 }
                 ///// Get Unique Objects from Grid Hash in Vicinity
@@ -114,7 +153,7 @@ void SpatialGridHash::probe(const SpatialObjectList& dsB)
                         for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
                                 if ( istouching( *i , *k) )
                                 {
-                resultPairs.addPair(*i , *k);
+                                    resultPairs.addPair(*i , *k);
                                 }
                 }
         }
@@ -125,7 +164,6 @@ void SpatialGridHash::probe(const SpatialObjectList& dsB)
 void SpatialGridHash::probe(TreeNode* leaf)
 {
         probing.start();
-
         for (unsigned int child = 0; child < leaf->entries.size(); ++child)
         {
                 vector<FLAT::uint64> cells;
@@ -142,10 +180,12 @@ void SpatialGridHash::probe(TreeNode* leaf)
                         if (it==gridHashTable.end()) continue;
                                 HashValue* soList = it->second;
                         for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
+                        {
                                 if ( istouching( leaf->entries.at(child)->obj , *k) )
                                 {
                                     resultPairs.addPair(leaf->entries.at(child)->obj , *k);
                                 }
+                        }
                 }
 
         }
