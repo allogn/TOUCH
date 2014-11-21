@@ -24,9 +24,12 @@ JoinAlgorithm::JoinAlgorithm() {
     localJoin				=  algo_NL;
     partitions				=  4;	
     
+    algoname="";
+    basealgo="";
+    
     verbose				=  false;
     base = 2; // the base for S3 and SH algorithms
-    logfilename = "SJ.LOG"; //@todo add to parameters
+    logfilename = "SJ.csv"; //@todo add to parameters
     epsilon = 1.5;
     numA = 0, numB = 0;
 }
@@ -121,7 +124,6 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
 
 void JoinAlgorithm::print()
 {
-        string algoname="";
         switch(algorithm)
         {
                 case algo_NL:
@@ -152,7 +154,6 @@ void JoinAlgorithm::print()
                         algoname = "PBSM";
                 break;
         }
-        string basealgo="";
         switch(localJoin)
         {
                 case algo_NL:
@@ -227,48 +228,48 @@ void JoinAlgorithm::print()
         << "\ndatasets\n" << file_dsA << '\n' << file_dsB << '\n';
 
 
-        cout<<"Logging to file ";
-        ofstream fout(logfilename.c_str(),ios_base::app);
-        fout << algoname << " using " << basealgo << " gridSize " << gridSize
-        << " epsilon " << epsilon
-        << " memFP(MB) " << (footprint+0.0)/(1024.0*1024.0)
-        << " #A " << size_dsA
-        << " #B " << size_dsB
-        << " sizeObj(B) " << sizeof(SpatialObjectList)
-        << " EmptyCells(%) " << percentageEmpty
-        << " MaxObj " << maxMappedObjects
-        << " AveObj " << avg
-        << " StdObj " << std
-
-        << " Compared # " << ItemsCompared
-        << " % " << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB)
-        << " Duplicates " << resultPairs.duplicates
-        << " Results " << resultPairs.results
-        << " Selectivity " << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB)
-        << " filtered A:" << filtered[0] << " B " << filtered[1]
-        << " repA " << repA
-        << " repB " << repB
-
-        << " Time "
-        << " loading " << dataLoad
-        << " init " << initialize
-        << " build " << building
-        << " probe " << probing
-        << " comparing " << comparing
-        << " partition " << partition
-        << " join " << Ljoin
-        << " total " << total
-        << " deDuplicating " << resultPairs.deDuplicateTime
-        << " analyzing " << analyzing
-        << " sorting " << sorting
-
-        << " partitions " << partitions
-        << " Fanout " << base
-        << " datasets " << file_dsA << " " << file_dsB;
-
-
-    fout<< endl;
-    fout.close();
+//        cout<<"Logging to file ";
+//        ofstream fout(logfilename.c_str(),ios_base::app);
+//        fout << algoname << " using " << basealgo << " gridSize " << gridSize
+//        << " epsilon " << epsilon
+//        << " memFP(MB) " << (footprint+0.0)/(1024.0*1024.0)
+//        << " #A " << size_dsA
+//        << " #B " << size_dsB
+//        << " sizeObj(B) " << sizeof(SpatialObjectList)
+//        << " EmptyCells(%) " << percentageEmpty
+//        << " MaxObj " << maxMappedObjects
+//        << " AveObj " << avg
+//        << " StdObj " << std
+//
+//        << " Compared # " << ItemsCompared
+//        << " % " << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB)
+//        << " Duplicates " << resultPairs.duplicates
+//        << " Results " << resultPairs.results
+//        << " Selectivity " << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB)
+//        << " filtered A:" << filtered[0] << " B " << filtered[1]
+//        << " repA " << repA
+//        << " repB " << repB
+//
+//        << " Time "
+//        << " loading " << dataLoad
+//        << " init " << initialize
+//        << " build " << building
+//        << " probe " << probing
+//        << " comparing " << comparing
+//        << " partition " << partition
+//        << " join " << Ljoin
+//        << " total " << total
+//        << " deDuplicating " << resultPairs.deDuplicateTime
+//        << " analyzing " << analyzing
+//        << " sorting " << sorting
+//
+//        << " partitions " << partitions
+//        << " Fanout " << base
+//        << " datasets " << file_dsA << " " << file_dsB;
+//
+//
+//    fout<< endl;
+//    fout.close();
 
 
 

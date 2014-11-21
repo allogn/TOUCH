@@ -6,6 +6,7 @@
         <in>SpatialJoin.cpp</in>
       </df>
       <df name="bin">
+        <in>runFromBash.m</in>
       </df>
       <df name="build">
         <df name="CMakeFiles">
@@ -864,6 +865,7 @@
         <in>Vertex.cpp</in>
         <in>cTOUCH.cpp</in>
         <in>dTOUCH.cpp</in>
+        <in>fullComparison.cpp</in>
         <in>hilbert.cpp</in>
         <in>reTOUCH.cpp</in>
       </df>

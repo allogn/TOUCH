@@ -167,7 +167,7 @@ public:
     void joinIntenalnodetoleafs(TreeEntry* ancestorNode);
 
     void probe();
-
+    void countSpatialGrid();
     void analyze();
     
     

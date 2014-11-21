@@ -68,6 +68,9 @@ public:
     int algorithm;		// Choose the algorithm
     int localJoin;		// Choose the algorithm for joining the buckets, The local join
     int partitions;				// # of partitions: in S3 is # of levels; in SGrid is resolution
+    
+    string algoname;
+    string basealgo;
       
     JoinAlgorithm();
     virtual ~JoinAlgorithm();

@@ -51,6 +51,7 @@ void usage(const char *program_name) {
     printf("      6:cTOUCH:Spatial Hierarchical Has\n");
     printf("      7:dTOUCH:Spatial Hierarchical Has\n");
     printf("      8:reTOUCH:Spatial Hierarchical Has\n");
+    printf("      9:Total TOUCH test\n");
     printf("\n");
     printf("   -J               Algorithm for joining the buckets\n");
     printf("   -p               # of partitions (leaf size)\n");

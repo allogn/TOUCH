@@ -45,7 +45,6 @@ public:
     void probe();
     void analyze();
     
-    void printTOUCH(); //overloaded
 };
 
 

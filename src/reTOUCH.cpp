@@ -489,7 +489,7 @@ void reTOUCH::joinBtoDesA(FLAT::uint64 BID)
 }
 
 
-void cTOUCH::countSpatialGrid()
+void reTOUCH::countSpatialGrid()
 {
     gridCalculate.start();
     for (int type = 0; type < TYPES; type++)
@@ -507,6 +507,8 @@ void cTOUCH::countSpatialGrid()
 void reTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode, bool isA)
 {
     queue<TreeEntry*> nodes;
+    
+    int opType = (obj->type)?0:1;
     TreeNode* node, * downnode;
     nodes.push(ancestorNode);
     FLAT::Box objMBR = obj->getMBR();

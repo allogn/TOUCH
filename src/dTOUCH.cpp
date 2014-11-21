@@ -488,11 +488,3 @@ void dTOUCH::analyze()
 
         analyzing.stop();
 }
-
-
-
-void dTOUCH::printTOUCH() {
-    
-    print(); // print statistics of JoinAlgorithm
-    
-}

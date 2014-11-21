@@ -13,6 +13,7 @@
 #include <vector>
 #include <queue>
 #include <cmath>
+#include <unistd.h> // check if log file exists
 
 #include "JoinAlgorithm.h"
 #include "TreeNode.h"
