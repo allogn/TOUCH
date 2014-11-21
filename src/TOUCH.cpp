@@ -173,7 +173,7 @@ void TOUCH::assignment()
                         if(!overlaps)
                         {
                                 //filtered
-                                filtered ++;
+                                filtered[0] ++;
                                 break;
                         }
                         ptr = tree.at(nextNode->childIndex);
@@ -199,9 +199,7 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
         if( localJoin == algo_SGrid )// && localPartitions < internalObjsCount)// && internal->level >0)
         {
                 //constructing the grid for the current internal node that we want to join it with all its desendet leaf nodes
-                gridCalculate.start();
                 spatialGridHash->build(ancestorNode->attachedObjs[0]);
-                gridCalculate.stop();
         }
 
         leaves.push(ancestorNodeID);

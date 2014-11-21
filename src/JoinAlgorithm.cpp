@@ -10,7 +10,8 @@
 JoinAlgorithm::JoinAlgorithm() {
     hashprobe = 0;
     footprint=0;
-    filtered=0;
+    filtered[0]=0;
+    filtered[1] = 0;
     maxMappedObjects=0;
     avg=0;
     std=0;
@@ -236,7 +237,7 @@ void JoinAlgorithm::print()
         << " Duplicates " << resultPairs.duplicates
         << " Results " << resultPairs.results
         << " Selectivity " << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB)
-        << " filtered " << filtered
+        << " filtered A:" << filtered[0] << " B " << filtered[1]
         << " repA " << repA
         << " repB " << repB
 

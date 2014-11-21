@@ -92,7 +92,6 @@ private:
 	{
 		FLAT::Box mbr = sobj->getMBR();
                 mbr.isEmpty = false;
-                FLAT::Box::expand(mbr,epsilon*1./2.);
 		if (!FLAT::Box::overlap(mbr,universe)) return false;
 
 		int xMin,xMax,yMin,yMax,zMin,zMax;

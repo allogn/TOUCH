@@ -294,18 +294,16 @@ void dTOUCH::assignmentB()
 void dTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode*>& tree, TreeEntry* root)
 {
         SpatialGridHash* spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
+        spatialGridHash->epsilon = this->epsilon;
         queue<FLAT::uint64> leaves;
         TreeNode* leaf, *ancestorNode;
         ancestorNode = tree.at(ancestorNodeID);
         if( localJoin == algo_SGrid )// && localPartitions < internalObjsCount)// && internal->level >0)
         {
                 //constructing the grid for the current internal node that we want to join it with all its desendet leaf nodes
-                //spatialGridHash = new SpatialGridHash(localUniverse,localPartitions);
-                resultPairs.deDuplicateTime.start();
-                //spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
-                spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
+                gridCalculate.start();
                 spatialGridHash->build(ancestorNode->attachedObjs[0]);
-                resultPairs.deDuplicateTime.stop();
+                gridCalculate.stop();
         }
 
         leaves.push(ancestorNodeID);
@@ -320,11 +318,11 @@ void dTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode
 
                         if(localJoin == algo_SGrid)// && localPartitions < internalObjsCount)// && internal->level >0)
                         {
-                                spatialGridHash->probe(leaf);
+                            spatialGridHash->probe(leaf);
                         }
                         else
                         {
-                                JOIN(leaf,ancestorNode->attachedObjs[0]);
+                            JOIN(leaf,ancestorNode->attachedObjs[0]);
                         }
 
                         comparing.stop();
@@ -336,6 +334,16 @@ void dTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode
                                 leaves.push(leaf->entries.at(child)->childIndex);
                         }
                 }
+        }
+        
+        if(localJoin == algo_SGrid)
+        {
+            spatialGridHash->resultPairs.deDuplicateTime.start();
+            spatialGridHash->resultPairs.deDuplicate();
+            spatialGridHash->resultPairs.deDuplicateTime.stop();
+        
+            this->ItemsCompared += spatialGridHash->ItemsCompared;
+            this->resultPairs.results += spatialGridHash->resultPairs.results;
         }
 }
 //Optimized probing function
@@ -487,36 +495,4 @@ void dTOUCH::printTOUCH() {
     
     print(); // print statistics of JoinAlgorithm
     
-    ofstream fout(logfilename.c_str(),ios_base::app);
-    
-    //// A tree
-    FLAT::uint64 comparisons = 0;
-    for(int i = 0 ; i<LVLA ; i++)
-        comparisons += pow(base,i)*(leafsize*ItemPerLevelA[i]);
-    
-    fout << " LocalJoinResolution " << localPartitions <<  " ExpectedComparisons " << comparisons << "(#) = " <<
-    100*((double)comparisons/(double)(size_dsA*size_dsB)) << "(%)"
-        << " sortType " << PartitioningType <<
-        " Filtered " <<	filtered << "(#) = " << 100*(double)filtered/(double)size_dsB << "(%) Level";
-
-    for(int i = 0 ; i<LVLA ; i++)
-        fout << " " << i << " : " << ItemPerLevelA[i] << "(#) = " 
-             <<  100*(double)ItemPerLevelA[i]/(double)size_dsA << "(%)";
-    
-        //// B tree
-    comparisons = 0;
-    for(int i = 0 ; i<LVLB ; i++)
-        comparisons += pow(base,i)*(leafsize*ItemPerLevelB[i]);
-    
-    fout << " LocalJoinResolution " << localPartitions <<  " ExpectedComparisons " << comparisons << "(#) = " <<
-    100*((double)comparisons/(double)(size_dsA*size_dsB)) << "(%)"
-        << " sortType " << PartitioningType <<
-        " Filtered " <<	filtered << "(#) = " << 100*(double)filtered/(double)size_dsB << "(%) Level";
-
-    for(int i = 0 ; i<LVLB ; i++)
-        fout << " " << i << " : " << ItemPerLevelB[i] << "(#) = " 
-             <<  100*(double)ItemPerLevelB[i]/(double)size_dsA << "(%)";
-    
-    
-    fout.close();
 }

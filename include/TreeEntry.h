@@ -26,6 +26,9 @@ public:
 	FLAT::uint64 childIndex;
 	FLAT::uint64 parentIndex;
 	FLAT::SpatialObject* obj;
+        
+        
+        FLAT::uint64 num[TYPES];// number of objects assigned below
 	
 	// make a Leaf item
 	TreeEntry(FLAT::SpatialObject* object)
