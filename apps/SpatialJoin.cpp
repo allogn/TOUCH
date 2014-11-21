@@ -17,6 +17,7 @@
 #include "TOUCH.h"
 #include "dTOUCH.h"
 #include "cTOUCH.h"
+#include "reTOUCH.h"
 #include "S3Hash.h"
 #include "PBSMHash.h"
 
