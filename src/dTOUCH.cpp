@@ -212,7 +212,7 @@ void dTOUCH::assignmentA()
             if(!overlaps)
             {
                     //filtered
-                    filtered ++;
+                    filtered[1]++;
                     break;
                 }
                 ptr = treeA.at(nextNode->childIndex);
@@ -274,7 +274,7 @@ void dTOUCH::assignmentB()
             if(!overlaps)
             {
                     //filtered
-                    filtered ++;
+                    filtered[0]++;
                     break;
                 }
                 ptr = treeB.at(nextNode->childIndex);

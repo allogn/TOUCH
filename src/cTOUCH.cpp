@@ -308,7 +308,7 @@ void cTOUCH::assignment()
                                 break;
                             }
                             //filtered
-                            filtered ++;
+                            filtered[current_type]++;
                             break;
                         }
                         ptr = tree.at(nextNode->childIndex);

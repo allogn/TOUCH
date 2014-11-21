@@ -120,7 +120,7 @@ void reTOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
     for (std::vector<TreeEntry*>::iterator it=objlist.begin(); it!=objlist.end(); ++it)
     {
             prNode->entries.push_back(*it);
-            mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
+            mbr = FLAT::Box::combineSafe((*it)->mbrL[0],mbr);
     }
     childIndex = tree.size();
 

@@ -137,7 +137,7 @@ void PBSMHash::build(SpatialObjectList& a, SpatialObjectList& b)
                 Box::expand(mbr,exp);
                 if (!Box::overlap(mbr,universe))
                 {
-                        filtered ++;
+                        filtered[0]++;
                         continue;
                 }
 

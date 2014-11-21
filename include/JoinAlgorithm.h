@@ -124,7 +124,7 @@ public:
 	FLAT::Timer total;
 	FLAT::Timer comparing;
 	FLAT::Timer partition;
-    FLAT::Timer gridCalculation;
+    FLAT::Timer gridCalculate;
     
     struct Comparator : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
     {

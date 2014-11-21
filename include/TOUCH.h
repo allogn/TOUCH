@@ -8,7 +8,6 @@
 #define	TOUCH_H
 
 #include "TOUCHlike.h"
-#include "SpatialGridHash.h"
 
 class TOUCH : public TOUCHlike {
 public:

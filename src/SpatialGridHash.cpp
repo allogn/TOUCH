@@ -169,7 +169,7 @@ void SpatialGridHash::probe(TreeNode* leaf)
                 vector<FLAT::uint64> cells;
                 if (!getProjectedCells( leaf->entries.at(child)->mbr  , cells ))
                 {
-                        filtered++;
+                        filtered[0]++;
                         continue;
                 }
                 ///// Get Unique Objects from Grid Hash in Vicinity

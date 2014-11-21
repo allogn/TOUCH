@@ -10,7 +10,7 @@
 #include "TreeEntry.h"
 #include <vector>
 
-class spatialGridHash();
+class SpatialGridHash;
 
 class TreeNode
 {

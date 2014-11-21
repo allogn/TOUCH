@@ -13,7 +13,6 @@
  *                      -> JoinAlgorithm.h
  * 
  */
-asdasd
 #include "TOUCH.h"
 #include "dTOUCH.h"
 #include "cTOUCH.h"
@@ -314,6 +313,37 @@ void doTOUCH()
         touch->printTOUCH();
 }
 
+void doreTOUCH()
+{
+	reTOUCH* touch = new reTOUCH();
+        
+        touch->PartitioningType = PartitioningTypeMain;
+        touch->nodesize = base;
+        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
+        touch->localPartitions = localPartitions;	
+        touch->verbose  =  verbose;		
+        touch->localJoin    =  localJoin;	
+        touch->epsilon	=  epsilon;	
+        touch->numA = numA;
+        touch->numB = numB;
+        
+        touch->readBinaryInput(input_dsA, input_dsB);
+	cout << "Forming the partitions" << endl;
+	touch->createPartitions();
+	cout << "Assigning the objects of B" << endl;
+	touch->assignmentB();
+	cout << "Assigning the objects of A" << endl;
+	touch->assignmentA();
+	cout << "Assigning Done." << endl;
+	touch->analyze();
+	cout << "Analysis Done" << endl;
+	cout << "Probing, doing the join1" << endl;
+	touch->probe();
+	cout << "Done." << endl;
+        
+        touch->printTOUCH();
+}
+
 void NLalgo()
 {
     cout << "New NL join algorithm created" << endl;
@@ -371,6 +401,9 @@ int main(int argc, const char* argv[])
 		break;
 		case algo_dTOUCH:
 			dodTOUCH();
+		break;
+                case algo_reTOUCH:
+			doreTOUCH();
 		break;
 		case algo_SGrid:
 			SGrid();
