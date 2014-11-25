@@ -17,7 +17,7 @@ SpatialGridHash::SpatialGridHash(const FLAT::Box& universeExtent,const int gridR
         FLAT::Vertex::differenceVector(universe.high,universe.low,difference);
         for (int i=0;i<DIMENSION;++i)
                 universeWidth[i] = difference[i]/resolution;
-        gridSize = (FLAT::uint64)(resolution * resolution) * resolution;
+        localPartitions = (FLAT::uint64)(resolution * resolution) * resolution;
 
         initialize.stop();
 }
@@ -48,12 +48,12 @@ void SpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectLi
                 sqsum += ptrs*ptrs;
                 if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
         }
-        footprint += sum*sizeof(FLAT::SpatialObject*) +  sizeof(HashValue)*gridSize;
-        avg = (sum+0.0) / (gridSize+0.0);
-        percentageEmpty = (double)(gridSize - gridHashTable.size()) / (double)(gridSize)*100.0;
+        footprint += sum*sizeof(FLAT::SpatialObject*) +  sizeof(HashValue)*localPartitions;
+        avg = (sum+0.0) / (localPartitions+0.0);
+        percentageEmpty = (double)(localPartitions - gridHashTable.size()) / (double)(localPartitions)*100.0;
         repA = (double)(sum)/(double)size_dsA;
         double differenceSquared=0;
-        differenceSquared = ((double)sqsum/(double)gridSize)-avg*avg;
+        differenceSquared = ((double)sqsum/(double)localPartitions)-avg*avg;
         std = sqrt(differenceSquared);
         analyzing.stop();
 }
@@ -97,9 +97,9 @@ void SpatialGridHash::probe(FLAT::SpatialObject*& obj)
         probing.start();
         
         //set to zero variables to use same grid many times
-        filtered[obj->type] = 0;
-        hashprobe = 0;
-        resultPairs = ResultPairs();
+//        filtered[obj->type] = 0;
+//        hashprobe = 0;
+//        resultPairs = ResultPairs();
         
         vector<FLAT::uint64> cells;
         if (!getProjectedCells( obj , cells ))
@@ -129,10 +129,10 @@ void SpatialGridHash::probe(const SpatialObjectList& dsB)
 {
         probing.start();
  
-        filtered[0] = 0;
-        filtered[1] = 0;
-        hashprobe = 0;
-        resultPairs = ResultPairs();
+//        filtered[0] = 0;
+//        filtered[1] = 0;
+//        hashprobe = 0;
+//        resultPairs = ResultPairs();
         
         
         for(SpatialObjectList::const_iterator i=dsB.begin(); i!=dsB.end(); ++i)

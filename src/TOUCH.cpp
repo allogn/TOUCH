@@ -209,6 +209,7 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
                 leaves.pop();
                 if(leaf->leafnode)
                 {
+                        ItemsMaxCompared += ancestorNode->attachedObjs[0].size()*leaf->entries.size();
                         comparing.start();
                         // join leaf->entries and vect
 
@@ -240,6 +241,10 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
         
             this->ItemsCompared += spatialGridHash->ItemsCompared;
             this->resultPairs.results += spatialGridHash->resultPairs.results;
+            this->resultPairs.duplicates += spatialGridHash->resultPairs.duplicates;
+            this->repA += spatialGridHash->repA;
+            this->repB += spatialGridHash->repB;
+            this->resultPairs.deDuplicateTime.add(spatialGridHash->resultPairs.deDuplicateTime);
         }
         
 }

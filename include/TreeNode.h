@@ -19,7 +19,8 @@ public:
 	TreeEntry* parentEntry;
 	bool leafnode;
 	int level;
-        SpatialGridHash* spatialGridHash[TYPES];    
+        SpatialGridHash* spatialGridHash[TYPES];   
+        SpatialGridHash* spatialGridHashAns;
 	
 	std::vector<FLAT::SpatialObject*> attachedObjs[TYPES];
         std::vector<FLAT::SpatialObject*> attachedObjsAns;

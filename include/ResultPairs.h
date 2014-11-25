@@ -46,6 +46,19 @@ public:
     }
     void addPair(FLAT::SpatialObject* sobjA, FLAT::SpatialObject* sobjB);
     void deDuplicate();
+    void printAllResults()
+    {
+        for (SpatialObjectList::iterator it = objA.begin(); it != objA.end(); it++)
+        {
+            std::cout << (*it)->id << ";";
+        }
+        std::cout << "\n";
+        for (SpatialObjectList::iterator it = objB.begin(); it != objB.end(); it++)
+        {
+            std::cout << (*it)->id << ";";
+        }
+        std::cout << "\n";
+    }
 };
 
 

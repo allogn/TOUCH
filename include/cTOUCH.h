@@ -95,7 +95,6 @@ public:
 	void joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);
         
 	void joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID);
-        void countSpatialGrid();
 	void probe();
         
 	void analyze();

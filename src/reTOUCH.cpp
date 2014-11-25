@@ -350,6 +350,8 @@ void reTOUCH::assignmentA()
             //find the number of Boverlaps of belows and the number of Toverlaps of assings of This level
             for (std::vector<TreeEntry*>::iterator ent=ptr->entries.begin();ent!=ptr->entries.end();++ent)
             {
+                if(overlapB>1 || overlapT>1 || (overlapB==1 && overlapT==1 && Ansptr != nextNode))
+						break;
                 if ( FLAT::Box::overlap(objMBR,(*ent)->mbrL[1]) )
                 {
                     overlapB++;
@@ -395,20 +397,12 @@ void reTOUCH::assignmentA()
                 }
                 continue;
             }
-            if(overlapT==1)
-            {
-                tree[Ansptr->childIndex]->attachedObjs[0].push_back(objA);
-                //Expanding the mbr
-                Ansptr->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,Ansptr->mbrSelfD[0]);
-                Ansptr->num[0]++;
-                break;
-            }
             //overlapB==0 && overlapT==0
             //Make decision to assign or filter
             if(Poverlaps)
             {
                 //assign to the Ansptr
-                tree[Ansptr->childIndex]->attachedObjs[0].push_back(objA);
+                tree[Ansptr->childIndex]->attachedObjsAns.push_back(objA);
                 //Expanding the mbr
                 Ansptr->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,Ansptr->mbrSelfD[0]);
                 Ansptr->num[0]++;
@@ -453,9 +447,15 @@ void reTOUCH::joinAtoDesB(FLAT::uint64 AID)
 
                 comparing.start();
                 // join leaf->entries and vect
-
-                JOIN(ancestorNode->attachedObjs[0], des->attachedObjs[1]);
-
+                ItemsMaxCompared += des->attachedObjs[1].size()*ancestorNode->attachedObjs[0].size();
+                if(localJoin == algo_SGrid)
+                {
+                    ancestorNode->spatialGridHash[0]->probe(des->attachedObjs[1]);
+                }
+                else
+                {
+                    JOIN(ancestorNode->attachedObjs[0], des->attachedObjs[1]);
+                }
                 comparing.stop();
         }
 }
@@ -481,27 +481,17 @@ void reTOUCH::joinBtoDesA(FLAT::uint64 BID)
 
             comparing.start();
             // join leaf->entries and vect
-
-            JOIN(des->attachedObjs[0], ancestorNode->attachedObjs[1]);
-
+            ItemsMaxCompared += des->attachedObjs[0].size()*ancestorNode->attachedObjs[1].size();
+            if(localJoin == algo_SGrid)
+            {
+                des->spatialGridHash[0]->probe(ancestorNode->attachedObjs[1]);
+            }
+            else
+            {
+                JOIN(des->attachedObjs[0], ancestorNode->attachedObjs[1]);
+            }
             comparing.stop();
     }
-}
-
-
-void reTOUCH::countSpatialGrid()
-{
-    gridCalculate.start();
-    for (int type = 0; type < TYPES; type++)
-    {
-        for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
-        {
-            (*it)->spatialGridHash[type] = new SpatialGridHash(root->mbr,localPartitions);
-            (*it)->spatialGridHash[type]->epsilon = this->epsilon;
-            (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
-        }
-    }
-    gridCalculate.stop();
 }
 
 void reTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode, bool isA)
@@ -534,20 +524,17 @@ void reTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ance
                 //if intersects
                 if (FLAT::Box::overlap(objMBR, node->entries[child]->mbrSelfD[1]))
                 {
+                    ItemsMaxCompared += downnode->attachedObjs[1].size();
+                    comparing.start();
                     if(localJoin == algo_SGrid)
                     {
                         downnode->spatialGridHash[opType]->probe(obj);
-                        downnode->spatialGridHash[opType]->resultPairs.deDuplicateTime.start();
-                        downnode->spatialGridHash[opType]->resultPairs.deDuplicate();
-                        downnode->spatialGridHash[opType]->resultPairs.deDuplicateTime.stop();
-
-                        this->ItemsCompared += downnode->spatialGridHash[opType]->ItemsCompared;
-                        this->resultPairs.results += downnode->spatialGridHash[opType]->resultPairs.results;
                     }
                     else
                     {
                         JOIN(obj, downnode->attachedObjs[1]);
                     }
+                    comparing.stop();
                 }
                 if (FLAT::Box::overlap(objMBR, node->entries[child]->mbrL[1]))
                 {
@@ -565,8 +552,19 @@ void reTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ance
                 downnode = tree[node->entries[child]->childIndex];
                 if (FLAT::Box::overlap(objMBR, node->entries[child]->mbrSelfD[0]))
                 {
+                    comparing.start();
+                    ItemsMaxCompared += downnode->attachedObjs[0].size()+downnode->attachedObjsAns.size();
+                    if(localJoin == algo_SGrid)
+                    {
+                        downnode->spatialGridHash[opType]->probe(obj);
+                        downnode->spatialGridHashAns->probe(obj);
+                    }
+                    else
+                    {
                         JOIN(obj, downnode->attachedObjs[0]);
                         JOIN(obj, downnode->attachedObjsAns);
+                    }
+                    comparing.stop();
                 }
                 if (FLAT::Box::overlap(objMBR, node->entries[child]->mbrL[0]))
                 {
@@ -585,7 +583,7 @@ void reTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ance
 void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
 {
     //check for intersection all nodes below, where smth was attached with opposite color.
-    comparing.start();
+    
 
 
     // here @todo check function and parallelize
@@ -611,17 +609,15 @@ void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
     /*
      * A -> B
      */
+    ItemsMaxCompared += node->attachedObjs[1].size()*(node->attachedObjs[0].size()+node->attachedObjsAns.size());
     if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
     {
         if(localJoin == algo_SGrid)
         {
+            comparing.start();
             node->spatialGridHash[0]->probe(node->attachedObjs[1]);
-            node->spatialGridHash[0]->resultPairs.deDuplicateTime.start();
-            node->spatialGridHash[0]->resultPairs.deDuplicate();
-            node->spatialGridHash[0]->resultPairs.deDuplicateTime.stop();
-        
-            this->ItemsCompared += node->spatialGridHash[0]->ItemsCompared;
-            this->resultPairs.results += node->spatialGridHash[0]->resultPairs.results;
+            node->spatialGridHashAns->probe(node->attachedObjs[1]);
+            comparing.stop();
         }
         else
         {
@@ -630,8 +626,26 @@ void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
             {
                 FLAT::Box mbr = (*it)->getMBR();
                 mbr.isEmpty = false;
+                FLAT::Box::expand(mbr,epsilon * 1./2.);
+                comparing.start();
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[1]))
-                        JOIN((*it), node->attachedObjs[1]);
+                {
+                    JOIN((*it), node->attachedObjs[1]);
+                }
+                comparing.stop();
+            }
+            for (SpatialObjectList::iterator it = node->attachedObjsAns.begin();
+                                                            it != node->attachedObjsAns.end(); it++)
+            {
+                FLAT::Box mbr = (*it)->getMBR();
+                mbr.isEmpty = false;
+                FLAT::Box::expand(mbr,epsilon * 1./2.);
+                comparing.start();
+                if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[1]))
+                {
+                    JOIN((*it), node->attachedObjs[1]);
+                }
+                comparing.stop();
             }
         }
     }
@@ -639,13 +653,10 @@ void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
     {
         if(localJoin == algo_SGrid)
         {
+            comparing.start();
             node->spatialGridHash[1]->probe(node->attachedObjs[0]);
-            node->spatialGridHash[1]->resultPairs.deDuplicateTime.start();
-            node->spatialGridHash[1]->resultPairs.deDuplicate();
-            node->spatialGridHash[1]->resultPairs.deDuplicateTime.stop();
-        
-            this->ItemsCompared += node->spatialGridHash[1]->ItemsCompared;
-            this->resultPairs.results += node->spatialGridHash[1]->resultPairs.results;
+            node->spatialGridHash[1]->probe(node->attachedObjsAns);
+            comparing.stop();
         }
         else
         {
@@ -654,18 +665,20 @@ void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
             {
                 FLAT::Box mbr = (*it)->getMBR();
                 mbr.isEmpty = false;
+                FLAT::Box::expand(mbr,epsilon * 1./2.);
+                comparing.start();
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[0]))
                 {
                         JOIN((*it), node->attachedObjs[0]);
                         JOIN((*it), node->attachedObjsAns);
                 }
+                comparing.stop();
 
             }
         }
     }
 
 
-    comparing.stop();
 }
 
 FLAT::uint64 reTOUCH::mergingMbrB(TreeEntry* startEntry, FLAT::Box &mbr)

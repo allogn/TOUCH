@@ -16,8 +16,10 @@ JoinAlgorithm::JoinAlgorithm() {
     avg=0;
     std=0;
     ItemsCompared =0;
-    gridSize = 0;
+    ItemsMaxCompared = 0;
+    //gridSize = 0;
     percentageEmpty=0;
+    duplicates = 0; // sum via all resultPairs
     repA=1;
     repB=1;
     algorithm				=  algo_NL;	//default algorithm
@@ -82,7 +84,7 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
             }
             sobj->type = 0;
             sobj->cost = 0;
-
+            sobj->id = numA;
             newEntry = new TreeEntry(sobj);
             newEntry->expand(epsilon); //@todo in new touch when assigning - also must expand??
             vdsA.push_back(newEntry);
@@ -106,7 +108,7 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
             }
             sobj->type = 1;
             sobj->cost = 0;
-
+            sobj->id = numB;
             newEntry = new TreeEntry(sobj);
             newEntry->expand(epsilon); //@todo in new touch when assigning - also must expand??
             //vdsB.push_back(newEntry); @todo is it needed elsewhere? in dTOUCH it must be empty at the beginning
@@ -209,7 +211,7 @@ void JoinAlgorithm::print()
         cout << "Total Time taken: " << total << endl;
         */
         cout<< "\n================================\n";
-        cout << algoname << " using " << basealgo << " gridSize " << gridSize << '\n'
+        cout << algoname << " using " << basealgo << " gridSize " << localPartitions << '\n'
         << "memFP(MB) " << (footprint+0.0)/(1024.0*1024.0) << " #A " << size_dsA << " #B " << size_dsB << '\n'
         << "size" << " SOlist "<< sizeof(SpatialObjectList) << " SO* "<< sizeof(FLAT::SpatialObject *) << " Node* "<< sizeof(TreeNode*) << '\n'
         << "EmptyCells(%) " << percentageEmpty	<< " MaxObj " << maxMappedObjects << " AveObj " << avg << " StdObj " << std << '\n'

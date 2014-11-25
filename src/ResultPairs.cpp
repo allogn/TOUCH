@@ -6,7 +6,7 @@
 
 void ResultPairs::deDuplicate()
 {
-    results = 0;
+        results = 0;
         deDuplicateTime.start();
         std::set<std::pair<FLAT::SpatialObject*,FLAT::SpatialObject*> > uniqueResults;
         for (FLAT::uint64 i=0;i<objA.size();++i)

@@ -11,7 +11,6 @@ TOUCHlike::TOUCHlike() {
     nodesize = base;
     leafsize = partitions;
     PartitioningType = No_Sort;
-    total.start();
 }
 
 TOUCHlike::~TOUCHlike() {
@@ -33,19 +32,20 @@ void TOUCHlike::printTOUCH() {
     if (headers)
     {
         fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Partitions, gridSize, " // common parameters
-        << "Compared #, Compared %, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
-        << "t loading, t init, t build, t probe, t comparing, t partition, t join, t total, t deDuplicating, t analyzing, t sorting,"
+        << "Compared #, Compared %, ComparedMax, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
+        << "t loading, t init, t build, t probe, t comparing, t partition, t join, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate,"
         << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB\n";
     }
     //check if file exists
             
     fout
     << algoname << "," << epsilon << "," << size_dsA << "," << size_dsB << "," << file_dsA << "," << file_dsB << ","
-    << basealgo << "," << base << "," << partitions << "," << gridSize << ","
+    << basealgo << "," << base << "," << partitions << "," << localPartitions << ","
             
     << ItemsCompared << "," 
             << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB) << ","
-    << resultPairs.duplicates << ","
+            << ItemsMaxCompared << ","
+    << duplicates << ","
             << resultPairs.results << ","
             << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB) << "," 
     << filtered[0] << "," 
@@ -61,6 +61,7 @@ void TOUCHlike::printTOUCH() {
             << resultPairs.deDuplicateTime << "," 
     << analyzing << ","
             << sorting << ","
+            << gridCalculate << ","
             << percentageEmpty << ","
             << maxMappedObjects << "," 
     << avg << "," 
@@ -68,4 +69,43 @@ void TOUCHlike::printTOUCH() {
             << repA << ","
             << repB << "\n";
 
+}
+
+
+void TOUCHlike::countSpatialGrid()
+{
+    gridCalculate.start();
+    for (int type = 0; type < TYPES; type++)
+    {
+        for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+        {
+            (*it)->spatialGridHash[type] = new SpatialGridHash(root->mbr,localPartitions);
+            (*it)->spatialGridHashAns = new SpatialGridHash(root->mbr,localPartitions);
+            (*it)->spatialGridHash[type]->epsilon = this->epsilon;
+            (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
+            if (this->algorithm == algo_reTOUCH)
+                (*it)->spatialGridHashAns->build((*it)->attachedObjsAns);
+        }
+    }
+    gridCalculate.stop();
+}
+
+void TOUCHlike::deduplicateSpatialGrid()
+{
+    for (int type = 0; type < TYPES; type++)
+    {
+        for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+        {
+            (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.start();
+            (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
+            (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.stop();
+        
+            this->ItemsCompared += (*it)->spatialGridHash[type]->ItemsCompared;
+            this->resultPairs.results += (*it)->spatialGridHash[type]->resultPairs.results;
+            this->resultPairs.duplicates += (*it)->spatialGridHash[type]->resultPairs.duplicates;
+            this->repA += (*it)->spatialGridHash[type]->repA;
+            this->repB += (*it)->spatialGridHash[type]->repB;
+            this->resultPairs.deDuplicateTime.add((*it)->spatialGridHash[type]->resultPairs.deDuplicateTime);
+        }
+    }
 }

@@ -43,12 +43,14 @@ public:
     TreeEntry* root;
     FLAT::Timer Ljoin;// The time for local join
     SpatialObjectList dsA, dsB;					//A is smaller than B
+    int localPartitions;
 
     
     int base; // the base for S3 and SH algorithms
     string logfilename;
     double epsilon;
     unsigned int numA, numB;		//number of elements to be read from datasets
+    int duplicates;
     
     
     FLAT::Box universeA, universeB;
@@ -106,7 +108,8 @@ public:
     
 //protected:
         FLAT::uint64 ItemsCompared;
-	FLAT::uint64 gridSize;
+        FLAT::uint64 ItemsMaxCompared;
+	//FLAT::uint64 gridSize;
 
 	FLAT::uint64 filtered[TYPES];
 	FLAT::uint64 hashprobe;
@@ -209,9 +212,9 @@ public:
     inline bool istouching(FLAT::SpatialObject* sobj1, FLAT::SpatialObject* sobj2)
     {
             return istouchingV(sobj1,sobj2);
-
-            ItemsCompared++;
-            return (FLAT::Vertex::distance(sobj1->getCenter(),sobj2->getCenter()) < epsilon );
+//
+//            ItemsCompared++;
+//            return (FLAT::Vertex::distance(sobj1->getCenter(),sobj2->getCenter()) < epsilon );
     }
 
     struct ComparatorTree_Xaxis : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>

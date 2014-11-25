@@ -1,0 +1,14 @@
+{
+    "name": "TOUCH",
+    "description": "In-Memory Spatial Join by Hierarchical Data-Oriented Partitioning",
+    "author": "Alvis Logins",
+    "affiliation": "Moscow Institute of physics and Technology, Skolkovo Institute of Science and Technology",
+    "inputs": "Data .bin are binary files that contain information about type (shape) of spatial objects, their ",
+    "command": "runFromBash.m",
+    "testfile": "RandomData-10K.bin RandomData-Normal-500-250-10K.bin",
+    "date": "December 3, 2014",
+    "course": "Machine Learning and Data Analysis (Strijov's practice)/Group 174, Fall 2014",
+    "presentation": "http://svn.code.sf.net/p/mlalgorithms/code/Group174/Logins2014Touch/doc/Logins2014Presentation.pdf",
+    "systemdocs": "http://svn.code.sf.net/p/mlalgorithms/code/Group174/Logins2014Touch/doc/Logins2014Systemdocs.doc",
+    "probstatement": "http://svn.code.sf.net/p/mlalgorithms/Group174/Logins2014Touch/doc/Logins2014ProblemStatement.pdf"
+}

@@ -11,7 +11,7 @@
 dTOUCH::dTOUCH()
 {
     algorithm = algo_dTOUCH;
-    maxAssignmentLevel = 1;
+    maxAssignmentLevel = 2;
     
     total.start(); // timing
 }
@@ -253,7 +253,6 @@ void dTOUCH::assignmentB()
                 {
                     if(overlaps++ == 0)
                     {
-                        overlaps = true;
                         nextNode = ptr->entries.at(cChild);
                     }
                     else
@@ -315,7 +314,7 @@ void dTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode
                 {
                         comparing.start();
                         // join leaf->entries and vect
-
+                        ItemsMaxCompared += ancestorNode->attachedObjs[0].size()*leaf->entries.size();
                         if(localJoin == algo_SGrid)// && localPartitions < internalObjsCount)// && internal->level >0)
                         {
                             spatialGridHash->probe(leaf);
@@ -344,6 +343,10 @@ void dTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode
         
             this->ItemsCompared += spatialGridHash->ItemsCompared;
             this->resultPairs.results += spatialGridHash->resultPairs.results;
+            this->resultPairs.duplicates += spatialGridHash->resultPairs.duplicates;
+            this->repA += spatialGridHash->repA;
+            this->repB += spatialGridHash->repB;
+            this->resultPairs.deDuplicateTime.add(spatialGridHash->resultPairs.deDuplicateTime);
         }
 }
 //Optimized probing function
@@ -429,7 +432,6 @@ void dTOUCH::probe()
         }
 
         probing.stop();
-
 }
 void dTOUCH::analyze()
 {

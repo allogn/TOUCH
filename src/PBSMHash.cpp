@@ -16,7 +16,7 @@ PBSMHash::PBSMHash(const Box& universeExtent, uint64 partitionPerDim)
     Vertex difference;
     Vertex::differenceVector(universe.high,universe.low,difference);
 
-    gridSize = totalGridCells;
+    localPartitions = totalGridCells;
 
     for (int i=0;i<DIMENSION;++i)
             universeWidth[i] = ceil( (double)difference[i]/(double)resolution );
@@ -53,13 +53,13 @@ void PBSMHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB
                 if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
         }
         sum = sumA+sumB;
-        footprint += sum*sizeof(SpatialObject*) + 2*sizeof(HashValue)*gridSize;
-        avg = (sum+0.0) / (2*gridSize+0.0);
+        footprint += sum*sizeof(SpatialObject*) + 2*sizeof(HashValue)*localPartitions;
+        avg = (sum+0.0) / (2*localPartitions+0.0);
         repA = (double)(sumA)/(double)size_dsA;
         repB = (double)(sumB)/(double)size_dsB;
-        percentageEmpty = (double)(2*gridSize - hashTableA.size()- hashTableB.size()) / (double)(2*gridSize)*100.0;
+        percentageEmpty = (double)(2*localPartitions - hashTableA.size()- hashTableB.size()) / (double)(2*localPartitions)*100.0;
         double differenceSquared=0;
-        differenceSquared = ((double)sqsum/(double)(2*gridSize))-avg*avg;
+        differenceSquared = ((double)sqsum/(double)(2*localPartitions))-avg*avg;
         std = sqrt(differenceSquared);
         analyzing.stop();
 }

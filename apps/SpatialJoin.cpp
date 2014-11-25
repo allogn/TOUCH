@@ -249,7 +249,7 @@ void dodTOUCH()
 	cout << "Probing, doing the join1" << endl;
 	touch->probe();
 	cout << "Done." << endl;
-        
+        touch->resultPairs.printAllResults();
         touch->printTOUCH();
 }
 
@@ -280,6 +280,11 @@ void docTOUCH()
             touch->countSpatialGrid();
 	cout << "Probing, doing the join" << endl;
 	touch->probe();
+        if(localJoin == algo_SGrid)
+        {
+            cout << "Deduplication" << endl;
+            touch->deduplicateSpatialGrid();
+        }
 	cout << "Done." << endl;
         
         touch->printTOUCH();
@@ -310,7 +315,7 @@ void doTOUCH()
 	cout << "Probing, doing the join1" << endl;
 	touch->probe();
 	cout << "Done." << endl;
-        
+        touch->resultPairs.printAllResults();
         touch->printTOUCH();
 }
 
@@ -342,6 +347,11 @@ void doreTOUCH()
             touch->countSpatialGrid();
 	cout << "Probing, doing the join1" << endl;
 	touch->probe();
+        if(localJoin == algo_SGrid)
+        {
+            cout << "Deduplication" << endl;
+            touch->deduplicateSpatialGrid();
+        }
 	cout << "Done." << endl;
         
         touch->printTOUCH();

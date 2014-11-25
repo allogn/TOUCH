@@ -28,11 +28,13 @@ public:
     void printTOUCH();
     
     int PartitioningType;	// Sorting algorithm
-    int localPartitions;	//The local join resolution
     unsigned int leafsize, nodesize;
     unsigned int totalnodes;
     int Levels;
     
+    
+    void countSpatialGrid();
+    void deduplicateSpatialGrid();
     
     void JOIN(TreeNode* node, SpatialObjectList& B)
     {

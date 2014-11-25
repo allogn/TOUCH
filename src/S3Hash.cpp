@@ -28,7 +28,7 @@ S3Hash::S3Hash(const FLAT::Box& universeExtent, int level) {
             totalGridCells += pow(resolution[l],DIMENSION);
     }
     cout << "Total cells: " << totalGridCells << endl;
-    gridSize = totalGridCells;
+    localPartitions = totalGridCells;
 
     for(int l = 0 ; l < levels ; l++)
     {
@@ -187,11 +187,11 @@ void S3Hash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
                 sqsum += ptrs*ptrs;
                 if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
         }
-        footprint += sum*sizeof(SpatialObjectList) +  sizeof(HashValue)*gridSize;
-        avg = (sum+0.0) / (gridSize+0.0);
-        percentageEmpty = (double)(gridSize - hashTableA.size()- hashTableB.size()) / (double)(gridSize)*100.0;
+        footprint += sum*sizeof(SpatialObjectList) +  sizeof(HashValue)*localPartitions;
+        avg = (sum+0.0) / (localPartitions+0.0);
+        percentageEmpty = (double)(localPartitions - hashTableA.size()- hashTableB.size()) / (double)(localPartitions)*100.0;
         double differenceSquared=0;
-        differenceSquared = ((double)sqsum/(double)gridSize)-avg*avg;
+        differenceSquared = ((double)sqsum/(double)localPartitions)-avg*avg;
         std = sqrt(differenceSquared);
         analyzing.stop();
 }
