@@ -370,7 +370,7 @@ void cTOUCH::assign(TreeNode* ptr, FLAT::SpatialObject* obj)
     ptr->attachedObjs[current_type].push_back(obj);
 
     //update the cost function of current object according to level in the tree
-    obj->cost += pow(nodesize,ptr->level);
+//    obj->cost += pow(nodesize,ptr->level);
 
     ancestorEntry = ptr->parentEntry;  // take entry for the node where we assigning
 
@@ -393,11 +393,11 @@ void cTOUCH::assign(TreeNode* ptr, FLAT::SpatialObject* obj)
         ancestorEntry->mbrK[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrD[current_type], ancestorEntry->mbrK[current_type]);
 
         //here - update cost
-        for (SpatialObjectList::iterator it = ancestorNode->attachedObjs[opType].begin();
-            it != ancestorNode->attachedObjs[opType].end(); it++)
-        {
-            (*it)->cost++;
-        }
+//        for (SpatialObjectList::iterator it = ancestorNode->attachedObjs[opType].begin();
+//            it != ancestorNode->attachedObjs[opType].end(); it++)
+//        {
+//            (*it)->cost++;
+//        }
 
     }
 }
@@ -441,7 +441,17 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
                             comparing.start();
                             if(localJoin == algo_SGrid)
                             {
+                                int t,tt;
+                                t = downnode->spatialGridHash[opType]->resultPairs.results;
                                 downnode->spatialGridHash[opType]->probe(obj);
+                                tt = downnode->spatialGridHash[opType]->resultPairs.results-t;
+                                t = this->resultPairs.results;
+                                //JOIN(obj, downnode->attachedObjs[opType]);
+//                                cout << "(" << tt << "; " << this->resultPairs.results-t << "), " ;
+//                                if (tt != this->resultPairs.results-t)
+//                                {
+//                                    cout << "ERROR ERROR ERROR " << tt << " " << this->resultPairs.results-t << "-------------" << endl;
+//                                }
                             }
                             else
                             {
@@ -458,12 +468,77 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
         }
 }
 
+//void cTOUCH::joinInternalobjecttodescHash(SpatialGridHash* grid, FLAT::uint64 ancestorNodeID, int opType)
+//{
+//        queue<FLAT::uint64> nodes;
+//        int nodeID;
+//        
+//        TreeNode* node;
+//        TreeNode* downnode;
+//        nodes.push(ancestorNodeID);
+//        
+//        while(nodes.size()>0)
+//        {
+//                //start from checking children, each for intersection of MBR
+//                // then if intersects - check the assign objects of child
+//                // and if it is not a leaf node and intersects -> add to the queue
+//
+//                nodeID = nodes.front();
+//                node = tree.at(nodeID);
+//                nodes.pop();
+//                
+//                if (node->leafnode == true)
+//                    continue;
+//
+//                //intersect with all non-null children
+//                for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
+//                {
+//                        downnode = tree.at(node->entries.at(child)->childIndex );
+//                        
+//                        //if intersects
+//                        ItemsMaxCompared += downnode->attachedObjs[opType].size();
+//                        comparing.start();
+//                        grid->probe(downnode->attachedObjs[opType]);
+//                        comparing.stop();
+//                        if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrD[opType]))
+//                        {
+//                            nodes.push(node->entries.at(child)->childIndex);
+//                        } 
+//                }
+//
+//        }
+//}
+
 void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 {
 
     //check for intersection all nodes below, where smth was attached with opposite color.
 
     TreeNode* node = tree.at(ancestorNodeID);
+    
+//    if (localJoin == algo_SGrid)
+//    {
+//        FLAT::Box universe = node->parentEntry->mbrK[0];
+//        FLAT::Box::expand(universe, 100000);
+//        for (int type = 0; type < TYPES; type++)
+//        {
+//            SpatialGridHash* h1 = new SpatialGridHash(universe,localPartitions);
+//            h1->epsilon = this->epsilon;
+//            h1->build(node->attachedObjs[type]);
+//            joinInternalobjecttodescHash(h1, ancestorNodeID, !type);
+//
+//            h1->resultPairs.deDuplicateTime.start();
+//            h1->resultPairs.deDuplicate();
+//            h1->resultPairs.deDuplicateTime.stop();
+//
+//            this->ItemsCompared += h1->ItemsCompared;
+//            this->resultPairs.results += h1->resultPairs.results;
+//            this->resultPairs.duplicates += h1->resultPairs.duplicates;
+//            this->repA += h1->repA;
+//            this->repB += h1->repB;
+//            this->resultPairs.deDuplicateTime.add(h1->resultPairs.deDuplicateTime);
+//        }
+//    }
     
     // here @todo check function and parallelize
     /*

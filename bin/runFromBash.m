@@ -2,9 +2,12 @@
 
 filename_in1 = '../data/RawData-segment-object-1M-Axons.bin';
 filename_in2 = '../data/RawData-segment-object-1M-Dendrites.bin';
+% filename_in1 = '../data/RandomData-10K.bin';
+% filename_in2 = '../data/RandomData-Normal-500-250-10K.bin';
+
 !rm ./SJ.csv
-for epsilon = 15:15:25
-    for objnum = 7000:1000:8000
+for epsilon = 5:15:120
+    for objnum = 5000:1000:8000
         for alg = [4 6 7 8]
             args = strcat({'-a '},{int2str(alg)},{' -p 100 -e '},{int2str(epsilon)},{' -b 3 -t 1 -J 2 '},...
                 {'-i '},{filename_in1},{' '},{filename_in2},{' -n '},...

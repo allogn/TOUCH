@@ -75,16 +75,24 @@ void TOUCHlike::printTOUCH() {
 void TOUCHlike::countSpatialGrid()
 {
     gridCalculate.start();
-    for (int type = 0; type < TYPES; type++)
-    {
-        for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+    FLAT::Box univ[2];
+    univ[0] = root->mbrK[0];
+    univ[1] = root->mbrK[1];
+    FLAT::Box::expand(univ[0],10000);
+    FLAT::Box::expand(univ[1],10000);
+    for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+    { 
+        for (int type = 0; type < TYPES; type++)
         {
-            (*it)->spatialGridHash[type] = new SpatialGridHash(root->mbr,localPartitions);
-            (*it)->spatialGridHashAns = new SpatialGridHash(root->mbr,localPartitions);
+            (*it)->spatialGridHash[type] = new SpatialGridHash(univ[type],localPartitions);
             (*it)->spatialGridHash[type]->epsilon = this->epsilon;
             (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
-            if (this->algorithm == algo_reTOUCH)
-                (*it)->spatialGridHashAns->build((*it)->attachedObjsAns);
+        }
+        if (this->algorithm == algo_reTOUCH)
+        {
+            (*it)->spatialGridHashAns = new SpatialGridHash(root->mbr,localPartitions);
+            (*it)->spatialGridHashAns->epsilon = this->epsilon;
+            (*it)->spatialGridHashAns->build((*it)->attachedObjsAns);
         }
     }
     gridCalculate.stop();
@@ -92,20 +100,32 @@ void TOUCHlike::countSpatialGrid()
 
 void TOUCHlike::deduplicateSpatialGrid()
 {
-    for (int type = 0; type < TYPES; type++)
-    {
         for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
         {
-            (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.start();
-            (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
-            (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.stop();
-        
-            this->ItemsCompared += (*it)->spatialGridHash[type]->ItemsCompared;
-            this->resultPairs.results += (*it)->spatialGridHash[type]->resultPairs.results;
-            this->resultPairs.duplicates += (*it)->spatialGridHash[type]->resultPairs.duplicates;
-            this->repA += (*it)->spatialGridHash[type]->repA;
-            this->repB += (*it)->spatialGridHash[type]->repB;
-            this->resultPairs.deDuplicateTime.add((*it)->spatialGridHash[type]->resultPairs.deDuplicateTime);
+            for (int type = 0; type < TYPES; type++)
+            {
+                (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.start();
+                (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
+                (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.stop();
+
+                this->ItemsCompared += (*it)->spatialGridHash[type]->ItemsCompared;
+                this->resultPairs.results += (*it)->spatialGridHash[type]->resultPairs.results;
+                this->resultPairs.duplicates += (*it)->spatialGridHash[type]->resultPairs.duplicates;
+                this->repA += (*it)->spatialGridHash[type]->repA;
+                this->repB += (*it)->spatialGridHash[type]->repB;
+                this->resultPairs.deDuplicateTime.add((*it)->spatialGridHash[type]->resultPairs.deDuplicateTime);
+            }
+            if (this->algorithm == algo_reTOUCH)
+            {
+                (*it)->spatialGridHashAns->resultPairs.deDuplicateTime.start();
+                (*it)->spatialGridHashAns->resultPairs.deDuplicate();
+                (*it)->spatialGridHashAns->resultPairs.deDuplicateTime.stop();
+                this->ItemsCompared += (*it)->spatialGridHashAns->ItemsCompared;
+                this->resultPairs.results += (*it)->spatialGridHashAns->resultPairs.results;
+                this->resultPairs.duplicates += (*it)->spatialGridHashAns->resultPairs.duplicates;
+                this->repA += (*it)->spatialGridHashAns->repA;
+                this->repB += (*it)->spatialGridHashAns->repB;
+                this->resultPairs.deDuplicateTime.add((*it)->spatialGridHashAns->resultPairs.deDuplicateTime);
+            }
         }
-    }
 }

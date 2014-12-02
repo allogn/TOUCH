@@ -56,6 +56,7 @@
         <in>dTOUCH.cpp</in>
         <in>hilbert.cpp</in>
         <in>reTOUCH.cpp</in>
+        <in>rereTOUCH.cpp</in>
       </df>
       <df name="wrapper">
         <in>FLATwrapper.cpp</in>
@@ -243,6 +244,8 @@
       <item path="src/hilbert.cpp" ex="false" tool="1" flavor2="4">
       </item>
       <item path="src/reTOUCH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/rereTOUCH.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="wrapper/FLATwrapper.cpp" ex="false" tool="1" flavor2="4">
       </item>

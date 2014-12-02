@@ -1,9 +1,9 @@
 function html=runFromBash(filename_in1, filename_in2)% Comparing TOUCH algorithms
 
 !rm ./SJ.csv
-for epsilon = 5:30:100
-    for objnum = 100:500:3000
-        for alg = [4 6 7 8]
+for epsilon = 5:50:105
+    for objnum = 100:1000:2100
+        for alg = [4 6 8]
             args = strcat({'-a '},{int2str(alg)},{' -p 100 -e '},{int2str(epsilon)},{' -b 3 -t 1 -J 2 '},...
                 {'-i '},{filename_in1},{' '},{filename_in2},{' -n '},...
                 {int2str(objnum)},{' '},{int2str(objnum)});
@@ -20,7 +20,7 @@ T = readtable(log_file,'Delimiter',',');
 alg = T{:,'Algorithm'};
 epsilon = T{:,'Epsilon'};
 objn = T{:,'x_A'};
-times = T{:,'tJoin'};
+times = T{:,'tComparing'};
 results = T{:,'Results'};
 
 sample_epsilon = epsilon(1);
@@ -30,7 +30,6 @@ sample_epsilon = epsilon(1);
 
 objnum = objn(epsilon == sample_epsilon & strcmp(alg,'TOUCH'));
 touchtime = times(epsilon == sample_epsilon & strcmp(alg,'TOUCH'));
-dtouchtime = times(epsilon == sample_epsilon & strcmp(alg,'dTOUCH'));
 ctouchtime = times(epsilon == sample_epsilon & strcmp(alg,'cTOUCH'));
 retouchtime = times(epsilon == sample_epsilon & strcmp(alg,'reTOUCH'));
 
@@ -44,22 +43,21 @@ mae_out = 'resultnum.png';
 h = figure;
 set(h,'Visible','off');
 hold('on');
-plot(objnum,touchtime);
-plot(objnum,dtouchtime);
-plot(objnum,ctouchtime);
-plot(objnum,retouchtime);
+plot(objnum,touchtime,'r-', 'Linewidth', 2); 
+plot(objnum,ctouchtime,'g-', 'Linewidth', 2); 
+plot(objnum,retouchtime,'b-', 'Linewidth', 2); 
 axis('tight');
-xlabel('Spatial object number', 'FontSize', 20, 'FontName', 'Times', 'Interpreter','latex');
-ylabel('Time [s]', 'FontSize', 20, 'FontName', 'Times', 'Interpreter','latex');
-set(gca, 'FontSize', 20, 'FontName', 'Times');
-legend('TOUCH', 'dTOUCH', 'cTOUCH', 'reTOUCH');
+xlabel('Spatial object number, $\xi$', 'FontSize', 24, 'FontName', 'Times', 'Interpreter','latex');
+ylabel('Time [s], $y$', 'FontSize', 24, 'FontName', 'Times', 'Interpreter','latex');
+set(gca, 'FontSize', 24, 'FontName', 'Times');
+legend('TOUCH', 'cTOUCH', 'reTOUCH');
 saveas(h, frc_out, 'png');
 close(h);
 
 h = figure;
 set(h,'Visible','off');
 hold('on');
-plot(epsilons,resultsnum);
+plot(epsilons,resultsnum,'b-', 'Linewidth', 2); 
 axis('tight');
 xlabel('$\epsilon$', 'FontSize', 20, 'FontName', 'Times', 'Interpreter','latex');
 ylabel('Number of intersections', 'FontSize', 20, 'FontName', 'Times', 'Interpreter','latex');
@@ -71,10 +69,9 @@ close(h);
 
 html=['<ul><li>The figure shows dependacy of joining time of TOUCH-like algorithms on numbers of objecs in sets. ', ...
     '<br>', ...
-    '<img src="' frc_out '"  WIDTH="400" alt="Uploaded image"/> </li></ul>', ...
-    '<ul><li>The figure shows the dependancy of number of objects that are closer than epsilon on epsilon.', ...
-    'The red point indicates the optimal singular value number.<br>', ...
-    '<img src="' mae_out '"  WIDTH="400" alt="Uploaded image"/> </li></ul>'];
+    '<img src="' frc_out '"  WIDTH="700" alt="difftouch"/> </li></ul>', ...
+    '<ul><li>The figure shows the dependancy of number of objects that are closer than epsilon on epsilon.<br>', ...
+    '<img src="' mae_out '"  WIDTH="700" alt="epsilondepend"/> </li></ul>'];
 
 
  

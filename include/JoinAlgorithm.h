@@ -91,7 +91,6 @@ public:
 
     void print();
     
-    
     //Nested Loop join algorithm
     void NL(SpatialObjectList& A, SpatialObjectList& B)
     {
@@ -194,27 +193,64 @@ public:
             }
     };
 
+    std::set<int> s;
     // Returns true if touch and false if not by comparing The corners of the MBRs
     inline bool istouchingV(FLAT::SpatialObject* sobj1, FLAT::SpatialObject* sobj2)
     {
-            vector<FLAT::Vertex> vertices;
-            FLAT::Box mbr = sobj2->getMBR();
-            //if(algorithm == algo_NL || algorithm == algo_PS)
-            //	Box::expand(mbr,epsilon);
-            FLAT::Box::getAllVertices(sobj1->getMBR(),vertices);
+            vector<FLAT::Vertex> vertices1;
+            vector<FLAT::Vertex> vertices2;
+            FLAT::Box mbr1 = sobj1->getMBR();
+            FLAT::Box mbr2 = sobj2->getMBR();
+            FLAT::Box::getAllVertices(sobj1->getMBR(),vertices1);
+            FLAT::Box::getAllVertices(sobj2->getMBR(),vertices2);
             ItemsCompared++;
-            for (unsigned int i=0;i<vertices.size();++i)
-                    if (mbr.pointDistance(vertices.at(i)) < epsilon)
-                            return true;
+            
+            for (unsigned int i=0;i<vertices1.size();++i)
+            {
+                if (FLAT::Box::enclose(mbr2,vertices1.at(i)))
+                {
+                    return true;
+                }
+            }
+            
+            for (unsigned int i=0;i<vertices2.size();++i)
+            {
+                if (FLAT::Box::enclose(mbr1,vertices2.at(i)))
+                {
+                    return true;
+                }
+            }
+            
+            for (unsigned int i=0;i<vertices1.size();++i)
+            {
+                if (mbr2.pointDistance(vertices1.at(i)) < epsilon)
+                {
+                    return true;
+                }
+            }
+            for (unsigned int i=0;i<vertices2.size();++i)
+            {
+                if (mbr1.pointDistance(vertices2.at(i)) < epsilon)
+                {
+                    return true;
+                }
+            }
             return false;
     }
     // Returns true if touch and false if not by comparing only the centers
     inline bool istouching(FLAT::SpatialObject* sobj1, FLAT::SpatialObject* sobj2)
     {
             return istouchingV(sobj1,sobj2);
-//
-//            ItemsCompared++;
-//            return (FLAT::Vertex::distance(sobj1->getCenter(),sobj2->getCenter()) < epsilon );
+
+            ItemsCompared++;
+            
+            FLAT::Box mbr1 = sobj1->getMBR();
+            FLAT::Box mbr2 = sobj2->getMBR();
+            mbr1.isEmpty = false;
+            mbr2.isEmpty = false;
+            FLAT::Box::expand(mbr1, epsilon);
+            
+            return FLAT::Box::overlap(mbr1, mbr2);
     }
 
     struct ComparatorTree_Xaxis : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>

@@ -125,6 +125,7 @@
         <in>dTOUCH.h</in>
         <in>hilbert.hpp</in>
         <in>reTOUCH.h</in>
+        <in>rereTOUCH.h</in>
       </df>
       <df name="lib">
         <df name="bbpdias">
@@ -873,9 +874,9 @@
         <in>Vertex.cpp</in>
         <in>cTOUCH.cpp</in>
         <in>dTOUCH.cpp</in>
-        <in>fullComparison.cpp</in>
         <in>hilbert.cpp</in>
         <in>reTOUCH.cpp</in>
+        <in>rereTOUCH.cpp</in>
       </df>
       <df name="web">
         <in>runFromBash.m</in>
