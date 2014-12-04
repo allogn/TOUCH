@@ -17,6 +17,7 @@
 #include "dTOUCH.h"
 #include "cTOUCH.h"
 #include "reTOUCH.h"
+#include "rereTOUCH.h"
 #include "S3Hash.h"
 #include "PBSMHash.h"
 
@@ -48,9 +49,10 @@ void usage(const char *program_name) {
     printf("      3:Size Separation Spatial\n");
     printf("      4:TOUCH:Spatial Hierarchical Hash\n");
     printf("      5:Partition Based Spatial-Merge Join\n");
-    printf("      6:cTOUCH:Spatial Hierarchical Has\n");
-    printf("      7:dTOUCH:Spatial Hierarchical Has\n");
-    printf("      8:reTOUCH:Spatial Hierarchical Has\n");
+    printf("      6:cTOUCH:Spatial Hierarchical Hash\n");
+    printf("      7:dTOUCH:Spatial Hierarchical Hash\n");
+    printf("      8:reTOUCH:Spatial Hierarchical Hash\n");
+    printf("      9:rereTOUCH:Spatial Hierarchical Hash\n");
     printf("\n");
     printf("   -J               Algorithm for joining the buckets\n");
     printf("   -p               # of partitions (leaf size)\n");
@@ -354,6 +356,46 @@ void doreTOUCH()
         touch->printTOUCH();
 }
 
+void dorereTOUCH()
+{
+	rereTOUCH* touch = new rereTOUCH();
+        
+        touch->PartitioningType = PartitioningTypeMain;
+        touch->nodesize = base;
+        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
+        touch->localPartitions = localPartitions;	
+        touch->verbose  =  verbose;		
+        touch->localJoin    =  localJoin;	
+        touch->epsilon	=  epsilon;	
+        touch->numA = numA;
+        touch->numB = numB;
+        
+        touch->readBinaryInput(input_dsA, input_dsB);
+	cout << "Forming the partitions" << endl;
+	touch->createPartitions();
+	cout << "Assigning the objects of B" << endl;
+	touch->assignmentB();
+	cout << "Assigning the objects of A" << endl;
+	touch->assignmentA();
+	cout << "Assigning the objects of B again" << endl;
+	touch->reassignmentB();
+	cout << "Assigning Done." << endl;
+	touch->analyze();
+	cout << "Analysis Done, counting grids if necessary." << endl;
+        if(localJoin == algo_SGrid)
+            touch->countSpatialGrid();
+	cout << "Probing, doing the join1" << endl;
+	touch->probe();
+        if(localJoin == algo_SGrid)
+        {
+            cout << "Deduplication" << endl;
+            touch->deduplicateSpatialGrid();
+        }
+	cout << "Done." << endl;
+        
+        touch->printTOUCH();
+}
+
 void NLalgo()
 {
     cout << "New NL join algorithm created" << endl;
@@ -414,6 +456,9 @@ int main(int argc, const char* argv[])
 		break;
                 case algo_reTOUCH:
 			doreTOUCH();
+		break;
+                case algo_rereTOUCH:
+			dorereTOUCH();
 		break;
 		case algo_SGrid:
 			SGrid();

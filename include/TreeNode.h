@@ -20,10 +20,10 @@ public:
 	bool leafnode;
 	int level;
         SpatialGridHash* spatialGridHash[TYPES];   
-        SpatialGridHash* spatialGridHashAns;
+        SpatialGridHash* spatialGridHashAns[TYPES];
 	
 	std::vector<FLAT::SpatialObject*> attachedObjs[TYPES];
-        std::vector<FLAT::SpatialObject*> attachedObjsAns;
+        std::vector<FLAT::SpatialObject*> attachedObjsAns[TYPES];
     
 	TreeNode(int Level)
 	{

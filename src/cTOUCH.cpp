@@ -230,8 +230,16 @@ void cTOUCH::assignment()
              * then delete all node from light tree
              */
             
-            for (int current_type = 0; current_type <= 1; current_type++) // take two colors successively
+            
+            /*
+             * flip coin to choose which color to pick first from a leaf
+             */
+            double coin = (rand()/(double)(RAND_MAX));
+            int current_type = (coin > 0.5)?0:1;
+            
+            for (int i = 0; i < TYPES; i++) // take two colors successively
             {
+                current_type = !current_type;
                 opType = (current_type == 0)?1:0;
                 /*
                  * For each object in the leaf node of type <current_type>

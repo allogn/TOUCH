@@ -1,7 +1,7 @@
 % function html=runFromBash(filename_in1, filename_in2)% Comparing TOUCH algorithms
 
-filename_in1 = '../data/RawData-segment-object-1M-Axons.bin';
-filename_in2 = '../data/RawData-segment-object-1M-Dendrites.bin';
+filename_in1 = '../../data/RawData-segment-object-1M-Axons.bin';
+filename_in2 = '../../data/RawData-segment-object-1M-Dendrites.bin';
 % filename_in1 = '../data/RandomData-10K.bin';
 % filename_in2 = '../data/RandomData-Normal-500-250-10K.bin';
 

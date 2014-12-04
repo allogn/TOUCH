@@ -24,6 +24,7 @@
 #define	algo_cTOUCH			6	//Partition Based Spatial-Merge Join
 #define	algo_dTOUCH			7	//Partition Based Spatial-Merge Join
 #define	algo_reTOUCH			8	//Partition Based Spatial-Merge Join
+#define	algo_rereTOUCH			9	//Partition Based Spatial-Merge Join
 
 #define No_Sort				0
 #define Hilbert_Sort                    1
@@ -50,7 +51,6 @@ public:
     string logfilename;
     double epsilon;
     unsigned int numA, numB;		//number of elements to be read from datasets
-    int duplicates;
     
     
     FLAT::Box universeA, universeB;

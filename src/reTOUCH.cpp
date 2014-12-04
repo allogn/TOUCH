@@ -31,8 +31,8 @@ void reTOUCH::analyze()
             FLAT::uint64 ptrs = objA.size();
             if(objA.size()==0)emptyCells++;
             ItemPerLevelA[tree[ni]->level]+=ptrs;
-            ItemPerLevelAans[tree[ni]->level]+=tree[ni]->attachedObjsAns.size();
-            sumA += ptrs+tree[ni]->attachedObjsAns.size();
+            ItemPerLevelAans[tree[ni]->level]+=tree[ni]->attachedObjsAns[0].size();
+            sumA += ptrs+tree[ni]->attachedObjsAns[0].size();
             sqsumA += ptrs*ptrs;
             if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
 
@@ -282,7 +282,7 @@ FLAT::uint64 reTOUCH::mergingMbrA(TreeEntry* startEntry, FLAT::Box &mbr)
         }
 
         //fixing MBR of the descendant nodes' objects
-        //numA+=ptr->attachedObjs[0].size()+ptr->attachedObjsAns.size();
+        //numA+=ptr->attachedObjs[0].size()+ptr->attachedObjsAns[0].size();
         for (std::vector<TreeEntry*>::iterator ent=ptr->entries.begin();ent!=ptr->entries.end();++ent)
         {
                 numA+=(*ent)->num[0];
@@ -402,7 +402,7 @@ void reTOUCH::assignmentA()
             if(Poverlaps)
             {
                 //assign to the Ansptr
-                tree[Ansptr->childIndex]->attachedObjsAns.push_back(objA);
+                tree[Ansptr->childIndex]->attachedObjsAns[0].push_back(objA);
                 //Expanding the mbr
                 Ansptr->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,Ansptr->mbrSelfD[0]);
                 Ansptr->num[0]++;
@@ -498,7 +498,6 @@ void reTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ance
 {
     queue<TreeEntry*> nodes;
     
-    int opType = (obj->type)?0:1;
     TreeNode* node, * downnode;
     nodes.push(ancestorNode);
     FLAT::Box objMBR = obj->getMBR();
@@ -528,7 +527,7 @@ void reTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ance
                     comparing.start();
                     if(localJoin == algo_SGrid)
                     {
-                        downnode->spatialGridHash[opType]->probe(obj);
+                        downnode->spatialGridHash[1]->probe(obj);
                     }
                     else
                     {
@@ -553,16 +552,28 @@ void reTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ance
                 if (FLAT::Box::overlap(objMBR, node->entries[child]->mbrSelfD[0]))
                 {
                     comparing.start();
-                    ItemsMaxCompared += downnode->attachedObjs[0].size()+downnode->attachedObjsAns.size();
+                    ItemsMaxCompared += downnode->attachedObjs[0].size()+downnode->attachedObjsAns[0].size();
+                    
+//                    int t1 = downnode->spatialGridHashAns[0]->resultPairs.results;
+//                    downnode->spatialGridHashAns[0]->probe(obj);
+//                    int t2 = downnode->spatialGridHashAns[0]->resultPairs.results;
+//                    int t3 = this->resultPairs.results;
+//                    JOIN(obj, downnode->attachedObjsAns[0]);
+//                    int t4 = this->resultPairs.results;
+//                    if (t2-t1 != t4-t3)
+//                    {
+//                        cout << "-------Error: " << t2-t1 << " : " << t4-t3 << endl;
+//                    }
+                    
                     if(localJoin == algo_SGrid)
                     {
-                        downnode->spatialGridHash[opType]->probe(obj);
-                        downnode->spatialGridHashAns->probe(obj);
+                        downnode->spatialGridHash[0]->probe(obj);
+                        downnode->spatialGridHashAns[0]->probe(obj);
                     }
                     else
                     {
                         JOIN(obj, downnode->attachedObjs[0]);
-                        JOIN(obj, downnode->attachedObjsAns);
+                        JOIN(obj, downnode->attachedObjsAns[0]);
                     }
                     comparing.stop();
                 }
@@ -609,14 +620,14 @@ void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
     /*
      * A -> B
      */
-    ItemsMaxCompared += node->attachedObjs[1].size()*(node->attachedObjs[0].size()+node->attachedObjsAns.size());
+    ItemsMaxCompared += node->attachedObjs[1].size()*(node->attachedObjs[0].size()+node->attachedObjsAns[0].size());
     if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
     {
         if(localJoin == algo_SGrid)
         {
             comparing.start();
             node->spatialGridHash[0]->probe(node->attachedObjs[1]);
-            node->spatialGridHashAns->probe(node->attachedObjs[1]);
+            node->spatialGridHashAns[0]->probe(node->attachedObjs[1]);
             comparing.stop();
         }
         else
@@ -634,8 +645,8 @@ void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
                 }
                 comparing.stop();
             }
-            for (SpatialObjectList::iterator it = node->attachedObjsAns.begin();
-                                                            it != node->attachedObjsAns.end(); it++)
+            for (SpatialObjectList::iterator it = node->attachedObjsAns[0].begin();
+                                                            it != node->attachedObjsAns[0].end(); it++)
             {
                 FLAT::Box mbr = (*it)->getMBR();
                 mbr.isEmpty = false;
@@ -655,7 +666,7 @@ void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
         {
             comparing.start();
             node->spatialGridHash[1]->probe(node->attachedObjs[0]);
-            node->spatialGridHash[1]->probe(node->attachedObjsAns);
+            node->spatialGridHash[1]->probe(node->attachedObjsAns[0]);
             comparing.stop();
         }
         else
@@ -670,7 +681,7 @@ void reTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[0]))
                 {
                         JOIN((*it), node->attachedObjs[0]);
-                        JOIN((*it), node->attachedObjsAns);
+                        JOIN((*it), node->attachedObjsAns[0]);
                 }
                 comparing.stop();
 

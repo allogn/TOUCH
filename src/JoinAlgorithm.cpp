@@ -19,7 +19,6 @@ JoinAlgorithm::JoinAlgorithm() {
     ItemsMaxCompared = 0;
     //gridSize = 0;
     percentageEmpty=0;
-    duplicates = 0; // sum via all resultPairs
     repA=1;
     repB=1;
     algorithm				=  algo_NL;	//default algorithm
@@ -143,6 +142,9 @@ void JoinAlgorithm::print()
                 case algo_reTOUCH:
                         algoname = "reTOUCH";
                 break;
+                case algo_rereTOUCH:
+                        algoname = "rereTOUCH";
+                break;
                 case algo_dTOUCH:
                         algoname = "dTOUCH";
                 break;
@@ -175,6 +177,9 @@ void JoinAlgorithm::print()
                 break;
                 case algo_reTOUCH:
                         basealgo = "reTOUCH";
+                break;
+                case algo_rereTOUCH:
+                        basealgo = "rereTOUCH";
                 break;
                 case algo_SGrid:
                         basealgo = "SGrid";

@@ -6,7 +6,6 @@
         <in>SpatialJoin.cpp</in>
       </df>
       <df name="bin">
-        <in>runFromBash.m</in>
       </df>
       <df name="build">
         <df name="CMakeFiles">
@@ -828,6 +827,9 @@
         </df>
       </df>
       <df name="run">
+        <df name="2.12">
+          <in>runFromBash.m</in>
+        </df>
         <df name="23.11">
         </df>
         <df name="24.11">
@@ -835,6 +837,8 @@
         </df>
         <df name="25.11">
           <in>runFromBash.m</in>
+        </df>
+        <df name="4.12">
         </df>
       </df>
       <df name="src">
@@ -1098,11 +1102,15 @@
         </df>
       </df>
       <df name="run">
+        <df name="2.12">
+        </df>
         <df name="23.11">
         </df>
         <df name="24.11">
         </df>
         <df name="25.11">
+        </df>
+        <df name="4.12">
         </df>
       </df>
       <df name="src">

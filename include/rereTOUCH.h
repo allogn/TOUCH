@@ -161,8 +161,9 @@ public:
 
     void assignmentA();
     void assignmentB();
+    void reassignmentB();
 
-    void joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode, bool isA);
+    void joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode);
 
     void joinIntenalnodetoleafs(TreeEntry* ancestorNode);
 
@@ -174,10 +175,10 @@ public:
      * Function for creating valid R-tree from B objects assigned to nodes
      * after A objects removal from leafs
      */
-    FLAT::uint64 mergingMbrB(TreeEntry* startEntry, FLAT::Box &mbr);
+    FLAT::uint64 mergingMbrB(TreeEntry* startEntry, FLAT::Box &mbr, bool clearA);
     FLAT::uint64 mergingMbrA(TreeEntry* startEntry, FLAT::Box &mbr);
     void joinBtoDesA(FLAT::uint64 BID);
     void joinAtoDesB(FLAT::uint64 AID);
     
-    std::vector<FLAT::uint64> ItemPerLevelA,ItemPerLevelB,ItemPerLevelAans;
+    std::vector<FLAT::uint64> ItemPerLevelA,ItemPerLevelB,ItemPerLevelAans,ItemPerLevelBans;
 };

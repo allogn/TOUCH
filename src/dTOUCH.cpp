@@ -11,7 +11,7 @@
 dTOUCH::dTOUCH()
 {
     algorithm = algo_dTOUCH;
-    maxAssignmentLevel = 2;
+    maxAssignmentLevel = 0;
     
     total.start(); // timing
 }
@@ -26,6 +26,7 @@ dTOUCH::~dTOUCH()
 void dTOUCH::writeNode(vector<TreeEntry*> objlist,int Level,vector<TreeNode*>& tree)
 {
     TreeNode* prNode = new TreeNode(Level);
+    if (maxAssignmentLevel < Level) maxAssignmentLevel = Level;
     FLAT::Box mbr;
     FLAT::uint64 childIndex;
     totalnodes++;
@@ -189,7 +190,11 @@ void dTOUCH::assignmentA()
                     else
                     {
                         //should be assigned to this level
-                        if(ptr->level > maxAssignmentLevel)
+                        double coin = (rand()/(double)(RAND_MAX));
+                        
+                        //if(ptr->level > maxAssignmentLevel)
+                        cout << coin << " " << exp(-(((double)ptr->level-1.) * 5.)/(double)maxAssignmentLevel) << " level " << ptr->level << endl;
+                        if (coin < exp(-(((double)ptr->level-1.) * 5.)/(double)maxAssignmentLevel))
                         {
                             vdsB.push_back(new TreeEntry(obj));
                             vdsB.back()->expand(epsilon);
