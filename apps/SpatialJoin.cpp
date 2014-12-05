@@ -286,7 +286,7 @@ void docTOUCH()
             touch->deduplicateSpatialGrid();
         }
 	cout << "Done." << endl;
-        
+        //touch->resultPairs.printAllResults();
         touch->printTOUCH();
 }
 
@@ -352,7 +352,7 @@ void doreTOUCH()
             touch->deduplicateSpatialGrid();
         }
 	cout << "Done." << endl;
-        
+        //touch->resultPairs.printAllResults();
         touch->printTOUCH();
 }
 
@@ -393,6 +393,7 @@ void dorereTOUCH()
         }
 	cout << "Done." << endl;
         
+        //cout << "Check MBR: " << touch->verifyMBR(touch->root) << endl;
         touch->printTOUCH();
 }
 

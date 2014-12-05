@@ -75,18 +75,29 @@ void TOUCHlike::printTOUCH() {
 void TOUCHlike::countSpatialGrid()
 {
     gridCalculate.start();
+    FLAT::Box mbr;
     for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
     { 
         for (int type = 0; type < TYPES; type++)
         {
-            (*it)->spatialGridHash[type] = new SpatialGridHash(root->mbr,localPartitions);
+            mbr = (type == 0)?universeA:universeB;
+            mbr.isEmpty = false;
+            FLAT::Box::expand(mbr,10000);
+            (*it)->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
             (*it)->spatialGridHash[type]->epsilon = this->epsilon;
             (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
             
             if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
             {
-                (*it)->spatialGridHashAns[type] = new SpatialGridHash(root->mbr,localPartitions);
+                (*it)->spatialGridHashAns[type] = new SpatialGridHash(mbr,localPartitions);
                 (*it)->spatialGridHashAns[type]->epsilon = this->epsilon;
+//                if ((*it)->parentEntry->childIndex == 34)
+//                {
+//                    for (int u = 0; u < (*it)->attachedObjsAns[type].size(); u++)
+//                    {
+//                        cout << "ancestosattacheced objects to node 34: " << (*it)->attachedObjsAns[type][u]->id << endl;
+//                    }
+//                }
                 (*it)->spatialGridHashAns[type]->build((*it)->attachedObjsAns[type]);
             }
         }
@@ -110,7 +121,7 @@ void TOUCHlike::deduplicateSpatialGrid()
                 this->repA += (*it)->spatialGridHash[type]->repA;
                 this->repB += (*it)->spatialGridHash[type]->repB;
                 this->resultPairs.deDuplicateTime.add((*it)->spatialGridHash[type]->resultPairs.deDuplicateTime);
-                
+                //(*it)->spatialGridHash[type]->resultPairs.printAllResults();
                 
                 if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
                 {
@@ -123,6 +134,7 @@ void TOUCHlike::deduplicateSpatialGrid()
                     this->repA += (*it)->spatialGridHashAns[type]->repA;
                     this->repB += (*it)->spatialGridHashAns[type]->repB;
                     this->resultPairs.deDuplicateTime.add((*it)->spatialGridHashAns[type]->resultPairs.deDuplicateTime);
+                    //(*it)->spatialGridHashAns[type]->resultPairs.printAllResults();
                 }
             }
         }

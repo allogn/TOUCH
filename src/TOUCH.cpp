@@ -30,6 +30,7 @@ void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
     childIndex = tree.size();
     tree.push_back(prNode);
     nextInput.push_back(new TreeEntry(mbr,childIndex));
+    prNode->parentEntry = nextInput.back();
 }
 
 void TOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
@@ -191,7 +192,7 @@ void TOUCH::assignment()
 
 void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 {
-        SpatialGridHash* spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
+        SpatialGridHash* spatialGridHash = new SpatialGridHash(root->mbr,localPartitions*10);
         spatialGridHash->epsilon = this->epsilon;
         queue<FLAT::uint64> leaves;
         TreeNode* leaf, *ancestorNode;
@@ -245,6 +246,7 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
             this->repA += spatialGridHash->repA;
             this->repB += spatialGridHash->repB;
             this->resultPairs.deDuplicateTime.add(spatialGridHash->resultPairs.deDuplicateTime);
+            //spatialGridHash->resultPairs.printAllResults();
         }
         
 }

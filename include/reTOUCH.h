@@ -107,8 +107,11 @@ private:
     void NL(FLAT::SpatialObject* A, SpatialObjectList& B)
     {
         for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
+        {
+            if ((*itB)->id == 9715 && A->id == 8147) cout << "check with 9715" << endl;
             if ( istouching(A , *itB) )
                 resultPairs.addPair( A , *itB );
+        }
     }
 
     /*
@@ -176,8 +179,6 @@ public:
      */
     FLAT::uint64 mergingMbrB(TreeEntry* startEntry, FLAT::Box &mbr);
     FLAT::uint64 mergingMbrA(TreeEntry* startEntry, FLAT::Box &mbr);
-    void joinBtoDesA(FLAT::uint64 BID);
-    void joinAtoDesB(FLAT::uint64 AID);
     
     std::vector<FLAT::uint64> ItemPerLevelA,ItemPerLevelB,ItemPerLevelAans;
 };

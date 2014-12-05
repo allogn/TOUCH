@@ -64,6 +64,7 @@ void SpatialGridHash::build(SpatialObjectList& dsA)
         gridHashTable.clear();
         for(SpatialObjectList::iterator i=dsA.begin(); i!=dsA.end(); ++i)
         {
+            //if ((*i)->id == 5579) cout << "trying with 5579" << endl;
                 vector<FLAT::uint64> cells;
                 getOverlappingCells(*i,cells);
                 for (vector<FLAT::uint64>::iterator j = cells.begin(); j!=cells.end(); ++j)
@@ -74,10 +75,12 @@ void SpatialGridHash::build(SpatialObjectList& dsA)
                                 HashValue* soList = new HashValue();
                                 soList->push_back(*i);
                                 gridHashTable.insert( ValuePair(*j,soList) );
+                                //if ((*i)->id == 5579) cout << "new cell with 5579 " << gridHashTable.size() << endl;
                         }
                         else
                         {
                                 it->second->push_back(*i);
+                                //if ((*i)->id == 5579) cout << "old cell with 5579 " << it->first << endl;
                         }
                 }
         }
@@ -137,24 +140,44 @@ void SpatialGridHash::probe(const SpatialObjectList& dsB)
         
         for(SpatialObjectList::const_iterator i=dsB.begin(); i!=dsB.end(); ++i)
         {
+          // if ((*i)->id == 5579) cout << "----------------- ============== probe 5579" << endl;
+           // if ((*i)->id == 2572) cout << "----------------- ============== probe 2572" << endl;
                 vector<FLAT::uint64> cells;
                 if (!getProjectedCells( *i , cells ))
                 {
                         filtered[(*i)->type]++;
                         continue;
                 }
+                
+          //  if ((*i)->id == 2572) cout << "----------------- ============== probe 2572 test 2" << endl;
                 ///// Get Unique Objects from Grid Hash in Vicinity
                 hashprobe += cells.size();
+                
+                if ((*i)->id == 2572) 
+                for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
+                {
+                        HashTable::iterator it = gridHashTable.find(*j);
+                        if (it==gridHashTable.end()) continue;
+                        HashValue* soList = it->second;
+//                        for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
+//                        {
+//                            cout << "list of objects of " << it->first << " " << (*k)->id << endl;
+//                        }
+                }
+                
+                
                 for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
                 {
                         HashTable::iterator it = gridHashTable.find(*j);
                         if (it==gridHashTable.end()) continue;
                         HashValue* soList = it->second;
                         for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
+                        {
                                 if ( istouching( *i , *k) )
                                 {
                                     resultPairs.addPair(*i , *k);
                                 }
+                        }
                 }
         }
 

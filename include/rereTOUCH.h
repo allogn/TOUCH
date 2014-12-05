@@ -177,8 +177,8 @@ public:
      */
     FLAT::uint64 mergingMbrB(TreeEntry* startEntry, FLAT::Box &mbr, bool clearA);
     FLAT::uint64 mergingMbrA(TreeEntry* startEntry, FLAT::Box &mbr);
-    void joinBtoDesA(FLAT::uint64 BID);
-    void joinAtoDesB(FLAT::uint64 AID);
+    
+    bool verifyMBR(TreeEntry* ent);
     
     std::vector<FLAT::uint64> ItemPerLevelA,ItemPerLevelB,ItemPerLevelAans,ItemPerLevelBans;
 };

@@ -39,6 +39,7 @@ void dTOUCH::writeNode(vector<TreeEntry*> objlist,int Level,vector<TreeNode*>& t
     childIndex = tree.size();
     tree.push_back(prNode);
     nextInput.push_back(new TreeEntry(mbr,childIndex));
+    prNode->parentEntry = nextInput.back();
 }
 
 void dTOUCH::createTreeLevel(vector<TreeEntry*>& input,int Level,vector<TreeNode*>& tree)
@@ -193,8 +194,8 @@ void dTOUCH::assignmentA()
                         double coin = (rand()/(double)(RAND_MAX));
                         
                         //if(ptr->level > maxAssignmentLevel)
-                        cout << coin << " " << exp(-(((double)ptr->level-1.) * 5.)/(double)maxAssignmentLevel) << " level " << ptr->level << endl;
-                        if (coin < exp(-(((double)ptr->level-1.) * 5.)/(double)maxAssignmentLevel))
+                        //cout << coin << " " << exp(-(((double)ptr->level-1.) * 5.)/(double)maxAssignmentLevel) << " level " << ptr->level << endl;
+                        if (coin > exp(-(((double)ptr->level-1.) * 5.)/(double)maxAssignmentLevel))
                         {
                             vdsB.push_back(new TreeEntry(obj));
                             vdsB.back()->expand(epsilon);

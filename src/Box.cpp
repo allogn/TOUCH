@@ -608,7 +608,7 @@ namespace FLAT
 			}
 		}
 
-		return distance;
+		return sqrt(distance);
 	}
 }
 

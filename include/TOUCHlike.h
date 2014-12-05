@@ -98,12 +98,12 @@ public:
     }   
     
     vector<FLAT::uint64> ItemPerLevel; int LVL; //for statistics
+    TreeEntry* root;
 protected:
     
     
     std::vector<TreeNode*> tree;
     std::vector<TreeEntry*> nextInput;
-    TreeEntry* root;
 };
 
 #endif	/* TOUCHLIKEALGORITHM_H */

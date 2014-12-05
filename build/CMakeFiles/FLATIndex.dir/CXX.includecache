@@ -65,6 +65,8 @@ boost/unordered_map.hpp
 -
 boost/unordered_set.hpp
 -
+Box.hpp
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 Timer.hpp
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 
@@ -136,15 +138,13 @@ iostream
 math.h
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/math.h
 
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/dTOUCH.h
-TOUCHlike.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
-SpatialGridHash.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
-
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
 
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.cpp
-dTOUCH.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/rereTOUCH.h
+TOUCHlike.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
+
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.cpp
+rereTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.h
 

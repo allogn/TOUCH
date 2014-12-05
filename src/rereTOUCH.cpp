@@ -130,6 +130,7 @@ void rereTOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
 
     tree.push_back(prNode);
     nextInput.push_back(new TreeEntry(mbr,childIndex));
+    prNode->parentEntry = nextInput.back();
 }
 
 void rereTOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
@@ -241,6 +242,7 @@ void rereTOUCH::assignmentB()
                     {
                         //should be assigned to this level
                         ptr->attachedObjs[1].push_back(objB);
+                         if (objB->id == 8034) cout << "===========8034 B assigned c1 level " << ptr->level << endl;
                         new_dsB.push_back(objB);
                         //Expand the prevnode->mbrSelfD[1]
                         //Expanding the mbrL[1] to include the above A assigned object
@@ -264,6 +266,7 @@ void rereTOUCH::assignmentB()
             {
                 ptr->attachedObjs[1].push_back(objB);
                 new_dsB.push_back(objB);
+                   if (objB->id == 8034) cout << "===========8034 B assigned c2 level " << ptr->level << endl;
                 //Expand the prevnode->mbrSelfD[1]
                 //Expanding the mbrL[1] to include the above A assigned object
                 nextNode->mbrSelfD[1]=FLAT::Box::combineSafe(objMBR,nextNode->mbrSelfD[1]);
@@ -321,10 +324,9 @@ void rereTOUCH::assignmentA()
         FLAT::Box objMBR = objA->getMBR();
         objMBR.isEmpty = false;
         FLAT::Box::expand(objMBR,epsilon * 1./2.);
-        TreeEntry* nextNode=root,*Ansptr,*parnetptr;
+        TreeEntry* nextNode=root,*Ansptr;
         TreeNode* ptr = tree[nextNode->childIndex];
         Poverlaps=false;
-        parnetptr = root;
         // Check the root node
         if ( FLAT::Box::overlap(objMBR,root->mbrL[1]) )
                 overlapB++;
@@ -335,7 +337,7 @@ void rereTOUCH::assignmentA()
                 //assign to the root
                 ptr->attachedObjs[0].push_back(objA);
                 //Expanding the mbr
-                parnetptr->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,nextNode->mbrSelfD[0]);
+                ptr->parentEntry->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,nextNode->mbrSelfD[0]);
                 nextNode->num[0]++;
                 continue;
             }
@@ -371,7 +373,6 @@ void rereTOUCH::assignmentA()
                     overlapB++;
                     if(overlapB==1)
                     {
-                        parnetptr = nextNode;
                         nextNode = (*ent);
                     }
                     //increment the cost function of B below objects
@@ -392,9 +393,10 @@ void rereTOUCH::assignmentA()
             {
                 //should be assigned to this level
                 ptr->attachedObjs[0].push_back(objA);
+                 //   if (objA->id == 9714) cout << "===========9714 assigned 1 case " << ptr->level << endl;
                 //Expanding the mbr
-                parnetptr->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,parnetptr->mbrSelfD[0]);
-                parnetptr->num[0]++;
+                ptr->parentEntry->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,ptr->parentEntry->mbrSelfD[0]);
+                ptr->parentEntry->num[0]++;
                 break;
             }
             //if B&T overlaps: if single B and single T and T&B is the same node then set the Ansptr and search below, otherwise set to parent.
@@ -404,9 +406,10 @@ void rereTOUCH::assignmentA()
                 if(ptr->leafnode)
                 {
                     ptr->attachedObjs[0].push_back(objA);
+                   // if (objA->id == 9714) cout << "===========9714 assigned 2 case" << endl;
                     //Expanding the mbr
-                    parnetptr->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,parnetptr->mbrSelfD[0]);
-                    parnetptr->num[0]++;
+                    ptr->parentEntry->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,ptr->parentEntry->mbrSelfD[0]);
+                    ptr->parentEntry->num[0]++;
                     break;
                 }
                 continue;
@@ -416,7 +419,8 @@ void rereTOUCH::assignmentA()
             if(Poverlaps)
             {
                 //assign to the Ansptr
-                tree[Ansptr->childIndex]->attachedObjsAns[0].push_back(objA);
+                tree[Ansptr->childIndex]->attachedObjs[0].push_back(objA);
+                   // if (objA->id == 9714) cout << "===========9714 assigned 3 case" << endl;
                 //Expanding the mbr
                 Ansptr->mbrSelfD[0] = FLAT::Box::combineSafe(objMBR,Ansptr->mbrSelfD[0]);
                 Ansptr->num[0]++;
@@ -430,13 +434,37 @@ void rereTOUCH::assignmentA()
         }
     }
 
-    //Fixing the mbrs of dataset B after assign
+    //Fixing the mbrs of dataset A after assign
     root->mbrL[0].isEmpty=true;
+    tree.at(root->childIndex)->attachedObjs[1].clear();
+    tree.at(root->childIndex)->attachedObjsAns[1].clear();
     root->num[0] = mergingMbrA(root,root->mbrL[0]);
     //printTree(root);
 
     building.stop();
 
+}
+
+bool rereTOUCH::verifyMBR(TreeEntry* ent)
+{
+    FLAT::Box mbr;
+    TreeNode* node = tree.at(ent->childIndex);
+    for (int i=0; i < node->attachedObjs[0].size(); i++)
+    {
+        mbr = node->attachedObjs[0][i]->getMBR();
+        mbr.isEmpty = false;
+        FLAT::Box::expand(mbr,epsilon/2.);
+        if (FLAT::Box::enclose(ent->mbrSelfD[0],mbr) == false)
+            return false;
+        if (!node->leafnode)
+            for (int j = 0; j < node->entries.size(); j++)
+            {
+                if (FLAT::Box::enclose(ent->mbrL[0],node->entries.at(j)->mbrSelfD[0]) == false)
+                    return false;
+                if(!verifyMBR(node->entries.at(j))) return false;
+            }
+    }
+    return true;
 }
 
 void rereTOUCH::reassignmentB()
@@ -452,10 +480,10 @@ void rereTOUCH::reassignmentB()
         FLAT::Box objMBR = objB->getMBR();
         objMBR.isEmpty = false;
         FLAT::Box::expand(objMBR,epsilon * 1./2.);
-        TreeEntry* nextNode=root,*Ansptr,*parnetptr;
+        TreeEntry* nextNode=root,*Ansptr;
         TreeNode* ptr = tree[nextNode->childIndex];
+        
         Poverlaps=false;
-        parnetptr = root;
         // Check the root node
         if ( FLAT::Box::overlap(objMBR,root->mbrL[0]) )
                 overlapA++;
@@ -466,7 +494,8 @@ void rereTOUCH::reassignmentB()
                 //assign to the root
                 ptr->attachedObjs[1].push_back(objB);
                 //Expanding the mbr
-                parnetptr->mbrSelfD[1] = FLAT::Box::combineSafe(objMBR,nextNode->mbrSelfD[1]);
+                ptr->parentEntry->mbrSelfD[1] = FLAT::Box::combineSafe(objMBR,nextNode->mbrSelfD[1]);
+                   // if (objB->id == 8034) cout << "===========8034 B reassigned" << endl;
                 nextNode->num[1]++;
                 continue;
             }
@@ -502,7 +531,6 @@ void rereTOUCH::reassignmentB()
                     overlapA++;
                     if(overlapA==1)
                     {
-                        parnetptr = nextNode;
                         nextNode = (*ent);
                     }
                     //increment the cost function of B below objects
@@ -523,9 +551,10 @@ void rereTOUCH::reassignmentB()
             {
                 //should be assigned to this level
                 ptr->attachedObjs[1].push_back(objB);
+                //if (objB->id == 8034) cout << "===========8034 B reassigned 1c" << endl;
                 //Expanding the mbr
-                parnetptr->mbrSelfD[1] = FLAT::Box::combineSafe(objMBR,parnetptr->mbrSelfD[1]);
-                parnetptr->num[1]++;
+                ptr->parentEntry->mbrSelfD[1] = FLAT::Box::combineSafe(objMBR,ptr->parentEntry->mbrSelfD[1]);
+                ptr->parentEntry->num[1]++;
                 break;
             }
             //if B&T overlaps: if single B and single T and T&B is the same node then set the Ansptr and search below, otherwise set to parent.
@@ -535,9 +564,10 @@ void rereTOUCH::reassignmentB()
                 if(ptr->leafnode)
                 {
                     ptr->attachedObjs[1].push_back(objB);
+                   // if (objB->id == 8034) cout << "===========8034 B reassigned 2c" << endl;
                     //Expanding the mbr
-                    parnetptr->mbrSelfD[1] = FLAT::Box::combineSafe(objMBR,parnetptr->mbrSelfD[1]);
-                    parnetptr->num[1]++;
+                    ptr->parentEntry->mbrSelfD[1] = FLAT::Box::combineSafe(objMBR,ptr->parentEntry->mbrSelfD[1]);
+                    ptr->parentEntry->num[1]++;
                     break;
                 }
                 continue;
@@ -548,6 +578,7 @@ void rereTOUCH::reassignmentB()
             {
                 //assign to the Ansptr
                 tree[Ansptr->childIndex]->attachedObjsAns[1].push_back(objB);
+             //   if (objB->id == 8034) cout << "===========8034 B reassigned 3c level " << tree[Ansptr->childIndex]->level << endl;
                 //Expanding the mbr
                 Ansptr->mbrSelfD[1] = FLAT::Box::combineSafe(objMBR,Ansptr->mbrSelfD[1]);
                 Ansptr->num[1]++;
@@ -568,75 +599,6 @@ void rereTOUCH::reassignmentB()
 
     building.stop();
 
-}
-
-        
-void rereTOUCH::joinAtoDesB(FLAT::uint64 AID)
-{
-        queue<FLAT::uint64> descendants;
-        TreeNode* des, *ancestorNode;
-        ancestorNode = tree[AID];
-
-        descendants.push(AID);
-        while(descendants.size()>0)
-        {
-                des = tree[descendants.front()];
-                descendants.pop();
-                if(!des->leafnode)
-                {
-                        for (std::vector<TreeEntry*>::iterator ent=des->entries.begin();ent!=des->entries.end();++ent)
-                        {
-                                descendants.push((*ent)->childIndex);
-                        }
-                }
-
-                comparing.start();
-                // join leaf->entries and vect
-                ItemsMaxCompared += des->attachedObjs[1].size()*ancestorNode->attachedObjs[0].size();
-                if(localJoin == algo_SGrid)
-                {
-                    ancestorNode->spatialGridHash[0]->probe(des->attachedObjs[1]);
-                }
-                else
-                {
-                    JOIN(ancestorNode->attachedObjs[0], des->attachedObjs[1]);
-                }
-                comparing.stop();
-        }
-}
-        
-void rereTOUCH::joinBtoDesA(FLAT::uint64 BID)
-{
-    queue<FLAT::uint64> descendants;
-    TreeNode* des, *ancestorNode;
-    ancestorNode = tree[BID];
-
-    descendants.push(BID);
-    while(descendants.size()>0)
-    {
-            des = tree[descendants.front()];
-            descendants.pop();
-            if(!des->leafnode)
-            {
-                    for (std::vector<TreeEntry*>::iterator ent=des->entries.begin();ent!=des->entries.end();++ent)
-                    {
-                            descendants.push((*ent)->childIndex);
-                    }
-            }
-
-            comparing.start();
-            // join leaf->entries and vect
-            ItemsMaxCompared += des->attachedObjs[0].size()*ancestorNode->attachedObjs[1].size();
-            if(localJoin == algo_SGrid)
-            {
-                des->spatialGridHash[0]->probe(ancestorNode->attachedObjs[1]);
-            }
-            else
-            {
-                JOIN(des->attachedObjs[0], ancestorNode->attachedObjs[1]);
-            }
-            comparing.stop();
-    }
 }
 
 void rereTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode)
@@ -705,11 +667,6 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
      * A -> B_below
      */
     TreeNode* node=tree[ancestorNode->childIndex];
-    for (SpatialObjectList::iterator it = node->attachedObjsAns[0].begin();
-                                                    it != node->attachedObjsAns[0].end(); it++)
-    {
-        joinInternalobjecttodesc((*it), ancestorNode);
-    }
     
     for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
                                                     it != node->attachedObjs[0].end(); it++)
@@ -736,29 +693,13 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
         {
             comparing.start();
             node->spatialGridHash[0]->probe(node->attachedObjs[1]);
-            node->spatialGridHashAns[0]->probe(node->attachedObjs[1]);
             node->spatialGridHash[0]->probe(node->attachedObjsAns[1]);
-            node->spatialGridHashAns[0]->probe(node->attachedObjsAns[1]);
             comparing.stop();
         }
         else
         {
             for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
                                                             it != node->attachedObjs[0].end(); it++)
-            {
-                FLAT::Box mbr = (*it)->getMBR();
-                mbr.isEmpty = false;
-                FLAT::Box::expand(mbr,epsilon * 1./2.);
-                comparing.start();
-                if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[1]))
-                {
-                    JOIN((*it), node->attachedObjs[1]);
-                    JOIN((*it), node->attachedObjsAns[1]);
-                }
-                comparing.stop();
-            }
-            for (SpatialObjectList::iterator it = node->attachedObjsAns[0].begin();
-                                                            it != node->attachedObjsAns[0].end(); it++)
             {
                 FLAT::Box mbr = (*it)->getMBR();
                 mbr.isEmpty = false;
@@ -779,9 +720,7 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
         {
             comparing.start();
             node->spatialGridHash[1]->probe(node->attachedObjs[0]);
-            node->spatialGridHash[1]->probe(node->attachedObjsAns[0]);
             node->spatialGridHashAns[1]->probe(node->attachedObjs[0]);
-            node->spatialGridHashAns[1]->probe(node->attachedObjsAns[0]);
             comparing.stop();
         }
         else
@@ -796,7 +735,6 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[0]))
                 {
                         JOIN((*it), node->attachedObjs[0]);
-                        JOIN((*it), node->attachedObjsAns[0]);
                 }
                 comparing.stop();
 
@@ -811,7 +749,6 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[0]))
                 {
                         JOIN((*it), node->attachedObjs[0]);
-                        JOIN((*it), node->attachedObjsAns[0]);
                 }
                 comparing.stop();
 
