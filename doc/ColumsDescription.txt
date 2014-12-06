@@ -1,0 +1,36 @@
+Algorithm	: Main algorithm name
+Epsilon		: Distance between objects such that closer objects are considered as interacting
+#A		: Number of objects used from first dataset
+#B		: Number of objects used from second dataset
+infile A	: Path to first dataset
+infile B	: Path to second dataset
+LocalJoin Alg	: Algorithm used for local join (join inside nodes)
+Fanout		: Fanout (capacity) of a node in a tree
+Partitions	: Size (fanout) of leaf nodes
+gridSize	: Number of cells per dimention for Grid Hash (Local Join). Resolution = gridSize/Universe (all used sapce)
+Compared #	: Total number of comparisons (comparison function calls)
+Compared %	: Compared # / (#A*#B) * 100%
+ComparedMax	: Compared # in case of using Nested Loop as local join algorithm
+Duplicates	: Number of duplicate result pairs in case of Grid Hash
+Results		: Number of interacting pairs
+Selectivity	: Results / (#A*#B) * 100%
+filtered A	: Number of filtered objects of first dataset
+filtered B	: Number of filtered objects of second dataset
+t loading	: Time for loading and parsing data
+t init		: Time for initializing Grid Hash
+t build		: Time for assignment steps
+t probe		: Time for probing function, total joining step
+t comparing	: Time for Local Joins
+t partition	: Time for creating nodes
+t join		: Time used for Nested Loops (if NL is used for Local Join)
+t total		: Total time of Spatial Join class existance (including I/O)
+t deDuplicating	: Time for removing duplicate objects in Grid Hash
+t analyzing	: Time for analyzing a tree structure after assignment step
+t sorting	: Time used for sorting objects during creation of tree structure
+t gridCalculate	: Time for precalculating all Grid Hash for every node (cTOUCH, re*TOUCH)
+EmptyCells(%)	: Number of nodes without objects / Total number of nodes * 100% (@todo incorrect for complex trees)
+MaxObj		: Number of maximum assigned objects of one type to one node
+AveObj		: Average number of objects in a node @todo
+StdObj		: Standart deviation of number of objects in a node @todo 
+repA		: Number of replications of type A using Grid Hash (if one object is assigned to more than one cell of Grid Hash)
+repB		: Number of replications of type B usign Grid Hash (if one object is assigned to more than one cell of Grid Hash)

@@ -439,60 +439,61 @@ void dTOUCH::probe()
 
         probing.stop();
 }
+
 void dTOUCH::analyze()
 {
+    analyzing.start();
+    FLAT::uint64 emptyCells=0;
+    FLAT::uint64 sum=0,sqsum=0;
+    double differenceSquared=0;
+    footprint += vdsA.size()*(sizeof(TreeEntry*));
+    footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
+    LVLA = LevelsA;
+    LVLB = LevelsB;
+    //tree A
+    cout << "== TREE A (B assigned) ==" << endl;
+    ItemPerLevelA.reserve(LevelsA);
+    for(int i = 0 ; i<LevelsA ; i++)
+            ItemPerLevelA.push_back(0);
+    for(unsigned int ni = 0; ni<treeA.size() ; ni++)
+    {
+            SpatialObjectList objs = treeA.at(ni)->attachedObjs[0];
+            FLAT::uint64 ptrs = objs.size();
+            if(objs.size()==0)emptyCells++;
+            ItemPerLevelA[treeA.at(ni)->level]+=ptrs;
+            sum += ptrs;
+            sqsum += ptrs*ptrs;
+            if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
 
-        analyzing.start();
-        FLAT::uint64 emptyCells=0;
-        FLAT::uint64 sum=0,sqsum=0;
-        double differenceSquared=0;
-        footprint += vdsA.size()*(sizeof(TreeEntry*));
-        footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
-        LVLA = LevelsA;
-        LVLB = LevelsB;
-        //tree A
-        cout << "== TREE A (B assigned) ==" << endl;
-        ItemPerLevelA.reserve(LevelsA);
-        for(int i = 0 ; i<LevelsA ; i++)
-                ItemPerLevelA.push_back(0);
-        for(unsigned int ni = 0; ni<treeA.size() ; ni++)
-        {
-                SpatialObjectList objs = treeA.at(ni)->attachedObjs[0];
-                FLAT::uint64 ptrs = objs.size();
-                if(objs.size()==0)emptyCells++;
-                ItemPerLevelA[treeA.at(ni)->level]+=ptrs;
-                sum += ptrs;
-                sqsum += ptrs*ptrs;
-                if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
+    }
+    for(int i = 0 ; i<LevelsA ; i++)
+            cout<< "level " << i << " items " << ItemPerLevelA[i] <<endl;
 
-        }
-        for(int i = 0 ; i<LevelsA ; i++)
-                cout<< "level " << i << " items " << ItemPerLevelA[i] <<endl;
+    cout << "== TREE B (A assigned) ==" << endl; //@todo
+    ItemPerLevelB.reserve(LevelsB);
+    for(int i = 0 ; i<LevelsB ; i++)
+            ItemPerLevelB.push_back(0);
+    for(unsigned int ni = 0; ni<treeB.size() ; ni++)
+    {
+            SpatialObjectList objs = treeB.at(ni)->attachedObjs[0];
+            FLAT::uint64 ptrs = objs.size();
+            if(objs.size()==0)emptyCells++;
+            ItemPerLevelB[treeB.at(ni)->level]+=ptrs;
+            sum += ptrs;
+            sqsum += ptrs*ptrs;
+            if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
 
-        cout << "== TREE B (A assigned) ==" << endl; //@todo
-        ItemPerLevelB.reserve(LevelsB);
-        for(int i = 0 ; i<LevelsB ; i++)
-                ItemPerLevelB.push_back(0);
-        for(unsigned int ni = 0; ni<treeB.size() ; ni++)
-        {
-                SpatialObjectList objs = treeB.at(ni)->attachedObjs[0];
-                FLAT::uint64 ptrs = objs.size();
-                if(objs.size()==0)emptyCells++;
-                ItemPerLevelB[treeB.at(ni)->level]+=ptrs;
-                sum += ptrs;
-                sqsum += ptrs*ptrs;
-                if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
+    }
+    if (verbose)
+    for(int i = 0 ; i<LevelsB ; i++)
+            cout<< "level " << i << " items " << ItemPerLevelB[i] <<endl;
 
-        }
-        for(int i = 0 ; i<LevelsB ; i++)
-                cout<< "level " << i << " items " << ItemPerLevelB[i] <<endl;
-
-        footprint += sum*sizeof(FLAT::SpatialObject*) + treeB.size()*(sizeof(TreeNode*)) + treeA.size()*(sizeof(TreeNode*));
-        avg = (sum+0.0) / (treeB.size() + treeA.size());
-        percentageEmpty = (emptyCells+0.0) / (treeB.size() + treeA.size())*100.0;
-        differenceSquared = ((double)sqsum/((double)treeB.size() + (double)treeA.size()))-avg*avg;
-        std = sqrt(differenceSquared);
+    footprint += sum*sizeof(FLAT::SpatialObject*) + treeB.size()*(sizeof(TreeNode*)) + treeA.size()*(sizeof(TreeNode*));
+    avg = (sum+0.0) / (treeB.size() + treeA.size());
+    percentageEmpty = (emptyCells+0.0) / (treeB.size() + treeA.size())*100.0;
+    differenceSquared = ((double)sqsum/((double)treeB.size() + (double)treeA.size()))-avg*avg;
+    std = sqrt(differenceSquared);
 
 
-        analyzing.stop();
+    analyzing.stop();
 }

@@ -29,7 +29,7 @@ void reTOUCH::analyze()
     {
             SpatialObjectList objA = tree[ni]->attachedObjs[0];
             FLAT::uint64 ptrs = objA.size();
-            if(objA.size()==0)emptyCells++;
+            if(objA.size()==0 && objB.size() == 0)emptyCells++;
             ItemPerLevelA[tree[ni]->level]+=ptrs;
             ItemPerLevelAans[tree[ni]->level]+=tree[ni]->attachedObjsAns[0].size();
             sumA += ptrs+tree[ni]->attachedObjsAns[0].size();
@@ -38,7 +38,6 @@ void reTOUCH::analyze()
 
             SpatialObjectList objB = tree[ni]->attachedObjs[1];
             ptrs = objB.size();
-            if(objB.size()==0)emptyCells++;
             ItemPerLevelB[tree[ni]->level]+=ptrs;
             sumB += ptrs;
             sqsumB += ptrs*ptrs;

@@ -121,6 +121,7 @@ void TOUCHlike::deduplicateSpatialGrid()
                 this->repA += (*it)->spatialGridHash[type]->repA;
                 this->repB += (*it)->spatialGridHash[type]->repB;
                 this->resultPairs.deDuplicateTime.add((*it)->spatialGridHash[type]->resultPairs.deDuplicateTime);
+                this->initialize.add((*it)->spatialGridHash[type]->initialize);
                 //(*it)->spatialGridHash[type]->resultPairs.printAllResults();
                 
                 if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
@@ -134,6 +135,7 @@ void TOUCHlike::deduplicateSpatialGrid()
                     this->repA += (*it)->spatialGridHashAns[type]->repA;
                     this->repB += (*it)->spatialGridHashAns[type]->repB;
                     this->resultPairs.deDuplicateTime.add((*it)->spatialGridHashAns[type]->resultPairs.deDuplicateTime);
+                    this->initialize.add((*it)->spatialGridHashAns[type]->initialize);
                     //(*it)->spatialGridHashAns[type]->resultPairs.printAllResults();
                 }
             }

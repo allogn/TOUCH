@@ -842,6 +842,8 @@
         </df>
         <df name="5.12">
         </df>
+        <df name="6.12">
+        </df>
       </df>
       <df name="src">
         <in>BBPTextFileReader.cpp</in>
@@ -1115,6 +1117,8 @@
         <df name="4.12">
         </df>
         <df name="5.12">
+        </df>
+        <df name="6.12">
         </df>
       </df>
       <df name="src">
