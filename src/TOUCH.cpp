@@ -108,194 +108,181 @@ void TOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
 
 void TOUCH::createPartitions()
 {
-        partition.start();
-        // Build PRtree levels from bottom up
-        Levels = 0;
-        totalnodes = 0;
-        while(vdsA.size()>1)
-        {
-                cout << "Tree Level: " << Levels << " treeNodes: " << tree.size() << " Remaining Input: " << vdsA.size() <<endl;
-                createTreeLevel(vdsA,Levels++);      // writes final nodes in tree and next level in nextInput
-                swap(vdsA,nextInput);					// swap input and nextInput list
-                nextInput.clear();
-        }
+    partition.start();
+    Levels = 0;
+    totalnodes = 0;
+    while(vdsA.size()>1)
+    {
+        if (verbose)
+            std::cout << "Tree Level: " << Levels 
+                      << " TreeNodes: " << tree.size() 
+                      << " Remaining Input: " << vdsA.size() << std::endl;
+        createTreeLevel(vdsA,Levels++); // writes final nodes in tree and next level in nextInput
+        swap(vdsA,nextInput);		// swap input and nextInput list
+        nextInput.clear();
+    }
 
-        root = vdsA.front();
-
-        cout << "Levels " << Levels << endl;
-
-        partition.stop();
+    root = vdsA.front();
+    
+    if (verbose) std::cout << "Levels " << Levels << std::endl;
+    partition.stop();
 }
 
 void TOUCH::assignment()
 {
-        building.start();
-        bool overlaps;
-        bool assigned;
-        for (unsigned int i=0;i<dsB.size();++i)
+    building.start();
+    bool overlaps;
+    bool assigned;
+    for (unsigned int i=0;i<dsB.size();++i)
+    {
+        FLAT::SpatialObject* obj = dsB.at(i);
+        FLAT::Box objMBR = obj->getMBR();
+        objMBR.isEmpty = false;
+        FLAT::Box::expand(objMBR,epsilon * 1./2.);
+
+        TreeEntry* nextNode;
+        TreeNode* ptr = tree.at(root->childIndex);
+
+        nextNode = NULL;
+
+        while(true)
         {
-                //if(i%1000==0)cout<<i<<endl;
-                FLAT::SpatialObject* obj = dsB.at(i);
-                FLAT::Box objMBR = obj->getMBR();
-                objMBR.isEmpty = false;
-                FLAT::Box::expand(objMBR,epsilon * 1./2.);
-                //objMBR.low = objMBR.low - epsilon;
-                //objMBR.high = objMBR.high + epsilon;
-
-                TreeEntry* nextNode;
-                TreeNode* ptr = tree.at(root->childIndex);
-
-                nextNode = NULL;
-
-                while(true)
+            overlaps = false;
+            assigned = false;
+            for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
+            {    
+                if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) )
                 {
-                        overlaps = false;
-                        assigned = false;
-                        for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
-                        {    
-                                if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) ) //@todo safe if cTOUCH
-                                {
-                                        if(!overlaps)
-                                        {
-                                                overlaps = true;
-                                                nextNode = ptr->entries.at(cChild);
-                                        }
-                                        else
-                                        {
-                                                //should be assigned to this level
-                                                ptr->attachedObjs[0].push_back(obj);
-                                                assigned = true;
-                                                break;
-                                        }
-                                }
-                        }
-                        if(assigned)
-                                break;
-                        if(!overlaps)
-                        {
-                                //filtered
-                                filtered[0] ++;
-                                break;
-                        }
-                        ptr = tree.at(nextNode->childIndex);
-                        if(ptr->leafnode /*|| ptr->level < 2*/)
-                        {
-                                ptr->attachedObjs[0].push_back(obj);
-                                break;
-                        }
+                    if(!overlaps)
+                    {
+                        overlaps = true;
+                        nextNode = ptr->entries.at(cChild);
+                    }
+                    else
+                    {
+                        // assignment to current level
+                        ptr->attachedObjs[0].push_back(obj);
+                        assigned = true;
+                        break;
+                    }
                 }
+            }
+            if(assigned)
+                    break;
+            if(!overlaps)
+            {
+                    //filtered
+                    filtered[0] ++;
+                    break;
+            }
+            ptr = tree.at(nextNode->childIndex);
+            if(ptr->leafnode)
+            {
+                    ptr->attachedObjs[0].push_back(obj);
+                    break;
+            }
         }
+    }
 
-        building.stop();
+    building.stop();
 }
 
 
 void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 {
-        SpatialGridHash* spatialGridHash = new SpatialGridHash(root->mbr,localPartitions*10);
-        spatialGridHash->epsilon = this->epsilon;
-        queue<FLAT::uint64> leaves;
-        TreeNode* leaf, *ancestorNode;
-        ancestorNode = tree.at(ancestorNodeID);
-        if( localJoin == algo_SGrid )// && localPartitions < internalObjsCount)// && internal->level >0)
-        {
-                //constructing the grid for the current internal node that we want to join it with all its desendet leaf nodes
-                spatialGridHash->build(ancestorNode->attachedObjs[0]);
-        }
+    SpatialGridHash* spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
+    spatialGridHash->epsilon = this->epsilon;
+    queue<FLAT::uint64> leaves;
+    TreeNode* leaf, *ancestorNode;
+    ancestorNode = tree.at(ancestorNodeID);
+    if( localJoin == algo_SGrid )
+    {
+        gridCalculate.start();
+        spatialGridHash->build(ancestorNode->attachedObjs[0]);
+        gridCalculate.stop();
+    }
 
-        leaves.push(ancestorNodeID);
-        while(leaves.size()>0)
+    leaves.push(ancestorNodeID);
+    while(leaves.size()>0)
+    {
+        leaf = tree.at(leaves.front());
+        leaves.pop();
+        if(leaf->leafnode)
         {
-                leaf = tree.at(leaves.front());
-                leaves.pop();
-                if(leaf->leafnode)
-                {
-                        ItemsMaxCompared += ancestorNode->attachedObjs[0].size()*leaf->entries.size();
-                        comparing.start();
-                        // join leaf->entries and vect
+            ItemsMaxCompared += ancestorNode->attachedObjs[0].size()*leaf->entries.size();
+            comparing.start();
+            if(localJoin == algo_SGrid)
+            {
+                spatialGridHash->probe(leaf);
+            }
+            else
+            {
+                JOIN(leaf,ancestorNode->attachedObjs[0]);
+            }
+            comparing.stop();
+        }
+        else
+        {
+            for (FLAT::uint64 child = 0; child < leaf->entries.size(); ++child)
+            {
+                leaves.push(leaf->entries.at(child)->childIndex);
+            }
+        }
+    }
 
-                        if(localJoin == algo_SGrid)// && localPartitions < internalObjsCount)// && internal->level >0)
-                        {
-                            spatialGridHash->probe(leaf);
-                        }
-                        else
-                        {
-                            JOIN(leaf,ancestorNode->attachedObjs[0]);
-                        }
-                        
-                        comparing.stop();
-                }
-                else
-                {
-                        for (FLAT::uint64 child = 0; child < leaf->entries.size(); ++child)
-                        {
-                                leaves.push(leaf->entries.at(child)->childIndex);
-                        }
-                }
-        }
-        
-        if(localJoin == algo_SGrid)
-        {
-            spatialGridHash->resultPairs.deDuplicateTime.start();
-            spatialGridHash->resultPairs.deDuplicate();
-            spatialGridHash->resultPairs.deDuplicateTime.stop();
-        
-            this->ItemsCompared += spatialGridHash->ItemsCompared;
-            this->resultPairs.results += spatialGridHash->resultPairs.results;
-            this->resultPairs.duplicates += spatialGridHash->resultPairs.duplicates;
-            this->repA += spatialGridHash->repA;
-            this->repB += spatialGridHash->repB;
-            this->resultPairs.deDuplicateTime.add(spatialGridHash->resultPairs.deDuplicateTime);
-            //spatialGridHash->resultPairs.printAllResults();
-        }
-        
+    if(localJoin == algo_SGrid)
+    {
+        spatialGridHash->resultPairs.deDuplicateTime.start();
+        spatialGridHash->resultPairs.deDuplicate();
+        spatialGridHash->resultPairs.deDuplicateTime.stop();
+
+        this->ItemsCompared += spatialGridHash->ItemsCompared;
+        this->resultPairs.results += spatialGridHash->resultPairs.results;
+        this->resultPairs.duplicates += spatialGridHash->resultPairs.duplicates;
+        this->repA += spatialGridHash->repA;
+        this->repB += spatialGridHash->repB;
+        this->resultPairs.deDuplicateTime.add(spatialGridHash->resultPairs.deDuplicateTime);
+    }
 }
         
 void TOUCH::probe()
 {
-        //For every cell of A join it with its corresponding cell of B
-        probing.start();
-        std::queue<FLAT::uint64> Qnodes;
+    probing.start();
+    std::queue<FLAT::uint64> Qnodes;
 
-        TreeNode* currentNode;
-    FLAT::Box localUniverse;
-
+    TreeNode* currentNode;
     Qnodes.push(root->childIndex);
-        //uni.push(root->mbr);
 
-        int lvl = Levels;
-        // A BFS on the tree then for each find all its leaf nodes by another BFS
-        while(Qnodes.size()>0)
+    int lvl = Levels;
+    // A BFS on the tree then for each find all its leaf nodes by another BFS
+    while(Qnodes.size()>0)
+    {
+        FLAT::uint64 currentNodeID = Qnodes.front();
+        currentNode = tree.at(currentNodeID);
+        Qnodes.pop();
+        //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
+        if(!currentNode->leafnode)
+        for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
         {
-                FLAT::uint64 currentNodeID = Qnodes.front();
-                currentNode = tree.at(currentNodeID);
-                Qnodes.pop();
-                //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
-                if(!currentNode->leafnode)
-                for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
-                {
-                        Qnodes.push(currentNode->entries.at(child)->childIndex);
-                }
-                //join the internal node with all *its* leaves
-
-                // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
-                if(currentNode->attachedObjs[0].size()==0)
-                        continue;
-
-                // just to display the level of the BFS traversal
-                if(lvl!=currentNode->level)
-                {
-                        lvl = currentNode->level;
-                        cout << "\n### Level " << lvl <<endl;
-                }
-
-                joinIntenalnodetoleafs(currentNodeID);
-
-                //if(localJoin == algo_SGrid && localPartitions < internalObjsCount)
-                //	delete spatialGridHash;
+                Qnodes.push(currentNode->entries.at(child)->childIndex);
         }
-        probing.stop();
+        //join the internal node with all *its* leaves
 
+        // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
+        if(currentNode->attachedObjs[0].size()==0)
+                continue;
+
+        // just to display the level of the BFS traversal
+        if (verbose)
+            if(lvl!=currentNode->level)
+            {
+                    lvl = currentNode->level;
+                    cout << "\n### Level " << lvl <<endl;
+            }
+
+        joinIntenalnodetoleafs(currentNodeID);
+    }
+    probing.stop();
 }
 	
 void TOUCH::analyze()

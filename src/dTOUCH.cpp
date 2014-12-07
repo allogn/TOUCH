@@ -296,9 +296,12 @@ void dTOUCH::assignmentB()
 }
 
 
-void dTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode*>& tree, TreeEntry* root)
+void dTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode*>& tree, TreeEntry* root, FLAT::Box universe)
 {
-        SpatialGridHash* spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
+    
+            universe.isEmpty = false;
+            FLAT::Box::expand(universe,10000);
+        SpatialGridHash* spatialGridHash = new SpatialGridHash(universe,localPartitions);
         spatialGridHash->epsilon = this->epsilon;
         queue<FLAT::uint64> leaves;
         TreeNode* leaf, *ancestorNode;
@@ -395,7 +398,7 @@ void dTOUCH::probe()
                         cout << "\n### Level " << lvl <<endl;
                 }
 
-                joinIntenalnodetoleafs(currentNodeID, treeA, rootA);
+                joinIntenalnodetoleafs(currentNodeID, treeA, rootA, universeA);
 
                 //if(localJoin == algo_SGrid && localPartitions < internalObjsCount)
         }
@@ -431,7 +434,7 @@ void dTOUCH::probe()
                         cout << "\n### Level " << lvl <<endl;
                 }
 
-                joinIntenalnodetoleafs(currentNodeID, treeB, rootB);
+                joinIntenalnodetoleafs(currentNodeID, treeB, rootB,universeB);
 
                 //if(localJoin == algo_SGrid && localPartitions < internalObjsCount)
                 //	delete spatialGridHash;

@@ -140,6 +140,10 @@ math.h
 
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
 
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.cpp
+JoinAlgorithm.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.h
+
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.cpp
 TOUCHlike.h
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.h

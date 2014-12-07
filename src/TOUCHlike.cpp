@@ -40,7 +40,7 @@ void TOUCHlike::printTOUCH() {
             
     fout
     << algoname << "," << epsilon << "," << size_dsA << "," << size_dsB << "," << file_dsA << "," << file_dsB << ","
-    << basealgo << "," << base << "," << partitions << "," << localPartitions << ","
+    << basealgo << "," << nodesize << "," << partitions << "," << localPartitions << ","
             
     << ItemsCompared << "," 
             << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB) << ","

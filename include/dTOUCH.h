@@ -41,7 +41,7 @@ public:
     void assignmentA(); // assignment of objects B to tree A
     void assignmentB();
 
-    void joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode*>& tree, TreeEntry* root);
+    void joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode*>& tree, TreeEntry* root, FLAT::Box universe);
     void probe();
     void analyze();
     

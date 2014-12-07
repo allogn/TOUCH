@@ -26,38 +26,77 @@ Skolkovo Institute of Science and Technology}
 %-----------------------------------------------------------------------------------------------------
 \begin{frame}{Goal of research}
 \begin{block}{Motivation}
-Develop In-Memory Spatial Join algorithm with Iterative Hierarchical Data-Oriented Partitioning with balanced workload
+Finding close objects with complex shape in space from large datasets can be a hard problem, that requires effective indexing of data and search algorithms. State-of-art solutions are restrained by taking into consideration time for reading data from main memory (hard disc). Recent research TOUCH is designed for in-memory join and performs much faster, however it suffers from strong unbalance inside data structure used for indexing. This leads to extreme dependency from data distribution and prevents from effective parallelization. Fixing the design of TOUCH would give new super-fast spatial join algorithm.
 \end{block}
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Problem statement}
-Given the parameter $\epsilon$ two datasets of spatial objects $A$ and $B$ find all $a\in A$ and $b \in B$ such that minimum distance between them is less than $\epsilon$.
+Given the parameter $\epsilon$ and two datasets of spatial objects $A$ and $B$ find all $a\in A$ and $b \in B$ such that minimum distance between them is less than $\epsilon$.
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Images/spjoin.png}
+\end{figure}
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Solution}
+First step: building spatial index structure (R-tree) using objects of first type
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/3dRtree.png}
+\end{figure}
+\end{frame}
+\begin{frame}{Solution}
+Second step: assigning objects of second type to the nodes of the tree
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/cTOUCHexplain.png}
+\end{figure}
+\end{frame}
+\begin{frame}{Solution}
+Second step: variations
 \begin{itemize}
-\item Build Hilbert curve through all MBRs of spatial objects (create index)
-\item Build R-tree through indexed MBRs, maintaining MBRs of two types (according to types of objects) for each node
-\item For each leaf node take objects and assign to the nodes of the tree, dynamically updating MBRs and deleting them from the leaf nodes
-\item  For each node join assigned objects with object assigned below
+\item (dTOUCH) do not assign higher than some level. Build another tree for skipped objects
+\item (cTOUCH) build initial index using both data types simultaneously. Assign objects that were cut from leaf nodes. Dynamically fix MBRs
+\item (reTOUCH) after usual assignment step remove all objects of first dataset, fix MBRs (build new tree using old skeleton) of left objects and reassign removed objects. 
+\item (rereTOUCH) repeat one more reTOUCH iteration
 \end{itemize}
+\end{frame}
+\begin{frame}{Solution}
+Third step: Joining step, checking two buckets of objects using their arbitrary spatial shape. \\
+Using either Nested Loop or Spatial Grid Hash
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/line.png}
+\end{figure}
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Computational experiment}
 \begin{figure}[p]
     \centering
-    \includegraphics[width=0.8\textwidth]{Images/joinTime.png}
+    \includegraphics[width=0.8\textwidth]{Images/pic16.png}
 \end{figure}
 \end{frame}
 \begin{frame}{Computational experiment}
 \begin{figure}[p]
     \centering
-    \includegraphics[width=0.8\textwidth]{Images/compObj.png}
+    \includegraphics[width=0.8\textwidth]{Images/pic17.png}
+\end{figure}
+\end{frame}
+\begin{frame}{Computational experiment}
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/pic20.png}
+\end{figure}
+\end{frame}
+\begin{frame}{Computational experiment}
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/pic22.png}
 \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Conclusion}
-Two of three new approaches give considerable improvement in performance and number of comparisons.
+All modifications considerably improve total spatial join time by increasing number of filtered objects and decreasing number of objects that should be checked for intersection.
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \end{document} 

@@ -230,7 +230,7 @@ void JoinAlgorithm::print()
         << " loading " << dataLoad << " init " << initialize	<< " build " << building << " probe " << probing << '\n'
         << " comparing " << comparing << " partition " << partition	<< " join " << Ljoin	<< '\n'
         << " deDuplicating " << resultPairs.deDuplicateTime	<< " analyzing " << analyzing << " sorting " << sorting << '\n'
-        << "Partitions " << partitions << " epsilon " << epsilon << " Fanout " << base << '\n'
+        << "Partitions " << partitions << " epsilon " << epsilon << " Fanout " << nodesize << '\n'
         << "\n================================\n"
         << "\ndatasets\n" << file_dsA << '\n' << file_dsB << '\n';
 
