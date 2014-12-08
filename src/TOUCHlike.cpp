@@ -82,7 +82,6 @@ void TOUCHlike::countSpatialGrid()
         {
             mbr = (type == 0)?universeA:universeB;
             mbr.isEmpty = false;
-            FLAT::Box::expand(mbr,10000);
             (*it)->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
             (*it)->spatialGridHash[type]->epsilon = this->epsilon;
             (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);

@@ -298,9 +298,6 @@ void dTOUCH::assignmentB()
 
 void dTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode*>& tree, TreeEntry* root, FLAT::Box universe)
 {
-    
-            universe.isEmpty = false;
-            FLAT::Box::expand(universe,10000);
         SpatialGridHash* spatialGridHash = new SpatialGridHash(universe,localPartitions);
         spatialGridHash->epsilon = this->epsilon;
         queue<FLAT::uint64> leaves;

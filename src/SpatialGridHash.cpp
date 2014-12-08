@@ -10,7 +10,6 @@
 SpatialGridHash::SpatialGridHash(const FLAT::Box& universeExtent,const int gridResolutionPerDimension)	
 {
         initialize.start();
-
         resolution = gridResolutionPerDimension;
         universe = universeExtent;
         FLAT::Vertex difference;

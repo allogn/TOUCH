@@ -190,7 +190,7 @@ void TOUCH::assignment()
 
 void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 {
-    SpatialGridHash* spatialGridHash = new SpatialGridHash(root->mbr,localPartitions);
+    SpatialGridHash* spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
     spatialGridHash->epsilon = this->epsilon;
     queue<FLAT::uint64> leaves;
     TreeNode* leaf, *ancestorNode;

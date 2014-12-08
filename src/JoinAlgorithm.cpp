@@ -116,6 +116,11 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
             if(verbose)
                 cout << "B" << size_dsB - numB << ":" << mbr.low << " " << mbr.high << endl;
     }
+    
+    universeA.isEmpty = false;
+    FLAT::Box::expand(universeA,epsilon);
+    FLAT::Box::expand(universeB,epsilon);
+    universeB.isEmpty = false;
 
     dataLoad.stop();
 
