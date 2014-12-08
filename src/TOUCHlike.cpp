@@ -31,7 +31,7 @@ void TOUCHlike::printTOUCH() {
      */
     if (headers)
     {
-        fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Partitions, gridSize, " // common parameters
+        fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Leaf size, gridSize, " // common parameters
         << "Compared #, Compared %, ComparedMax, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
         << "t loading, t init, t build, t probe, t comparing, t partition, t join, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate,"
         << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB\n";
@@ -40,7 +40,7 @@ void TOUCHlike::printTOUCH() {
             
     fout
     << algoname << "," << epsilon << "," << size_dsA << "," << size_dsB << "," << file_dsA << "," << file_dsB << ","
-    << basealgo << "," << nodesize << "," << partitions << "," << localPartitions << ","
+    << basealgo << "," << nodesize << "," << leafsize << "," << localPartitions << ","
             
     << ItemsCompared << "," 
             << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB) << ","

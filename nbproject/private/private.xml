@@ -13,11 +13,13 @@
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.cpp</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.cpp</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.cpp</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/reTOUCH.h</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/apps/SpatialJoin.cpp</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/dTOUCH.h</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/TOUCHlike.h</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.cpp</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/cTOUCH.h</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.cpp</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.cpp</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.cpp</file>
         </group>
     </open-files>

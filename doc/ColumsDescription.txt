@@ -6,7 +6,7 @@ infile A	: Path to first dataset
 infile B	: Path to second dataset
 LocalJoin Alg	: Algorithm used for local join (join inside nodes)
 Fanout		: Fanout (capacity) of a node in a tree
-Partitions	: Size (fanout) of leaf nodes
+Leaf size	: Size (fanout) of leaf nodes
 gridSize	: Number of cells per dimention for Grid Hash (Local Join). Resolution = gridSize/Universe (all used sapce)
 Compared #	: Total number of comparisons (comparison function calls)
 Compared %	: Compared # / (#A*#B) * 100%

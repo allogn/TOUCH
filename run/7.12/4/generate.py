@@ -16,7 +16,7 @@ filename = sys.argv[1]
 
 
 # x : arbitrary
-xcol = (7,'Node size (number of objects)')
+xcol = (8,'Leaf size (number of objects)')
 
 # y : arbitrary
 allcols = [ (11, "Number of compared objects (%)"), \
