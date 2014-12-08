@@ -30,8 +30,6 @@ private:
     void createTreeLevel(vector<TreeEntry*>& input,int Level,vector<TreeNode*>& tree);
 
 public:
-    
-    int maxAssignmentLevel; //@todo get from input params
 
     dTOUCH();
     ~dTOUCH();

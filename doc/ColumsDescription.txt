@@ -34,3 +34,5 @@ AveObj		: Average number of objects in a node @todo
 StdObj		: Standart deviation of number of objects in a node @todo 
 repA		: Number of replications of type A using Grid Hash (if one object is assigned to more than one cell of Grid Hash)
 repB		: Number of replications of type B usign Grid Hash (if one object is assigned to more than one cell of Grid Hash)
+max level   : Parameter that defines whether object is assigned to the first tree in dTOUCH
+gridProbe   : (if SGH) time for calculating grid and probing together

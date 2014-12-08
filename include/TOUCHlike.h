@@ -32,6 +32,10 @@ public:
     unsigned int totalnodes;
     int Levels;
     
+    //for dTOUCH
+    double maxLevelCoef;
+    double maxLevel;
+    
     
     void countSpatialGrid();
     void deduplicateSpatialGrid();

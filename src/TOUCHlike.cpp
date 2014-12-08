@@ -34,9 +34,13 @@ void TOUCHlike::printTOUCH() {
         fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Leaf size, gridSize, " // common parameters
         << "Compared #, Compared %, ComparedMax, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
         << "t loading, t init, t build, t probe, t comparing, t partition, t join, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate,"
-        << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB\n";
+        << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB, max level, gridP robe\n";
     }
     //check if file exists
+    
+    FLAT::Timer t;
+    t.add(probing);
+    t.add(gridCalculate);
             
     fout
     << algoname << "," << epsilon << "," << size_dsA << "," << size_dsB << "," << file_dsA << "," << file_dsB << ","
@@ -67,7 +71,9 @@ void TOUCHlike::printTOUCH() {
     << avg << "," 
             << std << "," 
             << repA << ","
-            << repB << "\n";
+            << repB << ","
+            << maxLevelCoef << ","
+            << t << "\n";
 
 }
 

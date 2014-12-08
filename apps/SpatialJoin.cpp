@@ -34,6 +34,7 @@ double epsilon				=  0.5;             // the epsilon of the similarity join
 int partitions				=  100;               // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
 unsigned int numA = 0 ,numB = 0;                            //number of elements to be read from datasets
 int base                                = 2;                // the base for S3 and SH algorithms. fanout.
+int maxLevelCoef                     = 500;                // coefitient in probability to assign object to first tree in dTOUCH
 
 string input_dsA = "..//data//RandomData-100K.bin";
 string input_dsB = "..//data//RandomData-1600K.bin";
@@ -57,6 +58,8 @@ void usage(const char *program_name) {
     printf("   -J               Algorithm for joining the buckets\n");
     printf("   -p               # of partitions (leaf size)\n");
     printf("   -b               the number of cells to be merged in the hierarchy (fanout)\n");
+    printf("   -g               number of SGH cells number per dimention (resolution)\n");
+    printf("   -m               maximum level parameter for dTOUCH\n");
     printf("   -e               Epsilon of the similarity join\n");
     printf("   -r               # of runs\n");
     printf("   -i <path> <path>  Dataset A followed by B\n");
@@ -121,6 +124,12 @@ void parse_args(int argc, const char* argv[]) {
             break;
 		case 'b':       /* base for the number of components to merge in every level of the hierarchy */
 			sscanf(argv[++x], "%u", &base);
+            break;
+		case 'm':       /* base for the number of components to merge in every level of the hierarchy */
+			sscanf(argv[++x], "%u", &maxLevelCoef);
+            break;
+		case 'g':       /* base for the number of components to merge in every level of the hierarchy */
+			sscanf(argv[++x], "%u", &localPartitions);
             break;
 		case 'v':       /* verbose */
                         t = 1;
@@ -231,6 +240,7 @@ void dodTOUCH()
         touch->epsilon	=  epsilon;	
         touch->numA = numA;
         touch->numB = numB;
+        touch->maxLevelCoef = maxLevelCoef;
         
         touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions A" << endl;
@@ -267,6 +277,7 @@ void docTOUCH()
         touch->epsilon	=  epsilon;	
         touch->numA = numA;
         touch->numB = numB;
+        touch->maxLevelCoef = maxLevelCoef;
         
         touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions" << endl;
@@ -303,6 +314,7 @@ void doTOUCH()
         touch->epsilon	=  epsilon;	
         touch->numA = numA;
         touch->numB = numB;
+        touch->maxLevelCoef = maxLevelCoef;
         
         touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions" << endl;
@@ -331,6 +343,7 @@ void doreTOUCH()
         touch->epsilon	=  epsilon;	
         touch->numA = numA;
         touch->numB = numB;
+        touch->maxLevelCoef = maxLevelCoef;
         
         touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions" << endl;
@@ -369,6 +382,7 @@ void dorereTOUCH()
         touch->epsilon	=  epsilon;	
         touch->numA = numA;
         touch->numB = numB;
+        touch->maxLevelCoef = maxLevelCoef;
         
         touch->readBinaryInput(input_dsA, input_dsB);
 	cout << "Forming the partitions" << endl;

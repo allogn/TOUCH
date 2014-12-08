@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.11.10)  7 DEC 2014 17:05
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.11.10)  9 DEC 2014 00:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1098,86 +1098,86 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 39.
+LaTeX Font Info:    Try loading font information for U+msa on input line 45.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 39.
+LaTeX Font Info:    Try loading font information for U+msb on input line 45.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 39.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 45.
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-<Images/spjoin.png, id=86, 356.532pt x 353.32pt>
+<Images/spjoin.png, id=88, 356.532pt x 353.32pt>
 File: Images/spjoin.png Graphic file (type png)
  <use Images/spjoin.png>
-Package pdftex.def Info: Images/spjoin.png used on input line 39.
+Package pdftex.def Info: Images/spjoin.png used on input line 45.
 (pdftex.def)             Requested size: 122.91406pt x 121.80927pt.
 
 [3
 
- <./Images/spjoin.png>] <Images/3dRtree.png, id=118, 351.3125pt x 301.125pt>
+ <./Images/spjoin.png>] <Images/3dRtree.png, id=120, 351.3125pt x 301.125pt>
 File: Images/3dRtree.png Graphic file (type png)
 
 <use Images/3dRtree.png>
-Package pdftex.def Info: Images/3dRtree.png used on input line 47.
+Package pdftex.def Info: Images/3dRtree.png used on input line 53.
 (pdftex.def)             Requested size: 184.3758pt x 158.04243pt.
  [4
 
  <./Images/3dRtree.png>]
-<Images/cTOUCHexplain.png, id=147, 639.188pt x 669.702pt>
+<Images/cTOUCHexplain.png, id=149, 639.188pt x 669.702pt>
 File: Images/cTOUCHexplain.png Graphic file (type png)
 
 <use Images/cTOUCHexplain.png>
-Package pdftex.def Info: Images/cTOUCHexplain.png used on input line 54.
+Package pdftex.def Info: Images/cTOUCHexplain.png used on input line 60.
 (pdftex.def)             Requested size: 184.3758pt x 193.1765pt.
  [5
 
  <./Images/cTOUCHexplain.png>] [6
 
 ]
-<Images/line.png, id=203, 256.96pt x 128.48pt>
+<Images/line.png, id=205, 256.96pt x 128.48pt>
 File: Images/line.png Graphic file (type png)
  <use Images/line.png>
-Package pdftex.def Info: Images/line.png used on input line 71.
+Package pdftex.def Info: Images/line.png used on input line 77.
 (pdftex.def)             Requested size: 184.3758pt x 92.18988pt.
  [7
 
- <./Images/line.png (PNG copy)>] <Images/pic16.png, id=231, 578.16pt x 433.62pt
+ <./Images/line.png (PNG copy)>] <Images/pic16.png, id=233, 578.16pt x 433.62pt
 >
 File: Images/pic16.png Graphic file (type png)
 
 <use Images/pic16.png>
-Package pdftex.def Info: Images/pic16.png used on input line 78.
+Package pdftex.def Info: Images/pic16.png used on input line 84.
 (pdftex.def)             Requested size: 245.83282pt x 184.36876pt.
  [8
 
  <./Images/pic16.png>]
-<Images/pic17.png, id=260, 578.16pt x 433.62pt>
+<Images/pic17.png, id=262, 578.16pt x 433.62pt>
 File: Images/pic17.png Graphic file (type png)
  <use Images/pic17.png>
-Package pdftex.def Info: Images/pic17.png used on input line 84.
+Package pdftex.def Info: Images/pic17.png used on input line 90.
 (pdftex.def)             Requested size: 245.83282pt x 184.36876pt.
  [9
 
- <./Images/pic17.png>] <Images/pic20.png, id=288, 578.16pt x 433.62pt>
+ <./Images/pic17.png>] <Images/pic20.png, id=290, 578.16pt x 433.62pt>
 File: Images/pic20.png Graphic file (type png)
 
 <use Images/pic20.png>
-Package pdftex.def Info: Images/pic20.png used on input line 90.
+Package pdftex.def Info: Images/pic20.png used on input line 96.
 (pdftex.def)             Requested size: 245.83282pt x 184.36876pt.
  [10
 
  <./Images/pic20.png>]
-<Images/pic22.png, id=316, 578.16pt x 433.62pt>
+<Images/pic22.png, id=318, 578.16pt x 433.62pt>
 File: Images/pic22.png Graphic file (type png)
  <use Images/pic22.png>
-Package pdftex.def Info: Images/pic22.png used on input line 96.
+Package pdftex.def Info: Images/pic22.png used on input line 102.
 (pdftex.def)             Requested size: 245.83282pt x 184.36876pt.
  [11
 
@@ -1193,11 +1193,11 @@ Package pdftex.def Info: Images/pic22.png used on input line 96.
 \tf@snm=\write8
 \openout8 = `Logins2014Presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 102.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 102.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 108.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 108.
  (./Logins2014Presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 102.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 102.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 108.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 108.
 Package rerunfilecheck Info: File `Logins2014Presentation.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1206,16 +1206,16 @@ Package rerunfilecheck Info: File `Logins2014Presentation.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 102.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 108.
  ) 
 Here is how much of TeX's memory you used:
- 16015 strings out of 495028
- 297179 string characters out of 6181496
- 370499 words of memory out of 5000000
- 18781 multiletter control sequences out of 15000+600000
+ 16016 strings out of 495028
+ 297246 string characters out of 6181496
+ 371484 words of memory out of 5000000
+ 18782 multiletter control sequences out of 15000+600000
  11722 words of font info for 44 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 49i,16n,59p,643b,549s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,16n,59p,438b,660s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texl
@@ -1224,10 +1224,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmssi9.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmsy10.pfb>
-Output written on Logins2014Presentation.pdf (12 pages, 1058316 bytes).
+Output written on Logins2014Presentation.pdf (12 pages, 1059339 bytes).
 PDF statistics:
- 403 PDF objects out of 1000 (max. 8388607)
- 348 compressed objects within 4 object streams
+ 405 PDF objects out of 1000 (max. 8388607)
+ 349 compressed objects within 4 object streams
  25 named destinations out of 1000 (max. 500000)
- 125 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 131 words of extra memory for PDF output out of 10000 (max. 10000000)
 

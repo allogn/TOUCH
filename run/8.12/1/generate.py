@@ -8,21 +8,22 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 if (len(sys.argv)<2):
-    print "Usage:"
-    print "generate.py <input file name.csv>"
-    sys.exit()
-
-filename = sys.argv[1]
+    filename = 'SJ.csv'
+else:
+    filename = sys.argv[1]
 
 
 # x : arbitrary
-xcol = (8,'Leaf size (number of objects)')
+xcol = (2,'Number of objects used from each of dataset')
 
 # y : arbitrary
 allcols = [ (11, "Number of compared objects (%)"), \
             (20, "Time for assignment step (s)"), \
             (22, "Time for local join (s)"), \
+            (21, "Time for probing (s)"), \
+            (37, "Time for probing + SGH building (s)"), \
             (16, "Filtered objects of type A"), \
+            (29, "Time for building SGH (s)"), \
             (17, "Filtered objects of type B") ]
 
 with open(filename, 'rb') as csvfile:
@@ -53,13 +54,13 @@ with open(filename, 'rb') as csvfile:
                 d2 = d2[tt+1:]
 
             lj = row[6]
-            setsize = row[2]
+            fan = row[7]
             part = row[8]
             gs = row[9]
             i = i + 1
         if i > 2:
             break
-additional = "E = " + epsilon + "; Local Join: " + lj + "; ObjNum: " + setsize + "; Partitions: " + part + "; Grid Size: " + gs + "\nDatasets: " + d1 + ", " + d2
+additional = "E = " + epsilon + "; Local Join: " + lj + "; Fanout: " + fan + "; Partitions: " + part + "; Grid Size: " + gs + "\nDatasets: " + d1 + ", " + d2
 
 
 for col in allcols:

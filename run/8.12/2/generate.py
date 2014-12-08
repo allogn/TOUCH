@@ -8,19 +8,22 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 if (len(sys.argv)<2):
-    print "Usage:"
-    print "generate.py <input file name.csv>"
-    sys.exit()
-
-filename = sys.argv[1]
+    filename = 'SJ.csv'
+else:
+    filename = sys.argv[1]
 
 
-# x : number of objects
+# x : arbitrary
+xcol = (2,'Number of objects used from each of dataset')
+
 # y : arbitrary
 allcols = [ (11, "Number of compared objects (%)"), \
             (20, "Time for assignment step (s)"), \
             (22, "Time for local join (s)"), \
+            (21, "Time for probing (s)"), \
+            (37, "Time for probing + SGH building (s)"), \
             (16, "Filtered objects of type A"), \
+            (29, "Time for building SGH (s)"), \
             (17, "Filtered objects of type B") ]
 
 with open(filename, 'rb') as csvfile:
@@ -71,7 +74,7 @@ for col in allcols:
         reretouchtime = []
         for row in spamreader:
             if (row[0] == 'TOUCH'):
-                objnum.insert(0,int(row[2]))
+                objnum.insert(0,int(row[xcol[0]]))
                 touchtime.insert(0,float(row[col[0]]))
             if (row[0] == 'cTOUCH'):
                 ctouchtime.insert(0,float(row[col[0]]))
@@ -91,7 +94,7 @@ for col in allcols:
 
     plt.suptitle(col[1])
     plt.title(additional, fontsize = '8')
-    plt.xlabel('Number of objects used from each of dataset');
+    plt.xlabel(xcol[1]);
     plt.ylabel(col[1]);
     plt.legend([t, dt, ct, rt, rrt], ['TOUCH', 'dTOUCH', 'cTOUCH', 'reTOUCH', 'rereTOUCH'], loc='upper center', fontsize='8')
     plt.savefig(mae_out, dpi=300)
