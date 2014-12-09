@@ -59,7 +59,7 @@ with open(filename, 'rb') as csvfile:
             i = i + 1
         if i > 2:
             break
-additional = "E = " + epsilon + "; Local Join: " + lj + "; ObjNum: " + setsize + "; Partitions: " + part + "; Grid Size: " + gs + "\nDatasets: " + d1 + ", " + d2
+additional = "E = " + epsilon + "; Local Join: " + lj + "; ObjNum: " + setsize + "; Grid Size: " + gs + "\nDatasets: " + d1 + ", " + d2
 
 
 for col in allcols:
