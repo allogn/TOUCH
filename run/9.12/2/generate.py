@@ -14,7 +14,7 @@ else:
 
 
 # x : arbitrary
-xcol = (2,'Number of objects used from each of dataset')
+xcol = (2,'Number of objects used from B dataset (A = 4000)')
 
 # y : arbitrary
 allcols = [ (11, "Number of compared objects (%)"), \
