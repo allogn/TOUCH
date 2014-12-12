@@ -146,41 +146,6 @@ void rereTOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
         sorting.stop();
     }
 
-    if(PartitioningType == STR_Sort)
-    {
-        //First sort by X then assigns the objects to partitions then sort by Y each partition separately then again assigns the objects to partitions then sort by Z objects of each partition separately
-        sorting.start();
-        cout<< "Node size " << nodeSize << endl;
-        FLAT::uint64 itemsD1 = nodeSize * nodeSize;
-        FLAT::uint64 itemsD2 = nodeSize;
-        std::sort(input.begin(),input.end(),Comparator());
-        FLAT::uint64 i=0;
-        while(true)
-        {
-            if((i+1)*itemsD1 < input.size())
-                    std::sort(input.begin()+i*itemsD1, input.begin()+(i+1)*itemsD1 ,ComparatorY());
-            else
-            {
-                    std::sort(input.begin()+i*itemsD1, input.end() ,ComparatorY());
-                    break;
-            }
-            i++;
-        }
-        i=0;
-        while(true)
-        {
-            if((i+1)*itemsD2 < input.size())
-                    std::sort(input.begin()+i*itemsD2, input.begin()+(i+1)*itemsD2 ,ComparatorZ());
-            else
-            {
-                    std::sort(input.begin()+i*itemsD2, input.end() ,ComparatorZ());
-                    break;
-            }
-            i++;
-        }
-        sorting.stop();
-    }
-
     cout << "Sort "<< input.size()<< " items in " << sorting << endl;
 
 

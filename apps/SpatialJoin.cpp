@@ -9,7 +9,7 @@
  *  - Every spatial join algorithm corresponds to one class in scr/include dir
  *  - Class hierarchy is introduced:
  *      <Join algorithm>.h 
- *              -> TOUCHlike.h (if derivative from TOUCH) 
+ *              -> CommonTOUCH.h (if derivative from TOUCH) 
  *                      -> JoinAlgorithm.h
  * 
  */
@@ -18,8 +18,6 @@
 #include "cTOUCH.h"
 #include "reTOUCH.h"
 #include "rereTOUCH.h"
-#include "S3Hash.h"
-#include "PBSMHash.h"
 
 /*
  * Input parameters
@@ -31,13 +29,13 @@ int algorithm				=  algo_NL;         // Choose the algorithm
 int localJoin				=  algo_NL;         // Choose the algorithm for joining the buckets, The local join
 int runs				=  1;               // # of runs //@todo unsupported
 double epsilon				=  0.5;             // the epsilon of the similarity join
-int partitions				=  100;               // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
+int leafsize				=  100;               // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
 unsigned int numA = 0 ,numB = 0;                            //number of elements to be read from datasets
-int base                                = 2;                // the base for S3 and SH algorithms. fanout.
-int maxLevelCoef                     = 500;                // coefitient in probability to assign object to first tree in dTOUCH
+int nodesize                            = 2;                // number of children per node if not leaf
+int maxLevelCoef                     = 500;                // coefficient in probability to assign object to first tree in dTOUCH
 
-string input_dsA = "..//data//RandomData-100K.bin";
-string input_dsB = "..//data//RandomData-1600K.bin";
+string input_dsA = "../data/RandomData-100K.bin";
+string input_dsB = "../data/RandomData-1600K.bin";
 
 void usage(const char *program_name) {
 
@@ -45,27 +43,22 @@ void usage(const char *program_name) {
     printf("   -h               Print this help menu.\n");
     printf("   -a               Algorithms\n");
     printf("      0:Nested Loop\n");
-    printf("      1:Plane-Sweeping\n");
-    printf("      2:Spatial Grid Hash\n");
-    printf("      3:Size Separation Spatial\n");
-    printf("      4:TOUCH:Spatial Hierarchical Hash\n");
-    printf("      5:Partition Based Spatial-Merge Join\n");
-    printf("      6:cTOUCH:Spatial Hierarchical Hash\n");
-    printf("      7:dTOUCH:Spatial Hierarchical Hash\n");
-    printf("      8:reTOUCH:Spatial Hierarchical Hash\n");
-    printf("      9:rereTOUCH:Spatial Hierarchical Hash\n");
+    printf("      1:Spatial Grid Hash\n");
+    printf("      2:TOUCH:Spatial Hierarchical Hash\n");
+    printf("      3:cTOUCH:Spatial Hierarchical Hash\n");
+    printf("      4:dTOUCH:Spatial Hierarchical Hash\n");
+    printf("      5:reTOUCH:Spatial Hierarchical Hash\n");
+    printf("      6:rereTOUCH:Spatial Hierarchical Hash\n");
     printf("\n");
     printf("   -J               Algorithm for joining the buckets\n");
-    printf("   -p               # of partitions (leaf size)\n");
-    printf("   -b               the number of cells to be merged in the hierarchy (fanout)\n");
-    printf("   -g               number of SGH cells number per dimention (resolution)\n");
+    printf("   -l               leaf size\n");
+    printf("   -b               fanout\n");
+    printf("   -g               number of SGH cells per dimension\n");
     printf("   -m               maximum level parameter for dTOUCH\n");
     printf("   -e               Epsilon of the similarity join\n");
-    printf("   -r               # of runs\n");
-    printf("   -i <path> <path>  Dataset A followed by B\n");
-    printf("   -n #A #B  number of element to be read\n");
-    printf("   -v verbose\n");
-    printf("\n-a 1 -i 'c:\\data\\A.dat' 'c:\\data\\B.dat'\n");
+    printf("   -i               <path> <path>  Dataset A followed by B\n");
+    printf("   -n               #A #B  number of element to be read\n");
+    printf("   -v               verbose\n");
 
 }
 
@@ -119,13 +112,13 @@ void parse_args(int argc, const char* argv[]) {
 		case 'e':       /* epsilon */
 			sscanf(argv[++x], "%lf", &epsilon);
             break;
-		case 'p':       /* # of partitions */
-			sscanf(argv[++x], "%u", &partitions);
+		case 'p':       /* number of objects in a leaf */
+			sscanf(argv[++x], "%u", &leafsize);
             break;
-		case 'b':       /* base for the number of components to merge in every level of the hierarchy */
-			sscanf(argv[++x], "%u", &base);
+		case 'b':       /* number of children for a node */
+			sscanf(argv[++x], "%u", &nodesize);
             break;
-		case 'm':       /* base for the number of components to merge in every level of the hierarchy */
+		case 'm':       /* maximum level in dTOUCH parameter */
 			sscanf(argv[++x], "%u", &maxLevelCoef);
             break;
 		case 'g':       /* base for the number of components to merge in every level of the hierarchy */
@@ -143,277 +136,174 @@ void parse_args(int argc, const char* argv[]) {
     }
 }
 
-//Spatial Grid Hash Join algorithm
-void SGrid()
+void dTOUCHrun()
 {
-//	FLAT::Box universe;
-//	//Box::combine(inputA->universe,inputB->universe,universe);
-//	if(numA > 0 && numB > 0)
-//	{
-//		universe = universeA;
-//	}
-//	else
-//	{
-//		universe = inputA->universe;
-//	}
-//
-//	FLAT::Box::expand(universe,epsilon);
-//	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
-//	SpatialGridHash* spatialGridHash = new SpatialGridHash(universe,partitions);
-//
-//	cout << "Buidling ";
-//	spatialGridHash->build(dsA);
-//	cout << "Done\nAnalysis " ;
-//	spatialGridHash->analyze(dsA,dsB);
-//	cout << "Done\nProbing ";
-//	spatialGridHash->probe(dsB);
-//	cout << "\nDone." << endl;
-//	delete spatialGridHash;
+    dTOUCH* touch = new dTOUCH();
+
+    touch->PartitioningType = PartitioningTypeMain;
+    touch->nodesize         = nodesize;
+    touch->leafsize         = leafsize;
+    touch->localPartitions  = localPartitions;	
+    touch->verbose          = verbose;		
+    touch->localJoin        = localJoin;	
+    touch->epsilon          = epsilon;	
+    touch->numA             = numA;
+    touch->numB             = numB;
+    touch->maxLevelCoef     = maxLevelCoef;
+    touch->file_dsA         = input_dsA;
+    touch->file_dsB         = input_dsB;
+    
+    touch->run();
+    touch->printTOUCH();
 }
 
-//Size Separation Spatial join algorithm
-void S3()
+void cTOUCHrun()
 {
-//	FLAT::Box universe;
-//	if(numA > 0 && numB > 0)
-//	{
-//		FLAT::Box::combine(universeA,universeB,universe);
-//	}
-//	else
-//	{
-//		FLAT::Box::combine(inputA->universe,inputB->universe,universe);
-//	}
-//
-//	FLAT::Box::expand(universe,epsilon);
-//	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
-//	FLAT::Box::combine(inputA->universe,inputB->universe,universe);
-//	S3Hash* s3Hash = new S3Hash(universe,partitions);
-//
-//	cout << "Building Started" << endl;
-//	s3Hash->build(dsA, dsB);
-//	cout << "Building Done" << endl;
-//	s3Hash->analyze(dsA,dsB);
-//	cout << "Analysis Done" << endl;
-//	s3Hash->probe(S3Results);
-//
-//	cout << "Probing Done" << endl;
-//	delete s3Hash;
+    cTOUCH* touch = new cTOUCH();
+
+    touch->PartitioningType = PartitioningTypeMain;
+    touch->nodesize = nodesize;
+    touch->leafsize   = leafsize;
+    touch->localPartitions = localPartitions;	
+    touch->verbose  =  verbose;		
+    touch->localJoin    =  localJoin;	
+    touch->epsilon	=  epsilon;	
+    touch->numA = numA;
+    touch->numB = numB;
+    touch->maxLevelCoef = maxLevelCoef;
+
+    touch->totalTimeStart();
+    touch->readBinaryInput(input_dsA, input_dsB);
+    if (verbose) std::cout << "Forming the partitions" << std::endl; 
+    touch->createPartitions();
+    if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
+    touch->assignment();
+    if (verbose) std::cout << "Assigning Done." << std::endl; 
+    touch->analyze();
+    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
+    if(localJoin == algo_SGrid)
+        touch->countSpatialGrid();
+    if (verbose) std::cout << "Probing, doing the join" << std::endl; 
+    touch->probe();
+    if(localJoin == algo_SGrid)
+    {
+        std::cout << "Removing duplicates" << std::endl; 
+        touch->deduplicateSpatialGrid();
+    }
+    if (verbose) std::cout << "Done." << std::endl;
+    touch->totalTimeStop();
+
+    touch->printTOUCH();
 }
 
-//Partition Based Spatial-Merge join algorithm
-void PBSM()
+void TOUCHrun()
 {
-//	FLAT::Box universe;
-//	if(numA > 0 && numB > 0)
-//	{
-//		universe = universeA;
-//	}
-//	else
-//	{
-//		universe = inputA->universe;
-//	}
-//
-//	FLAT::Box::expand(universe,epsilon);
-//	cout<< "Universe: " << universe.low << " " << universe.high <<endl;
-//	PBSMHash* pbsmHash = new PBSMHash(universe,partitions);
-//
-//	cout << "Building Started" << endl;
-//	pbsmHash->build(dsA, dsB);
-//	cout << "Building Done" << endl;
-//	pbsmHash->analyze(dsA,dsB);
-//	cout << "Analysis Done" << endl;
-//	pbsmHash->probe(PBSMResults);
-//	cout << "Probing Done" << endl;
-//	delete pbsmHash;
+    TOUCH* touch = new TOUCH();
+
+    touch->PartitioningType = PartitioningTypeMain;
+    touch->nodesize = nodesize;
+    touch->leafsize   = leafsize;
+    touch->localPartitions = localPartitions;	
+    touch->verbose  =  verbose;		
+    touch->localJoin    =  localJoin;	
+    touch->epsilon	=  epsilon;	
+    touch->numA = numA;
+    touch->numB = numB;
+    touch->maxLevelCoef = maxLevelCoef;
+    touch->file_dsA         = input_dsA;
+    touch->file_dsB         = input_dsB;
+
+    touch->run();
+    touch->printTOUCH();
 }
 
-void dodTOUCH()
+void reTOUCHrun()
 {
-	dTOUCH* touch = new dTOUCH();
-        
-        touch->PartitioningType = PartitioningTypeMain;
-        touch->nodesize = base;
-        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
-        touch->localPartitions = localPartitions;	
-        touch->verbose  =  verbose;		
-        touch->localJoin    =  localJoin;	
-        touch->epsilon	=  epsilon;	
-        touch->numA = numA;
-        touch->numB = numB;
-        touch->maxLevelCoef = maxLevelCoef;
-        
-        touch->readBinaryInput(input_dsA, input_dsB);
-	cout << "Forming the partitions A" << endl;
-	touch->createPartitionsA();
-	cout << "Assigning the objects of B" << endl;
-	touch->assignmentA();
-	cout << "Assigning Done." << endl;
-        
-        cout << "Forming the partitions B" << endl;
-	touch->createPartitionsB();
-	cout << "Assigning the objects of A" << endl;
-	touch->assignmentB();
-	cout << "Assigning Done." << endl;
-        
-	touch->analyze();
-	cout << "Analysis Done" << endl;
-	cout << "Probing, doing the join1" << endl;
-	touch->probe();
-	cout << "Done." << endl;
-        touch->printTOUCH();
+    reTOUCH* touch = new reTOUCH();
+
+    touch->PartitioningType = PartitioningTypeMain;
+    touch->nodesize = nodesize;
+    touch->leafsize   = leafsize; // note: do not change base and partitions for TOUCH-like
+    touch->localPartitions = localPartitions;	
+    touch->verbose  =  verbose;		
+    touch->localJoin    =  localJoin;	
+    touch->epsilon	=  epsilon;	
+    touch->numA = numA;
+    touch->numB = numB;
+    touch->maxLevelCoef = maxLevelCoef;
+
+    touch->totalTimeStart();
+    touch->readBinaryInput(input_dsA, input_dsB);
+    if (verbose) std::cout << "Forming the partitions" << std::endl; 
+    touch->createPartitions();
+    if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
+    touch->assignmentB();
+    if (verbose) std::cout << "Assigning the objects of A" << std::endl; 
+    touch->assignmentA();
+    if (verbose) std::cout << "Assigning Done." << std::endl; 
+    touch->analyze();
+    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
+    if(localJoin == algo_SGrid)
+        touch->countSpatialGrid();
+    if (verbose) std::cout << "Probing, doing the join" << std::endl; 
+    touch->probe();
+    if(localJoin == algo_SGrid)
+    {
+        if (verbose) std::cout << "Removing duplicates" << std::endl; 
+        touch->deduplicateSpatialGrid();
+    }
+    if (verbose) std::cout << "Done." << std::endl; 
+    touch->totalTimeStop();
+
+    touch->printTOUCH();
 }
 
-void docTOUCH()
+void rereTOUCHrun()
 {
+    rereTOUCH* touch = new rereTOUCH();
 
-	cTOUCH* touch = new cTOUCH();
-        
-        touch->PartitioningType = PartitioningTypeMain;
-        touch->nodesize = base;
-        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
-        touch->localPartitions = localPartitions;	
-        touch->verbose  =  verbose;		
-        touch->localJoin    =  localJoin;	
-        touch->epsilon	=  epsilon;	
-        touch->numA = numA;
-        touch->numB = numB;
-        touch->maxLevelCoef = maxLevelCoef;
-        
-        touch->readBinaryInput(input_dsA, input_dsB);
-	cout << "Forming the partitions" << endl;
-	touch->createPartitions();
-	cout << "Assigning the objects of B" << endl;
-	touch->assignment();
-	cout << "Assigning Done." << endl;
-	touch->analyze();
-	cout << "Analysis Done, counting grids if necessary." << endl;
-        if(localJoin == algo_SGrid)
-            touch->countSpatialGrid();
-	cout << "Probing, doing the join" << endl;
-	touch->probe();
-        if(localJoin == algo_SGrid)
-        {
-            cout << "Deduplication" << endl;
-            touch->deduplicateSpatialGrid();
-        }
-	cout << "Done." << endl;
-        //touch->resultPairs.printAllResults();
-        touch->printTOUCH();
-}
+    touch->PartitioningType = PartitioningTypeMain;
+    touch->nodesize = nodesize;
+    touch->leafsize   = leafsize; // note: do not change base and partitions for TOUCH-like
+    touch->localPartitions = localPartitions;	
+    touch->verbose  =  verbose;		
+    touch->localJoin    =  localJoin;	
+    touch->epsilon	=  epsilon;	
+    touch->numA = numA;
+    touch->numB = numB;
+    touch->maxLevelCoef = maxLevelCoef;
 
-void doTOUCH()
-{
-	TOUCH* touch = new TOUCH();
-        
-        touch->PartitioningType = PartitioningTypeMain;
-        touch->nodesize = base;
-        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
-        touch->localPartitions = localPartitions;	
-        touch->verbose  =  verbose;		
-        touch->localJoin    =  localJoin;	
-        touch->epsilon	=  epsilon;	
-        touch->numA = numA;
-        touch->numB = numB;
-        touch->maxLevelCoef = maxLevelCoef;
-        
-        touch->readBinaryInput(input_dsA, input_dsB);
-	cout << "Forming the partitions" << endl;
-	touch->createPartitions();
-	cout << "Assigning the objects of B" << endl;
-	touch->assignment();
-	cout << "Assigning Done." << endl;
-	touch->analyze();
-	cout << "Analysis Done" << endl;
-	cout << "Probing, doing the join1" << endl;
-	touch->probe();
-	cout << "Done." << endl;
-        touch->printTOUCH();
-}
+    touch->totalTimeStart();
+    touch->readBinaryInput(input_dsA, input_dsB);
+    cout << "Forming the partitions" << std::endl; 
+    touch->createPartitions();
+    cout << "Assigning the objects of B" << std::endl; 
+    touch->assignmentB();
+    cout << "Assigning the objects of A" << std::endl; 
+    touch->assignmentA();
+    cout << "Assigning the objects of B again" << std::endl; 
+    touch->reassignmentB();
+    cout << "Assigning Done." << std::endl; 
+    touch->analyze();
+    cout << "Analysis Done, counting grids if necessary." << std::endl; 
+    if(localJoin == algo_SGrid)
+        touch->countSpatialGrid();
+    cout << "Probing, doing the join" << std::endl; 
+    touch->probe();
+    if(localJoin == algo_SGrid)
+    {
+        std::cout << "Removing duplicates" << std::endl; 
+        touch->deduplicateSpatialGrid();
+    }
+    cout << "Done." << std::endl; 
+    touch->totalTimeStop();
 
-void doreTOUCH()
-{
-	reTOUCH* touch = new reTOUCH();
-        
-        touch->PartitioningType = PartitioningTypeMain;
-        touch->nodesize = base;
-        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
-        touch->localPartitions = localPartitions;	
-        touch->verbose  =  verbose;		
-        touch->localJoin    =  localJoin;	
-        touch->epsilon	=  epsilon;	
-        touch->numA = numA;
-        touch->numB = numB;
-        touch->maxLevelCoef = maxLevelCoef;
-        
-        touch->readBinaryInput(input_dsA, input_dsB);
-	cout << "Forming the partitions" << endl;
-	touch->createPartitions();
-	cout << "Assigning the objects of B" << endl;
-	touch->assignmentB();
-	cout << "Assigning the objects of A" << endl;
-	touch->assignmentA();
-	cout << "Assigning Done." << endl;
-	touch->analyze();
-	cout << "Analysis Done, counting grids if necessary." << endl;
-        if(localJoin == algo_SGrid)
-            touch->countSpatialGrid();
-	cout << "Probing, doing the join1" << endl;
-	touch->probe();
-        if(localJoin == algo_SGrid)
-        {
-            cout << "Deduplication" << endl;
-            touch->deduplicateSpatialGrid();
-        }
-	cout << "Done." << endl;
-        //touch->resultPairs.printAllResults();
-        touch->printTOUCH();
-}
-
-void dorereTOUCH()
-{
-	rereTOUCH* touch = new rereTOUCH();
-        
-        touch->PartitioningType = PartitioningTypeMain;
-        touch->nodesize = base;
-        touch->leafsize   = partitions; // note: do not change base and partitions for TOUCH-like
-        touch->localPartitions = localPartitions;	
-        touch->verbose  =  verbose;		
-        touch->localJoin    =  localJoin;	
-        touch->epsilon	=  epsilon;	
-        touch->numA = numA;
-        touch->numB = numB;
-        touch->maxLevelCoef = maxLevelCoef;
-        
-        touch->readBinaryInput(input_dsA, input_dsB);
-	cout << "Forming the partitions" << endl;
-	touch->createPartitions();
-	cout << "Assigning the objects of B" << endl;
-	touch->assignmentB();
-	cout << "Assigning the objects of A" << endl;
-	touch->assignmentA();
-	cout << "Assigning the objects of B again" << endl;
-	touch->reassignmentB();
-	cout << "Assigning Done." << endl;
-	touch->analyze();
-	cout << "Analysis Done, counting grids if necessary." << endl;
-        if(localJoin == algo_SGrid)
-            touch->countSpatialGrid();
-	cout << "Probing, doing the join1" << endl;
-	touch->probe();
-        if(localJoin == algo_SGrid)
-        {
-            cout << "Deduplication" << endl;
-            touch->deduplicateSpatialGrid();
-        }
-	cout << "Done." << endl;
-        
-        //cout << "Check MBR: " << touch->verifyMBR(touch->root) << endl;
-        touch->printTOUCH();
+    touch->printTOUCH();
 }
 
 void NLalgo()
 {
-    cout << "New NL join algorithm created" << endl;
+    std::cout << "New NL join algorithm created" << std::endl; 
     JoinAlgorithm* nl = new JoinAlgorithm();
             
     nl->verbose  =  verbose;
@@ -421,75 +311,45 @@ void NLalgo()
     nl->numA = numA;
     nl->numB = numB;
     
-    cout << "Reading data" << endl;
+    std::cout << "Reading data" << std::endl; 
     nl->readBinaryInput(input_dsA, input_dsB);
-    cout << "Nested loop join" << endl;
+    std::cout << "Nested loop join" << std::endl; 
     nl->NL(nl->dsA, nl->dsB);
-    
-    nl->print();
-}
-
-void PSalgo()
-{
-    cout << "New NL join algorithm created" << endl;
-    JoinAlgorithm* nl = new JoinAlgorithm();
-            
-    nl->verbose  =  verbose;
-    nl->epsilon = epsilon;
-    nl->numA = numA;
-    nl->numB = numB;
-    
-    cout << "Reading data" << endl;
-    nl->readBinaryInput(input_dsA, input_dsB);
-    cout << "Nested loop join" << endl;
-    nl->PS(nl->dsA, nl->dsB);
     
     nl->print();
 }
 
 int main(int argc, const char* argv[])
 {
-	//Parsing the arguments
-	parse_args(argc, argv);
-	
-	switch(algorithm)
-	{
-		case algo_NL:
-                    NLalgo();
-		break;
-		case algo_PS:
-                    PSalgo();
-		break;
-		case algo_TOUCH:
-			doTOUCH();
-		break;
-		case algo_cTOUCH:
-			docTOUCH();
-		break;
-		case algo_dTOUCH:
-			dodTOUCH();
-		break;
-                case algo_reTOUCH:
-			doreTOUCH();
-		break;
-                case algo_rereTOUCH:
-			dorereTOUCH();
-		break;
-		case algo_SGrid:
-			SGrid();
-		break;
-		case algo_S3:
-			S3();
-		break;
-		case algo_PBSM:
-			PBSM();
-		break;
-		default:
-			cout<<"No such an algorithm!"<<endl;
-			exit(0);
-		break;
-	}
+    //Parsing the arguments
+    parse_args(argc, argv);
 
-	cout<<"Terminated."<<endl;
-	return 0;
+    switch(algorithm)
+    {
+        case algo_NL:
+            NLalgo();
+        break;
+        case algo_TOUCH:
+            TOUCHrun();
+        break;
+        case algo_cTOUCH:
+            cTOUCHrun();
+        break;
+        case algo_dTOUCH:
+            dTOUCHrun();
+        break;
+        case algo_reTOUCH:
+            reTOUCHrun();
+        break;
+        case algo_rereTOUCH:
+            rereTOUCHrun();
+        break;
+        default:
+            std::cout << "No such an algorithm!" << std::endl;
+            exit(0);
+        break;
+    }
+
+    std::cout << "Terminated." << std::endl;
+    return 0;
 }

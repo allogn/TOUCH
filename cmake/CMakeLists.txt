@@ -3,8 +3,6 @@ PROJECT(SpatialIndex)
 SET(MYLIB "FLATIndex")
 SET(MACHINE bbplinsrv)
 
-
-	MESSAGE (STATUS "Detected Sadegh Laptop")
 	INCLUDE_DIRECTORIES (
 	  ${CMAKE_SOURCE_DIR}/../include/
 	  /usr/include/boost/ 

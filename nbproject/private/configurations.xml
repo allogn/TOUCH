@@ -76,6 +76,7 @@
         <in>Box.hpp</in>
         <in>BufferedFile.hpp</in>
         <in>CImg.h</in>
+        <in>CommonTOUCH.h</in>
         <in>Cone.hpp</in>
         <in>DataFileReader.hpp</in>
         <in>DendriteReader.hpp</in>
@@ -89,13 +90,10 @@
         <in>MeshObjectReader.hpp</in>
         <in>MeshReader.hpp</in>
         <in>Metadata.hpp</in>
-        <in>PBSMHash.h</in>
         <in>PayLoad.hpp</in>
         <in>PriorityRtreeIndex.hpp</in>
         <in>ResultPairs.h</in>
         <in>RtreeIndex.hpp</in>
-        <in>S3Hash.h</in>
-        <in>STRIndex.hpp</in>
         <in>SeedBuilder.hpp</in>
         <in>Segment.hpp</in>
         <in>SegmentObjectReader.hpp</in>
@@ -113,7 +111,6 @@
         <in>Synapse.hpp</in>
         <in>SynapseReader.hpp</in>
         <in>TOUCH.h</in>
-        <in>TOUCHlike.h</in>
         <in>Timer.hpp</in>
         <in>TreeEntry.h</in>
         <in>TreeNode.h</in>
@@ -842,6 +839,8 @@
         </df>
         <df name="7.12">
           <df name="1">
+            <df name="Old generate">
+            </df>
           </df>
           <df name="2">
           </df>
@@ -860,12 +859,19 @@
           <df name="4">
           </df>
         </df>
+        <df name="9.12">
+          <df name="1">
+          </df>
+          <df name="2">
+          </df>
+        </df>
       </df>
       <df name="src">
         <in>BBPTextFileReader.cpp</in>
         <in>Bitmap.cpp</in>
         <in>Box.cpp</in>
         <in>BufferedFile.cpp</in>
+        <in>CommonTOUCH.cpp</in>
         <in>Cone.cpp</in>
         <in>DataFileReader.cpp</in>
         <in>ExternalSort.cpp</in>
@@ -874,13 +880,10 @@
         <in>KDIndex.cpp</in>
         <in>Mesh.cpp</in>
         <in>Metadata.cpp</in>
-        <in>PBSMHash.cpp</in>
         <in>PayLoad.cpp</in>
         <in>PriorityRtreeIndex.cpp</in>
         <in>ResultPairs.cpp</in>
         <in>RtreeIndex.cpp</in>
-        <in>S3Hash.cpp</in>
-        <in>STRIndex.cpp</in>
         <in>SeedBuilder.cpp</in>
         <in>Segment.cpp</in>
         <in>Soma.cpp</in>
@@ -892,7 +895,6 @@
         <in>Sphere.cpp</in>
         <in>Synapse.cpp</in>
         <in>TOUCH.cpp</in>
-        <in>TOUCHlike.cpp</in>
         <in>Timer.cpp</in>
         <in>Triangle.cpp</in>
         <in>Vertex.cpp</in>
@@ -1136,6 +1138,8 @@
         </df>
         <df name="7.12">
           <df name="1">
+            <df name="Old generate">
+            </df>
           </df>
           <df name="2">
           </df>
@@ -1152,6 +1156,532 @@
           <df name="3">
           </df>
           <df name="4">
+          </df>
+        </df>
+        <df name="9.12">
+          <df name="1">
+          </df>
+          <df name="2">
+          </df>
+        </df>
+      </df>
+      <df name="src">
+      </df>
+      <df name="web">
+      </df>
+      <df name="wrapper">
+      </df>
+    </df>
+    <df root="." name="2">
+      <df name="apps">
+      </df>
+      <df name="bin">
+      </df>
+      <df name="build">
+        <df name="CMakeFiles">
+          <df name="2.8.12.2">
+            <df name="CompilerIdC">
+            </df>
+            <df name="CompilerIdCXX">
+            </df>
+          </df>
+          <df name="CMakeTmp">
+          </df>
+          <df name="FLATIndex.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="src">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
+          </df>
+          <df name="SpatialJoin.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="cmake">
+      </df>
+      <df name="data">
+      </df>
+      <df name="doc">
+        <df name="Images">
+        </df>
+      </df>
+      <df name="include">
+      </df>
+      <df name="lib">
+        <df name="bbpdias">
+          <df name="BBPSDK">
+            <df name="File">
+              <df name="Parsers">
+              </df>
+            </df>
+            <df name="include">
+              <df name="BBP">
+                <df name="Common">
+                  <df name="Dataset">
+                    <df name="Containers">
+                      <df name="detail">
+                      </df>
+                    </df>
+                    <df name="HDF5">
+                    </df>
+                  </df>
+                  <df name="Exception">
+                  </df>
+                  <df name="Filter">
+                    <df name="Control">
+                    </df>
+                  </df>
+                  <df name="Graphics">
+                    <df name="2D">
+                      <df name="Writers">
+                      </df>
+                    </df>
+                  </df>
+                  <df name="Math">
+                    <df name="Geometry">
+                    </df>
+                  </df>
+                  <df name="Patterns">
+                  </df>
+                  <df name="String">
+                  </df>
+                  <df name="System">
+                    <df name="File">
+                    </df>
+                    <df name="Time">
+                    </df>
+                  </df>
+                </df>
+                <df name="Filters">
+                  <df name="Image">
+                  </df>
+                  <df name="Matrix">
+                  </df>
+                  <df name="Microcircuit">
+                  </df>
+                  <df name="Volume">
+                  </df>
+                </df>
+                <df name="Model">
+                  <df name="Experiment">
+                    <df name="Containers">
+                    </df>
+                    <df name="Mappings">
+                    </df>
+                    <df name="Readers">
+                      <df name="detail">
+                      </df>
+                      <df name="File">
+                      </df>
+                      <df name="Parsers">
+                      </df>
+                    </df>
+                  </df>
+                  <df name="Microcircuit">
+                    <df name="Containers">
+                    </df>
+                    <df name="Datasets">
+                      <df name="Accessors">
+                      </df>
+                    </df>
+                    <df name="Distiller">
+                    </df>
+                    <df name="Mappings">
+                    </df>
+                    <df name="Readers">
+                    </df>
+                    <df name="Targets">
+                    </df>
+                    <df name="Writers">
+                      <df name="File">
+                      </df>
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
+            <df name="Parsers">
+              <df name="Lex_Yacc">
+              </df>
+            </df>
+          </df>
+          <df name="Farhan">
+            <df name="MemoryRStarTree">
+            </df>
+          </df>
+          <df name="hilbert-b-tree-results">
+          </df>
+          <df name="libbbpdias">
+          </df>
+          <df name="libbtree">
+          </df>
+          <df name="libFLAT">
+          </df>
+          <df name="RTREEWRAPPER">
+          </df>
+        </df>
+        <df name="HDF5">
+          <df name="include">
+          </df>
+          <df name="lib">
+          </df>
+        </df>
+        <df name="RTree">
+          <df name="include">
+            <df name="capi">
+            </df>
+            <df name="tools">
+            </df>
+          </df>
+          <df name="regressiontest">
+            <df name="mvrtree">
+            </df>
+            <df name="rtree">
+            </df>
+            <df name="tprtree">
+            </df>
+          </df>
+          <df name="src">
+            <df name="capi">
+            </df>
+            <df name="mvrtree">
+            </df>
+            <df name="rtree">
+            </df>
+            <df name="spatialindex">
+            </df>
+            <df name="storagemanager">
+            </df>
+            <df name="tools">
+            </df>
+            <df name="tprtree">
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="run">
+        <df name="23.11">
+        </df>
+        <df name="25.11">
+        </df>
+        <df name="6.12">
+          <df name="1">
+          </df>
+          <df name="2">
+          </df>
+          <df name="3">
+          </df>
+        </df>
+        <df name="7.12">
+          <df name="1">
+            <df name="Old generate">
+            </df>
+          </df>
+          <df name="2">
+          </df>
+          <df name="3">
+          </df>
+          <df name="4">
+          </df>
+        </df>
+        <df name="8.12">
+          <df name="1">
+          </df>
+          <df name="2">
+          </df>
+          <df name="3">
+          </df>
+          <df name="4">
+          </df>
+        </df>
+        <df name="9.12">
+          <df name="1">
+          </df>
+          <df name="2">
+          </df>
+        </df>
+      </df>
+      <df name="src">
+      </df>
+      <df name="web">
+      </df>
+      <df name="wrapper">
+      </df>
+    </df>
+    <df root="." name="3">
+      <df name="apps">
+      </df>
+      <df name="bin">
+      </df>
+      <df name="build">
+        <df name="CMakeFiles">
+          <df name="2.8.12.2">
+            <df name="CompilerIdC">
+            </df>
+            <df name="CompilerIdCXX">
+            </df>
+          </df>
+          <df name="CMakeTmp">
+          </df>
+          <df name="FLATIndex.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="src">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
+          </df>
+          <df name="SpatialJoin.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="cmake">
+      </df>
+      <df name="data">
+      </df>
+      <df name="doc">
+        <df name="Images">
+        </df>
+      </df>
+      <df name="include">
+      </df>
+      <df name="lib">
+        <df name="bbpdias">
+          <df name="BBPSDK">
+            <df name="File">
+              <df name="Parsers">
+              </df>
+            </df>
+            <df name="include">
+              <df name="BBP">
+                <df name="Common">
+                  <df name="Dataset">
+                    <df name="Containers">
+                      <df name="detail">
+                      </df>
+                    </df>
+                    <df name="HDF5">
+                    </df>
+                  </df>
+                  <df name="Exception">
+                  </df>
+                  <df name="Filter">
+                    <df name="Control">
+                    </df>
+                  </df>
+                  <df name="Graphics">
+                    <df name="2D">
+                      <df name="Writers">
+                      </df>
+                    </df>
+                  </df>
+                  <df name="Math">
+                    <df name="Geometry">
+                    </df>
+                  </df>
+                  <df name="Patterns">
+                  </df>
+                  <df name="String">
+                  </df>
+                  <df name="System">
+                    <df name="File">
+                    </df>
+                    <df name="Time">
+                    </df>
+                  </df>
+                </df>
+                <df name="Filters">
+                  <df name="Image">
+                  </df>
+                  <df name="Matrix">
+                  </df>
+                  <df name="Microcircuit">
+                  </df>
+                  <df name="Volume">
+                  </df>
+                </df>
+                <df name="Model">
+                  <df name="Experiment">
+                    <df name="Containers">
+                    </df>
+                    <df name="Mappings">
+                    </df>
+                    <df name="Readers">
+                      <df name="detail">
+                      </df>
+                      <df name="File">
+                      </df>
+                      <df name="Parsers">
+                      </df>
+                    </df>
+                  </df>
+                  <df name="Microcircuit">
+                    <df name="Containers">
+                    </df>
+                    <df name="Datasets">
+                      <df name="Accessors">
+                      </df>
+                    </df>
+                    <df name="Distiller">
+                    </df>
+                    <df name="Mappings">
+                    </df>
+                    <df name="Readers">
+                    </df>
+                    <df name="Targets">
+                    </df>
+                    <df name="Writers">
+                      <df name="File">
+                      </df>
+                    </df>
+                  </df>
+                </df>
+              </df>
+            </df>
+            <df name="Parsers">
+              <df name="Lex_Yacc">
+              </df>
+            </df>
+          </df>
+          <df name="Farhan">
+            <df name="MemoryRStarTree">
+            </df>
+          </df>
+          <df name="hilbert-b-tree-results">
+          </df>
+          <df name="libbbpdias">
+          </df>
+          <df name="libbtree">
+          </df>
+          <df name="libFLAT">
+          </df>
+          <df name="RTREEWRAPPER">
+          </df>
+        </df>
+        <df name="HDF5">
+          <df name="include">
+          </df>
+          <df name="lib">
+          </df>
+        </df>
+        <df name="RTree">
+          <df name="include">
+            <df name="capi">
+            </df>
+            <df name="tools">
+            </df>
+          </df>
+          <df name="regressiontest">
+            <df name="mvrtree">
+            </df>
+            <df name="rtree">
+            </df>
+            <df name="tprtree">
+            </df>
+          </df>
+          <df name="src">
+            <df name="capi">
+            </df>
+            <df name="mvrtree">
+            </df>
+            <df name="rtree">
+            </df>
+            <df name="spatialindex">
+            </df>
+            <df name="storagemanager">
+            </df>
+            <df name="tools">
+            </df>
+            <df name="tprtree">
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="run">
+        <df name="23.11">
+        </df>
+        <df name="25.11">
+        </df>
+        <df name="6.12">
+          <df name="1">
+          </df>
+          <df name="2">
+          </df>
+          <df name="3">
+          </df>
+        </df>
+        <df name="7.12">
+          <df name="1">
+            <df name="Old generate">
+            </df>
+          </df>
+          <df name="2">
+          </df>
+          <df name="3">
+          </df>
+          <df name="4">
+          </df>
+        </df>
+        <df name="8.12">
+          <df name="1">
+          </df>
+          <df name="2">
+          </df>
+          <df name="3">
+          </df>
+          <df name="4">
+          </df>
+        </df>
+        <df name="9.12">
+          <df name="1">
+          </df>
+          <df name="2">
           </df>
         </df>
       </df>

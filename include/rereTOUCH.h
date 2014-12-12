@@ -6,10 +6,10 @@
  * 
  */
 
-#include "TOUCHlike.h"
+#include "CommonTOUCH.h"
 
 
-class rereTOUCH : public TOUCHlike
+class rereTOUCH : public CommonTOUCH
 {
 private:
 
@@ -90,19 +90,9 @@ private:
         Ljoin.start();
         if(localJoin == algo_NL)
             NL(obj,B);
-        else
-            PS(obj,B);
         Ljoin.stop();
     }
     
-        //Plane-sweeping join algorithm for cTOUCH <--------------
-    void PS(FLAT::SpatialObject* A, SpatialObjectList& B)
-    {
-        //@todo sorting???
-        for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-            if ( istouching(A , (*itB)) )
-                resultPairs.addPair( A,(*itB) );
-    }
     //Nested Loop join algorithm cTOUCH
     void NL(FLAT::SpatialObject* A, SpatialObjectList& B)
     {

@@ -1,47 +1,32 @@
 /* 
  * File:   dTOUCH.h
- * Author: Alvis
+ * Author: Alvis Logins
  *
+ * dTOUCH runs TOUCH with probability to assign objects to high levels
+ * Skipped objects are used for second iteration of TOUCH with dataset roles swapped
  */
 
 #ifndef DTOUCH_H
 #define	DTOUCH_H
 
-#include "TOUCHlike.h"
+#include "CommonTOUCH.h"
 #include "SpatialGridHash.h"
 
-class dTOUCH : public TOUCHlike
+class dTOUCH : public CommonTOUCH
 {
 
 private:
-
-    vector<TreeNode*> treeA;
-    vector<TreeNode*> treeB;
-    TreeEntry* rootA;
-    TreeEntry* rootB;
-    int LevelsA;
-    int LevelsB;
-    int LVLA; // for output statistics
-    int LVLB;
-    vector<FLAT::uint64> ItemPerLevelA;
-    vector<FLAT::uint64> ItemPerLevelB;
-
-    void writeNode(vector<TreeEntry*> objlist,int Level,vector<TreeNode*>& tree);
-    void createTreeLevel(vector<TreeEntry*>& input,int Level,vector<TreeNode*>& tree);
+    
+    void assignment(SpatialObjectList& ds);
+    void joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);
 
 public:
 
     dTOUCH();
     ~dTOUCH();
-    void createPartitionsA();
-    void createPartitionsB();
-        
-    void assignmentA(); // assignment of objects B to tree A
-    void assignmentB();
-
-    void joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID, vector<TreeNode*>& tree, TreeEntry* root, FLAT::Box universe);
-    void probe();
+    
     void analyze();
+    void run();
     
 };
 

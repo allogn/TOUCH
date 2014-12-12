@@ -6,10 +6,10 @@
  * 
  */
 
-#include "TOUCHlike.h"
+#include "CommonTOUCH.h"
 
 
-class reTOUCH : public TOUCHlike
+class reTOUCH : public CommonTOUCH
 {
 private:
 

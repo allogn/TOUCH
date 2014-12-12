@@ -7,20 +7,20 @@
 #ifndef TOUCH_H
 #define	TOUCH_H
 
-#include "TOUCHlike.h"
+#include "CommonTOUCH.h"
 
-class TOUCH : public TOUCHlike {
+class TOUCH : public CommonTOUCH {
 public:
     TOUCH();
     virtual ~TOUCH();
     
+    void run();
+    
     void analyze();
-    void createPartitions();
     void assignment();
     void probe();
 private:
     void writeNode(std::vector<TreeEntry*> objlist,int Level);
-    void createTreeLevel(vector<TreeEntry*>& input,int Level);
     void joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID);
 };
 

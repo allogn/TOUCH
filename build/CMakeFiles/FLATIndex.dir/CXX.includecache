@@ -22,6 +22,24 @@ fstream
 iostream
 -
 
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/CommonTOUCH.h
+vector
+-
+queue
+-
+cmath
+-
+unistd.h
+-
+JoinAlgorithm.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
+TreeNode.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
+TreeEntry.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
+SpatialGridHash.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
+
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 SpatialObjectStream.hpp
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
@@ -88,24 +106,6 @@ string
 Box.hpp
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
-vector
--
-queue
--
-cmath
--
-unistd.h
--
-JoinAlgorithm.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
-TreeNode.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
-TreeEntry.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
-SpatialGridHash.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
-
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 windows.h
 -
@@ -138,15 +138,9 @@ iostream
 math.h
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/math.h
 
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/dTOUCH.h
-TOUCHlike.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
-SpatialGridHash.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
-
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
 
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.cpp
-dTOUCH.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp
+CommonTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.h
 

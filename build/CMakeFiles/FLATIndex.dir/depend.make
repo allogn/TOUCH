@@ -33,6 +33,24 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Buffer
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/BufferedFile.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/BufferedFile.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/BufferedFile.cpp
 
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/CommonTOUCH.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/ResultPairs.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Vertex.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp
+
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Cone.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
@@ -168,23 +186,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metada
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/tools/Tools.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.cpp
 
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/PBSMHash.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/ResultPairs.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Vertex.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.cpp
-
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
@@ -256,55 +257,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/RtreeI
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/RtreeIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/tools/SmartPointer.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/RtreeIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/tools/Tools.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/RtreeIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/RtreeIndex.cpp
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/ResultPairs.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/S3Hash.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Vertex.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.cpp
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/ExternalSort.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Metadata.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/PayLoad.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/STRIndex.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SeedBuilder.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Vertex.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/LineSegment.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/MVRTree.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/MovingPoint.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/MovingRegion.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/Point.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/RTree.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/Region.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/SpatialIndex.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/TPRTree.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/TimePoint.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/TimeRegion.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/Version.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/tools/PointerPool.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/tools/PoolPointer.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/tools/SmartPointer.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../lib/RTree/include/tools/Tools.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.cpp
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
@@ -420,6 +372,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synaps
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/CommonTOUCH.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
@@ -429,31 +382,12 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCH.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Vertex.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.cpp
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/ResultPairs.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Vertex.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.cpp
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.cpp
@@ -475,6 +409,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/CommonTOUCH.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
@@ -483,7 +418,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
@@ -494,6 +428,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/CommonTOUCH.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
@@ -502,7 +437,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
@@ -516,6 +450,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/hilber
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/CommonTOUCH.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
@@ -524,7 +459,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUC
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h
@@ -535,6 +469,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUC
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Box.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/BufferedFile.hpp
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/CommonTOUCH.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/DataFileReader.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/GlobalCommon.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/JoinAlgorithm.h
@@ -543,7 +478,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTO
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObject.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectFactory.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialObjectStream.hpp
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TOUCHlike.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/Timer.hpp
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeEntry.h
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/TreeNode.h

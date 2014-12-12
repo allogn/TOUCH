@@ -164,9 +164,32 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Buffer
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/BufferedFile.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/BufferedFile.o
 
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: CMakeFiles/FLATIndex.dir/flags.make
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.i
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.s
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o.requires:
+.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o.requires
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o.requires
+	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o.provides.build
+.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o.provides
+
+CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o
+
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.cpp
 
@@ -189,7 +212,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.cpp
 
@@ -212,7 +235,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.cpp
 
@@ -235,7 +258,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFi
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.cpp
 
@@ -258,7 +281,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ExternalSort.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ExternalSort.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ExternalSort.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ExternalSort.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ExternalSort.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ExternalSort.cpp
 
@@ -281,7 +304,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Extern
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/hilbert.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/hilbert.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/hilbert.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/hilbert.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/hilbert.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/hilbert.cpp
 
@@ -304,7 +327,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/hilber
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/HilbertRtreeIndex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/HilbertRtreeIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/HilbertRtreeIndex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/HilbertRtreeIndex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/HilbertRtreeIndex.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/HilbertRtreeIndex.cpp
 
@@ -327,7 +350,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Hilber
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.cpp
 
@@ -350,7 +373,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAl
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/KDIndex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/KDIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/KDIndex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/KDIndex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/KDIndex.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/KDIndex.cpp
 
@@ -373,7 +396,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/KDInde
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.cpp
 
@@ -396,7 +419,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.o
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.cpp
 
@@ -419,7 +442,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metada
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.cpp
 
@@ -439,29 +462,6 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoa
 .PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o.provides
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: CMakeFiles/FLATIndex.dir/flags.make
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_18)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.cpp
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.i
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.s
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o.requires:
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o.requires
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o.requires
-	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o.provides.build
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o.provides
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PriorityRtreeIndex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PriorityRtreeIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PriorityRtreeIndex.cpp
@@ -555,32 +555,9 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUC
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o
 
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: CMakeFiles/FLATIndex.dir/flags.make
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_23)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.cpp
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.i
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.s
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o.requires:
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o.requires
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o.requires
-	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o.provides.build
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o.provides
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o
-
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_24)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_23)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.cpp
 
@@ -603,7 +580,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBu
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_25)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_24)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.cpp
 
@@ -626,7 +603,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segmen
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_26)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_25)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.cpp
 
@@ -649,7 +626,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.o
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_27)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_26)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.cpp
 
@@ -672,7 +649,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Spatia
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObject.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObject.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObject.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_28)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_27)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObject.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObject.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObject.cpp
 
@@ -695,7 +672,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Spatia
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectFactory.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectFactory.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectFactory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_29)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_28)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectFactory.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectFactory.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectFactory.cpp
 
@@ -718,7 +695,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Spatia
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_30)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_29)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.cpp
 
@@ -741,7 +718,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Spatia
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_31)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_30)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.cpp
 
@@ -764,7 +741,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Spatia
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_32)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_31)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.cpp
 
@@ -785,32 +762,9 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o
 
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: CMakeFiles/FLATIndex.dir/flags.make
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_33)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.cpp
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.i
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.s
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o.requires:
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o.requires
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o.requires
-	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o.provides.build
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o.provides
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o
-
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_34)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_32)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.cpp
 
@@ -833,7 +787,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synaps
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_35)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_33)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.cpp
 
@@ -856,7 +810,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_36)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_34)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.cpp
 
@@ -877,32 +831,9 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o
 
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: CMakeFiles/FLATIndex.dir/flags.make
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_37)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.cpp
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.cpp > CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.i
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.cpp -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.s
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o.requires:
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o.requires
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o.provides: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o.requires
-	$(MAKE) -f CMakeFiles/FLATIndex.dir/build.make CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o.provides.build
-.PHONY : CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o.provides
-
-CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o.provides.build: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o
-
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_38)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_35)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.cpp
 
@@ -925,7 +856,7 @@ CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triang
 
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.o: CMakeFiles/FLATIndex.dir/flags.make
 CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.o: /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_39)
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles $(CMAKE_PROGRESS_36)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.o -c /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.cpp
 
@@ -953,6 +884,7 @@ FLATIndex_OBJECTS = \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Bitmap.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Box.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/BufferedFile.o" \
+"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.o" \
@@ -965,12 +897,10 @@ FLATIndex_OBJECTS = \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o" \
-"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PriorityRtreeIndex.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ResultPairs.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o" \
-"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.o" \
@@ -980,11 +910,9 @@ FLATIndex_OBJECTS = \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o" \
-"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o" \
-"CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.o" \
 "CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.o"
 
@@ -996,6 +924,7 @@ FLATIndex_EXTERNAL_OBJECTS =
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Bitmap.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Box.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/BufferedFile.o
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.o
@@ -1008,12 +937,10 @@ FLATIndex_EXTERNAL_OBJECTS =
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PriorityRtreeIndex.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ResultPairs.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.o
@@ -1023,11 +950,9 @@ FLATIndex_EXTERNAL_OBJECTS =
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.o
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/lib/libFLATIndex.a: CMakeFiles/FLATIndex.dir/build.make
@@ -1045,6 +970,7 @@ CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Ter
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Bitmap.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Box.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/BufferedFile.o.requires
+CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Cone.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/cTOUCH.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/DataFileReader.o.requires
@@ -1057,12 +983,10 @@ CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Ter
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Mesh.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Metadata.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PayLoad.o.requires
-CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PriorityRtreeIndex.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/rereTOUCH.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/ResultPairs.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.o.requires
-CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SeedBuilder.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Segment.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Soma.o.requires
@@ -1072,11 +996,9 @@ CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Ter
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialObjectStream.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialQuery.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Sphere.o.requires
-CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/STRIndex.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Synapse.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Timer.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.o.requires
-CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCHlike.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Triangle.o.requires
 CMakeFiles/FLATIndex.dir/requires: CMakeFiles/FLATIndex.dir/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/Vertex.o.requires
 .PHONY : CMakeFiles/FLATIndex.dir/requires

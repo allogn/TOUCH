@@ -124,10 +124,6 @@ void cTOUCH::createTreeLevel(vector<TreeEntry*>& input,int Level)
     
     unsigned int nodeSize;
     
-    FLAT::uint64 itemsD1;
-    FLAT::uint64 itemsD2;
-    FLAT::uint64 i;
-    
     if (Level==0) nodeSize = leafsize;
     else nodeSize = nodesize;
         sorting.start();
@@ -136,35 +132,6 @@ void cTOUCH::createTreeLevel(vector<TreeEntry*>& input,int Level)
         case Hilbert_Sort:
             std::sort(input.begin(),input.end(),ComparatorHilbert());
             break;
-        case STR_Sort:
-            cout<< "Node size " << nodeSize << endl;
-            itemsD1 = nodeSize * nodeSize;
-            itemsD2 = nodeSize;
-            std::sort(input.begin(),input.end(),Comparator());
-            i=0;
-            while(true)
-            {
-                    if((i+1)*itemsD1 < input.size())
-                            std::sort(input.begin()+i*itemsD1, input.begin()+(i+1)*itemsD1 ,ComparatorY());
-                    else
-                    {
-                            std::sort(input.begin()+i*itemsD1, input.end() ,ComparatorY());
-                            break;
-                    }
-                    i++;
-            }
-            i=0;
-            while(true)
-            {
-                    if((i+1)*itemsD2 < input.size())
-                            std::sort(input.begin()+i*itemsD2, input.begin()+(i+1)*itemsD2 ,ComparatorZ());
-                    else
-                    {
-                            std::sort(input.begin()+i*itemsD2, input.end() ,ComparatorZ());
-                            break;
-                    }
-                    i++;
-            }
         case No_Sort:
             break;
         default:
@@ -463,7 +430,7 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
                             }
                             else
                             {
-                                JOIN(obj, downnode->attachedObjs[opType]);
+                                NL(obj, downnode->attachedObjs[opType]);
                             }
                             comparing.stop();
                         } 
@@ -475,47 +442,6 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
 
         }
 }
-
-//void cTOUCH::joinInternalobjecttodescHash(SpatialGridHash* grid, FLAT::uint64 ancestorNodeID, int opType)
-//{
-//        queue<FLAT::uint64> nodes;
-//        int nodeID;
-//        
-//        TreeNode* node;
-//        TreeNode* downnode;
-//        nodes.push(ancestorNodeID);
-//        
-//        while(nodes.size()>0)
-//        {
-//                //start from checking children, each for intersection of MBR
-//                // then if intersects - check the assign objects of child
-//                // and if it is not a leaf node and intersects -> add to the queue
-//
-//                nodeID = nodes.front();
-//                node = tree.at(nodeID);
-//                nodes.pop();
-//                
-//                if (node->leafnode == true)
-//                    continue;
-//
-//                //intersect with all non-null children
-//                for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
-//                {
-//                        downnode = tree.at(node->entries.at(child)->childIndex );
-//                        
-//                        //if intersects
-//                        ItemsMaxCompared += downnode->attachedObjs[opType].size();
-//                        comparing.start();
-//                        grid->probe(downnode->attachedObjs[opType]);
-//                        comparing.stop();
-//                        if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrD[opType]))
-//                        {
-//                            nodes.push(node->entries.at(child)->childIndex);
-//                        } 
-//                }
-//
-//        }
-//}
 
 void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
 {
@@ -589,7 +515,7 @@ void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
                 ItemsMaxCompared += node->attachedObjs[1].size();
                 comparing.start();
                 if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[1]))
-                        JOIN((*it), node->attachedObjs[1]);
+                        NL((*it), node->attachedObjs[1]);
                 comparing.stop();
             }
         }
@@ -616,7 +542,7 @@ void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
                 comparing.start();
                 if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[0]))
                 {
-                        JOIN((*it), node->attachedObjs[0]);
+                        NL((*it), node->attachedObjs[0]);
                 }
                 comparing.stop();
             }

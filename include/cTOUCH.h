@@ -7,40 +7,12 @@
  * 
  */
 
-#include "TOUCHlike.h"
+#include "CommonTOUCH.h"
 
 
-class cTOUCH : public TOUCHlike
+class cTOUCH : public CommonTOUCH
 {
 private:
-
-    //Plane-sweeping join algorithm for cTOUCH <--------------
-    void PS(FLAT::SpatialObject* A, SpatialObjectList& B)
-    {
-        //@todo sorting???
-        for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-            if ( istouching(A , (*itB)) )
-                resultPairs.addPair( A,(*itB) );
-    }
-    //Nested Loop join algorithm cTOUCH
-    void NL(FLAT::SpatialObject* A, SpatialObjectList& B)
-    {
-        for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-            if ( istouching(A , *itB) )
-                resultPairs.addPair( A , *itB );
-    }
-    
-
-    //JOIN for cTOUCH <--------
-    void JOIN(FLAT::SpatialObject* obj, SpatialObjectList& B)
-    {
-        Ljoin.start();
-        if(localJoin == algo_NL)
-            NL(obj,B);
-        else
-            PS(obj,B);
-        Ljoin.stop();
-    }
 
 		/*
 		Create new node according to set of TreeEntries. Entries can be of both types,

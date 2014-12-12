@@ -15,6 +15,22 @@ TOUCH::~TOUCH() {
     total.stop();
 }
 
+void TOUCH::run() {
+    totalTimeStart();
+    readBinaryInput(file_dsA, file_dsB);
+    if (verbose) std::cout << "Forming the partitions" << std::endl; 
+    createPartitions(vdsA);
+    if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
+    assignment();
+    if (verbose) std::cout << "Assigning Done." << std::endl; 
+    analyze();
+    if (verbose) std::cout << "Analysis Done" << std::endl; 
+    if (verbose) std::cout << "Probing, doing the join" << std::endl; 
+    probe();
+    if (verbose) std::cout << "Done." << std::endl; 
+    totalTimeStop();
+}
+
 void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
 {
     TreeNode* prNode = new TreeNode(Level);
@@ -31,101 +47,6 @@ void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
     tree.push_back(prNode);
     nextInput.push_back(new TreeEntry(mbr,childIndex));
     prNode->parentEntry = nextInput.back();
-}
-
-void TOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
-{
-    
-    unsigned int nodeSize;
-    FLAT::uint64 itemsD1;
-    FLAT::uint64 itemsD2;
-    FLAT::uint64 i;
-    
-    if (Level==0) nodeSize = leafsize;
-    else nodeSize = nodesize;
-    
-    sorting.start();
-    switch (PartitioningType)
-    {
-        case Hilbert_Sort:
-            std::sort(input.begin(),input.end(),ComparatorHilbert());
-            break;
-        case STR_Sort:
-            cout<< "Node size " << nodeSize << endl;
-            itemsD1 = nodeSize * nodeSize;
-            itemsD2 = nodeSize;
-            std::sort(input.begin(),input.end(),Comparator());
-            i=0;
-            while(true)
-            {
-                    if((i+1)*itemsD1 < input.size())
-                            std::sort(input.begin()+i*itemsD1, input.begin()+(i+1)*itemsD1 ,ComparatorY());
-                    else
-                    {
-                            std::sort(input.begin()+i*itemsD1, input.end() ,ComparatorY());
-                            break;
-                    }
-                    i++;
-            }
-            i=0;
-            while(true)
-            {
-                    if((i+1)*itemsD2 < input.size())
-                            std::sort(input.begin()+i*itemsD2, input.begin()+(i+1)*itemsD2 ,ComparatorZ());
-                    else
-                    {
-                            std::sort(input.begin()+i*itemsD2, input.end() ,ComparatorZ());
-                            break;
-                    }
-                    i++;
-            }
-        case No_Sort:
-            break;
-        default:
-            std::sort(input.begin(),input.end(),Comparator());
-            break;
-    }
-    sorting.stop();
-
-    cout << "Sort "<< input.size()<< " items in " << sorting << endl;
-    
-    vector<TreeEntry*> entries;
-    for (vector<TreeEntry*>::iterator it=input.begin();it!=input.end();++it)
-    {
-            if (entries.size()<nodeSize)
-            {
-                    entries.push_back(*it);
-                    if (entries.size()>=nodeSize)
-                    {
-                            writeNode(entries,Level);
-                            entries.clear();
-                    }
-            }
-    }
-    if (!entries.empty())
-            writeNode(entries,Level);
-}
-
-void TOUCH::createPartitions()
-{
-    partition.start();
-    Levels = 0;
-    totalnodes = 0;
-    while(vdsA.size()>1)
-    {
-        if (verbose)
-            std::cout << "Tree Level: " << Levels 
-                      << " TreeNodes: " << tree.size() 
-                      << " Remaining Input: " << vdsA.size() << std::endl;
-        createTreeLevel(vdsA,Levels++); // writes final nodes in tree and next level in nextInput
-        swap(vdsA,nextInput);		// swap input and nextInput list
-        nextInput.clear();
-    }
-
-    root = vdsA.front();
-    
-    if (verbose) std::cout << "Levels " << Levels << std::endl;
-    partition.stop();
 }
 
 void TOUCH::assignment()

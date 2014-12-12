@@ -131,6 +131,7 @@ public:
 	~SpatialGridHash();
     
 	void build(SpatialObjectList& dsA);
+        void build(std::vector<TreeEntry*>& entries);
 	void clear();
 	void probe(const SpatialObjectList& dsB);
 	void probe(TreeNode* leaf);

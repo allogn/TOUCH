@@ -63,7 +63,6 @@ void SpatialGridHash::build(SpatialObjectList& dsA)
         gridHashTable.clear();
         for(SpatialObjectList::iterator i=dsA.begin(); i!=dsA.end(); ++i)
         {
-            //if ((*i)->id == 5579) cout << "trying with 5579" << endl;
                 vector<FLAT::uint64> cells;
                 getOverlappingCells(*i,cells);
                 for (vector<FLAT::uint64>::iterator j = cells.begin(); j!=cells.end(); ++j)
@@ -74,17 +73,40 @@ void SpatialGridHash::build(SpatialObjectList& dsA)
                                 HashValue* soList = new HashValue();
                                 soList->push_back(*i);
                                 gridHashTable.insert( ValuePair(*j,soList) );
-                                //if ((*i)->id == 5579) cout << "new cell with 5579 " << gridHashTable.size() << endl;
                         }
                         else
                         {
                                 it->second->push_back(*i);
-                                //if ((*i)->id == 5579) cout << "old cell with 5579 " << it->first << endl;
                         }
                 }
         }
         building.stop();
-        //cout<< "Number of assigned object " << assigned << " from " << dsA.size()<<endl;
+}
+
+void SpatialGridHash::build(std::vector<TreeEntry*>& entries)
+{
+    building.start();
+    gridHashTable.clear();
+    for(std::vector<TreeEntry*>::iterator i=entries.begin(); i!=entries.end(); ++i)
+    {
+        std::vector<FLAT::uint64> cells;
+        getOverlappingCells((*i)->obj,cells);
+        for (vector<FLAT::uint64>::iterator j = cells.begin(); j!=cells.end(); ++j)
+        {
+            HashTable::iterator it= gridHashTable.find(*j);
+            if (it==gridHashTable.end())
+            {
+                HashValue* soList = new HashValue();
+                soList->push_back((*i)->obj);
+                gridHashTable.insert( ValuePair(*j,soList) );
+            }
+            else
+            {
+                it->second->push_back((*i)->obj);
+            }
+        }
+    }
+    building.stop();
 }
 
 void SpatialGridHash::clear()
