@@ -5,6 +5,79 @@
 
 #include "rereTOUCH.h"
 
+void rereTOUCH::run()
+{
+    totalTimeStart();
+    readBinaryInput(file_dsA, file_dsB);
+    cout << "Forming the partitions" << std::endl; 
+    createPartitions();
+    cout << "Assigning the objects of B" << std::endl; 
+    assignmentB();
+    cout << "Assigning the objects of A" << std::endl; 
+    assignmentA();
+    cout << "Assigning the objects of B again" << std::endl; 
+    reassignmentB();
+    cout << "Assigning Done." << std::endl; 
+    analyze();
+    cout << "Analysis Done, counting grids if necessary." << std::endl; 
+    if(localJoin == algo_SGrid)
+        countSpatialGrid();
+    cout << "Probing, doing the join" << std::endl; 
+    probe();
+    if(localJoin == algo_SGrid)
+    {
+        std::cout << "Removing duplicates" << std::endl; 
+        deduplicateSpatialGrid();
+    }
+    cout << "Done." << std::endl; 
+    totalTimeStop();
+}
+
+void rereTOUCH::probe()
+{
+    //For every cell of A join it with its corresponding cell of B
+    probing.start();
+    queue<TreeEntry*> Qnodes;
+
+    TreeNode* currentNode;
+    FLAT::Box localUniverse;
+
+    Qnodes.push(root);
+    //uni.push(root->mbr);
+
+    int lvl = Levels;
+    // A BFS on the tree then for each find all its leaf nodes by another BFS
+    while(Qnodes.size()>0)
+    {
+        TreeEntry* parentNode = Qnodes.front();
+        currentNode = tree[parentNode->childIndex];
+        Qnodes.pop();
+        //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
+        if(!currentNode->leafnode)
+        for (std::vector<TreeEntry*>::iterator ent=currentNode->entries.begin();ent!=currentNode->entries.end();++ent)
+        {
+                Qnodes.push(*ent);
+        }
+        //join the internal node with all *its* leaves
+
+
+
+        // just to display the level of the BFS traversal
+        if(lvl!=currentNode->level)
+        {
+                lvl = currentNode->level;
+                cout << "\n### Level " << lvl <<endl;
+        }
+
+        joinNodeToDesc(parentNode); //join node -> join each object -> join object to down tree -> join object with list of objects
+
+    }
+    probing.stop();
+
+    //check the duplicates:
+    //resultPairs.deDuplicate(); //@todo where is it?
+}
+
 void rereTOUCH::analyze()
 {
     analyzing.start();
@@ -48,14 +121,17 @@ void rereTOUCH::analyze()
             if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
 
     }
-    for(int i = 0 ; i<Levels ; i++)
+    if (verbose)
     {
-            cout<< "level " << i << " A:" << ItemPerLevelA[i] << " Aans:" 
-            << ItemPerLevelAans[i] << " B:" << ItemPerLevelB[i]
-            << " Bans: " << ItemPerLevelBans[i]  << " = " << ItemPerLevelA[i] + ItemPerLevelB[i] <<endl;
+        for(int i = 0 ; i<Levels ; i++)
+        {
+                cout<< "level " << i << " A:" << ItemPerLevelA[i] << " Aans:" 
+                << ItemPerLevelAans[i] << " B:" << ItemPerLevelB[i]
+                << " Bans: " << ItemPerLevelBans[i]  << " = " << ItemPerLevelA[i] + ItemPerLevelB[i] <<endl;
+        }
+        cout<<"Total assigned A:"<<sumA<<" B:"<<sumB<<" = "<< sumA+sumB<<endl;
+        cout<<"Total filtered A:"<< filtered[0] <<" B:"<< filtered[1] <<" = "<< filtered[0]+filtered[1] <<endl;
     }
-    cout<<"Total assigned A:"<<sumA<<" B:"<<sumB<<" = "<< sumA+sumB<<endl;
-    cout<<"Total filtered A:"<< filtered[0] <<" B:"<< filtered[1] <<" = "<< filtered[0]+filtered[1] <<endl;
     footprint += (sumA+sumB)*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
     avg = (sumA+sumB+0.0) / (tree.size());
     percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
@@ -63,51 +139,6 @@ void rereTOUCH::analyze()
     std = sqrt(differenceSquared);
     analyzing.stop();
 
-}
-
-void rereTOUCH::probe()
-{
-    //For every cell of A join it with its corresponding cell of B
-    probing.start();
-    queue<TreeEntry*> Qnodes;
-
-    TreeNode* currentNode;
-    FLAT::Box localUniverse;
-
-    Qnodes.push(root);
-    //uni.push(root->mbr);
-
-    int lvl = Levels;
-    // A BFS on the tree then for each find all its leaf nodes by another BFS
-    while(Qnodes.size()>0)
-    {
-        TreeEntry* parentNode = Qnodes.front();
-        currentNode = tree[parentNode->childIndex];
-        Qnodes.pop();
-        //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
-        if(!currentNode->leafnode)
-        for (std::vector<TreeEntry*>::iterator ent=currentNode->entries.begin();ent!=currentNode->entries.end();++ent)
-        {
-                Qnodes.push(*ent);
-        }
-        //join the internal node with all *its* leaves
-
-
-
-        // just to display the level of the BFS traversal
-        if(lvl!=currentNode->level)
-        {
-                lvl = currentNode->level;
-                cout << "\n### Level " << lvl <<endl;
-        }
-
-        joinIntenalnodetoleafs(parentNode); //join node -> join each object -> join object to down tree -> join object with list of objects
-
-    }
-    probing.stop();
-
-    //check the duplicates:
-    //resultPairs.deDuplicate(); //@todo where is it?
 }
 
 /*
@@ -131,39 +162,6 @@ void rereTOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
     tree.push_back(prNode);
     nextInput.push_back(new TreeEntry(mbr,childIndex));
     prNode->parentEntry = nextInput.back();
-}
-
-void rereTOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
-{
-    unsigned int nodeSize;
-    if (Level==0) nodeSize = leafsize;
-    else nodeSize = nodesize;
-
-    if(PartitioningType != No_Sort)
-    {
-        sorting.start();
-        std::sort(input.begin(),input.end(),Comparator());
-        sorting.stop();
-    }
-
-    cout << "Sort "<< input.size()<< " items in " << sorting << endl;
-
-
-    std::vector<TreeEntry*> entries;
-    for (std::vector<TreeEntry*>::iterator it=input.begin();it!=input.end();++it)
-    {
-            if (entries.size()<nodeSize)
-            {
-                    entries.push_back(*it);
-                    if (entries.size()>=nodeSize)
-                    {
-                            writeNode(entries,Level);
-                            entries.clear();
-                    }
-            }
-    }
-    if (!entries.empty())
-            writeNode(entries,Level);
 }
 
 void rereTOUCH::assignmentB()
@@ -207,10 +205,7 @@ void rereTOUCH::assignmentB()
                     {
                         //should be assigned to this level
                         ptr->attachedObjs[1].push_back(objB);
-                         if (objB->id == 8034) cout << "===========8034 B assigned c1 level " << ptr->level << endl;
                         new_dsB.push_back(objB);
-                        //Expand the prevnode->mbrSelfD[1]
-                        //Expanding the mbrL[1] to include the above A assigned object
                         prevNode->mbrSelfD[1] = FLAT::Box::combineSafe(objMBR,prevNode->mbrSelfD[1]);
                         prevNode->num[1]++;
                         assigned = true;
@@ -227,13 +222,10 @@ void rereTOUCH::assignmentB()
                     break;
             }
             ptr = tree[nextNode->childIndex];
-            if(ptr->leafnode /*|| ptr->level < 2*/)
+            if(ptr->leafnode)
             {
                 ptr->attachedObjs[1].push_back(objB);
                 new_dsB.push_back(objB);
-                   if (objB->id == 8034) cout << "===========8034 B assigned c2 level " << ptr->level << endl;
-                //Expand the prevnode->mbrSelfD[1]
-                //Expanding the mbrL[1] to include the above A assigned object
                 nextNode->mbrSelfD[1]=FLAT::Box::combineSafe(objMBR,nextNode->mbrSelfD[1]);
                 nextNode->num[1]++;
                 break;
@@ -256,12 +248,9 @@ FLAT::uint64 rereTOUCH::mergingMbrA(TreeEntry* startEntry, FLAT::Box &mbr)
         if (ptr->leafnode)
         {
                 mbr.isEmpty=true;
-                //mbrL[0]=new Box(true);
                 return numA;
         }
 
-        //fixing MBR of the descendant nodes' objects
-        //numA+=ptr->attachedObjs[0].size()+ptr->attachedObjsAns.size();
         for (std::vector<TreeEntry*>::iterator ent=ptr->entries.begin();ent!=ptr->entries.end();++ent)
         {
                 numA+=(*ent)->num[0];
@@ -566,7 +555,7 @@ void rereTOUCH::reassignmentB()
 
 }
 
-void rereTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode)
+void rereTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode)
 {
     queue<TreeEntry*> nodes;
     
@@ -603,8 +592,8 @@ void rereTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* an
                 }
                 else
                 {
-                    JOIN(obj, downnode->attachedObjs[opType]);
-                    JOIN(obj, downnode->attachedObjsAns[opType]);
+                    NL(obj, downnode->attachedObjs[opType]);
+                    NL(obj, downnode->attachedObjsAns[opType]);
                 }
                 comparing.stop();
             }
@@ -621,7 +610,7 @@ void rereTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* an
     }
 }
 
-void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
+void rereTOUCH::joinNodeToDesc(TreeEntry* ancestorNode)
 {
     //check for intersection all nodes below, where smth was attached with opposite color.
     
@@ -636,7 +625,7 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
     for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
                                                     it != node->attachedObjs[0].end(); it++)
     {
-        joinInternalobjecttodesc((*it), ancestorNode);
+        joinObjectToDesc((*it), ancestorNode);
     }
 
     /*
@@ -645,7 +634,7 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
     for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
                                                     it != node->attachedObjs[1].end(); it++)
     {
-        joinInternalobjecttodesc((*it), ancestorNode);
+        joinObjectToDesc((*it), ancestorNode);
     }
 
     /*
@@ -672,8 +661,8 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
                 comparing.start();
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[1]))
                 {
-                    JOIN((*it), node->attachedObjs[1]);
-                    JOIN((*it), node->attachedObjsAns[1]);
+                    NL((*it), node->attachedObjs[1]);
+                    NL((*it), node->attachedObjsAns[1]);
                 }
                 comparing.stop();
             }
@@ -699,7 +688,7 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
                 comparing.start();
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[0]))
                 {
-                        JOIN((*it), node->attachedObjs[0]);
+                        NL((*it), node->attachedObjs[0]);
                 }
                 comparing.stop();
 
@@ -713,7 +702,7 @@ void rereTOUCH::joinIntenalnodetoleafs(TreeEntry* ancestorNode)
                 comparing.start();
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[0]))
                 {
-                        JOIN((*it), node->attachedObjs[0]);
+                        NL((*it), node->attachedObjs[0]);
                 }
                 comparing.stop();
 

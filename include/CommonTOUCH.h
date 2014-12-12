@@ -35,21 +35,12 @@ public:
     //for dTOUCH
     double maxLevelCoef;
     
-    void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
+    virtual void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
     virtual void joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);
     void probe();
     
     void countSpatialGrid();
     void deduplicateSpatialGrid();
-    
-    void JOIN(TreeNode* node, SpatialObjectList& B)
-    {
-        Ljoin.start();
-        if(localJoin == algo_NL)
-            NL(node,B);
-        Ljoin.stop();
-    }
-    
     
     void NL(FLAT::SpatialObject*& A, SpatialObjectList& B)
     {
@@ -76,6 +67,12 @@ public:
     vector<FLAT::uint64> ItemPerLevel; int LVL; //for statistics
     TreeEntry* root;
 protected:
+    
+    /*
+    * Create new node according to set of TreeEntries. Entries can be of both types,
+    * So create to entries that point to the new node of two types.
+    * Create entry iff it is not empty
+    */
     void writeNode(vector<TreeEntry*> objlist, int Level);
     void createTreeLevel(vector<TreeEntry*>& input, int Level);
     void createPartitions(std::vector<TreeEntry*> vds);

@@ -7,6 +7,30 @@
 
 #include "cTOUCH.h"
 
+void cTOUCH::run()
+{
+    totalTimeStart();
+    readBinaryInput(file_dsA, file_dsB);
+    if (verbose) std::cout << "Forming the partitions" << std::endl; 
+    createPartitions(vdsAll);
+    if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
+    assignment();
+    if (verbose) std::cout << "Assigning Done." << std::endl; 
+    analyze();
+    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
+    if(localJoin == algo_SGrid)
+        countSpatialGrid();
+    if (verbose) std::cout << "Probing, doing the join" << std::endl; 
+    probe();
+    if(localJoin == algo_SGrid)
+    {
+        std::cout << "Removing duplicates" << std::endl; 
+        deduplicateSpatialGrid();
+    }
+    if (verbose) std::cout << "Done." << std::endl;
+    totalTimeStop();
+}
+
 void cTOUCH::analyze()
 {
 
@@ -81,7 +105,7 @@ void cTOUCH::probe()
                 cout << "\n### Level " << lvl << "; Enter childIndex: " << currentNodeID << endl;
         }
 
-        joinIntenalnodetoleafs(currentNodeID); //join node -> join each object -> join object to down tree -> join object with list of objects
+        joinNodeToDesc(currentNodeID); //join node -> join each object -> join object to down tree -> join object with list of objects
     }
     probing.stop();
 }
@@ -117,45 +141,6 @@ void cTOUCH::writeNode(vector<TreeEntry*> objlist,int Level)
         tree.push_back(prNode);
         nextInput.push_back(new TreeEntry(mbrA,mbrB,childIndex));
         prNode->parentEntry = nextInput.back();
-}
-
-void cTOUCH::createTreeLevel(vector<TreeEntry*>& input,int Level)
-{
-    
-    unsigned int nodeSize;
-    
-    if (Level==0) nodeSize = leafsize;
-    else nodeSize = nodesize;
-        sorting.start();
-    switch (PartitioningType)
-    {
-        case Hilbert_Sort:
-            std::sort(input.begin(),input.end(),ComparatorHilbert());
-            break;
-        case No_Sort:
-            break;
-        default:
-            std::sort(input.begin(),input.end(),Comparator());
-            break;
-    }
-    sorting.stop();
-    
-
-        vector<TreeEntry*> entries;
-        for (vector<TreeEntry*>::iterator it=input.begin();it!=input.end();++it)
-        {
-                if (entries.size()<nodeSize)
-                {
-                        entries.push_back(*it);
-                        if (entries.size()>=nodeSize)
-                        {
-                                writeNode(entries,Level);
-                                entries.clear();
-                        }
-                }
-        }
-        if (!entries.empty())
-                writeNode(entries,Level);
 }
 
 void cTOUCH::assignment()
@@ -377,7 +362,7 @@ void cTOUCH::assign(TreeNode* ptr, FLAT::SpatialObject* obj)
     }
 }
 
-void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID)
+void cTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID)
 {
         queue<FLAT::uint64> nodes;
         int nodeID;
@@ -421,12 +406,6 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
                                 downnode->spatialGridHash[opType]->probe(obj);
                                 tt = downnode->spatialGridHash[opType]->resultPairs.results-t;
                                 t = this->resultPairs.results;
-                                //JOIN(obj, downnode->attachedObjs[opType]);
-//                                cout << "(" << tt << "; " << this->resultPairs.results-t << "), " ;
-//                                if (tt != this->resultPairs.results-t)
-//                                {
-//                                    cout << "ERROR ERROR ERROR " << tt << " " << this->resultPairs.results-t << "-------------" << endl;
-//                                }
                             }
                             else
                             {
@@ -441,111 +420,4 @@ void cTOUCH::joinInternalobjecttodesc(FLAT::SpatialObject* obj, FLAT::uint64 anc
                 }
 
         }
-}
-
-void cTOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
-{
-
-    //check for intersection all nodes below, where smth was attached with opposite color.
-
-    TreeNode* node = tree.at(ancestorNodeID);
-    
-//    if (localJoin == algo_SGrid)
-//    {
-//        FLAT::Box universe = node->parentEntry->mbrK[0];
-//        FLAT::Box::expand(universe, 100000);
-//        for (int type = 0; type < TYPES; type++)
-//        {
-//            SpatialGridHash* h1 = new SpatialGridHash(universe,localPartitions);
-//            h1->epsilon = this->epsilon;
-//            h1->build(node->attachedObjs[type]);
-//            joinInternalobjecttodescHash(h1, ancestorNodeID, !type);
-//
-//            h1->resultPairs.deDuplicateTime.start();
-//            h1->resultPairs.deDuplicate();
-//            h1->resultPairs.deDuplicateTime.stop();
-//
-//            this->ItemsCompared += h1->ItemsCompared;
-//            this->resultPairs.results += h1->resultPairs.results;
-//            this->resultPairs.duplicates += h1->resultPairs.duplicates;
-//            this->repA += h1->repA;
-//            this->repB += h1->repB;
-//            this->resultPairs.deDuplicateTime.add(h1->resultPairs.deDuplicateTime);
-//        }
-//    }
-    
-    // here @todo check function and parallelize
-    /*
-     * A -> B_below
-     */
-    for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
-                                                    it != node->attachedObjs[0].end(); it++)
-    {
-        joinInternalobjecttodesc((*it), ancestorNodeID);
-    }
-
-    /*
-     * B -> A_below
-     */
-    for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
-                                                    it != node->attachedObjs[1].end(); it++)
-    {
-        joinInternalobjecttodesc((*it), ancestorNodeID);
-    }
-
-    /*
-     * A -> B
-     */
-    if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
-    {
-        if(localJoin == algo_SGrid)
-        {
-            comparing.start();
-            node->spatialGridHash[0]->probe(node->attachedObjs[1]);
-            comparing.stop();
-        }
-        else
-        {
-            for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
-                                                            it != node->attachedObjs[0].end(); it++)
-            {
-                FLAT::Box mbr = (*it)->getMBR();
-                mbr.isEmpty = false;
-                FLAT::Box::expand(mbr,epsilon * 1./2.);
-                ItemsMaxCompared += node->attachedObjs[1].size();
-                comparing.start();
-                if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[1]))
-                        NL((*it), node->attachedObjs[1]);
-                comparing.stop();
-            }
-        }
-        
-        
-    }
-    else
-    {
-        if(localJoin == algo_SGrid)
-        {
-            comparing.start();
-            node->spatialGridHash[1]->probe(node->attachedObjs[0]);
-            comparing.stop();
-        }
-        else
-        {
-            for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
-                                    it != node->attachedObjs[1].end(); it++)
-            {
-                FLAT::Box mbr = (*it)->getMBR();
-                mbr.isEmpty = false;
-                FLAT::Box::expand(mbr,epsilon * 1./2.);
-                ItemsMaxCompared += node->attachedObjs[0].size();
-                comparing.start();
-                if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[0]))
-                {
-                        NL((*it), node->attachedObjs[0]);
-                }
-                comparing.stop();
-            }
-        }
-    }
 }

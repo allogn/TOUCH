@@ -51,8 +51,12 @@ void dTOUCH::run()
         if (verbose) std::cout << "Removing duplicates A" << std::endl; 
         deduplicateSpatialGrid();
     }
-    if (verbose) std::cout << "Done with first tree. Clear tree." << std::endl;
-    //delete &tree; @todo
+    if (verbose) 
+    {
+        std::cout << "Done with first tree. Clear tree." << std::endl;
+        std::cout << "Number of results: " << resultPairs.results << std::endl;
+    }
+    tree.clear();
 
     //processing second tree
     if (vdsB.size() > 0)
@@ -84,12 +88,15 @@ void dTOUCH::run()
             if (verbose) std::cout << "Removing duplicates A" << std::endl; 
             deduplicateSpatialGrid();
         }
+        
+        if (verbose) std::cout << "Number of results: " << resultPairs.results << std::endl;
     }
     else
     {
         if (verbose) std::cout << "Second tree is empty" << std::endl;
     }
     if (verbose) std::cout << "Done." << std::endl;
+    
 }
 
 void dTOUCH::assignment(SpatialObjectList& ds)
@@ -111,7 +118,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
         FLAT::Box::expand(objMBR,epsilon * 1./2.);
         TreeEntry* nextNode;
         TreeNode* ptr = tree.at(root->childIndex);
-
+        
         while(true)
         {
             overlaps = false;
@@ -162,17 +169,16 @@ void dTOUCH::assignment(SpatialObjectList& ds)
             }
             if(!overlaps)
             {
-                    //filtered
-                    filtered[1]++;
-                    break;
-                }
-                ptr = tree.at(nextNode->childIndex);
-                if(ptr->leafnode /*|| ptr->level < 2*/)
-                {
-                    //intersects only with one entry in the leaf
-                    ptr->attachedObjs[0].push_back(obj);
-                    break;
-                }
+                //filtered
+                filtered[obj->type]++;
+                break;
+            }
+            ptr = tree.at(nextNode->childIndex);
+            if(ptr->leafnode /*|| ptr->level < 2*/)
+            {
+                ptr->attachedObjs[0].push_back(obj);
+                break;
+            }
         }
     }
 }

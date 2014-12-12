@@ -23,86 +23,6 @@ private:
                 }
     }
     
-    void PS(SpatialObjectList& A, SpatialObjectList& B)
-    {
-        
-	//Sort the datasets based on their lower x coordinate
-	sorting.start();
-	std::sort(A.begin(), A.end(), Comparator_Xaxis());
-	//cout<<"Sort A Done."<<endl;
-	std::sort(B.begin(), B.end(), Comparator_Xaxis());
-	//cout<<"Sort B Done."<<endl;
-	sorting.stop();
-
-	//sweep
-	FLAT::uint64 iA=0,iB=0;
-	while(iA<A.size() && iB<B.size())
-	{
-		//cout<<iA<< " " <<iB<<endl;
-		if(A.at(iA)->getMBR().low[0] < B.at(iB)->getMBR().low[0])
-		{
-			FLAT::uint64 i = iB;
-			FLAT::spaceUnit border = A.at(iA)->getMBR().high[0]+epsilon;
-			while(i<B.size() && B.at(i)->getMBR().low[0] < border)
-			{
-				if ( istouching(B.at(i) , A.at(iA)) )
-				{
-                                    resultPairs.addPair(B.at(i),A.at(iA));
-				}
-
-				i++;
-			}
-			iA++;
-		}
-		else
-		{
-			FLAT::uint64 i = iA;
-			FLAT::spaceUnit border = B.at(iB)->getMBR().high[0]+epsilon;
-			while(i<A.size() &&  A.at(i)->getMBR().low[0] < border)
-			{
-				if ( istouching(B.at(iB) , A.at(i)) )
-				{
-                                    resultPairs.addPair(B.at(i),A.at(iA));
-				}
-
-				i++;
-			}
-			iB++;
-		}
-	}
-    }
-
-    //JOIN for reTOUCH <--------
-    //The local join for joining two buckets, add the results to set in order to remove the duplicates
-    void JOIN(SpatialObjectList& A, SpatialObjectList& B)
-    {
-            Ljoin.start();
-            //cout<<"join " << A.size() << " and " <<B.size()<<endl;
-            if(localJoin == algo_NL)
-                    NL(A,B);
-            else
-                    PS(A,B);
-            Ljoin.stop();
-    }
-//    //from cTOUCH @todo migrate all to JoinAlg
-    void JOIN(FLAT::SpatialObject* obj, SpatialObjectList& B)
-    {
-        Ljoin.start();
-        if(localJoin == algo_NL)
-            NL(obj,B);
-        else
-            PS(obj,B);
-        Ljoin.stop();
-    }
-    
-        //Plane-sweeping join algorithm for cTOUCH <--------------
-    void PS(FLAT::SpatialObject* A, SpatialObjectList& B)
-    {
-        //@todo sorting???
-        for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-            if ( istouching(A , (*itB)) )
-                resultPairs.addPair( A,(*itB) );
-    }
     //Nested Loop join algorithm cTOUCH
     void NL(FLAT::SpatialObject* A, SpatialObjectList& B)
     {
@@ -126,15 +46,10 @@ public:
 
     reTOUCH()
     {
-        algorithm = algo_reTOUCH; //@todo do it for all
-        total.start(); // timing
+        algorithm = algo_reTOUCH;
     }
 
-    ~reTOUCH()
-    {
-            delete &tree;
-            total.stop();
-    }
+    ~reTOUCH() {}
     void createPartitions()
     {
             partition.start();
@@ -165,13 +80,14 @@ public:
     void assignmentA();
     void assignmentB();
 
-    void joinInternalobjecttodesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode, bool isA);
+    void joinObjectToDesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode);
 
-    void joinIntenalnodetoleafs(TreeEntry* ancestorNode);
+    void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
 
     void probe();
     void analyze();
     
+    void run();
     
     /*
      * Function for creating valid R-tree from B objects assigned to nodes

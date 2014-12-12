@@ -1,6 +1,7 @@
 /* 
  * File:   TOUCH.h
  *
+ * Original TOUCH algorithm
  * 
  */
 
@@ -15,13 +16,10 @@ public:
     virtual ~TOUCH();
     
     void run();
-    
     void analyze();
-    void assignment();
-    void probe();
 private:
-    void writeNode(std::vector<TreeEntry*> objlist,int Level);
-    void joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID);
+    void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
+    void assignment();
 };
 
 #endif	/* TOUCH_H */

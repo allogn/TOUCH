@@ -33,7 +33,7 @@ void CommonTOUCH::printTOUCH() {
     {
         fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Leaf size, gridSize, " // common parameters
         << "Compared #, Compared %, ComparedMax, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
-        << "t loading, t init, t build, t probe, t comparing, t partition, t join, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate,"
+        << "t loading, t init, t build, t probe, t comparing, t partition, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate,"
         << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB, max level, gridP robe\n";
     }
     //check if file exists
@@ -60,7 +60,6 @@ void CommonTOUCH::printTOUCH() {
             << probing << "," 
     << comparing << ","
             << partition << ","
-            << Ljoin << "," 
             << total << "," 
             << resultPairs.deDuplicateTime << "," 
     << analyzing << ","
@@ -235,6 +234,11 @@ void CommonTOUCH::probe()
         // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
         if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()==0)
             continue;
+        
+        for (int i = 0; i < currentNode->attachedObjs[0].size(); i++)
+        {
+            cout << "object in the node:11 " << currentNode->attachedObjs[0][i]->id << endl;
+        }
 
         // just to display the level of the BFS traversal
         if (verbose)

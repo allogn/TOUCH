@@ -138,9 +138,15 @@ iostream
 math.h
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/math.h
 
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/dTOUCH.h
+CommonTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/CommonTOUCH.h
+SpatialGridHash.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/SpatialGridHash.h
+
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/cmake/../include/hilbert.hpp
 
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp
-CommonTOUCH.h
-/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.cpp
+dTOUCH.h
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.h
 

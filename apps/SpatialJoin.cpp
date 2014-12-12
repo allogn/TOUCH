@@ -162,37 +162,19 @@ void cTOUCHrun()
     cTOUCH* touch = new cTOUCH();
 
     touch->PartitioningType = PartitioningTypeMain;
-    touch->nodesize = nodesize;
-    touch->leafsize   = leafsize;
-    touch->localPartitions = localPartitions;	
-    touch->verbose  =  verbose;		
-    touch->localJoin    =  localJoin;	
-    touch->epsilon	=  epsilon;	
-    touch->numA = numA;
-    touch->numB = numB;
-    touch->maxLevelCoef = maxLevelCoef;
+    touch->nodesize         = nodesize;
+    touch->leafsize         = leafsize;
+    touch->localPartitions  = localPartitions;	
+    touch->verbose          = verbose;		
+    touch->localJoin        = localJoin;	
+    touch->epsilon          = epsilon;	
+    touch->numA             = numA;
+    touch->numB             = numB;
+    touch->maxLevelCoef     = maxLevelCoef;
+    touch->file_dsA         = input_dsA;
+    touch->file_dsB         = input_dsB;
 
-    touch->totalTimeStart();
-    touch->readBinaryInput(input_dsA, input_dsB);
-    if (verbose) std::cout << "Forming the partitions" << std::endl; 
-    touch->createPartitions();
-    if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
-    touch->assignment();
-    if (verbose) std::cout << "Assigning Done." << std::endl; 
-    touch->analyze();
-    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
-    if(localJoin == algo_SGrid)
-        touch->countSpatialGrid();
-    if (verbose) std::cout << "Probing, doing the join" << std::endl; 
-    touch->probe();
-    if(localJoin == algo_SGrid)
-    {
-        std::cout << "Removing duplicates" << std::endl; 
-        touch->deduplicateSpatialGrid();
-    }
-    if (verbose) std::cout << "Done." << std::endl;
-    touch->totalTimeStop();
-
+    touch->run();
     touch->printTOUCH();
 }
 
@@ -201,15 +183,15 @@ void TOUCHrun()
     TOUCH* touch = new TOUCH();
 
     touch->PartitioningType = PartitioningTypeMain;
-    touch->nodesize = nodesize;
-    touch->leafsize   = leafsize;
-    touch->localPartitions = localPartitions;	
-    touch->verbose  =  verbose;		
-    touch->localJoin    =  localJoin;	
-    touch->epsilon	=  epsilon;	
-    touch->numA = numA;
-    touch->numB = numB;
-    touch->maxLevelCoef = maxLevelCoef;
+    touch->nodesize         = nodesize;
+    touch->leafsize         = leafsize;
+    touch->localPartitions  = localPartitions;	
+    touch->verbose          = verbose;		
+    touch->localJoin        = localJoin;	
+    touch->epsilon          = epsilon;	
+    touch->numA             = numA;
+    touch->numB             = numB;
+    touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
 
@@ -222,39 +204,19 @@ void reTOUCHrun()
     reTOUCH* touch = new reTOUCH();
 
     touch->PartitioningType = PartitioningTypeMain;
-    touch->nodesize = nodesize;
-    touch->leafsize   = leafsize; // note: do not change base and partitions for TOUCH-like
-    touch->localPartitions = localPartitions;	
-    touch->verbose  =  verbose;		
-    touch->localJoin    =  localJoin;	
-    touch->epsilon	=  epsilon;	
-    touch->numA = numA;
-    touch->numB = numB;
-    touch->maxLevelCoef = maxLevelCoef;
+    touch->nodesize         = nodesize;
+    touch->leafsize         = leafsize;
+    touch->localPartitions  = localPartitions;	
+    touch->verbose          = verbose;		
+    touch->localJoin        = localJoin;	
+    touch->epsilon          = epsilon;	
+    touch->numA             = numA;
+    touch->numB             = numB;
+    touch->maxLevelCoef     = maxLevelCoef;
+    touch->file_dsA         = input_dsA;
+    touch->file_dsB         = input_dsB;
 
-    touch->totalTimeStart();
-    touch->readBinaryInput(input_dsA, input_dsB);
-    if (verbose) std::cout << "Forming the partitions" << std::endl; 
-    touch->createPartitions();
-    if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
-    touch->assignmentB();
-    if (verbose) std::cout << "Assigning the objects of A" << std::endl; 
-    touch->assignmentA();
-    if (verbose) std::cout << "Assigning Done." << std::endl; 
-    touch->analyze();
-    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
-    if(localJoin == algo_SGrid)
-        touch->countSpatialGrid();
-    if (verbose) std::cout << "Probing, doing the join" << std::endl; 
-    touch->probe();
-    if(localJoin == algo_SGrid)
-    {
-        if (verbose) std::cout << "Removing duplicates" << std::endl; 
-        touch->deduplicateSpatialGrid();
-    }
-    if (verbose) std::cout << "Done." << std::endl; 
-    touch->totalTimeStop();
-
+    touch->run();
     touch->printTOUCH();
 }
 
@@ -263,47 +225,25 @@ void rereTOUCHrun()
     rereTOUCH* touch = new rereTOUCH();
 
     touch->PartitioningType = PartitioningTypeMain;
-    touch->nodesize = nodesize;
-    touch->leafsize   = leafsize; // note: do not change base and partitions for TOUCH-like
-    touch->localPartitions = localPartitions;	
-    touch->verbose  =  verbose;		
-    touch->localJoin    =  localJoin;	
-    touch->epsilon	=  epsilon;	
-    touch->numA = numA;
-    touch->numB = numB;
-    touch->maxLevelCoef = maxLevelCoef;
+    touch->nodesize         = nodesize;
+    touch->leafsize         = leafsize;
+    touch->localPartitions  = localPartitions;	
+    touch->verbose          =  verbose;		
+    touch->localJoin        =  localJoin;	
+    touch->epsilon          =  epsilon;	
+    touch->numA             = numA;
+    touch->numB             = numB;
+    touch->maxLevelCoef     = maxLevelCoef;
+    touch->file_dsA         = input_dsA;
+    touch->file_dsB         = input_dsB;
 
-    touch->totalTimeStart();
-    touch->readBinaryInput(input_dsA, input_dsB);
-    cout << "Forming the partitions" << std::endl; 
-    touch->createPartitions();
-    cout << "Assigning the objects of B" << std::endl; 
-    touch->assignmentB();
-    cout << "Assigning the objects of A" << std::endl; 
-    touch->assignmentA();
-    cout << "Assigning the objects of B again" << std::endl; 
-    touch->reassignmentB();
-    cout << "Assigning Done." << std::endl; 
-    touch->analyze();
-    cout << "Analysis Done, counting grids if necessary." << std::endl; 
-    if(localJoin == algo_SGrid)
-        touch->countSpatialGrid();
-    cout << "Probing, doing the join" << std::endl; 
-    touch->probe();
-    if(localJoin == algo_SGrid)
-    {
-        std::cout << "Removing duplicates" << std::endl; 
-        touch->deduplicateSpatialGrid();
-    }
-    cout << "Done." << std::endl; 
-    touch->totalTimeStop();
-
+    touch->run();
     touch->printTOUCH();
 }
 
 void NLalgo()
 {
-    std::cout << "New NL join algorithm created" << std::endl; 
+    if (verbose) std::cout << "New NL join algorithm created" << std::endl; 
     JoinAlgorithm* nl = new JoinAlgorithm();
             
     nl->verbose  =  verbose;
@@ -311,9 +251,9 @@ void NLalgo()
     nl->numA = numA;
     nl->numB = numB;
     
-    std::cout << "Reading data" << std::endl; 
+    if (verbose) std::cout << "Reading data" << std::endl; 
     nl->readBinaryInput(input_dsA, input_dsB);
-    std::cout << "Nested loop join" << std::endl; 
+    if (verbose) std::cout << "Nested loop join" << std::endl; 
     nl->NL(nl->dsA, nl->dsB);
     
     nl->print();

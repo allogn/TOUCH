@@ -6,13 +6,10 @@
 #include "TOUCH.h"
 
 TOUCH::TOUCH() {
-    algorithm = algo_TOUCH; //@todo do it for all
-    total.start(); // timing
+    algorithm = algo_TOUCH;
 }
 
 TOUCH::~TOUCH() {
-    delete &tree;
-    total.stop();
 }
 
 void TOUCH::run() {
@@ -29,24 +26,6 @@ void TOUCH::run() {
     probe();
     if (verbose) std::cout << "Done." << std::endl; 
     totalTimeStop();
-}
-
-void TOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
-{
-    TreeNode* prNode = new TreeNode(Level);
-    FLAT::Box mbr;
-    FLAT::uint64 childIndex;
-    totalnodes++;
-    
-    for (std::vector<TreeEntry*>::iterator it=objlist.begin(); it!=objlist.end(); ++it)
-    {
-            prNode->entries.push_back(*it);
-            mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
-    }
-    childIndex = tree.size();
-    tree.push_back(prNode);
-    nextInput.push_back(new TreeEntry(mbr,childIndex));
-    prNode->parentEntry = nextInput.back();
 }
 
 void TOUCH::assignment()
@@ -109,7 +88,7 @@ void TOUCH::assignment()
 }
 
 
-void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
+void TOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
 {
     SpatialGridHash* spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
     spatialGridHash->epsilon = this->epsilon;
@@ -138,7 +117,7 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
             }
             else
             {
-                JOIN(leaf,ancestorNode->attachedObjs[0]);
+                NL(leaf,ancestorNode->attachedObjs[0]);
             }
             comparing.stop();
         }
@@ -157,6 +136,7 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
         spatialGridHash->resultPairs.deDuplicate();
         spatialGridHash->resultPairs.deDuplicateTime.stop();
 
+        
         this->ItemsCompared += spatialGridHash->ItemsCompared;
         this->resultPairs.results += spatialGridHash->resultPairs.results;
         this->resultPairs.duplicates += spatialGridHash->resultPairs.duplicates;
@@ -165,79 +145,39 @@ void TOUCH::joinIntenalnodetoleafs(FLAT::uint64 ancestorNodeID)
         this->resultPairs.deDuplicateTime.add(spatialGridHash->resultPairs.deDuplicateTime);
     }
 }
-        
-void TOUCH::probe()
-{
-    probing.start();
-    std::queue<FLAT::uint64> Qnodes;
-
-    TreeNode* currentNode;
-    Qnodes.push(root->childIndex);
-
-    int lvl = Levels;
-    // A BFS on the tree then for each find all its leaf nodes by another BFS
-    while(Qnodes.size()>0)
-    {
-        FLAT::uint64 currentNodeID = Qnodes.front();
-        currentNode = tree.at(currentNodeID);
-        Qnodes.pop();
-        //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
-        if(!currentNode->leafnode)
-        for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
-        {
-                Qnodes.push(currentNode->entries.at(child)->childIndex);
-        }
-        //join the internal node with all *its* leaves
-
-        // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
-        if(currentNode->attachedObjs[0].size()==0)
-                continue;
-
-        // just to display the level of the BFS traversal
-        if (verbose)
-            if(lvl!=currentNode->level)
-            {
-                    lvl = currentNode->level;
-                    cout << "\n### Level " << lvl <<endl;
-            }
-
-        joinIntenalnodetoleafs(currentNodeID);
-    }
-    probing.stop();
-}
 	
 void TOUCH::analyze()
 {
+    analyzing.start();
+    FLAT::uint64 emptyCells=0;
+    FLAT::uint64 sum=0,sqsum=0;
+    double differenceSquared=0;
+    footprint += vdsA.size()*(sizeof(TreeEntry*));
+    footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
+    LVL = Levels;
+    //vector<uint64> ItemPerLevel;
+    ItemPerLevel.reserve(Levels);
+    for(int i = 0 ; i<Levels ; i++)
+            ItemPerLevel.push_back(0);
+    for(unsigned int ni = 0; ni<tree.size() ; ni++)
+    {
+            SpatialObjectList objs = tree.at(ni)->attachedObjs[0];
+            FLAT::uint64 ptrs = objs.size();
+            if(objs.size()==0)emptyCells++;
+            ItemPerLevel[tree.at(ni)->level]+=ptrs;
+            sum += ptrs;
+            sqsum += ptrs*ptrs;
+            if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
 
-        analyzing.start();
-        FLAT::uint64 emptyCells=0;
-        FLAT::uint64 sum=0,sqsum=0;
-        double differenceSquared=0;
-        footprint += vdsA.size()*(sizeof(TreeEntry*));
-        footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
-        LVL = Levels;
-        //vector<uint64> ItemPerLevel;
-        ItemPerLevel.reserve(Levels);
+    }
+    if (verbose)
         for(int i = 0 ; i<Levels ; i++)
-                ItemPerLevel.push_back(0);
-        for(unsigned int ni = 0; ni<tree.size() ; ni++)
-        {
-                SpatialObjectList objs = tree.at(ni)->attachedObjs[0];
-                FLAT::uint64 ptrs = objs.size();
-                if(objs.size()==0)emptyCells++;
-                ItemPerLevel[tree.at(ni)->level]+=ptrs;
-                sum += ptrs;
-                sqsum += ptrs*ptrs;
-                if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
+            std::cout<< "Level " << i << " items " << ItemPerLevel[i] << std::endl;
 
-        }
-        for(int i = 0 ; i<Levels ; i++)
-                cout<< "level " << i << " items " << ItemPerLevel[i] <<endl;
-
-        footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
-        avg = (sum+0.0) / (tree.size());
-        percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
-        differenceSquared = ((double)sqsum/(double)tree.size())-avg*avg;
-        std = sqrt(differenceSquared);
-        analyzing.stop();
+    footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
+    avg = (sum+0.0) / (tree.size());
+    percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
+    differenceSquared = ((double)sqsum/(double)tree.size())-avg*avg;
+    std = sqrt(differenceSquared);
+    analyzing.stop();
 }
