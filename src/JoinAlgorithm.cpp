@@ -8,46 +8,51 @@
 #include "JoinAlgorithm.h"
 
 JoinAlgorithm::JoinAlgorithm() {
-    hashprobe = 0;
-    footprint=0;
-    filtered[0]=0;
-    filtered[1] = 0;
-    maxMappedObjects=0;
-    avg=0;
-    std=0;
-    ItemsCompared =0;
-    ItemsMaxCompared = 0;
-    //gridSize = 0;
-    percentageEmpty=0;
-    repA=1;
-    repB=1;
-    algorithm				= algo_NL;	//default algorithm
-    localJoin				= algo_NL;
-    partitions				= 4;
-    profilingEnable                     = true;
+    hashprobe               = 0;
+    footprint               = 0;
+    filtered[0]             = 0;
+    filtered[1]             = 0;
+    maxMappedObjects        = 0;
+    avg                     = 0;
+    std                     = 0;
+    ItemsCompared           = 0;
+    ItemsMaxCompared        = 0;
+    percentageEmpty         = 0;
+    repA                    = 1;
+    repB                    = 1;
+    algorithm               = algo_NL;
+    localJoin               = algo_NL;
+    partitions              = 4;
+    profilingEnable         = true;
+    epsilon                 = 1.5;
     
-    algoname="";
-    basealgo="";
+    algoname                = "";
+    basealgo                = "";
     
-    verbose				=  true;
+    verbose                 =  true;
+    
     base = 2; // the base for S3 and SH algorithms
     logfilename = "SJ.csv"; //@todo add to parameters
-    epsilon = 1.5;
     numA = 0, numB = 0;
 }
 
-JoinAlgorithm::~JoinAlgorithm() {
-}
+JoinAlgorithm::~JoinAlgorithm() {}
 
 void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     
-    cout << "Start reading the datasets" << endl;
+    if (verbose) std::cout << "Start reading the datasets" << std::endl;
 
     file_dsA = in_dsA;
     file_dsB = in_dsB;
 
     FLAT::DataFileReader *inputA = new FLAT::DataFileReader(file_dsA);
     FLAT::DataFileReader *inputB = new FLAT::DataFileReader(file_dsB);
+    
+    if (verbose)
+    {
+        inputA->information();
+        inputB->information();
+    }
 
     TreeEntry* newEntry;
 
@@ -55,18 +60,22 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
 
     size_dsA = (numA < inputA->objectCount && (numA != 0))?numA:inputA->objectCount;
     size_dsB = (numB < inputB->objectCount && (numB != 0))?numB:inputB->objectCount;
-    cout << "size of A:" << size_dsA << "# from " << inputA->objectCount << "# " 
-                    << size_dsA*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
-    cout << "size of B:" << size_dsB << "# from " << inputB->objectCount << "# " 
-                    << size_dsB*sizeof(SpatialObjectList) / 1000.0 << "KB" << endl;
+    
+    if (verbose)
+    {
+        std::cout << "size of A:" << size_dsA << "# from " << inputA->objectCount << "# " 
+                        << size_dsA*sizeof(SpatialObjectList) / 1000.0 << "KB" << std::endl;
+        std::cout << "size of B:" << size_dsB << "# from " << inputB->objectCount << "# " 
+                        << size_dsB*sizeof(SpatialObjectList) / 1000.0 << "KB" << std::endl;
+    }
     
     FLAT::Box mbr;
     for (int i=0;i<DIMENSION;i++)
     {
-            universeA.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
-            universeA.high.Vector[i]  = std::numeric_limits<FLAT::spaceUnit>::min();
-            universeB.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
-            universeB.high.Vector[i]  = std::numeric_limits<FLAT::spaceUnit>::min();
+        universeA.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
+        universeA.high.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::min();
+        universeB.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
+        universeB.high.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::min();
     }
     FLAT::SpatialObject* sobj;
 
@@ -74,44 +83,43 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     numA = size_dsA;
     while(inputA->hasNext() && (numA-- != 0))
     {
-            sobj = inputA->getNext();
-            mbr = sobj->getMBR();
-            mbr.isEmpty = false;
-            for (int i=0;i<DIMENSION;i++)
-            {
-                    universeA.low.Vector[i] = min(universeA.low.Vector[i],mbr.low.Vector[i]);
-                    universeA.high.Vector[i] = max(universeA.high.Vector[i],mbr.high.Vector[i]);
-            }
-            sobj->type = 0;
-            sobj->cost = 0;
-            sobj->id = numA;
-            newEntry = new TreeEntry(sobj);
-            newEntry->expand(epsilon); //@todo in new touch when assigning - also must expand??
-            vdsA.push_back(newEntry);
-            dsA.push_back(sobj);
-            vdsAll.push_back(newEntry);
+        sobj = inputA->getNext();
+        mbr = sobj->getMBR();
+        mbr.isEmpty = false;
+        for (int i=0;i<DIMENSION;i++)
+        {
+            universeA.low.Vector[i] = min(universeA.low.Vector[i],mbr.low.Vector[i]);
+            universeA.high.Vector[i] = max(universeA.high.Vector[i],mbr.high.Vector[i]);
+        }
+        sobj->type = 0;
+        sobj->cost = 0;
+        sobj->id = numA;
+        newEntry = new TreeEntry(sobj);
+        newEntry->expand(epsilon);
+        vdsA.push_back(newEntry);
+        dsA.push_back(sobj);
+        vdsAll.push_back(newEntry);
     }
 
     dsB.reserve(size_dsB);
     numB = size_dsB;
     while (inputB->hasNext() && (numB-- != 0))
     {
-            sobj = inputB->getNext();
-            mbr = sobj->getMBR();
-            mbr.isEmpty = false;
-            for (int i=0;i<DIMENSION;i++)
-            {
-                    universeB.low.Vector[i] = min(universeB.low.Vector[i],mbr.low.Vector[i]);
-                    universeB.high.Vector[i] = max(universeB.high.Vector[i],mbr.high.Vector[i]);
-            }
-            sobj->type = 1;
-            sobj->cost = 0;
-            sobj->id = numB;
-            newEntry = new TreeEntry(sobj);
-            newEntry->expand(epsilon); //@todo in new touch when assigning - also must expand??
-            //vdsB.push_back(newEntry); @todo is it needed elsewhere? in dTOUCH it must be empty at the beginning
-            dsB.push_back(sobj);
-            vdsAll.push_back(newEntry);
+        sobj = inputB->getNext();
+        mbr = sobj->getMBR();
+        mbr.isEmpty = false;
+        for (int i=0;i<DIMENSION;i++)
+        {
+                universeB.low.Vector[i] = min(universeB.low.Vector[i],mbr.low.Vector[i]);
+                universeB.high.Vector[i] = max(universeB.high.Vector[i],mbr.high.Vector[i]);
+        }
+        sobj->type = 1;
+        sobj->cost = 0;
+        sobj->id = numB;
+        newEntry = new TreeEntry(sobj);
+        newEntry->expand(epsilon);
+        dsB.push_back(sobj);
+        vdsAll.push_back(newEntry);
     }
     
     universeA.isEmpty = false;
@@ -121,7 +129,7 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
 
     dataLoad.stop();
 
-    cout << "Reading Completed." << endl;
+    if (verbose) std::cout << "Reading Completed." << std::endl;
 
 }
 

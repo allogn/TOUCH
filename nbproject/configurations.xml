@@ -3,6 +3,7 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
       <df name="apps">
+        <in>SampleGenerator.cpp</in>
         <in>SpatialJoin.cpp</in>
       </df>
       <df name="build">
@@ -120,6 +121,8 @@
           </cTool>
         </makeTool>
       </makefileType>
+      <item path="apps/SampleGenerator.cpp" ex="false" tool="1" flavor2="4">
+      </item>
       <item path="apps/SpatialJoin.cpp" ex="false" tool="1" flavor2="4">
       </item>
       <item path="build/CMakeFiles/3.0.2/CompilerIdC/CMakeCCompilerId.c"

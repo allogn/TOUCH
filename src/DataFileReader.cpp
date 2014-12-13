@@ -1,10 +1,8 @@
 #include "DataFileReader.hpp"
 
-using namespace std;
-
 namespace FLAT
 {
-	DataFileReader::DataFileReader(string& fileName)
+	DataFileReader::DataFileReader(std::string& fileName)
 	{
 		try
 		{
@@ -15,9 +13,7 @@ namespace FLAT
 		}
 		catch(...)
 		{
-#ifdef FATAL
-			cout << "Cannot load InputFile" << endl;
-#endif
+			std::cout << "Cannot load InputFile" << std::endl;
 			exit(0);
 		}
 	}
@@ -36,14 +32,6 @@ namespace FLAT
 		objectByteSize  = inputFile->readUInt32();         // Size in Bytes of each Object
 		inputFile->read(&universe);
 		rewind();
-
-#ifdef INFORMATION
-		cout << "\n == INPUT FILE HEADER == \n\n"
-		     << "OBJECT TYPE: " << SpatialObjectFactory::getTitle(objectType) << endl
-			 << "TOTAL OBJECTS: " << objectCount << endl
-			 << "OBJECT BYTE SIZE: " << objectByteSize <<endl
-			 << "UNIVERSE BOUNDS: " << universe << endl;
-#endif
 	}
 
 	bool DataFileReader::hasNext()

@@ -34,12 +34,12 @@ unsigned int numA = 0 ,numB = 0;                            //number of elements
 int nodesize                            = 2;                // number of children per node if not leaf
 int maxLevelCoef                     = 500;                // coefficient in probability to assign object to first tree in dTOUCH
 
-string input_dsA = "../data/RandomData-100K.bin";
-string input_dsB = "../data/RandomData-1600K.bin";
+std::string input_dsA = "../data/RandomData-100K.bin";
+std::string input_dsB = "../data/RandomData-1600K.bin";
 
 void usage(const char *program_name) {
 
-    printf("   Usage: %s [-v] [-h] [-a <int>] [-i <path> <path>]\n", program_name);
+    printf("   Usage: %s\n", program_name);
     printf("   -h               Print this help menu.\n");
     printf("   -a               Algorithms\n");
     printf("      0:Nested Loop\n");
@@ -76,21 +76,21 @@ void parse_args(int argc, const char* argv[]) {
     {
         switch (argv[x][1])
         {
-        case 'h':
-            usage(argv[0]);
-            exit(1);
-            break;
-		case 'i':
-            if (++x < argc)
-            {
-                input_dsA=argv[x];
-                input_dsB=argv[++x];
-            }
-            else
-            {
-                fprintf(stderr, "Error: Invalid argument, %s", argv[x-1]);
+            case 'h':
                 usage(argv[0]);
-            }
+                exit(1);
+                break;
+            case 'i':
+                if (++x < argc)
+                {
+                    input_dsA=argv[x];
+                    input_dsB=argv[++x];
+                }
+                else
+                {
+                    fprintf(stderr, "Error: Invalid argument, %s", argv[x-1]);
+                    usage(argv[0]);
+                }
             break;
 		case 'a':
 			sscanf(argv[++x], "%u", &algorithm);
