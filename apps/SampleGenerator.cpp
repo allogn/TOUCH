@@ -17,6 +17,7 @@ FLAT::uint64 sampleSize      = 1000; // size of one sample
 
 std::string inputFile   = "../data/RandomData-100K.bin";
 std::string outputPath  = "./samples/";
+std::string logName     = "stats.csv";
 bool verbose            = false;
 
 void usage(const char *program_name) {
@@ -72,11 +73,22 @@ void generateSamples(std::string file_in, std::string path_out)
 {
     FLAT::BufferedFile* outputFile;
     
+    //create log file
+    std::string logfile = "";
+    logfile.append(path_out);
+    logfile.append(logName);
+    ofstream log(logfile.c_str(),ios_base::app);
+    log << "Filename, Average, Standard deviation, Minimum, Maximum\n";
+    
     std::vector<FLAT::SpatialObject*> dsA;
-    double max;
-    double min;
-    double avg;
-    double std;
+    double max, min, avg, std; //statistics variables
+    
+    std::string prefix = "sample"; //prefix to names of result files
+    std::ostringstream filename;
+    int fileNum = 1; //index of a file
+    int mixInd; //variable for randomization
+    FLAT::SpatialObject* temp;
+    double vol;
     
     FLAT::Box universe;
     
@@ -114,14 +126,19 @@ void generateSamples(std::string file_in, std::string path_out)
 
     if (verbose) std::cout << "Reading Completed." << std::endl;
     
-    std::string prefix = "sample";
-    std::ostringstream filename;
-    int fileNum = 1;
-    int mixInd;
-    FLAT::SpatialObject* temp;
-    
+    /*
+     * Mix first <sampleSize> elements with the rest
+     * Write them to a file
+     * Delete from the array
+     * Until the array becomes empty
+     */
     while (dsA.size() >= sampleSize)
     {
+        max = std::numeric_limits<double>::min();
+        min = std::numeric_limits<double>::max();
+        avg = 0;
+        std = 0;
+        
         filename.str("");
         filename << outputPath << prefix << fileNum << ".bin";
         
@@ -134,7 +151,13 @@ void generateSamples(std::string file_in, std::string path_out)
         //Writing one file with random <sampleSize> objects
         outputFile = new FLAT::BufferedFile();
         outputFile->create(filename.str());
+        if (outputFile->eof == true)
+        {
+            std::cout << "Output error. Check if output path exists. " << std::endl;
+            exit(1);
+        }
         
+        //Mix objects
         if (verbose) std::cout << "\tMixing objects..." << std::endl;
         for (int i = 0; i < sampleSize; i++)
         {
@@ -144,13 +167,23 @@ void generateSamples(std::string file_in, std::string path_out)
             dsA.at(mixInd) = temp;
         }
         
+        //Write objects and add each object to statistics
         if (verbose) std::cout << "\tWriting objects..." << std::endl;
         std::vector<FLAT::SpatialObject*>::iterator it = dsA.begin();
         for (int i = 0; i < sampleSize; i++)
         {
+            vol = FLAT::Box::volume((*it)->getMBR());
+            if (vol > max) max = vol;
+            if (vol < min) min = vol;
+            avg += vol;
+            std += vol*vol;
+            
             outputFile->write((*it));
             it++;
         }
+        avg /= sampleSize;
+        std = sqrt(std - avg*avg);
+        
         dsA.erase(dsA.begin(),--it);
         
         //Write header
@@ -160,6 +193,9 @@ void generateSamples(std::string file_in, std::string path_out)
         outputFile->write(&(inputA->universe));
         
         outputFile->close();
+        
+        //write log
+        log << filename.str() << "," << avg << "," << std << "," << min << "," << max << "\n";
         
         fileNum++;
     }
@@ -172,7 +208,6 @@ int main(int argc, const char* argv[])
 {
     //Parsing the arguments
     parse_args(argc, argv);
-
     generateSamples(inputFile, outputPath);
 
     return 0;
