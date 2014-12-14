@@ -24,7 +24,7 @@ void cTOUCH::run()
     probe();
     if(localJoin == algo_SGrid)
     {
-        std::cout << "Removing duplicates" << std::endl; 
+        if (verbose) std::cout << "Removing duplicates" << std::endl; 
         deduplicateSpatialGrid();
     }
     if (verbose) std::cout << "Done." << std::endl;
@@ -57,7 +57,8 @@ void cTOUCH::analyze()
                 if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
 
         }
-        for(int i = 0 ; i<Levels ; i++)
+        if (verbose)
+            for(int i = 0 ; i<Levels ; i++)
                 cout<< "level " << i << " items " << ItemPerLevel[i] <<endl;
 
         footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
@@ -99,11 +100,12 @@ void cTOUCH::probe()
             continue;
 
         // just to display the level of the BFS traversal
-        if(lvl!=currentNode->level)
-        {
-                lvl = currentNode->level;
-                cout << "\n### Level " << lvl << "; Enter childIndex: " << currentNodeID << endl;
-        }
+        if (verbose)
+            if(lvl!=currentNode->level)
+            {
+                    lvl = currentNode->level;
+                    cout << "\n### Level " << lvl << "; Enter childIndex: " << currentNodeID << endl;
+            }
 
         joinNodeToDesc(currentNodeID); //join node -> join each object -> join object to down tree -> join object with list of objects
     }
@@ -401,11 +403,7 @@ void cTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNod
                             comparing.start();
                             if(localJoin == algo_SGrid)
                             {
-                                int t,tt;
-                                t = downnode->spatialGridHash[opType]->resultPairs.results;
                                 downnode->spatialGridHash[opType]->probe(obj);
-                                tt = downnode->spatialGridHash[opType]->resultPairs.results-t;
-                                t = this->resultPairs.results;
                             }
                             else
                             {

@@ -47,33 +47,6 @@ public:
     }
 
     ~rereTOUCH() {}
-    
-    void createPartitions()
-    {
-            partition.start();
-            // Build PRtree levels from bottom up
-            // Build PRtree levels from bottom up
-
-            Levels = 0;
-            totalnodes = 0;
-            while(vdsA.size()>1)
-            {
-                    cout << "Tree Level: " << Levels << " treeNodes: " << tree.size() << " Remaining Input: " << vdsA.size() <<endl;
-                    createTreeLevel(vdsA,Levels++);      // writes final nodes in tree and next level in nextInput
-                    swap(vdsA,nextInput);					// swap input and nextInput list
-                    nextInput.clear();
-            }
-
-            root = vdsA.front();
-
-            cout << "Levels " << Levels << endl;
-
-
-            partition.stop();
-            cout << "creating the partitions time: " << partition << endl;
-
-            // Destroy HTree
-    }
 
     void assignmentA();
     void assignmentB();

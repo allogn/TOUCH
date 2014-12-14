@@ -16,9 +16,7 @@ CommonTOUCH::CommonTOUCH() {
 CommonTOUCH::~CommonTOUCH() {
 }
 
-void CommonTOUCH::printTOUCH() {
-    
-    print(); // print statistics of JoinAlgorithm
+void CommonTOUCH::saveLog() {
     
     bool headers;
     headers = ( access( logfilename.c_str(), F_OK ) == -1 );

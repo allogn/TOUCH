@@ -13,6 +13,8 @@
  *                      -> JoinAlgorithm.h
  * 
  */
+
+#include "algoNL.h"
 #include "TOUCH.h"
 #include "dTOUCH.h"
 #include "cTOUCH.h"
@@ -29,10 +31,10 @@ int algorithm				=  algo_NL;         // Choose the algorithm
 int localJoin				=  algo_NL;         // Choose the algorithm for joining the buckets, The local join
 int runs				=  1;               // # of runs //@todo unsupported
 double epsilon				=  0.5;             // the epsilon of the similarity join
-int leafsize				=  100;               // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
+int leafsize				=  100;             // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
 unsigned int numA = 0 ,numB = 0;                            //number of elements to be read from datasets
 int nodesize                            = 2;                // number of children per node if not leaf
-int maxLevelCoef                     = 500;                // coefficient in probability to assign object to first tree in dTOUCH
+int maxLevelCoef                        = 500;              // coefficient in probability to assign object to first tree in dTOUCH
 
 std::string input_dsA = "../data/RandomData-100K.bin";
 std::string input_dsB = "../data/RandomData-1600K.bin";
@@ -43,12 +45,15 @@ void usage(const char *program_name) {
     printf("   -h               Print this help menu.\n");
     printf("   -a               Algorithms\n");
     printf("      0:Nested Loop\n");
-    printf("      1:Spatial Grid Hash\n");
-    printf("      2:TOUCH:Spatial Hierarchical Hash\n");
-    printf("      3:cTOUCH:Spatial Hierarchical Hash\n");
-    printf("      4:dTOUCH:Spatial Hierarchical Hash\n");
-    printf("      5:reTOUCH:Spatial Hierarchical Hash\n");
-    printf("      6:rereTOUCH:Spatial Hierarchical Hash\n");
+    printf("      1:Plane-Sweeping\n");
+    printf("      2:Spatial Grid Hash\n");
+    printf("      3:Size Separation Spatial\n");
+    printf("      4:TOUCH:Spatial Hierarchical Hash\n");
+    printf("      5:Partition Based Spatial-Merge Join\n");
+    printf("      6:cTOUCH:Spatial Hierarchical Hash\n");
+    printf("      7:dTOUCH:Spatial Hierarchical Hash\n");
+    printf("      8:reTOUCH:Spatial Hierarchical Hash\n");
+    printf("      9:rereTOUCH:Spatial Hierarchical Hash\n");
     printf("\n");
     printf("   -J               Algorithm for joining the buckets\n");
     printf("   -l               leaf size\n");
@@ -154,7 +159,8 @@ void dTOUCHrun()
     touch->file_dsB         = input_dsB;
     
     touch->run();
-    touch->printTOUCH();
+    touch->saveLog();
+    touch->print();
 }
 
 void cTOUCHrun()
@@ -175,7 +181,8 @@ void cTOUCHrun()
     touch->file_dsB         = input_dsB;
 
     touch->run();
-    touch->printTOUCH();
+    touch->saveLog();
+    touch->print();
 }
 
 void TOUCHrun()
@@ -196,7 +203,8 @@ void TOUCHrun()
     touch->file_dsB         = input_dsB;
 
     touch->run();
-    touch->printTOUCH();
+    touch->saveLog();
+    touch->print();
 }
 
 void reTOUCHrun()
@@ -217,7 +225,8 @@ void reTOUCHrun()
     touch->file_dsB         = input_dsB;
 
     touch->run();
-    touch->printTOUCH();
+    touch->saveLog();
+    touch->print();
 }
 
 void rereTOUCHrun()
@@ -228,9 +237,9 @@ void rereTOUCHrun()
     touch->nodesize         = nodesize;
     touch->leafsize         = leafsize;
     touch->localPartitions  = localPartitions;	
-    touch->verbose          =  verbose;		
-    touch->localJoin        =  localJoin;	
-    touch->epsilon          =  epsilon;	
+    touch->verbose          = verbose;		
+    touch->localJoin        = localJoin;	
+    touch->epsilon          = epsilon;	
     touch->numA             = numA;
     touch->numB             = numB;
     touch->maxLevelCoef     = maxLevelCoef;
@@ -238,24 +247,22 @@ void rereTOUCHrun()
     touch->file_dsB         = input_dsB;
 
     touch->run();
-    touch->printTOUCH();
+    touch->saveLog();
+    touch->print();
 }
 
-void NLalgo()
+void algoNLrun()
 {
-    if (verbose) std::cout << "New NL join algorithm created" << std::endl; 
-    JoinAlgorithm* nl = new JoinAlgorithm();
+    algoNL* nl = new algoNL();
             
-    nl->verbose  =  verbose;
-    nl->epsilon = epsilon;
-    nl->numA = numA;
-    nl->numB = numB;
+    nl->verbose             = verbose;
+    nl->epsilon             = epsilon;
+    nl->numA                = numA;
+    nl->numB                = numB;
+    nl->file_dsA            = input_dsA;
+    nl->file_dsB            = input_dsB;
     
-    if (verbose) std::cout << "Reading data" << std::endl; 
-    nl->readBinaryInput(input_dsA, input_dsB);
-    if (verbose) std::cout << "Nested loop join" << std::endl; 
-    nl->NL(nl->dsA, nl->dsB);
-    
+    nl->run();
     nl->print();
 }
 
@@ -267,7 +274,7 @@ int main(int argc, const char* argv[])
     switch(algorithm)
     {
         case algo_NL:
-            NLalgo();
+            algoNLrun();
         break;
         case algo_TOUCH:
             TOUCHrun();

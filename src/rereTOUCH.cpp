@@ -9,27 +9,27 @@ void rereTOUCH::run()
 {
     totalTimeStart();
     readBinaryInput(file_dsA, file_dsB);
-    cout << "Forming the partitions" << std::endl; 
-    createPartitions();
-    cout << "Assigning the objects of B" << std::endl; 
+    if (verbose) std::cout << "Forming the partitions" << std::endl; 
+    createPartitions(vdsA);
+    if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
     assignmentB();
-    cout << "Assigning the objects of A" << std::endl; 
+    if (verbose) std::cout << "Assigning the objects of A" << std::endl; 
     assignmentA();
-    cout << "Assigning the objects of B again" << std::endl; 
+    if (verbose) std::cout << "Assigning the objects of B again" << std::endl; 
     reassignmentB();
-    cout << "Assigning Done." << std::endl; 
+    if (verbose) std::cout << "Assigning Done." << std::endl; 
     analyze();
-    cout << "Analysis Done, counting grids if necessary." << std::endl; 
+    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
     if(localJoin == algo_SGrid)
         countSpatialGrid();
-    cout << "Probing, doing the join" << std::endl; 
+    if (verbose) std::cout << "Probing, doing the join" << std::endl; 
     probe();
     if(localJoin == algo_SGrid)
     {
-        std::cout << "Removing duplicates" << std::endl; 
+        if (verbose) std::cout << "Removing duplicates" << std::endl; 
         deduplicateSpatialGrid();
     }
-    cout << "Done." << std::endl; 
+    if (verbose) std::cout << "Done." << std::endl; 
     totalTimeStop();
 }
 
@@ -63,11 +63,12 @@ void rereTOUCH::probe()
 
 
         // just to display the level of the BFS traversal
-        if(lvl!=currentNode->level)
-        {
-                lvl = currentNode->level;
-                cout << "\n### Level " << lvl <<endl;
-        }
+        if (verbose)
+            if(lvl!=currentNode->level)
+            {
+                    lvl = currentNode->level;
+                    if (verbose) std::cout << "\n### Level " << lvl <<endl;
+            }
 
         joinNodeToDesc(parentNode); //join node -> join each object -> join object to down tree -> join object with list of objects
 
@@ -125,12 +126,12 @@ void rereTOUCH::analyze()
     {
         for(int i = 0 ; i<Levels ; i++)
         {
-                cout<< "level " << i << " A:" << ItemPerLevelA[i] << " Aans:" 
+                std::cout<< "level " << i << " A:" << ItemPerLevelA[i] << " Aans:" 
                 << ItemPerLevelAans[i] << " B:" << ItemPerLevelB[i]
-                << " Bans: " << ItemPerLevelBans[i]  << " = " << ItemPerLevelA[i] + ItemPerLevelB[i] <<endl;
+                << " Bans: " << ItemPerLevelBans[i]  << " = " << ItemPerLevelA[i] + ItemPerLevelB[i] << std::endl;
         }
-        cout<<"Total assigned A:"<<sumA<<" B:"<<sumB<<" = "<< sumA+sumB<<endl;
-        cout<<"Total filtered A:"<< filtered[0] <<" B:"<< filtered[1] <<" = "<< filtered[0]+filtered[1] <<endl;
+        std::cout<<"Total assigned A:"<<sumA<<" B:"<<sumB<<" = "<< sumA+sumB<< std::endl;
+        std::cout<<"Total filtered A:"<< filtered[0] <<" B:"<< filtered[1] <<" = "<< filtered[0]+filtered[1] << std::endl;
     }
     footprint += (sumA+sumB)*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
     avg = (sumA+sumB+0.0) / (tree.size());

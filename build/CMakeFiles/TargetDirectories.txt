@@ -1,3 +1,4 @@
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndex.dir
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/SampleGenerator.dir
 /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/SpatialJoin.dir
+/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/SystemCheck.dir

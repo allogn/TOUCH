@@ -16,17 +16,20 @@
 #include "DataFileReader.hpp"
 
 #define algo_NL				0	//Nested Loop
-#define	algo_SGrid			1	//Spatial Grid Hash Join
-#define	algo_TOUCH			2	//TOUCH:Spatial Hierarchical Hash Join
-#define	algo_cTOUCH			3	//Partition Based Spatial-Merge Join
-#define	algo_dTOUCH			4	//Partition Based Spatial-Merge Join
-#define	algo_reTOUCH			5	//Partition Based Spatial-Merge Join
-#define	algo_rereTOUCH			6	//Partition Based Spatial-Merge Join
+#define algo_PS				1	//Plane-Sweeping
+#define	algo_SGrid			2	//Spatial Grid Hash Join
+#define	algo_S3				3	//Size Separation Spatial
+#define	algo_TOUCH			4	//TOUCH:Spatial Hierarchical Hash Join
+#define	algo_PBSM			5	//Partition Based Spatial-Merge Join
+#define	algo_cTOUCH			6	//cTOUCH: Complex Spatial Hierarchical Hash Join
+#define	algo_dTOUCH			7	//Partition Based Spatial-Merge Join
+#define	algo_reTOUCH			8	//Partition Based Spatial-Merge Join
+#define	algo_rereTOUCH			9	//Partition Based Spatial-Merge Join
 
 #define No_Sort				0
 #define Hilbert_Sort                    1
-//#define X_axis_Sort			2
-//#define STR_Sort			3
+#define X_axis_Sort			2
+#define STR_Sort			3
 
 typedef SpatialObjectList HashValue;
 typedef pair<FLAT::uint64,HashValue*> ValuePair;
@@ -43,6 +46,11 @@ public:
     SpatialObjectList dsA, dsB;					//A is smaller than B
     int localPartitions;
     bool profilingEnable;
+    
+    //for dTOUCH
+    double maxLevelCoef;
+    
+    int PartitioningType;	// Sorting algorithm
 
     
     int base; // the base for S3 and SH algorithms
@@ -99,7 +107,6 @@ public:
                 resultPairs.addPair( A , *itB );
     }
     
-    //Nested Loop join algorithm
     void NL(SpatialObjectList& A, SpatialObjectList& B)
     {
         for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
@@ -285,12 +292,10 @@ public:
             }
     };
     
-    
-    
-    void JOIN(SpatialObjectList& A, SpatialObjectList& B);
-    
     void totalTimeStart() { total.start(); };
     void totalTimeStop() { total.stop(); };
+    
+    virtual void run() {};
     
 };
 

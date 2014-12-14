@@ -25,15 +25,12 @@ public:
     CommonTOUCH();
     virtual ~CommonTOUCH();
     
-    void printTOUCH();
+    void saveLog();
     
-    int PartitioningType;	// Sorting algorithm
     unsigned int leafsize, nodesize;
     unsigned int totalnodes;
     int Levels;
     
-    //for dTOUCH
-    double maxLevelCoef;
     
     virtual void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
     virtual void joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);

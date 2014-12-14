@@ -140,6 +140,9 @@ void JoinAlgorithm::print()
                 case algo_NL:
                         algoname = "NL";
                 break;
+                case algo_PS:
+                        algoname = "PS";
+                break;
                 case algo_TOUCH:
                         algoname = "TOUCH";
                 break;
@@ -158,11 +161,20 @@ void JoinAlgorithm::print()
                 case algo_SGrid:
                         algoname = "SGrid";
                 break;
+                case algo_S3:
+                        algoname = "S3";
+                break;
+                case algo_PBSM:
+                        algoname = "PBSM";
+                break;
         }
         switch(localJoin)
         {
                 case algo_NL:
                         basealgo = "NL";
+                break;
+                case algo_PS:
+                        basealgo = "PS";
                 break;
                 case algo_TOUCH:
                         basealgo = "TOUCH";
@@ -182,36 +194,40 @@ void JoinAlgorithm::print()
                 case algo_SGrid:
                         basealgo = "SGrid";
                 break;
+                case algo_S3:
+                        basealgo = "S3";
+                break;
+                case algo_PBSM:
+                        basealgo = "PBSM";
+                break;
         }
         
-        
-        cout<< "\n================================\n";
-        cout << algoname << " using " << basealgo << " gridSize " << localPartitions << '\n'
-        << "memFP(MB) " << (footprint+0.0)/(1024.0*1024.0) << " #A " << size_dsA << " #B " << size_dsB << '\n'
-        << "size" << " SOlist "<< sizeof(SpatialObjectList) << " SO* "<< sizeof(FLAT::SpatialObject *) << " Node* "<< sizeof(TreeNode*) << '\n'
-        << "EmptyCells(%) " << percentageEmpty	<< " MaxObj " << maxMappedObjects << " AveObj " << avg << " StdObj " << std << '\n'
+        if (verbose)
+        {
+            std::cout<< "\n================================\n";
+            std::cout << algoname << " using " << basealgo << " gridSize " << localPartitions << '\n'
+            << "memFP(MB) " << (footprint+0.0)/(1024.0*1024.0) << " #A " << size_dsA << " #B " << size_dsB << '\n'
+            << "size" << " SOlist "<< sizeof(SpatialObjectList) << " SO* "<< sizeof(FLAT::SpatialObject *) << " Node* "<< sizeof(TreeNode*) << '\n'
+            << "EmptyCells(%) " << percentageEmpty	<< " MaxObj " << maxMappedObjects << " AveObj " << avg << " StdObj " << std << '\n'
 
-        << "Compared # " << ItemsCompared << " % " << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB) << '\n'
-        << "Duplicates " << resultPairs.duplicates << " Selectivity " << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB) << '\n'
-        << "Results " << resultPairs.results << '\n'
-        << "filtered A " << filtered[0]	<< " B " << filtered[1] << " repA " << repA	<< " repB " << repB << '\n'
+            << "Compared # " << ItemsCompared << " % " << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB) << '\n'
+            << "Duplicates " << resultPairs.duplicates << " Selectivity " << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB) << '\n'
+            << "Results " << resultPairs.results << '\n'
+            << "filtered A " << filtered[0]	<< " B " << filtered[1] << " repA " << repA	<< " repB " << repB << '\n'
 
-        << "Times: total " << total << '\n'
-        << " loading " << dataLoad << " init " << initialize	<< " build " << building << " probe " << probing << '\n'
-        << " comparing " << comparing << " partition " << partition	<< " join " << Ljoin	<< '\n'
-        << " deDuplicating " << resultPairs.deDuplicateTime	<< " analyzing " << analyzing << " sorting " << sorting << '\n'
-        << "Partitions " << partitions << " epsilon " << epsilon << " Fanout " << nodesize << '\n'
-        << "\n================================\n"
-        << "\ndatasets\n" << file_dsA << '\n' << file_dsB << '\n';
+            << "Times: total " << total << '\n'
+            << " loading " << dataLoad << " init " << initialize	<< " build " << building << " probe " << probing << '\n'
+            << " comparing " << comparing << " partition " << partition	<< " join " << Ljoin	<< '\n'
+            << " deDuplicating " << resultPairs.deDuplicateTime	<< " analyzing " << analyzing << " sorting " << sorting << '\n'
+            << "Partitions " << partitions << " epsilon " << epsilon << " Fanout " << nodesize << '\n'
+            << "\n================================\n"
+            << "\ndatasets\n" << file_dsA << '\n' << file_dsB << '\n';
 
-    cout<<"Done."<<endl;
+            std::cout<<"Done."<<std::endl;
+        }
+        else
+        {
+            std::cout << algoname << " done. Result: " << resultPairs.results << std::endl;
+        }
 
-}
-
-void JoinAlgorithm::JOIN(SpatialObjectList& A, SpatialObjectList& B)
-{
-        Ljoin.start();
-        if(localJoin == algo_NL)
-            NL(A,B);
-        Ljoin.stop();
 }

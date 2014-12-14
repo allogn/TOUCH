@@ -10,7 +10,7 @@ void reTOUCH::run()
     totalTimeStart();
     readBinaryInput(file_dsA, file_dsB);
     if (verbose) std::cout << "Forming the partitions" << std::endl; 
-    createPartitions();
+    createPartitions(vdsA);
     if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
     assignmentB();
     if (verbose) std::cout << "Assigning the objects of A" << std::endl; 
@@ -70,13 +70,16 @@ void reTOUCH::analyze()
             if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
 
     }
-    for(int i = 0 ; i<Levels ; i++)
+    if (verbose)
     {
-            cout<< "level " << i << " A:" << ItemPerLevelA[i] << " Aans:" 
-            << ItemPerLevelAans[i] << " B:" << ItemPerLevelB[i] << " =" << ItemPerLevelA[i] + ItemPerLevelB[i] <<endl;
+        for(int i = 0 ; i<Levels ; i++)
+        {
+                cout<< "Level " << i << " A:" << ItemPerLevelA[i] << " Aans:" 
+                << ItemPerLevelAans[i] << " B:" << ItemPerLevelB[i] << " = " << ItemPerLevelA[i] + ItemPerLevelB[i] <<endl;
+        }
+        cout<<"Total assigned A:"<<sumA<<" B:"<<sumB<<" ="<< sumA+sumB<<endl;
+        cout<<"Total filtered A:"<< dsA.size() - sumA<<" B:"<<dsB.size() -sumB<<" ="<< dsA.size()+dsB.size() -(sumA+sumB)<<endl;
     }
-    cout<<"Total assigned A:"<<sumA<<" B:"<<sumB<<" ="<< sumA+sumB<<endl;
-    cout<<"Total filtered A:"<< dsA.size() - sumA<<" B:"<<dsB.size() -sumB<<" ="<< dsA.size()+dsB.size() -(sumA+sumB)<<endl;
     footprint += (sumA+sumB)*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
     avg = (sumA+sumB+0.0) / (tree.size());
     percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
@@ -116,11 +119,12 @@ void reTOUCH::probe()
 
 
         // just to display the level of the BFS traversal
-        if(lvl!=currentNode->level)
-        {
-                lvl = currentNode->level;
-                cout << "\n### Level " << lvl <<endl;
-        }
+        if (verbose)
+            if(lvl!=currentNode->level)
+            {
+                    lvl = currentNode->level;
+                    cout << "\n### Level " << lvl <<endl;
+            }
 
         joinNodeToDesc(parentNode->childIndex); //join node -> join each object -> join object to down tree -> join object with list of objects
 
@@ -152,39 +156,6 @@ void reTOUCH::writeNode(std::vector<TreeEntry*> objlist,int Level)
     tree.push_back(prNode);
     nextInput.push_back(new TreeEntry(mbr,childIndex));
     prNode->parentEntry = nextInput.back();
-}
-
-void reTOUCH::createTreeLevel(std::vector<TreeEntry*>& input,int Level)
-{
-    unsigned int nodeSize;
-    if (Level==0) nodeSize = leafsize;
-    else nodeSize = nodesize;
-
-    if(PartitioningType != No_Sort)
-    {
-        sorting.start();
-        std::sort(input.begin(),input.end(),Comparator());
-        sorting.stop();
-    }
-
-    cout << "Sort "<< input.size()<< " items in " << sorting << endl;
-
-
-    std::vector<TreeEntry*> entries;
-    for (std::vector<TreeEntry*>::iterator it=input.begin();it!=input.end();++it)
-    {
-            if (entries.size()<nodeSize)
-            {
-                    entries.push_back(*it);
-                    if (entries.size()>=nodeSize)
-                    {
-                            writeNode(entries,Level);
-                            entries.clear();
-                    }
-            }
-    }
-    if (!entries.empty())
-            writeNode(entries,Level);
 }
 
 void reTOUCH::assignmentB()
@@ -221,7 +192,6 @@ void reTOUCH::assignmentB()
                     else
                     {
                         //should be assigned to this level
-                        if (objB->id == 2572) cout << "object 2572 assigned to the level " << ptr->level << " node " << temptodelete <<endl;
                         ptr->attachedObjs[1].push_back(objB);
                         //Expand the prevnode->mbrSelfD[1]
                         //Expanding the mbrL[1] to include the above A assigned object
@@ -237,7 +207,6 @@ void reTOUCH::assignmentB()
             if(!overlaps)
             {
                     //filtered
-                        if (objB->id == 2572) cout << "object 2572 filtered" << ptr->level << endl;
                     filtered[1]++;
                     break;
             }
@@ -245,7 +214,6 @@ void reTOUCH::assignmentB()
             temptodelete = nextNode->childIndex;
             if(ptr->leafnode /*|| ptr->level < 2*/)
             {
-                        if (objB->id == 2572) cout << "object 2572 assigned to the level leaf " << ptr->level << " number " << nextNode->childIndex << endl;
                 ptr->attachedObjs[1].push_back(objB);
                 //Expand the prevnode->mbrSelfD[1]
                 //Expanding the mbrL[1] to include the above A assigned object
