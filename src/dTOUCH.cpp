@@ -34,7 +34,7 @@ void dTOUCH::run()
     
     if (profilingEnable) 
     {
-        analyze();
+        analyze(0);
         if (verbose) std::cout << "Analysis A Done." << std::endl; 
     }
     
@@ -70,7 +70,7 @@ void dTOUCH::run()
 
         if (profilingEnable) 
         {
-            analyze();
+            analyze(1);
             if (verbose) std::cout << "Analysis B Done." << std::endl; 
         }
 
@@ -183,7 +183,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     }
 }
 
-void dTOUCH::analyze()
+void dTOUCH::analyze(int type)
 {
     analyzing.start();
     FLAT::uint64 emptyCells=0;
@@ -210,6 +210,14 @@ void dTOUCH::analyze()
     if (verbose)
         for(int i = 0 ; i<Levels; i++)
             cout<< "level " << i << " items " << ItemPerLevel[i] <<endl;
+    
+    
+    int top10Level = (Levels>10)?10:Levels;
+    for(int i = 0 ; i<top10Level ; i++)
+        if (type == 1)
+            levelAssignedA[i] = ItemPerLevel[i];
+        else
+            levelAssignedB[i] = ItemPerLevel[i];
 
     footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*)) + tree.size()*(sizeof(TreeNode*));
     avg = (sum+0.0) / (tree.size() + tree.size());

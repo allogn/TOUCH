@@ -27,9 +27,16 @@ public:
     
     void saveLog();
     
-    unsigned int leafsize, nodesize;
     unsigned int totalnodes;
     int Levels;
+    
+    //for logging
+    std::vector<int> levelAssignedA;
+    std::vector<int> levelAssignedB;
+    std::vector<int> levelAvgA;
+    std::vector<int> levelAvgB;
+    std::vector<int> levelStdA;
+    std::vector<int> levelStdB;
     
     
     virtual void joinNodeToDesc(FLAT::uint64 ancestorNodeID);

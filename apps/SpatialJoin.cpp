@@ -14,7 +14,9 @@
  * 
  */
 
+#include "algoPS.h"
 #include "algoNL.h"
+#include "S3Hash.h"
 #include "TOUCH.h"
 #include "dTOUCH.h"
 #include "cTOUCH.h"
@@ -266,6 +268,36 @@ void algoNLrun()
     nl->print();
 }
 
+void algoPSrun()
+{
+    algoPS* ps = new algoPS();
+            
+    ps->verbose             = verbose;
+    ps->epsilon             = epsilon;
+    ps->numA                = numA;
+    ps->numB                = numB;
+    ps->file_dsA            = input_dsA;
+    ps->file_dsB            = input_dsB;
+    
+    ps->run();
+    ps->print();
+}
+
+void S3run()
+{
+    S3Hash* ps = new S3Hash();
+            
+    ps->verbose             = verbose;
+    ps->epsilon             = epsilon;
+    ps->numA                = numA;
+    ps->numB                = numB;
+    ps->file_dsA            = input_dsA;
+    ps->file_dsB            = input_dsB;
+    
+    ps->run();
+    ps->print();
+}
+
 int main(int argc, const char* argv[])
 {
     //Parsing the arguments
@@ -275,6 +307,9 @@ int main(int argc, const char* argv[])
     {
         case algo_NL:
             algoNLrun();
+        break;
+        case algo_PS:
+            algoPSrun();
         break;
         case algo_TOUCH:
             TOUCHrun();
@@ -287,6 +322,9 @@ int main(int argc, const char* argv[])
         break;
         case algo_reTOUCH:
             reTOUCHrun();
+        break;
+        case algo_S3:
+            S3run();
         break;
         case algo_rereTOUCH:
             rereTOUCHrun();

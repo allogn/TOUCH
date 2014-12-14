@@ -41,8 +41,18 @@ private:
 	}
 
 public:
-
-	S3Hash(const FLAT::Box& universeExtent, int level);
+    
+    void run()
+    {
+        totalTimeStart();
+        readBinaryInput(file_dsA, file_dsB);
+        init(3);
+        build(dsA,dsB);
+        probe();
+        totalTimeStop();
+    }
+    void init(int level);
+	S3Hash();
 
 	~S3Hash();
 

@@ -7,7 +7,12 @@
 
 #include "S3Hash.h"
 
-S3Hash::S3Hash(const FLAT::Box& universeExtent, int level) {
+S3Hash::S3Hash() {
+    algorithm = algo_S3;
+}
+
+void S3Hash::init(int level)
+{
     initialize.start();
     levels = level;
     resolution = (int*)malloc(sizeof(int)*levels);
@@ -15,7 +20,8 @@ S3Hash::S3Hash(const FLAT::Box& universeExtent, int level) {
     totalGridCells = 1;
     universeWidth = (FLAT::Vertex*)malloc(sizeof(FLAT::Vertex)*levels);
 
-    universe = universeExtent;
+    universe = FLAT::Box::combineSafe(universeA,universeB);
+    FLAT::Box::expand(universe,1000); // @todo
     resolution[0] = 1;
     indexOffset[0] = 0;
     FLAT::Vertex difference;
@@ -27,7 +33,7 @@ S3Hash::S3Hash(const FLAT::Box& universeExtent, int level) {
             indexOffset[l] = totalGridCells;
             totalGridCells += pow(resolution[l],DIMENSION);
     }
-    cout << "Total cells: " << totalGridCells << endl;
+    if (verbose) cout << "Total cells: " << totalGridCells << endl;
     localPartitions = totalGridCells;
 
     for(int l = 0 ; l < levels ; l++)

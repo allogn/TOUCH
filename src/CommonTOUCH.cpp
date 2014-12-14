@@ -11,6 +11,13 @@ CommonTOUCH::CommonTOUCH() {
     nodesize = base;
     leafsize = partitions;
     PartitioningType = No_Sort;
+    
+    levelAssignedA.resize(10,0);
+    levelAssignedB.resize(10,0);
+    levelAvgA.resize(10,0);
+    levelAvgB.resize(10,0);
+    levelStdA.resize(10,0);
+    levelStdB.resize(10,0);
 }
 
 CommonTOUCH::~CommonTOUCH() {
@@ -32,7 +39,14 @@ void CommonTOUCH::saveLog() {
         fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Leaf size, gridSize, " // common parameters
         << "Compared #, Compared %, ComparedMax, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
         << "t loading, t init, t build, t probe, t comparing, t partition, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate,"
-        << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB, max level, gridP robe\n";
+        << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB, max level, gridP robe, tree height A, tree height B,"
+        << "l0 assigned, l1 assigned, l2 assigned, l3 assigned, l4 assigned, l5 assigned, l6 assigned, l7 assigned, l8 assigned, l9 assigned,"
+        << "l0 assigned B, l1 assigned B, l2 assigned B, l3 assigned B, l4 assigned B, l5 assigned B, l6 assigned B, l7 assigned B, l8 assigned B, l9 assigned B,"
+        << "l0 avg, l1 avg, l2 avg, l3 avg, l4 avg, l5 avg, l6 avg, l7 avg, l8 avg, l9 avg,"
+        << "l0 avg B, l1 avg B, l2 avg B, l3 avg B, l4 avg B, l5 avg B, l6 avg B, l7 avg B, l8 avg B, l9 avg B,"
+        << "l0 std, l1 std, l2 std, l3 std, l4 std, l5 std, l6 std, l7 std, l8 std, l9 std"
+        << "l0 std B, l1 std B, l2 std B, l3 std B, l4 std B, l5 std B, l6 std B, l7 std B, l8 std B, l9 std B"
+        << "\n";
     }
     //check if file exists
     
@@ -70,7 +84,33 @@ void CommonTOUCH::saveLog() {
             << repA << ","
             << repB << ","
             << maxLevelCoef << ","
-            << t << "\n";
+            << t;
+    for (int i = 0; i < 10; i++)
+    {
+        fout << levelAssignedA[i] << ",";
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        fout << levelAssignedB[i] << ",";
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        fout << levelAvgA[i] << ",";
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        fout << levelAvgB[i] << ",";
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        fout << levelStdA[i] << ",";
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        fout << levelStdB[i] << ",";
+    }
+    
+            fout << "\n";
 
 }
 

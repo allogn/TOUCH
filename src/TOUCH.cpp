@@ -173,6 +173,10 @@ void TOUCH::analyze()
     if (verbose)
         for(int i = 0 ; i<Levels ; i++)
             std::cout<< "Level " << i << " items " << ItemPerLevel[i] << std::endl;
+    
+    int top10Level = (Levels>10)?10:Levels;
+    for(int i = 0 ; i<top10Level ; i++)
+        levelAssignedA[i] = ItemPerLevel[i];
 
     footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
     avg = (sum+0.0) / (tree.size());

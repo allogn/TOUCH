@@ -45,6 +45,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -155,6 +157,7 @@
         <in>VTKDataFile.hpp</in>
         <in>Vertex.hpp</in>
         <in>algoNL.h</in>
+        <in>algoPS.h</in>
         <in>cTOUCH.h</in>
         <in>dTOUCH.h</in>
         <in>hilbert.hpp</in>
@@ -984,6 +987,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1276,6 +1281,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1567,6 +1574,8 @@
                 </df>
               </df>
             </df>
+          </df>
+          <df name="Progress">
           </df>
           <df name="SampleGenerator.dir">
             <df name="media">

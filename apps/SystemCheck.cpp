@@ -6,6 +6,8 @@
  */
 
 #include "algoNL.h"
+#include "algoPS.h"
+#include "S3Hash.h"
 #include "TOUCH.h"
 #include "dTOUCH.h"
 #include "cTOUCH.h"
@@ -29,19 +31,21 @@ int localJoin				=  algo_SGrid;         // Choose the algorithm for joining the 
 double epsilon				=  10;             // the epsilon of the similarity join
 int leafsize				=  100;             // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
 unsigned int numA = 2000 ,numB = 2000;                            //number of elements to be read from datasets
-int nodesize                            = 3;                // number of children per node if not leaf
+int nodesize                            = 2;                // number of children per node if not leaf
 int maxLevelCoef                        = 500;              // coefficient in probability to assign object to first tree in dTOUCH
 
 bool testRun()
 {
     bool isError = false;
-    vector<JoinAlgorithm*> allAlg(6);
+    vector<JoinAlgorithm*> allAlg(8);
     allAlg[0] = new algoNL();
     allAlg[1] = new TOUCH();
     allAlg[2] = new dTOUCH();
     allAlg[3] = new cTOUCH();
     allAlg[4] = new reTOUCH();
     allAlg[5] = new rereTOUCH();
+    allAlg[6] = new algoPS();
+    allAlg[7] = new S3Hash();
     
     for (int i = 0; i < allAlg.size(); i++)
     {
@@ -69,6 +73,9 @@ bool testRun()
         if (allAlg[i]->resultPairs.results != results)
         {
             cout << " ERROR! New value: " << allAlg[i]->resultPairs.results << ". ";
+            cout << "Line for retrieving error:\n";
+            cout << "./SpatialJoin -a " << allAlg[i]->algorithm << " -J 2 -n " << numA << " " << numB << " -e " << epsilon << "\n";
+            //NOTE: default values must be the same here and in SpatialJoin
             isError = true;
         }
         else

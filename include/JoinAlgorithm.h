@@ -22,9 +22,9 @@
 #define	algo_TOUCH			4	//TOUCH:Spatial Hierarchical Hash Join
 #define	algo_PBSM			5	//Partition Based Spatial-Merge Join
 #define	algo_cTOUCH			6	//cTOUCH: Complex Spatial Hierarchical Hash Join
-#define	algo_dTOUCH			7	//Partition Based Spatial-Merge Join
-#define	algo_reTOUCH			8	//Partition Based Spatial-Merge Join
-#define	algo_rereTOUCH			9	//Partition Based Spatial-Merge Join
+#define	algo_dTOUCH			7	//dTOUCH: Double Spatial Hierarchical Hash Join
+#define	algo_reTOUCH			8	//reTOUCH: Redoing Spatial Hierarchical Hash Join
+#define	algo_rereTOUCH			9	//rereTOUCH: Double Redoing Spatial Hierarchical Hash Join
 
 #define No_Sort				0
 #define Hilbert_Sort                    1

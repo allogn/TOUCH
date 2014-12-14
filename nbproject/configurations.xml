@@ -24,6 +24,7 @@
         <in>S3Hash.h</in>
         <in>STRIndex.h</in>
         <in>algoNL.h</in>
+        <in>algoPS.h</in>
       </df>
       <df name="src">
         <in>BBPTextFileReader.cpp</in>
@@ -206,6 +207,8 @@
       <item path="include/STRIndex.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/algoNL.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/algoPS.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BBPTextFileReader.cpp" ex="false" tool="1" flavor2="4">
       </item>
