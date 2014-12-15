@@ -13,8 +13,10 @@
         <df name="CMakeFiles">
           <df name="2.8.12.2">
             <df name="CompilerIdC">
+              <in>CMakeCCompilerId.c</in>
             </df>
             <df name="CompilerIdCXX">
+              <in>CMakeCXXCompilerId.cpp</in>
             </df>
           </df>
           <df name="3.0.2">
@@ -27,6 +29,14 @@
           </df>
           <df name="CMakeTmp">
           </df>
+          <df name="FLATIndex.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                </df>
+              </df>
+            </df>
+          </df>
           <df name="FLATIndexCuda.dir">
             <df name="__">
               <df name="src">
@@ -36,20 +46,50 @@
           <df name="Progress">
           </df>
           <df name="SampleGenerator.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
           <df name="SpatialJoin.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
           <df name="SystemCheck.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
@@ -73,6 +113,7 @@
         <in>ExternalSort.hpp</in>
         <in>FLATIndex.hpp</in>
         <in>GlobalCommon.hpp</in>
+        <in>Hilbert.hpp</in>
         <in>JoinAlgorithm.h</in>
         <in>Mesh.hpp</in>
         <in>MeshObjectReader.hpp</in>
@@ -112,6 +153,7 @@
         <in>dTOUCH.h</in>
         <in>reTOUCH.h</in>
         <in>rereTOUCH.h</in>
+        <in>test.h</in>
       </df>
       <df name="lib">
         <df name="bbpdias">
@@ -857,22 +899,18 @@
         </df>
       </df>
       <df name="src">
-        <in>BBPTextFileReader.cpp</in>
-        <in>Bitmap.cpp</in>
         <in>Box.cpp</in>
         <in>BufferedFile.cpp</in>
         <in>CommonTOUCH.cpp</in>
         <in>Cone.cpp</in>
         <in>DataFileReader.cpp</in>
         <in>ExternalSort.cpp</in>
-        <in>HilbertRtreeIndex.cpp</in>
+        <in>Hilbert.cpp</in>
         <in>JoinAlgorithm.cpp</in>
-        <in>KDIndex.cpp</in>
         <in>Mesh.cpp</in>
         <in>Metadata.cpp</in>
         <in>PBSMHash.cpp</in>
         <in>PayLoad.cpp</in>
-        <in>PriorityRtreeIndex.cpp</in>
         <in>ResultPairs.cpp</in>
         <in>RtreeIndex.cpp</in>
         <in>S3Hash.cpp</in>
@@ -893,9 +931,9 @@
         <in>Vertex.cpp</in>
         <in>cTOUCH.cpp</in>
         <in>dTOUCH.cpp</in>
-        <in>hilbert.cpp</in>
         <in>reTOUCH.cpp</in>
         <in>rereTOUCH.cpp</in>
+        <in>test.cu</in>
       </df>
       <df name="web">
         <in>runFromBash.m</in>
@@ -920,6 +958,14 @@
           </df>
           <df name="CMakeTmp">
           </df>
+          <df name="FLATIndex.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                </df>
+              </df>
+            </df>
+          </df>
           <df name="FLATIndexCuda.dir">
             <df name="__">
               <df name="src">
@@ -929,20 +975,50 @@
           <df name="Progress">
           </df>
           <df name="SampleGenerator.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
           <df name="SpatialJoin.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
           <df name="SystemCheck.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
@@ -1174,6 +1250,14 @@
           </df>
           <df name="CMakeTmp">
           </df>
+          <df name="FLATIndex.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                </df>
+              </df>
+            </df>
+          </df>
           <df name="FLATIndexCuda.dir">
             <df name="__">
               <df name="src">
@@ -1183,20 +1267,50 @@
           <df name="Progress">
           </df>
           <df name="SampleGenerator.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
           <df name="SpatialJoin.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
           <df name="SystemCheck.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
@@ -1428,6 +1542,14 @@
           </df>
           <df name="CMakeTmp">
           </df>
+          <df name="FLATIndex.dir">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                </df>
+              </df>
+            </df>
+          </df>
           <df name="FLATIndexCuda.dir">
             <df name="__">
               <df name="src">
@@ -1437,20 +1559,50 @@
           <df name="Progress">
           </df>
           <df name="SampleGenerator.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
           <df name="SpatialJoin.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>
           <df name="SystemCheck.dir">
-            <df name="__">
-              <df name="apps">
+            <df name="media">
+              <df name="alvis">
+                <df name="Data">
+                  <df name="Term2">
+                    <df name="SeqSpatialIndex">
+                      <df name="TOUCH">
+                        <df name="apps">
+                        </df>
+                      </df>
+                    </df>
+                  </df>
+                </df>
               </df>
             </df>
           </df>

@@ -23,6 +23,8 @@
 #include "reTOUCH.h"
 #include "rereTOUCH.h"
 
+//#include "test.h" //test CUDA
+
 /*
  * Input parameters
  */
@@ -334,7 +336,7 @@ int main(int argc, const char* argv[])
             exit(0);
         break;
     }
-
+    
     std::cout << "Terminated." << std::endl;
     return 0;
 }

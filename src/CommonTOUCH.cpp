@@ -275,13 +275,8 @@ void CommonTOUCH::probe()
     probing.stop();
 }
 
-
 void CommonTOUCH::countSpatialGrid()
 {
-    /*
-     * count statistics as well
-     */
-    
     
     gridCalculate.start();
     FLAT::Box mbr;
