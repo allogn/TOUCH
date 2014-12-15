@@ -13,13 +13,14 @@ namespace FLAT
 	#define PAGE_SIZE 32768
 #else
 	typedef double  spaceUnit;
+	typedef double  spaceUnit;
 	typedef double bigSpaceUnit;
 	#define PAGE_SIZE 4096
 #endif
 
 	#define DIMENSION 3 // should be atleast 1
 	#define FILE_BUFFER_SIZE 4*PAGE_SIZE
-	#define RAW_DATA_HEADER_SIZE 16+(2*DIMENSION*sizeof(spaceUnit))
+	#define RAW_DATA_HEADER_SIZE (16+(2*DIMENSION*sizeof(FLAT::spaceUnit)))
 
 	#ifdef WIN32
 		typedef char int8;

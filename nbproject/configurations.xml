@@ -2,9 +2,6 @@
 <configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
-      <df name="apps">
-        <in>SpatialJoin.cpp</in>
-      </df>
       <df name="build">
         <df name="CMakeFiles">
           <df name="3.0.2">
@@ -18,49 +15,36 @@
         </df>
       </df>
       <df name="src">
-        <in>BBPTextFileReader.cpp</in>
-        <in>Bitmap.cpp</in>
-        <in>Box.cpp</in>
-        <in>BufferedFile.cpp</in>
-        <in>Cone.cpp</in>
-        <in>DataFileReader.cpp</in>
-        <in>ExternalSort.cpp</in>
-        <in>HilbertRtreeIndex.cpp</in>
-        <in>JoinAlgorithm.cpp</in>
-        <in>KDIndex.cpp</in>
-        <in>Mesh.cpp</in>
-        <in>Metadata.cpp</in>
-        <in>PBSMHash.cpp</in>
-        <in>PayLoad.cpp</in>
-        <in>PriorityRtreeIndex.cpp</in>
-        <in>ResultPairs.cpp</in>
-        <in>RtreeIndex.cpp</in>
-        <in>S3Hash.cpp</in>
-        <in>STRIndex.cpp</in>
-        <in>SeedBuilder.cpp</in>
-        <in>Segment.cpp</in>
-        <in>Soma.cpp</in>
-        <in>SpatialGridHash.cpp</in>
-        <in>SpatialObject.cpp</in>
-        <in>SpatialObjectFactory.cpp</in>
-        <in>SpatialObjectStream.cpp</in>
-        <in>SpatialQuery.cpp</in>
-        <in>Sphere.cpp</in>
-        <in>Synapse.cpp</in>
-        <in>TOUCH.cpp</in>
-        <in>TOUCHlike.cpp</in>
-        <in>Timer.cpp</in>
-        <in>Triangle.cpp</in>
-        <in>Vertex.cpp</in>
-        <in>cTOUCH.cpp</in>
-        <in>dTOUCH.cpp</in>
-        <in>hilbert.cpp</in>
-        <in>reTOUCH.cpp</in>
+        <in>CommonTOUCH.cpp</in>
       </df>
       <df name="wrapper">
         <in>FLATwrapper.cpp</in>
       </df>
     </df>
+    <df root="." name="1">
+    </df>
+    <df root="." name="2">
+    </df>
+    <df root="." name="3">
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>build/Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>build/Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>build/Makefile</itemPath>
+    </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Важные файлы"
                    projectFiles="false"
@@ -70,6 +54,9 @@
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
   <sourceRootList>
+    <Elem>.</Elem>
+    <Elem>.</Elem>
+    <Elem>.</Elem>
     <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>build/Makefile</projectmakefile>
@@ -98,8 +85,6 @@
           </cTool>
         </makeTool>
       </makefileType>
-      <item path="apps/SpatialJoin.cpp" ex="false" tool="1" flavor2="4">
-      </item>
       <item path="build/CMakeFiles/3.0.2/CompilerIdC/CMakeCCompilerId.c"
             ex="false"
             tool="0"
@@ -110,49 +95,11 @@
             tool="1"
             flavor2="4">
       </item>
-      <folder path="0/apps">
-        <ccTool>
-          <incDir>
-            <pElem>include</pElem>
-            <pElem>/usr/include/boost</pElem>
-            <pElem>lib/bbpdias/BBPSDK/include</pElem>
-            <pElem>lib/HDF5/include</pElem>
-            <pElem>lib/RTree/include</pElem>
-            <pElem>build</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>DEBUG</Elem>
-            <Elem>FATAL</Elem>
-            <Elem>INFORMATION</Elem>
-            <Elem>PROFILING</Elem>
-            <Elem>PROGRESS</Elem>
-          </preprocessorList>
-        </ccTool>
-      </folder>
       <folder path="0/build">
         <ccTool>
           <incDir>
             <pElem>build/CMakeFiles/3.0.2/CompilerIdCXX</pElem>
           </incDir>
-        </ccTool>
-      </folder>
-      <folder path="0/src">
-        <ccTool>
-          <incDir>
-            <pElem>include</pElem>
-            <pElem>/usr/include/boost</pElem>
-            <pElem>lib/bbpdias/BBPSDK/include</pElem>
-            <pElem>lib/HDF5/include</pElem>
-            <pElem>lib/RTree/include</pElem>
-            <pElem>build</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>DEBUG</Elem>
-            <Elem>FATAL</Elem>
-            <Elem>INFORMATION</Elem>
-            <Elem>PROFILING</Elem>
-            <Elem>PROGRESS</Elem>
-          </preprocessorList>
         </ccTool>
       </folder>
       <folder path="0/wrapper">
@@ -162,123 +109,9 @@
           </incDir>
         </ccTool>
       </folder>
-      <item path="src/BBPTextFileReader.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
+      <item path="include/Hilbert.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Bitmap.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/Box.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/BufferedFile.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/Cone.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/DataFileReader.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/ExternalSort.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/HilbertRtreeIndex.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/JoinAlgorithm.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/KDIndex.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/Mesh.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/Metadata.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/PBSMHash.cpp" ex="false" tool="1" flavor2="0">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/PayLoad.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/PriorityRtreeIndex.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/ResultPairs.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/RtreeIndex.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/S3Hash.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/STRIndex.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/SeedBuilder.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/Segment.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/Soma.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/SpatialGridHash.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/SpatialObject.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/SpatialObjectFactory.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/SpatialObjectStream.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/SpatialQuery.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/Sphere.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/Synapse.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/TOUCH.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/TOUCHlike.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/Timer.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/Triangle.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/Vertex.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/cTOUCH.cpp" ex="false" tool="1" flavor2="0">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/dTOUCH.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/hilbert.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/reTOUCH.cpp" ex="false" tool="1" flavor2="0">
-        <ccTool flags="0">
-        </ccTool>
+      <item path="src/CommonTOUCH.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="wrapper/FLATwrapper.cpp" ex="false" tool="1" flavor2="4">
       </item>

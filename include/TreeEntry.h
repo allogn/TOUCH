@@ -34,10 +34,9 @@ public:
 	TreeEntry(FLAT::SpatialObject* object)
 	{
             obj = object;
-            mbrL[obj->type] = obj->getMBR();
             mbr = obj->getMBR();
             mbr.isEmpty = false; //@todo all mbr's are empty at the beginning!!!
-            mbrL[obj->type].isEmpty = false;
+            mbrL[obj->type] = mbr;
 	}
 
 	//make an Internal item
@@ -45,6 +44,7 @@ public:
 	{
                 mbrL[0] = Mbr;
 		mbr = Mbr;
+                mbrL[0] = Mbr;
 		childIndex = child;
 		parentIndex = 0;
 	}
@@ -63,6 +63,11 @@ public:
         void expand(double epsilon)
         {
             FLAT::Box::expand(mbr,epsilon * 1./2.); // all objects must also be expanded on epsilon/2
+            
+            if (!mbrL[0].isEmpty)
+                FLAT::Box::expand(mbrL[0],epsilon * 1./2.);
+            if (!mbrL[1].isEmpty)
+                FLAT::Box::expand(mbrL[1],epsilon * 1./2.);
         }
 };
 

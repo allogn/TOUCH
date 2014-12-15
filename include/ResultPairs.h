@@ -17,6 +17,7 @@
 #include <vector>
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
+#include "Box.hpp"
 #include "Timer.hpp"
 
 typedef std::vector<FLAT::SpatialObject*> SpatialObjectList;
@@ -46,6 +47,17 @@ public:
     }
     void addPair(FLAT::SpatialObject* sobjA, FLAT::SpatialObject* sobjB);
     void deDuplicate();
+    void printAllResults()
+    {
+        FLAT::Box b1; 
+        FLAT::Box b2; 
+        for (int i = 0; i < objA.size(); i++)
+        {
+            b1 = objA[i]->getMBR();
+            b2 = objB[i]->getMBR();
+            std::cout << objA[i]->id << "(" << objA[i]->type << ") " << objB[i]->id << "(" << objB[i]->type << ")" << " [ " << b1 << " ; " << b2 << " ]\n";
+        }
+    }
 };
 
 

@@ -3,7 +3,7 @@
 
 #include "Cone.cpp"
 #include "libbbpdias/TemporaryFile.hpp"
-#include "libbbpdias/hilbert.hpp"
+#include "libbbpdias/Hilbert.hpp"
 
 namespace dias {
 

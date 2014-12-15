@@ -4,12 +4,15 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>SpatialIndex</name>
-            <c-extensions>c</c-extensions>
+            <c-extensions>c,m</c-extensions>
             <cpp-extensions>cc,cpp</cpp-extensions>
-            <header-extensions>h,hpp</header-extensions>
+            <header-extensions>cu,h,hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+                <sourceRootElem>.</sourceRootElem>
+                <sourceRootElem>.</sourceRootElem>
                 <sourceRootElem>.</sourceRootElem>
             </sourceRootList>
             <confList>

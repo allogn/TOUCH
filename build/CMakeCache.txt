@@ -17,10 +17,6 @@
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
-//For backwards compatibility, what version of CMake commands and
-// syntax should this version of CMake try to support.
-CMAKE_BACKWARDS_COMPATIBILITY:STRING=2.4
-
 //Choose the type of build, options are: None(CMAKE_CXX_FLAGS or
 // CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel.
 CMAKE_BUILD_TYPE:STRING=
@@ -174,17 +170,104 @@ CMAKE_USE_RELATIVE_PATHS:BOOL=OFF
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//Single output directory for building all executables.
-EXECUTABLE_OUTPUT_PATH:PATH=
+//Compile device code in 64 bit mode
+CUDA_64_BIT_DEVICE_CODE:BOOL=ON
 
-//Dependencies for target
-FLATIndex_LIB_DEPENDS:STATIC=
+//Attach the build rule to the CUDA source file.  Enable only when
+// the CUDA source file is added to at most one target.
+CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE:BOOL=ON
 
-//Single output directory for building all libraries.
-LIBRARY_OUTPUT_PATH:PATH=
+//Generate and parse .cubin files in Device mode.
+CUDA_BUILD_CUBIN:BOOL=OFF
 
-//Make the executables.
-MAKE_EXECUTABLES:BOOL=ON
+//Build in Emulation mode
+CUDA_BUILD_EMULATION:BOOL=OFF
+
+//"cudart" library
+CUDA_CUDART_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcudart.so
+
+//"cuda" library (older versions only).
+CUDA_CUDA_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcuda.so
+
+//Directory to put all the output files.  If blank it will default
+// to the CMAKE_CURRENT_BINARY_DIR
+CUDA_GENERATED_OUTPUT_DIR:PATH=
+
+//Generated file extension
+CUDA_HOST_COMPILATION_CPP:BOOL=ON
+
+//Host side compiler used by NVCC
+CUDA_HOST_COMPILER:FILEPATH=/usr/bin/cc
+
+//Path to a program.
+CUDA_NVCC_EXECUTABLE:FILEPATH=/usr/bin/nvcc
+
+//Semi-colon delimit multiple arguments.
+CUDA_NVCC_FLAGS:STRING=
+
+//Semi-colon delimit multiple arguments.
+CUDA_NVCC_FLAGS_DEBUG:STRING=
+
+//Semi-colon delimit multiple arguments.
+CUDA_NVCC_FLAGS_MINSIZEREL:STRING=
+
+//Semi-colon delimit multiple arguments.
+CUDA_NVCC_FLAGS_RELEASE:STRING=
+
+//Semi-colon delimit multiple arguments.
+CUDA_NVCC_FLAGS_RELWITHDEBINFO:STRING=
+
+//Propage C/CXX_FLAGS and friends to the host compiler via -Xcompile
+CUDA_PROPAGATE_HOST_FLAGS:BOOL=ON
+
+//Path to a file.
+CUDA_SDK_ROOT_DIR:PATH=CUDA_SDK_ROOT_DIR-NOTFOUND
+
+//Compile CUDA objects with separable compilation enabled.  Requires
+// CUDA 5.0+
+CUDA_SEPARABLE_COMPILATION:BOOL=OFF
+
+//Path to a file.
+CUDA_TOOLKIT_INCLUDE:PATH=/usr/include
+
+//Toolkit location.
+CUDA_TOOLKIT_ROOT_DIR:PATH=/usr
+
+//Print out the commands run while compiling the CUDA source file.
+//  With the Makefile generator this defaults to VERBOSE variable
+// specified on the command line, but can be forced on with this
+// option.
+CUDA_VERBOSE_BUILD:BOOL=OFF
+
+//Version of CUDA as computed from nvcc.
+CUDA_VERSION:STRING=5.5
+
+//"cublas" library
+CUDA_cublas_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcublas.so
+
+//"cufft" library
+CUDA_cufft_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcufft.so
+
+//"cupti" library
+CUDA_cupti_LIBRARY:FILEPATH=CUDA_cupti_LIBRARY-NOTFOUND
+
+//"curand" library
+CUDA_curand_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcurand.so
+
+//"cusparse" library
+CUDA_cusparse_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcusparse.so
+
+//"nppc" library
+CUDA_nppc_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libnppc.so
+
+//"nppi" library
+CUDA_nppi_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libnppi.so
+
+//"npps" library
+CUDA_npps_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libnpps.so
+
+//Dependencies for the target
+FLATIndexCuda_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libcudart.so;
 
 //Value Computed by CMake
 SpatialIndex_BINARY_DIR:STATIC=/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build
@@ -324,4 +407,67 @@ CMAKE_UNAME:INTERNAL=/bin/uname
 CMAKE_USE_RELATIVE_PATHS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_64_BIT_DEVICE_CODE
+CUDA_64_BIT_DEVICE_CODE-ADVANCED:INTERNAL=1
+//List of intermediate files that are part of the cuda dependency
+// scanning.
+CUDA_ADDITIONAL_CLEAN_FILES:INTERNAL=/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_RtreeIndex.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Box.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_BufferedFile.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_CommonTOUCH.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Cone.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_cTOUCH.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_DataFileReader.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_dTOUCH.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_ExternalSort.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Hilbert.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_JoinAlgorithm.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Mesh.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Metadata.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_PayLoad.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_PBSMHash.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_rereTOUCH.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_ResultPairs.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_reTOUCH.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_S3Hash.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_SeedBuilder.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Segment.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Soma.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_SpatialGridHash.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_SpatialObject.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_SpatialObjectFactory.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_SpatialObjectStream.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_SpatialQuery.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Sphere.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_STRIndex.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Synapse.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Timer.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_TOUCH.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Triangle.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/FLATIndexCuda.dir/__/src/FLATIndexCuda_generated_Vertex.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/SampleGenerator.dir/__/apps/SampleGenerator_generated_SampleGenerator.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/SpatialJoin.dir/__/apps/SpatialJoin_generated_SpatialJoin.cu.o.depend;/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles/SystemCheck.dir/__/apps/SystemCheck_generated_SystemCheck.cu.o.depend
+//ADVANCED property for variable: CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE
+CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_CUDART_LIBRARY
+CUDA_CUDART_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_CUDA_LIBRARY
+CUDA_CUDA_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_GENERATED_OUTPUT_DIR
+CUDA_GENERATED_OUTPUT_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_HOST_COMPILATION_CPP
+CUDA_HOST_COMPILATION_CPP-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_NVCC_EXECUTABLE
+CUDA_NVCC_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_NVCC_FLAGS
+CUDA_NVCC_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_NVCC_FLAGS_DEBUG
+CUDA_NVCC_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_NVCC_FLAGS_MINSIZEREL
+CUDA_NVCC_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_NVCC_FLAGS_RELEASE
+CUDA_NVCC_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_NVCC_FLAGS_RELWITHDEBINFO
+CUDA_NVCC_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_PROPAGATE_HOST_FLAGS
+CUDA_PROPAGATE_HOST_FLAGS-ADVANCED:INTERNAL=1
+//This is the value of the last time CUDA_SDK_ROOT_DIR was set
+// successfully.
+CUDA_SDK_ROOT_DIR_INTERNAL:INTERNAL=CUDA_SDK_ROOT_DIR-NOTFOUND
+//ADVANCED property for variable: CUDA_TOOLKIT_INCLUDE
+CUDA_TOOLKIT_INCLUDE-ADVANCED:INTERNAL=1
+//This is the value of the last time CUDA_TOOLKIT_ROOT_DIR was
+// set successfully.
+CUDA_TOOLKIT_ROOT_DIR_INTERNAL:INTERNAL=/usr
+//ADVANCED property for variable: CUDA_VERSION
+CUDA_VERSION-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_cublas_LIBRARY
+CUDA_cublas_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_cufft_LIBRARY
+CUDA_cufft_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_cupti_LIBRARY
+CUDA_cupti_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_curand_LIBRARY
+CUDA_curand_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_cusparse_LIBRARY
+CUDA_cusparse_LIBRARY-ADVANCED:INTERNAL=1
+//Location of make2cmake.cmake
+CUDA_make2cmake:INTERNAL=/usr/share/cmake-2.8/Modules/FindCUDA/make2cmake.cmake
+//ADVANCED property for variable: CUDA_nppc_LIBRARY
+CUDA_nppc_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_nppi_LIBRARY
+CUDA_nppi_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CUDA_npps_LIBRARY
+CUDA_npps_LIBRARY-ADVANCED:INTERNAL=1
+//Location of parse_cubin.cmake
+CUDA_parse_cubin:INTERNAL=/usr/share/cmake-2.8/Modules/FindCUDA/parse_cubin.cmake
+//Location of run_nvcc.cmake
+CUDA_run_nvcc:INTERNAL=/usr/share/cmake-2.8/Modules/FindCUDA/run_nvcc.cmake
+//Details about finding CUDA
+FIND_PACKAGE_MESSAGE_DETAILS_CUDA:INTERNAL=[/usr][/usr/bin/nvcc][/usr/include][/usr/lib/x86_64-linux-gnu/libcudart.so][v5.5()]
 

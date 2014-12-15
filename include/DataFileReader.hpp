@@ -4,8 +4,6 @@
 #include "BufferedFile.hpp"
 #include "Box.hpp"
 
-using namespace std;
-
 namespace FLAT
 {
 	/*
@@ -31,6 +29,15 @@ namespace FLAT
 		SpatialObject* getNext();
 
 		void rewind();
+                
+                void information()
+                {
+                    std::cout << "\n == INPUT FILE HEADER == \n\n"
+                         << "OBJECT TYPE: " << objectType << std::endl;
+			 std::cout << "TOTAL OBJECTS: " << objectCount << std::endl;
+			 std::cout << "OBJECT BYTE SIZE: " << objectByteSize << std::endl;
+			 std::cout << "UNIVERSE BOUNDS: " << universe << std::endl;
+                }
 	};
 }
 

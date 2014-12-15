@@ -19,7 +19,7 @@
 //  Email:
 //    mhadji@gmail.com
 
-#include "hilbert.hpp"
+#include "Hilbert.hpp"
 #include <algorithm>
 
 #pragma once

@@ -8,10 +8,14 @@
 
 #include <string>
 #include <limits>
+
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+
 #include "DataFileReader.hpp"
 #include "ResultPairs.h"
 #include "TreeNode.h"
-#include "hilbert.hpp"
+#include "Hilbert.hpp"
 #include "Box.hpp"
 #include "DataFileReader.hpp"
 
@@ -21,9 +25,10 @@
 #define	algo_S3				3	//Size Separation Spatial
 #define	algo_TOUCH			4	//TOUCH:Spatial Hierarchical Hash Join
 #define	algo_PBSM			5	//Partition Based Spatial-Merge Join
-#define	algo_cTOUCH			6	//Partition Based Spatial-Merge Join
-#define	algo_dTOUCH			7	//Partition Based Spatial-Merge Join
-#define	algo_reTOUCH			8	//Partition Based Spatial-Merge Join
+#define	algo_cTOUCH			6	//cTOUCH: Complex Spatial Hierarchical Hash Join
+#define	algo_dTOUCH			7	//dTOUCH: Double Spatial Hierarchical Hash Join
+#define	algo_reTOUCH			8	//reTOUCH: Redoing Spatial Hierarchical Hash Join
+#define	algo_rereTOUCH			9	//rereTOUCH: Double Redoing Spatial Hierarchical Hash Join
 
 #define No_Sort				0
 #define Hilbert_Sort                    1
@@ -43,6 +48,13 @@ public:
     TreeEntry* root;
     FLAT::Timer Ljoin;// The time for local join
     SpatialObjectList dsA, dsB;					//A is smaller than B
+    int localPartitions;
+    bool profilingEnable;
+    
+    //for dTOUCH
+    double maxLevelCoef;
+    
+    int PartitioningType;	// Sorting algorithm
 
     
     int base; // the base for S3 and SH algorithms
@@ -68,6 +80,9 @@ public:
     int algorithm;		// Choose the algorithm
     int localJoin;		// Choose the algorithm for joining the buckets, The local join
     int partitions;				// # of partitions: in S3 is # of levels; in SGrid is resolution
+    
+    string algoname;
+    string basealgo;
       
     JoinAlgorithm();
     virtual ~JoinAlgorithm();
@@ -87,23 +102,25 @@ public:
     void print();
     
     
-    //Nested Loop join algorithm
+    
+    
+    void NL(FLAT::SpatialObject*& A, SpatialObjectList& B)
+    {
+        for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
+            if ( istouching(A , *itB) )
+                resultPairs.addPair( A , *itB );
+    }
+    
     void NL(SpatialObjectList& A, SpatialObjectList& B)
     {
         for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
-            for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-                if ( istouching(*itA , *itB) )
-                {
-                    resultPairs.addPair(*itA , *itB);
-                }
+            NL((*itA), B);
     }
-
-    //Plane-sweeping join algorithm
-    void PS(SpatialObjectList& A, SpatialObjectList& B);
     
-protected:
+//protected:
         FLAT::uint64 ItemsCompared;
-	FLAT::uint64 gridSize;
+        FLAT::uint64 ItemsMaxCompared;
+	//FLAT::uint64 gridSize;
 
 	FLAT::uint64 filtered[TYPES];
 	FLAT::uint64 hashprobe;
@@ -124,7 +141,7 @@ protected:
 	FLAT::Timer total;
 	FLAT::Timer comparing;
 	FLAT::Timer partition;
-    
+    FLAT::Timer gridCalculate;
     
     struct Comparator : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
     {
@@ -188,18 +205,48 @@ protected:
             }
     };
 
+    std::set<int> s;
     // Returns true if touch and false if not by comparing The corners of the MBRs
     inline bool istouchingV(FLAT::SpatialObject* sobj1, FLAT::SpatialObject* sobj2)
     {
-            vector<FLAT::Vertex> vertices;
-            FLAT::Box mbr = sobj2->getMBR();
-            //if(algorithm == algo_NL || algorithm == algo_PS)
-            //	Box::expand(mbr,epsilon);
-            FLAT::Box::getAllVertices(sobj1->getMBR(),vertices);
+            vector<FLAT::Vertex> vertices1;
+            vector<FLAT::Vertex> vertices2;
+            FLAT::Box mbr1 = sobj1->getMBR();
+            FLAT::Box mbr2 = sobj2->getMBR();
+            FLAT::Box::getAllVertices(sobj1->getMBR(),vertices1);
+            FLAT::Box::getAllVertices(sobj2->getMBR(),vertices2);
             ItemsCompared++;
-            for (unsigned int i=0;i<vertices.size();++i)
-                    if (mbr.pointDistance(vertices.at(i)) < epsilon)
-                            return true;
+            
+            for (unsigned int i=0;i<vertices1.size();++i)
+            {
+                if (FLAT::Box::enclose(mbr2,vertices1.at(i)))
+                {
+                    return true;
+                }
+            }
+            
+            for (unsigned int i=0;i<vertices2.size();++i)
+            {
+                if (FLAT::Box::enclose(mbr1,vertices2.at(i)))
+                {
+                    return true;
+                }
+            }
+            
+            for (unsigned int i=0;i<vertices1.size();++i)
+            {
+                if (mbr2.pointDistance(vertices1.at(i)) < epsilon)
+                {
+                    return true;
+                }
+            }
+            for (unsigned int i=0;i<vertices2.size();++i)
+            {
+                if (mbr1.pointDistance(vertices2.at(i)) < epsilon)
+                {
+                    return true;
+                }
+            }
             return false;
     }
     // Returns true if touch and false if not by comparing only the centers
@@ -208,7 +255,14 @@ protected:
             return istouchingV(sobj1,sobj2);
 
             ItemsCompared++;
-            return (FLAT::Vertex::distance(sobj1->getCenter(),sobj2->getCenter()) < epsilon );
+            
+            FLAT::Box mbr1 = sobj1->getMBR();
+            FLAT::Box mbr2 = sobj2->getMBR();
+            mbr1.isEmpty = false;
+            mbr2.isEmpty = false;
+            FLAT::Box::expand(mbr1, epsilon);
+            
+            return FLAT::Box::overlap(mbr1, mbr2);
     }
 
     struct ComparatorTree_Xaxis : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
@@ -242,10 +296,10 @@ protected:
             }
     };
     
+    void totalTimeStart() { total.start(); };
+    void totalTimeStop() { total.stop(); };
     
-    
-    void JOIN(SpatialObjectList& A, SpatialObjectList& B);
-    
+    virtual void run() {};
     
 };
 

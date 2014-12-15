@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<title>TOUCH</title>
+<body>
+<h1>TOUCH : In-Memory Spatial Join by Hierarchical Data-Oriented Partitioning</h1>
+
+<h2>Alvis Logins, Moscow Institute of physics and Technology, Skolkovo Institute of Science and Technology</h2>
+
+<p>inputs : Data .bin are binary files that contain information about type (shape) of spatial objects (RandomData-10K.bin, RandomData-Normal-500-250-10K.bin)</p>
+
+
+
+<p>course: Machine Learning and Data Analysis (Strijov's practice)/Group 174, Fall 2014</br>
+presentation: <a href="http://svn.code.sf.net/p/mlalgorithms/code/Group174/Logins2014Touch/doc/Logins2014Presentation.pdf">Logins2014Presentation.pdf</a>,<br>
+systemdocs: <a href="http://svn.code.sf.net/p/mlalgorithms/code/Group174/Logins2014Touch/doc/Logins2014Systemdocs.doc">Logins2014Systemdocs.doc</a><br>
+probstatement: <a href="http://svn.code.sf.net/p/mlalgorithms/code/Group174/Logins2014Touch/doc/Logins2014ProblemStatement.pdf">Logins2014ProblemStatement.pdf</a></p>
+
+
+<p>In this experiment we are looking for spatial objects from given datasets that are closer to each other than the parameter epsilon. The program will call spatial join several times for different values of epsilon and size of sample from datasets. Each dataset contains 10000 objects and the range of number of objects defines the number of objects from these 10000 that are used for the experiment and joined with each other. As a result, the program will generate two graphics: the first one will show the performance of developed algorithms, another - the result (number of objects that are close enough). The performance is measured as a time for spatial join depending on the number of spatial objects. The result is the number of close enough objects depending on epsilon. As input parameters you should mention the range for epsilon values and number of objects. Optimal values are proposed by default.</p>
+<h3>Input parameters:</h3>
+<form action="generate.cgi">
+<div>Minimum Epsilon: <input name="minEpsilon" value="50" size="20"></div>
+<div>Delta Epsilon: <input name="deltaEpsilon" value="25" size="20"></div>
+<div>Maximum Epsilon: <input name="maxEpsilon" value="100" size="20"></div>
+<div>Minimum Number of objects: <input name="minNum" value="1000" size="20"></div>
+<div>Delta Number of objects: <input name="deltaNum" value="1000" size="20"></div>
+<div>Maximum Number of objects: <input name="maxNum" value="3000" size="20"></div>
+
+<div><input type="submit"></div>
+</form>
+
+<footer>December 2014</footer>
+</body>

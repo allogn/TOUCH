@@ -59,11 +59,10 @@ private:
 	void getOverlappingCells(FLAT::SpatialObject* sobj,vector<FLAT::uint64>& cells)
 	{
 		FLAT::Box mbr = sobj->getMBR();
+                mbr.isEmpty = false;
 		//cout<<mbr.low << " " << mbr.high << " " << epsilon<< endl;
-		if(algorithm == algo_SGrid)
-		{
-			FLAT::Box::expand(mbr,epsilon);
-		}
+		FLAT::Box::expand(mbr,epsilon*1./2.);
+		
 		//cout<<mbr.low << " " << mbr.high << " " << epsilon<< endl;
 
 		int xMin,yMin,zMin;
@@ -92,7 +91,8 @@ private:
 	bool getProjectedCells(FLAT::SpatialObject* sobj,vector<FLAT::uint64>& cells)
 	{
 		FLAT::Box mbr = sobj->getMBR();
-
+                mbr.isEmpty = false;
+                FLAT::Box::expand(mbr,epsilon*1./2.);
 		if (!FLAT::Box::overlap(mbr,universe)) return false;
 
 		int xMin,xMax,yMin,yMax,zMin,zMax;
@@ -131,9 +131,11 @@ public:
 	~SpatialGridHash();
     
 	void build(SpatialObjectList& dsA);
+        void build(std::vector<TreeEntry*>& entries);
 	void clear();
 	void probe(const SpatialObjectList& dsB);
 	void probe(TreeNode* leaf);
+        void probe(FLAT::SpatialObject*& obj);
 	void analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB);
 };
 
