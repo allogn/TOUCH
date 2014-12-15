@@ -1,0 +1,17 @@
+========= Some notes about mistakes and guidlines for further development ===========
+
+--------- CUDA -----------
+Use .cu extension only in case if there is <<< ... >>> function
+Thrust library is completely for .cpp files.
+So, for parallelization create .cu file, include it in cpp file and then call __host__ function (not __global__!!!)
+
+
+--------- GitHub ---------
+Use Sequential branch for developing and commiting changes as often as possible
+Use Master branch for WORKING copy AND for run experiments. Note:
+    script generations and all ./run folder in under master
+    doc folder is under both
+    code is under sequential (do not compile it under master)
+Use Experimental to show something strange or try something hopeless
+
+

@@ -38,13 +38,13 @@ void CommonTOUCH::saveLog() {
     {
         fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Leaf size, gridSize, " // common parameters
         << "Compared #, Compared %, ComparedMax, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
-        << "t loading, t init, t build, t probe, t comparing, t partition, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate,"
+        << "t loading, t init, t build, t probe, t comparing, t partition, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate, t sizeCalculate,"
         << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB, max level, gridP robe, tree height A, tree height B,"
         << "l0 assigned, l1 assigned, l2 assigned, l3 assigned, l4 assigned, l5 assigned, l6 assigned, l7 assigned, l8 assigned, l9 assigned,"
         << "l0 assigned B, l1 assigned B, l2 assigned B, l3 assigned B, l4 assigned B, l5 assigned B, l6 assigned B, l7 assigned B, l8 assigned B, l9 assigned B,"
         << "l0 avg, l1 avg, l2 avg, l3 avg, l4 avg, l5 avg, l6 avg, l7 avg, l8 avg, l9 avg,"
         << "l0 avg B, l1 avg B, l2 avg B, l3 avg B, l4 avg B, l5 avg B, l6 avg B, l7 avg B, l8 avg B, l9 avg B,"
-        << "l0 std, l1 std, l2 std, l3 std, l4 std, l5 std, l6 std, l7 std, l8 std, l9 std"
+        << "l0 std, l1 std, l2 std, l3 std, l4 std, l5 std, l6 std, l7 std, l8 std, l9 std, "
         << "l0 std B, l1 std B, l2 std B, l3 std B, l4 std B, l5 std B, l6 std B, l7 std B, l8 std B, l9 std B"
         << "\n";
     }
@@ -55,8 +55,8 @@ void CommonTOUCH::saveLog() {
     t.add(gridCalculate);
             
     fout
-    << algoname << "," << epsilon << "," << size_dsA << "," << size_dsB << "," << file_dsA << "," << file_dsB << ","
-    << basealgo << "," << nodesize << "," << leafsize << "," << localPartitions << ","
+    << algoname() << "," << epsilon << "," << size_dsA << "," << size_dsB << "," << file_dsA << "," << file_dsB << ","
+    << basealgo() << "," << nodesize << "," << leafsize << "," << localPartitions << ","
             
     << ItemsCompared << "," 
             << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB) << ","
@@ -77,6 +77,7 @@ void CommonTOUCH::saveLog() {
     << analyzing << ","
             << sorting << ","
             << gridCalculate << ","
+            << sizeCalculate << ","
             << percentageEmpty << ","
             << maxMappedObjects << "," 
     << avg << "," 
@@ -84,7 +85,9 @@ void CommonTOUCH::saveLog() {
             << repA << ","
             << repB << ","
             << maxLevelCoef << ","
-            << t;
+            << t << ","
+            << Levels << ","
+            << LevelsD << ",";
     for (int t = 0; t < TYPES; t++)
         for (int i = 0; i < 10; i++)
             fout << levelAssigned[t][i] << ",";
@@ -275,9 +278,39 @@ void CommonTOUCH::probe()
     probing.stop();
 }
 
+void CommonTOUCH::countSizeStatistics()
+{
+    //put Ans and not Ans together!
+    
+    sizeCalculate.start();
+    FLAT::Box mbr;
+    for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+    { 
+        (*it)->avrSize = 0;
+        (*it)->stdSize = 0;
+        for (int type = 0; type < TYPES; type++)
+        {
+            for (SpatialObjectList::iterator oBit = (*it)->attachedObjs[type].begin();
+                    oBit != (*it)->attachedObjs[type].end(); oBit++)
+            {
+                double v = FLAT::Box::volume((*oBit)->getMBR());
+                (*it)->avrSize += v;
+                (*it)->stdSize += v*v;  
+            }
+            for (SpatialObjectList::iterator oBit = (*it)->attachedObjsAns[type].begin();
+                    oBit != (*it)->attachedObjsAns[type].end(); oBit++)
+            {
+                double v = FLAT::Box::volume((*oBit)->getMBR());
+                (*it)->avrSize += v;
+                (*it)->stdSize += v*v;  
+            }
+        }
+    }
+    sizeCalculate.stop();
+}
+
 void CommonTOUCH::countSpatialGrid()
 {
-    
     gridCalculate.start();
     FLAT::Box mbr;
     for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
@@ -394,7 +427,7 @@ void CommonTOUCH::createPartitions(std::vector<TreeEntry*> vds)
             swap(vds,nextInput);					// swap input and nextInput list
             nextInput.clear();
     }
-
+    
     root = vds.front();
     if (verbose) std::cout << "Levels " << Levels << std::endl;
     partition.stop();
@@ -438,4 +471,75 @@ void CommonTOUCH::createTreeLevel(vector<TreeEntry*>& input, int Level)
     }
     if (!entries.empty())
             writeNode(entries,Level);
+}
+
+
+
+void CommonTOUCH::analyze()
+{
+    countSizeStatistics(); // must be before analysis to count average sizes
+
+    analyzing.start();
+    FLAT::uint64 emptyCells;
+    FLAT::uint64 sum=0, sqsum=0;
+    double differenceSquared=0;
+    //footprint += vdsA.size()*(sizeof(TreeEntry*));
+    //footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
+    FLAT::uint64 cursum;
+    vector<FLAT::uint64> ItemPerLevel[TYPES]; 
+    vector<FLAT::uint64> ItemPerLevelAns[TYPES]; 
+    
+    for (int type = 0; type < TYPES; type++)
+    {
+        ItemPerLevel[type].resize(Levels,0);
+        ItemPerLevelAns[type].resize(Levels,0);
+        emptyCells = 0;
+        
+        for(unsigned int ni = 0; ni<tree.size() ; ni++)
+        {
+                cursum = tree.at(ni)->attachedObjs[type].size() + tree.at(ni)->attachedObjsAns[type].size();
+                if (cursum==0) emptyCells++;
+                ItemPerLevel[type][tree.at(ni)->level] += tree.at(ni)->attachedObjs[type].size();
+                ItemPerLevelAns[type][tree.at(ni)->level] += tree.at(ni)->attachedObjsAns[type].size();
+                sum += cursum;
+                sqsum += cursum*cursum;
+                if (maxMappedObjects < cursum) maxMappedObjects = cursum; // save maximum assigned objects
+                if (tree.at(ni)->level < 10)
+                {
+                    levelAvg[type][tree.at(ni)->level] += tree.at(ni)->avrSize;
+                    levelStd[type][tree.at(ni)->level] += tree.at(ni)->stdSize;
+                }
+        }
+        if (verbose)
+            for(int i = 0 ; i<Levels; i++)
+                std::cout<< "Type " << type << " Level " << i << ": Items " << ItemPerLevel[type][i] 
+                        <<  " Ans " << ItemPerLevelAns[type][i] << endl;
+
+
+        int top10Level = (Levels>10)?10:Levels;
+        for(int i = 0 ; i<top10Level ; i++)
+        {
+            levelAssigned[type][i] = ItemPerLevel[type][i]+ItemPerLevelAns[type][i];
+            if (levelAssigned[type][i] != 0)
+            {
+                levelAvg[type][i] /= (double)levelAssigned[type][i];
+                levelStd[type][i] = sqrt(levelStd[type][i]/(double)levelAssigned[type][i] - levelAvg[type][i]*levelAvg[type][i]);
+            }
+        }
+        
+    }
+    
+    /*
+     * Size statistics counts for each type and each cell. So, there is total
+     * 2*tree.size cells with objects (for each type)
+     */
+    
+    //footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
+    avg = (sum+0.0) / (TYPES*tree.size());
+    percentageEmpty = (emptyCells+0.0) / (TYPES*tree.size())*100.0;
+    differenceSquared = ((double)sqsum/(TYPES*(double)tree.size()))-avg*avg;
+    std = sqrt(differenceSquared);
+    
+    analyzing.stop();
+
 }

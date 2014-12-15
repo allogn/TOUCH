@@ -16,7 +16,6 @@ public:
     virtual ~TOUCH();
     
     void run();
-    void analyze();
 private:
     void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
     void assignment();

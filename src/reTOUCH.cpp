@@ -31,64 +31,6 @@ void reTOUCH::run()
     totalTimeStop();
 }
 
-void reTOUCH::analyze()
-{
-    analyzing.start();
-    FLAT::uint64 emptyCells=0;
-    FLAT::uint64 sumA=0,sqsumA=0;
-    FLAT::uint64 sumB=0,sqsumB=0;
-    double differenceSquared=0;
-    //statsTOUCH.footprint += dsA.size()*(sizeof(FLAT::SpatialObject*));
-    //statsTOUCH.footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
-    LVL = Levels;
-    //vector<FLAT::uint64> ItemPerLevel;
-    ItemPerLevelA.reserve(Levels);
-    ItemPerLevelAans.reserve(Levels);
-    ItemPerLevelB.reserve(Levels);
-    for(int i = 0 ; i<Levels ; i++)
-    {
-            ItemPerLevelA.push_back(0);
-            ItemPerLevelAans.push_back(0);
-            ItemPerLevelB.push_back(0);
-    }
-    for(unsigned int ni = 0; ni<tree.size() ; ni++)
-    {
-            SpatialObjectList objA = tree[ni]->attachedObjs[0];
-            FLAT::uint64 ptrs = objA.size();
-            if(objA.size()==0)emptyCells++;
-            ItemPerLevelA[tree[ni]->level]+=ptrs;
-            ItemPerLevelAans[tree[ni]->level]+=tree[ni]->attachedObjsAns[0].size();
-            sumA += ptrs+tree[ni]->attachedObjsAns[0].size();
-            sqsumA += ptrs*ptrs;
-            if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
-
-            SpatialObjectList objB = tree[ni]->attachedObjs[1];
-            ptrs = objB.size();
-            ItemPerLevelB[tree[ni]->level]+=ptrs;
-            sumB += ptrs;
-            sqsumB += ptrs*ptrs;
-            if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
-
-    }
-    if (verbose)
-    {
-        for(int i = 0 ; i<Levels ; i++)
-        {
-                cout<< "Level " << i << " A:" << ItemPerLevelA[i] << " Aans:" 
-                << ItemPerLevelAans[i] << " B:" << ItemPerLevelB[i] << " = " << ItemPerLevelA[i] + ItemPerLevelB[i] <<endl;
-        }
-        cout<<"Total assigned A:"<<sumA<<" B:"<<sumB<<" ="<< sumA+sumB<<endl;
-        cout<<"Total filtered A:"<< dsA.size() - sumA<<" B:"<<dsB.size() -sumB<<" ="<< dsA.size()+dsB.size() -(sumA+sumB)<<endl;
-    }
-    footprint += (sumA+sumB)*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
-    avg = (sumA+sumB+0.0) / (tree.size());
-    percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
-    differenceSquared = ((double)(sqsumA+sqsumB)/(double)tree.size())-avg*avg;
-    std = sqrt(differenceSquared);
-    analyzing.stop();
-
-}
-
 void reTOUCH::probe()
 {
     //For every cell of A join it with its corresponding cell of B

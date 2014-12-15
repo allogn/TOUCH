@@ -25,7 +25,6 @@ public:
     dTOUCH();
     ~dTOUCH();
     
-    void analyze(int type);
     void run();
     
 };

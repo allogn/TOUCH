@@ -57,7 +57,6 @@ public:
     void joinNodeToDesc(TreeEntry* ancestorNode);
 
     void probe();
-    void analyze();
     
     
     /*

@@ -29,16 +29,19 @@ public:
     
     unsigned int totalnodes;
     int Levels;
+    int LevelsD;
     
     //for logging
     thrust::host_vector<int> levelAssigned[TYPES];
-    thrust::host_vector<int> levelAvg[TYPES];
-    thrust::host_vector<int> levelStd[TYPES];
+    thrust::host_vector<double> levelAvg[TYPES];
+    thrust::host_vector<double> levelStd[TYPES];
     
     
     virtual void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
     virtual void joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);
     void probe();
+    
+    void countSizeStatistics();
     
     void countSpatialGrid();
     void deduplicateSpatialGrid();
@@ -65,7 +68,6 @@ public:
             NL((*itA)->obj, B);
     }
     
-    vector<FLAT::uint64> ItemPerLevel; int LVL; //for statistics
     TreeEntry* root;
 protected:
     
@@ -77,6 +79,8 @@ protected:
     void writeNode(vector<TreeEntry*> objlist, int Level);
     void createTreeLevel(vector<TreeEntry*>& input, int Level);
     void createPartitions(std::vector<TreeEntry*> vds);
+    
+    void analyze();
     
     std::vector<TreeNode*> tree;
     std::vector<TreeEntry*> nextInput;

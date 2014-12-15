@@ -34,7 +34,7 @@ void dTOUCH::run()
     
     if (profilingEnable) 
     {
-        analyze(0);
+        analyze();
         if (verbose) std::cout << "Analysis A Done." << std::endl; 
     }
     
@@ -56,6 +56,16 @@ void dTOUCH::run()
         std::cout << "Done with first tree. Clear tree." << std::endl;
         std::cout << "Number of results: " << resultPairs.results << std::endl;
     }
+    
+    //Transfer Statistics to another variables
+    int LevelsA = Levels;
+    thrust::host_vector<int> levelAssignedTemp;
+    thrust::host_vector<double> levelAvgTemp;
+    thrust::host_vector<double> levelStdTemp;
+    levelAssignedTemp = levelAssigned[0];
+    levelAvgTemp = levelAvg[0];
+    levelStdTemp = levelStd[0];
+    
     tree.clear();
 
     //processing second tree
@@ -70,7 +80,7 @@ void dTOUCH::run()
 
         if (profilingEnable) 
         {
-            analyze(1);
+            analyze();
             if (verbose) std::cout << "Analysis B Done." << std::endl; 
         }
 
@@ -95,6 +105,17 @@ void dTOUCH::run()
     {
         if (verbose) std::cout << "Second tree is empty" << std::endl;
     }
+    
+    //transfer statistics back and swap
+    LevelsD = Levels;
+    Levels = LevelsA;
+    levelAssigned[1] = levelAssigned[0];
+    levelAvg[1] = levelAvg[0];
+    levelStd[1] = levelStd[0];
+    levelAssigned[0] = levelAssignedTemp;
+    levelAvg[0] = levelAvgTemp;
+    levelStd[0] = levelStdTemp;
+    
     if (verbose) std::cout << "Done." << std::endl;
     
 }
@@ -181,49 +202,6 @@ void dTOUCH::assignment(SpatialObjectList& ds)
             }
         }
     }
-}
-
-void dTOUCH::analyze(int type)
-{
-    analyzing.start();
-    FLAT::uint64 emptyCells=0;
-    FLAT::uint64 sum=0,sqsum=0;
-    double differenceSquared=0; 
-    footprint += vdsA.size()*(sizeof(TreeEntry*));
-    footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
-    LVL = Levels;
-    ItemPerLevel.reserve(Levels);
-    for(int i = 0 ; i<Levels; i++)
-            ItemPerLevel.push_back(0);
-    for(unsigned int ni = 0; ni<tree.size() ; ni++)
-    {
-        
-            SpatialObjectList objs = tree.at(ni)->attachedObjs[0];
-            FLAT::uint64 ptrs = objs.size();
-            if(objs.size()==0)emptyCells++;
-            ItemPerLevel[tree.at(ni)->level]+=ptrs;
-            sum += ptrs;
-            sqsum += ptrs*ptrs;
-            if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
-
-    }
-    if (verbose)
-        for(int i = 0 ; i<Levels; i++)
-            cout<< "level " << i << " items " << ItemPerLevel[i] <<endl;
-    
-    
-    int top10Level = (Levels>10)?10:Levels;
-    for(int i = 0 ; i<top10Level ; i++)
-        levelAssigned[type][i] = ItemPerLevel[i];
-
-    footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*)) + tree.size()*(sizeof(TreeNode*));
-    avg = (sum+0.0) / (tree.size() + tree.size());
-    percentageEmpty = (emptyCells+0.0) / (tree.size() + tree.size())*100.0;
-    differenceSquared = ((double)sqsum/((double)tree.size() + (double)tree.size()))-avg*avg;
-    std = sqrt(differenceSquared);
-
-
-    analyzing.stop();
 }
 
 void dTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID)

@@ -46,7 +46,6 @@ public:
     std::vector<TreeNode*> tree;		// Append only structure can be replaced by a file "payload"
     std::vector<TreeEntry*> nextInput;
     TreeEntry* root;
-    FLAT::Timer Ljoin;// The time for local join
     SpatialObjectList dsA, dsB;					//A is smaller than B
     int localPartitions;
     bool profilingEnable;
@@ -81,8 +80,48 @@ public:
     int localJoin;		// Choose the algorithm for joining the buckets, The local join
     int partitions;				// # of partitions: in S3 is # of levels; in SGrid is resolution
     
-    string algoname;
-    string basealgo;
+    std::string getAlgName(int id)
+    {
+        switch(id)
+        {
+                case algo_NL:
+                        return "NL";
+                break;
+                case algo_PS:
+                        return "PS";
+                break;
+                case algo_TOUCH:
+                        return "TOUCH";
+                break;
+                case algo_cTOUCH:
+                        return "cTOUCH";
+                break;
+                case algo_reTOUCH:
+                        return "reTOUCH";
+                break;
+                case algo_rereTOUCH:
+                        return "rereTOUCH";
+                break;
+                case algo_dTOUCH:
+                        return "dTOUCH";
+                break;
+                case algo_SGrid:
+                        return "SGrid";
+                break;
+                case algo_S3:
+                        return "S3";
+                break;
+                case algo_PBSM:
+                        return "PBSM";
+                break;
+            default:
+                return "Undefined";
+                break;
+        }
+    }
+    
+    std::string algoname() { return getAlgName(algorithm); };
+    std::string basealgo() { return getAlgName(localJoin); };
       
     JoinAlgorithm();
     virtual ~JoinAlgorithm();
@@ -142,6 +181,7 @@ public:
 	FLAT::Timer comparing;
 	FLAT::Timer partition;
     FLAT::Timer gridCalculate;
+    FLAT::Timer sizeCalculate;
     
     struct Comparator : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
     {

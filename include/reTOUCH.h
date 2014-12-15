@@ -58,7 +58,6 @@ public:
     void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
 
     void probe();
-    void analyze();
     
     void run();
     

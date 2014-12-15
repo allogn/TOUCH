@@ -79,69 +79,6 @@ void rereTOUCH::probe()
     //resultPairs.deDuplicate(); //@todo where is it?
 }
 
-void rereTOUCH::analyze()
-{
-    analyzing.start();
-    FLAT::uint64 emptyCells=0;
-    FLAT::uint64 sumA=0,sqsumA=0;
-    FLAT::uint64 sumB=0,sqsumB=0;
-    double differenceSquared=0;
-    //statsTOUCH.footprint += dsA.size()*(sizeof(FLAT::SpatialObject*));
-    //statsTOUCH.footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
-    LVL = Levels;
-    //vector<FLAT::uint64> ItemPerLevel;
-    ItemPerLevelA.reserve(Levels);
-    ItemPerLevelAans.reserve(Levels);
-    ItemPerLevelBans.reserve(Levels);
-    ItemPerLevelB.reserve(Levels);
-    for(int i = 0 ; i<Levels ; i++)
-    {
-            ItemPerLevelA.push_back(0);
-            ItemPerLevelAans.push_back(0);
-            ItemPerLevelBans.push_back(0);
-            ItemPerLevelB.push_back(0);
-    }
-    for(unsigned int ni = 0; ni<tree.size() ; ni++)
-    {
-            SpatialObjectList objA = tree[ni]->attachedObjs[0];
-            FLAT::uint64 ptrs = objA.size();
-            if(objA.size()==0)emptyCells++;
-            ItemPerLevelA[tree[ni]->level]+=ptrs;
-            ItemPerLevelAans[tree[ni]->level]+=tree[ni]->attachedObjsAns[0].size();
-            ItemPerLevelBans[tree[ni]->level]+=tree[ni]->attachedObjsAns[1].size();
-            sumA += ptrs+tree[ni]->attachedObjsAns[0].size();
-            sqsumA += ptrs*ptrs;
-            if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
-
-            SpatialObjectList objB = tree[ni]->attachedObjs[1];
-            ptrs = objB.size();
-            if(objB.size()==0)emptyCells++;
-            ItemPerLevelB[tree[ni]->level]+=ptrs;
-            sumB += ptrs+tree[ni]->attachedObjsAns[1].size();
-            sqsumB += ptrs*ptrs;
-            if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
-
-    }
-    if (verbose)
-    {
-        for(int i = 0 ; i<Levels ; i++)
-        {
-                std::cout<< "level " << i << " A:" << ItemPerLevelA[i] << " Aans:" 
-                << ItemPerLevelAans[i] << " B:" << ItemPerLevelB[i]
-                << " Bans: " << ItemPerLevelBans[i]  << " = " << ItemPerLevelA[i] + ItemPerLevelB[i] << std::endl;
-        }
-        std::cout<<"Total assigned A:"<<sumA<<" B:"<<sumB<<" = "<< sumA+sumB<< std::endl;
-        std::cout<<"Total filtered A:"<< filtered[0] <<" B:"<< filtered[1] <<" = "<< filtered[0]+filtered[1] << std::endl;
-    }
-    footprint += (sumA+sumB)*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
-    avg = (sumA+sumB+0.0) / (tree.size());
-    percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
-    differenceSquared = ((double)(sqsumA+sqsumB)/(double)tree.size())-avg*avg;
-    std = sqrt(differenceSquared);
-    analyzing.stop();
-
-}
-
 /*
  * Create new node according to set of TreeEntries. Entries can be of both types,
  * So create to entries that point to the new node of two types.
