@@ -31,12 +31,9 @@ public:
     int Levels;
     
     //for logging
-    std::vector<int> levelAssignedA;
-    std::vector<int> levelAssignedB;
-    std::vector<int> levelAvgA;
-    std::vector<int> levelAvgB;
-    std::vector<int> levelStdA;
-    std::vector<int> levelStdB;
+    thrust::host_vector<int> levelAssigned[TYPES];
+    thrust::host_vector<int> levelAvg[TYPES];
+    thrust::host_vector<int> levelStd[TYPES];
     
     
     virtual void joinNodeToDesc(FLAT::uint64 ancestorNodeID);

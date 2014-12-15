@@ -9,7 +9,7 @@
 
 #include <SpatialIndex.h>
 
-#include "libbbpdias/hilbert.hpp"
+#include "libbbpdias/Hilbert.hpp"
 
 namespace dias {
 

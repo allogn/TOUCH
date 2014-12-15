@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "libbbpdias/hilbert.hpp"
+#include "libbbpdias/Hilbert.hpp"
 
 enum { hilbert_bits = 12 };
 

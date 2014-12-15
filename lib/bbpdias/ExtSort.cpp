@@ -5,7 +5,7 @@
 
 #include "delaunay_connectivity.hpp"
 #include "libbbpdias/TemporaryFile.hpp"
-#include "libbbpdias/hilbert.hpp"
+#include "libbbpdias/Hilbert.hpp"
 #include "Vertex_info.hpp"
 
 namespace dias {

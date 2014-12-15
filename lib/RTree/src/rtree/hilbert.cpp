@@ -23,7 +23,7 @@ this code. */
 * much derived from his work. */
 
 
-#include "hilbert.hpp"
+#include "Hilbert.hpp"
 
 /* implementation of the hilbert functions */
 

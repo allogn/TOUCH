@@ -8,10 +8,14 @@
 
 #include <string>
 #include <limits>
+
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+
 #include "DataFileReader.hpp"
 #include "ResultPairs.h"
 #include "TreeNode.h"
-#include "hilbert.hpp"
+#include "Hilbert.hpp"
 #include "Box.hpp"
 #include "DataFileReader.hpp"
 

@@ -12,12 +12,12 @@ CommonTOUCH::CommonTOUCH() {
     leafsize = partitions;
     PartitioningType = No_Sort;
     
-    levelAssignedA.resize(10,0);
-    levelAssignedB.resize(10,0);
-    levelAvgA.resize(10,0);
-    levelAvgB.resize(10,0);
-    levelStdA.resize(10,0);
-    levelStdB.resize(10,0);
+    for (int t = 0; t < TYPES; t++)
+    {
+        levelAssigned[t].resize(10,0);
+        levelAvg[t].resize(10,0);
+        levelStd[t].resize(10,0);
+    }
 }
 
 CommonTOUCH::~CommonTOUCH() {
@@ -85,30 +85,19 @@ void CommonTOUCH::saveLog() {
             << repB << ","
             << maxLevelCoef << ","
             << t;
-    for (int i = 0; i < 10; i++)
-    {
-        fout << levelAssignedA[i] << ",";
-    }
-    for (int i = 0; i < 10; i++)
-    {
-        fout << levelAssignedB[i] << ",";
-    }
-    for (int i = 0; i < 10; i++)
-    {
-        fout << levelAvgA[i] << ",";
-    }
-    for (int i = 0; i < 10; i++)
-    {
-        fout << levelAvgB[i] << ",";
-    }
-    for (int i = 0; i < 10; i++)
-    {
-        fout << levelStdA[i] << ",";
-    }
-    for (int i = 0; i < 10; i++)
-    {
-        fout << levelStdB[i] << ",";
-    }
+    for (int t = 0; t < TYPES; t++)
+        for (int i = 0; i < 10; i++)
+            fout << levelAssigned[t][i] << ",";
+    
+    
+    for (int t = 0; t < TYPES; t++)
+        for (int i = 0; i < 10; i++)
+            fout << levelAvg[t][i] << ",";
+    
+    
+    for (int t = 0; t < TYPES; t++)
+        for (int i = 0; i < 10; i++)
+            fout << levelStd[t][i] << ",";
     
             fout << "\n";
 
@@ -289,6 +278,11 @@ void CommonTOUCH::probe()
 
 void CommonTOUCH::countSpatialGrid()
 {
+    /*
+     * count statistics as well
+     */
+    
+    
     gridCalculate.start();
     FLAT::Box mbr;
     for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)

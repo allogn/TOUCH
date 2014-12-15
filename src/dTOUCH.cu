@@ -214,10 +214,7 @@ void dTOUCH::analyze(int type)
     
     int top10Level = (Levels>10)?10:Levels;
     for(int i = 0 ; i<top10Level ; i++)
-        if (type == 1)
-            levelAssignedA[i] = ItemPerLevel[i];
-        else
-            levelAssignedB[i] = ItemPerLevel[i];
+        levelAssigned[type][i] = ItemPerLevel[i];
 
     footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*)) + tree.size()*(sizeof(TreeNode*));
     avg = (sum+0.0) / (tree.size() + tree.size());
