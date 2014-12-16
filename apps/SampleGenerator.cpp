@@ -18,6 +18,7 @@ FLAT::uint64 sampleSize      = 1000; // size of one sample
 std::string inputFile   = "../data/RandomData-100K.bin";
 std::string outputPath  = "./samples/";
 std::string logName     = "stats.csv";
+int num                 = 1;
 bool verbose            = false;
 
 void usage(const char *program_name) {
@@ -28,6 +29,7 @@ void usage(const char *program_name) {
     printf("   -p               Path to samples\n");
     printf("   -s               Sample size\n");
     printf("   -v               Verbose\n");
+    printf("   -n               Number of files\n");
 
 }
 
@@ -56,6 +58,9 @@ void parse_args(int argc, const char* argv[]) {
                 break;
             case 's':
                 sscanf(argv[++x], "%u", &sampleSize);
+                break;
+            case 'n':
+                sscanf(argv[++x], "%u", &num);
                 break;
             case 'v':  
                 t = 1;
@@ -132,8 +137,10 @@ void generateSamples(std::string file_in, std::string path_out)
      * Delete from the array
      * Until the array becomes empty
      */
-    while (dsA.size() >= sampleSize)
+    int donenum = 0;
+    while (dsA.size() >= sampleSize && donenum < num)
     {
+        donenum++;
         max = std::numeric_limits<double>::min();
         min = std::numeric_limits<double>::max();
         avg = 0;
