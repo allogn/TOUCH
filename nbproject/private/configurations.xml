@@ -106,7 +106,11 @@
       <df name="data">
       </df>
       <df name="doc">
+        <df name="Articles">
+        </df>
         <df name="Images">
+        </df>
+        <df name="MIPT">
         </df>
       </df>
       <df name="include">
@@ -652,7 +656,11 @@
       <df name="data">
       </df>
       <df name="doc">
+        <df name="Articles">
+        </df>
         <df name="Images">
+        </df>
+        <df name="MIPT">
         </df>
       </df>
       <df name="include">
@@ -952,7 +960,11 @@
       <df name="data">
       </df>
       <df name="doc">
+        <df name="Articles">
+        </df>
         <df name="Images">
+        </df>
+        <df name="MIPT">
         </df>
       </df>
       <df name="include">
@@ -1252,7 +1264,11 @@
       <df name="data">
       </df>
       <df name="doc">
+        <df name="Articles">
+        </df>
         <df name="Images">
+        </df>
+        <df name="MIPT">
         </df>
       </df>
       <df name="include">

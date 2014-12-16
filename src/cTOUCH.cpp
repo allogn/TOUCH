@@ -16,6 +16,7 @@ void cTOUCH::run()
     if (verbose) std::cout << "Assigning the objects of B" << std::endl; 
     assignment();
     if (verbose) std::cout << "Assigning Done." << std::endl; 
+    countSizeStatistics(); // MUST BE BEFORE analyze
     analyze();
     if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
     if(localJoin == algo_SGrid)
@@ -29,45 +30,6 @@ void cTOUCH::run()
     }
     if (verbose) std::cout << "Done." << std::endl;
     totalTimeStop();
-}
-
-void cTOUCH::analyze()
-{
-
-        analyzing.start();
-        FLAT::uint64 emptyCells=0;
-        FLAT::uint64 sum=0,sqsum=0;
-        double differenceSquared=0;
-        footprint += vdsAll.size()*(sizeof(TreeEntry*));
-        footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
-        LVL = Levels;
-        //vector<FLAT::uint64> ItemPerLevel;
-        ItemPerLevel.reserve(Levels);
-        for(int i = 0 ; i<Levels ; i++)
-                ItemPerLevel.push_back(0);
-        for(unsigned int ni = 0; ni<tree.size() ; ni++)
-        {
-                SpatialObjectList objsA = tree.at(ni)->attachedObjs[0];
-                SpatialObjectList objsB = tree.at(ni)->attachedObjs[1];
-                FLAT::uint64 ptrs = objsA.size() + objsB.size();
-                if(objsA.size() + objsB.size()==0)emptyCells++;
-                ItemPerLevel[tree.at(ni)->level]+=ptrs;
-                sum += ptrs;
-                sqsum += ptrs*ptrs;
-                if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
-
-        }
-        if (verbose)
-            for(int i = 0 ; i<Levels ; i++)
-                cout<< "level " << i << " items " << ItemPerLevel[i] <<endl;
-
-        footprint += sum*sizeof(FLAT::SpatialObject*) + tree.size()*(sizeof(TreeNode*));
-        avg = (sum+0.0) / (tree.size());
-        percentageEmpty = (emptyCells+0.0) / (tree.size())*100.0;
-        differenceSquared = ((double)sqsum/(double)tree.size())-avg*avg;
-        std = sqrt(differenceSquared);
-        analyzing.stop();
-
 }
 
 void cTOUCH::probe()

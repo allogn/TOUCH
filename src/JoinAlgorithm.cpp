@@ -26,9 +26,6 @@ JoinAlgorithm::JoinAlgorithm() {
     profilingEnable         = true;
     epsilon                 = 1.5;
     
-    algoname                = "";
-    basealgo                = "";
-    
     verbose                 =  true;
     
     base = 2; // the base for S3 and SH algorithms
@@ -135,77 +132,12 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
 
 void JoinAlgorithm::print()
 {
-        switch(algorithm)
-        {
-                case algo_NL:
-                        algoname = "NL";
-                break;
-                case algo_PS:
-                        algoname = "PS";
-                break;
-                case algo_TOUCH:
-                        algoname = "TOUCH";
-                break;
-                case algo_cTOUCH:
-                        algoname = "cTOUCH";
-                break;
-                case algo_reTOUCH:
-                        algoname = "reTOUCH";
-                break;
-                case algo_rereTOUCH:
-                        algoname = "rereTOUCH";
-                break;
-                case algo_dTOUCH:
-                        algoname = "dTOUCH";
-                break;
-                case algo_SGrid:
-                        algoname = "SGrid";
-                break;
-                case algo_S3:
-                        algoname = "S3";
-                break;
-                case algo_PBSM:
-                        algoname = "PBSM";
-                break;
-        }
-        switch(localJoin)
-        {
-                case algo_NL:
-                        basealgo = "NL";
-                break;
-                case algo_PS:
-                        basealgo = "PS";
-                break;
-                case algo_TOUCH:
-                        basealgo = "TOUCH";
-                break;
-                case algo_cTOUCH:
-                        basealgo = "cTOUCH";
-                break;
-                case algo_dTOUCH:
-                        basealgo = "dTOUCH";
-                break;
-                case algo_reTOUCH:
-                        basealgo = "reTOUCH";
-                break;
-                case algo_rereTOUCH:
-                        basealgo = "rereTOUCH";
-                break;
-                case algo_SGrid:
-                        basealgo = "SGrid";
-                break;
-                case algo_S3:
-                        basealgo = "S3";
-                break;
-                case algo_PBSM:
-                        basealgo = "PBSM";
-                break;
-        }
+ 
         
         if (verbose)
         {
             std::cout<< "\n================================\n";
-            std::cout << algoname << " using " << basealgo << " gridSize " << localPartitions << '\n'
+            std::cout << algoname() << " using " << basealgo() << " gridSize " << localPartitions << '\n'
             << "memFP(MB) " << (footprint+0.0)/(1024.0*1024.0) << " #A " << size_dsA << " #B " << size_dsB << '\n'
             << "size" << " SOlist "<< sizeof(SpatialObjectList) << " SO* "<< sizeof(FLAT::SpatialObject *) << " Node* "<< sizeof(TreeNode*) << '\n'
             << "EmptyCells(%) " << percentageEmpty	<< " MaxObj " << maxMappedObjects << " AveObj " << avg << " StdObj " << std << '\n'
@@ -217,7 +149,7 @@ void JoinAlgorithm::print()
 
             << "Times: total " << total << '\n'
             << " loading " << dataLoad << " init " << initialize	<< " build " << building << " probe " << probing << '\n'
-            << " comparing " << comparing << " partition " << partition	<< " join " << Ljoin	<< '\n'
+            << " comparing " << comparing << " partition " << partition	<< '\n'
             << " deDuplicating " << resultPairs.deDuplicateTime	<< " analyzing " << analyzing << " sorting " << sorting << '\n'
             << "Partitions " << partitions << " epsilon " << epsilon << " Fanout " << nodesize << '\n'
             << "\n================================\n"
@@ -227,7 +159,7 @@ void JoinAlgorithm::print()
         }
         else
         {
-            std::cout << algoname << " done. Result: " << resultPairs.results << std::endl;
+            std::cout << algoname() << " done. Result: " << resultPairs.results << std::endl;
         }
 
 }

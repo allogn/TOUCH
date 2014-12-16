@@ -38,5 +38,4 @@ public:
     void probe();
 
     void run();
-    void analyze();
 };
