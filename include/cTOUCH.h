@@ -19,7 +19,8 @@ private:
     So create to entries that point to the new node of two types.
     Create entry iff it is not empty
     */
-    void writeNode(vector<TreeEntry*> objlist,int Level);
+    void writeNode(SpatialObjectList& objlist);
+    void writeNode(NodeList& nodelist, int Level);
 
     void assign(TreeNode* ptr, FLAT::SpatialObject* obj); //update parents
 
@@ -34,8 +35,7 @@ public:
 
     void assignment();
 
-    void joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);
-    void probe();
+    void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);
 
     void run();
 };

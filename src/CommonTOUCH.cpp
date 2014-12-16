@@ -106,18 +106,11 @@ void CommonTOUCH::saveLog() {
 
 }
 
-void CommonTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID)
+void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
 {
-    queue<FLAT::uint64> nodes;
-    int nodeID;
+    queue<TreeNode*> nodes;
+    nodes.push(ancestorNode);
 
-    TreeNode* node;
-    TreeNode* downnode;
-    nodes.push(ancestorNodeID);
-
-    FLAT::Box objMBR = obj->getMBR();
-    objMBR.isEmpty = false;
-    FLAT::Box::expand(objMBR,epsilon * 1./2.);
     while(nodes.size()>0)
     {
         //start from checking children, each for intersection of MBR
@@ -132,34 +125,31 @@ void CommonTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancest
             continue;
 
         //intersect with all non-null children
-        for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
+        for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
         {
-            downnode = tree.at(node->entries.at(child)->childIndex );
-
             //if intersects
-            ItemsMaxCompared += downnode->attachedObjs[0].size();
+            ItemsMaxCompared += (*it)->attachedObjs[0].size();
             comparing.start();
             if(localJoin == algo_SGrid)
             {
-                downnode->spatialGridHash[0]->probe(obj);
+                (*it)->spatialGridHash[0]->probe(obj);
             }
             else
             {
-                NL(obj, downnode->attachedObjs[0]);
+                NL(obj, (*it)->attachedObjs[0]);
             }
             comparing.stop();
-            if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbr))
+            if (FLAT::Box::overlap(obj->mbr, (*it)->mbr))
             {
-                nodes.push(node->entries.at(child)->childIndex);
+                nodes.push((*it));
             } 
         }
 
     }
 }
 
-void CommonTOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
+void CommonTOUCH::joinNodeToDesc(TreeNode* node)
 {
-    TreeNode* node = tree.at(ancestorNodeID);
     
     /*
      * A -> B_below
@@ -167,7 +157,7 @@ void CommonTOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
     for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
                                                     it != node->attachedObjs[0].end(); it++)
     {
-        joinObjectToDesc((*it), ancestorNodeID);
+        joinObjectToDesc((*it), node);
     }
     
     if (algorithm == algo_dTOUCH)
@@ -179,7 +169,7 @@ void CommonTOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
     for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
                                                     it != node->attachedObjs[1].end(); it++)
     {
-        joinObjectToDesc((*it), ancestorNodeID);
+        joinObjectToDesc((*it), node);
     }
 
     /*
@@ -198,12 +188,9 @@ void CommonTOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
             for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
                                                             it != node->attachedObjs[0].end(); it++)
             {
-                FLAT::Box mbr = (*it)->getMBR();
-                mbr.isEmpty = false;
-                FLAT::Box::expand(mbr,epsilon * 1./2.);
                 ItemsMaxCompared += node->attachedObjs[1].size();
                 comparing.start();
-                if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[1]))
+                if (FLAT::Box::overlap((*it)->mbr, node->parentEntry->mbrSelfD[1]))
                     NL((*it), node->attachedObjs[1]);
                 comparing.stop();
             }
@@ -224,12 +211,9 @@ void CommonTOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
             for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
                                     it != node->attachedObjs[1].end(); it++)
             {
-                FLAT::Box mbr = (*it)->getMBR();
-                mbr.isEmpty = false;
-                FLAT::Box::expand(mbr,epsilon * 1./2.);
                 ItemsMaxCompared += node->attachedObjs[0].size();
                 comparing.start();
-                if (FLAT::Box::overlap(mbr, node->parentEntry->mbrSelfD[0]))
+                if (FLAT::Box::overlap((*it)->mbr, node->parentEntry->mbrSelfD[0]))
                 {
                     NL((*it), node->attachedObjs[0]);
                 }
@@ -243,23 +227,22 @@ void CommonTOUCH::probe()
 {
     probing.start();
 
-    std::queue<FLAT::uint64> Qnodes;
+    std::queue<TreeNode*> Qnodes;
     TreeNode* currentNode;
-    Qnodes.push(root->childIndex);
+    Qnodes.push(root);
 
     int lvl = Levels;
     // A BFS on the tree then for each find all its leaf nodes by another BFS
     while(Qnodes.size()>0)
     {
-        FLAT::uint64 currentNodeID = Qnodes.front();
-        currentNode = tree.at(currentNodeID);
+        currentNode = Qnodes.front();
         Qnodes.pop();
         //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
         if(!currentNode->leafnode)
-        for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
-        {
-                Qnodes.push(currentNode->entries.at(child)->childIndex);
-        }
+            for (NodeList::iterator it = currentNode->entries.begin(); it != currentNode->entries.end(); it++)
+            {
+                    Qnodes.push((*it));
+            }
 
         // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
         if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()==0)
@@ -273,7 +256,7 @@ void CommonTOUCH::probe()
                     cout << "\n### Level " << lvl <<endl;
             }
 
-        joinNodeToDesc(currentNodeID);
+        joinNodeToDesc(currentNode);
     }
     probing.stop();
 }
@@ -284,25 +267,25 @@ void CommonTOUCH::countSizeStatistics()
     
     sizeCalculate.start();
     FLAT::Box mbr;
-    for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+    for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
     { 
-        (*it)->avrSize = 0;
-        (*it)->stdSize = 0;
         for (int type = 0; type < TYPES; type++)
         {
+            (*it)->avrSize[type] = 0;
+            (*it)->stdSize[type] = 0;
             for (SpatialObjectList::iterator oBit = (*it)->attachedObjs[type].begin();
                     oBit != (*it)->attachedObjs[type].end(); oBit++)
             {
                 double v = FLAT::Box::volume((*oBit)->getMBR());
-                (*it)->avrSize += v;
-                (*it)->stdSize += v*v;  
+                (*it)->avrSize[type] += v;
+                (*it)->stdSize[type] += v*v;  
             }
             for (SpatialObjectList::iterator oBit = (*it)->attachedObjsAns[type].begin();
                     oBit != (*it)->attachedObjsAns[type].end(); oBit++)
             {
                 double v = FLAT::Box::volume((*oBit)->getMBR());
-                (*it)->avrSize += v;
-                (*it)->stdSize += v*v;  
+                (*it)->avrSize[type] += v;
+                (*it)->stdSize[type] += v*v;  
             }
         }
     }
@@ -313,12 +296,32 @@ void CommonTOUCH::countSpatialGrid()
 {
     gridCalculate.start();
     FLAT::Box mbr;
-    for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+    for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
     { 
         for (int type = 0; type < TYPES; type++)
         {
-            mbr = (type == 0)?universeA:universeB;
-            mbr.isEmpty = false;
+            if (algorithm == algo_TOUCH || algorithm == algo_dTOUCH)
+            {
+                mbr = (*it)->mbrL[type];
+            } else {
+                mbr = (*it)->mbrSelfD[type];
+            }
+            
+            
+            //temporary ignore global localPartition. if success - remove it from parameters
+            
+            //resolution is number of cells per dimension
+            int resolution;
+            double spaceVol = FLAT::Box::volume(mbr);
+            if ((*it)->avrSize[type] == 0)
+            {
+                resolution = 1;
+            }
+            else
+            {
+                resolution = (int) std::pow(spaceVol/(*it)->avrSize[type],1./3.);
+            }
+            
             
             if (this->algorithm == algo_dTOUCH && (*it)->leafnode && type==0)
             {
@@ -345,119 +348,145 @@ void CommonTOUCH::countSpatialGrid()
 
 void CommonTOUCH::deduplicateSpatialGrid()
 {
-    for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
+    for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
     {
         for (int type = 0; type < TYPES; type++)
         {
             if (this->algorithm == algo_dTOUCH && (*it)->leafnode && type == 0)
             {
-                (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.start();
                 (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
-                (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.stop();
-
-                this->ItemsCompared += (*it)->spatialGridHash[type]->ItemsCompared;
-                this->resultPairs.results += (*it)->spatialGridHash[type]->resultPairs.results;
-                this->resultPairs.duplicates += (*it)->spatialGridHash[type]->resultPairs.duplicates;
-                this->repA += (*it)->spatialGridHash[type]->repA;
-                this->repB += (*it)->spatialGridHash[type]->repB;
-                this->resultPairs.deDuplicateTime.add((*it)->spatialGridHash[type]->resultPairs.deDuplicateTime);
-                this->initialize.add((*it)->spatialGridHash[type]->initialize); 
+                SpatialGridHash::transferInfo((*it)->spatialGridHash[type], this);
                 continue;
             }
 
-            (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.start();
             (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
-            (*it)->spatialGridHash[type]->resultPairs.deDuplicateTime.stop();
-
-            this->ItemsCompared += (*it)->spatialGridHash[type]->ItemsCompared;
-            this->resultPairs.results += (*it)->spatialGridHash[type]->resultPairs.results;
-            this->resultPairs.duplicates += (*it)->spatialGridHash[type]->resultPairs.duplicates;
-            this->repA += (*it)->spatialGridHash[type]->repA;
-            this->repB += (*it)->spatialGridHash[type]->repB;
-            this->resultPairs.deDuplicateTime.add((*it)->spatialGridHash[type]->resultPairs.deDuplicateTime);
-            this->initialize.add((*it)->spatialGridHash[type]->initialize);
+            SpatialGridHash::transferInfo((*it)->spatialGridHash[type], this);
 
             if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
             {
-                (*it)->spatialGridHashAns[type]->resultPairs.deDuplicateTime.start();
                 (*it)->spatialGridHashAns[type]->resultPairs.deDuplicate();
-                (*it)->spatialGridHashAns[type]->resultPairs.deDuplicateTime.stop();
-                this->ItemsCompared += (*it)->spatialGridHashAns[type]->ItemsCompared;
-                this->resultPairs.results += (*it)->spatialGridHashAns[type]->resultPairs.results;
-                this->resultPairs.duplicates += (*it)->spatialGridHashAns[type]->resultPairs.duplicates;
-                this->repA += (*it)->spatialGridHashAns[type]->repA;
-                this->repB += (*it)->spatialGridHashAns[type]->repB;
-                this->resultPairs.deDuplicateTime.add((*it)->spatialGridHashAns[type]->resultPairs.deDuplicateTime);
-                this->initialize.add((*it)->spatialGridHashAns[type]->initialize);
+                SpatialGridHash::transferInfo((*it)->spatialGridHashAns[type], this);
             }
         }
     }
 }
 
-void CommonTOUCH::writeNode(vector<TreeEntry*> objlist, int Level)
+void CommonTOUCH::writeNode(SpatialObjectList& objlist)
+{
+    TreeNode* prNode = new TreeNode(0);
+    FLAT::Box mbr;
+    totalnodes++;
+    
+    for (SpatialObjectList::iterator it=objlist.begin(); it!=objlist.end(); ++it)
+    {
+        prNode->attachedObjs[(*it)->type].push_back(*it);
+        mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
+    }
+    prNode->mbr = mbr;
+    
+    tree.push_back(prNode);
+    nextInput.push_back(prNode);
+}
+
+void CommonTOUCH::writeNode(NodeList& nodelist, int Level)
 {
     TreeNode* prNode = new TreeNode(Level);
     FLAT::Box mbr;
-    FLAT::uint64 childIndex;
     totalnodes++;
     
-    for (std::vector<TreeEntry*>::iterator it=objlist.begin(); it!=objlist.end(); ++it)
+    for (SpatialObjectList::iterator it=nodelist.begin(); it!=nodelist.end(); ++it)
     {
             prNode->entries.push_back(*it);
             mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
     }
-    childIndex = tree.size();
+    prNode->mbr = mbr;
+    
     tree.push_back(prNode);
-    nextInput.push_back(new TreeEntry(mbr,childIndex));
-    prNode->parentEntry = nextInput.back();
+    nextInput.push_back(prNode);
 }
 
-void CommonTOUCH::createPartitions(std::vector<TreeEntry*> vds)
+void CommonTOUCH::createPartitions(SpatialObjectList& vds)
 {
     partition.start();
 
     Levels = 0;
     totalnodes = 0;
-    while(vds.size()>1)
+    
+    createTreeLevel(vds);
+    NodeList nds;
+    swap(nds,nextInput);
+    while(nds.size()>1)
     {
         if (verbose) 
             std::cout << "Tree Level: " << Levels << " Tree Nodes: " << tree.size() 
-                      << " Remaining Input: " << vds.size() <<endl;
-            createTreeLevel(vds,Levels++);      // writes final nodes in tree and next level in nextInput
-            swap(vds,nextInput);					// swap input and nextInput list
+                      << " Remaining Input: " << nds.size() <<endl;
+            createTreeLevel(nds,Levels++);      // writes final nodes in tree and next level in nextInput
+            swap(nds,nextInput);					// swap input and nextInput list
             nextInput.clear();
     }
     
-    root = vds.front();
+    root = nds.front();
+    root->root = true;
     if (verbose) std::cout << "Levels " << Levels << std::endl;
     partition.stop();
 }
 
-void CommonTOUCH::createTreeLevel(vector<TreeEntry*>& input, int Level)
+void CommonTOUCH::createTreeLevel(SpatialObjectList& input)
 {
-    unsigned int nodeSize;
+    sorting.start();
+    switch (PartitioningType)
+    {
+        case Hilbert_Sort:
+            thrust::sort(input.begin(),input.end(),ComparatorHilbert());
+            break;
+        case No_Sort:
+            break;
+        default:
+            thrust::sort(input.begin(),input.end(),Comparator());
+            break;
+    }
+    sorting.stop();
+
+    if (verbose) std::cout << "Sort "<< input.size()<< " leaf objects in " << sorting << std::endl;
     
-    if (Level==0) nodeSize = leafsize;
-    else nodeSize = nodesize;
+    SpatialObjectList entries;
+    for (NodeList::iterator it=input.begin();it!=input.end();++it)
+    {
+            if (entries.size()<leafsize)
+            {
+                    entries.push_back(*it);
+                    if (entries.size()>=leafsize)
+                    {
+                            writeNode(entries);
+                            entries.clear();
+                    }
+            }
+    }
+    if (!entries.empty())
+            writeNode(entries);
+}
+
+void CommonTOUCH::createTreeLevel(NodeList& input, int Level)
+{
     
     sorting.start();
     switch (PartitioningType)
     {
         case Hilbert_Sort:
-            std::sort(input.begin(),input.end(),ComparatorHilbert());
+            thrust::sort(input.begin(),input.end(),ComparatorHilbert());
             break;
         case No_Sort:
             break;
         default:
-            std::sort(input.begin(),input.end(),Comparator());
+            thrust::sort(input.begin(),input.end(),Comparator());
             break;
     }
     sorting.stop();
 
     if (verbose) std::cout << "Sort "<< input.size()<< " items in " << sorting << std::endl;
     
-    vector<TreeEntry*> entries;
-    for (vector<TreeEntry*>::iterator it=input.begin();it!=input.end();++it)
+    NodeList entries;
+    for (NodeList::iterator it=input.begin();it!=input.end();++it)
     {
             if (entries.size()<nodeSize)
             {
@@ -486,8 +515,8 @@ void CommonTOUCH::analyze()
     //footprint += vdsA.size()*(sizeof(TreeEntry*));
     //footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
     FLAT::uint64 cursum;
-    vector<FLAT::uint64> ItemPerLevel[TYPES]; 
-    vector<FLAT::uint64> ItemPerLevelAns[TYPES]; 
+    thrust::host_vector<FLAT::uint64> ItemPerLevel[TYPES]; 
+    thrust::host_vector<FLAT::uint64> ItemPerLevelAns[TYPES]; 
     
     for (int type = 0; type < TYPES; type++)
     {
@@ -495,19 +524,19 @@ void CommonTOUCH::analyze()
         ItemPerLevelAns[type].resize(Levels,0);
         emptyCells = 0;
         
-        for(unsigned int ni = 0; ni<tree.size() ; ni++)
+        for(NodeList::iterator ni = tree.begin(); ni != tree.end(); ni++)
         {
-                cursum = tree.at(ni)->attachedObjs[type].size() + tree.at(ni)->attachedObjsAns[type].size();
+                cursum = (*ni)->attachedObjs[type].size() + (*ni)->attachedObjsAns[type].size();
                 if (cursum==0) emptyCells++;
-                ItemPerLevel[type][tree.at(ni)->level] += tree.at(ni)->attachedObjs[type].size();
-                ItemPerLevelAns[type][tree.at(ni)->level] += tree.at(ni)->attachedObjsAns[type].size();
+                ItemPerLevel[type][(*ni)->level] += (*ni)->attachedObjs[type].size();
+                ItemPerLevelAns[type][(*ni)->level] += (*ni)->attachedObjsAns[type].size();
                 sum += cursum;
                 sqsum += cursum*cursum;
                 if (maxMappedObjects < cursum) maxMappedObjects = cursum; // save maximum assigned objects
-                if (tree.at(ni)->level < 10)
+                if ((*ni)->level < 10)
                 {
-                    levelAvg[type][tree.at(ni)->level] += tree.at(ni)->avrSize;
-                    levelStd[type][tree.at(ni)->level] += tree.at(ni)->stdSize;
+                    levelAvg[type][(*ni)->level] += (*ni)->avrSize[type];
+                    levelStd[type][(*ni)->level] += (*ni)->stdSize[type];
                 }
         }
         if (verbose)

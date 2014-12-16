@@ -18,7 +18,7 @@ class dTOUCH : public CommonTOUCH
 private:
     
     void assignment(SpatialObjectList& ds);
-    void joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);
+    void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);
 
 public:
 

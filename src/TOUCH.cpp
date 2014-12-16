@@ -35,13 +35,10 @@ void TOUCH::assignment()
     bool assigned;
     for (unsigned int i=0;i<dsB.size();++i)
     {
-        FLAT::SpatialObject* obj = dsB.at(i);
-        FLAT::Box objMBR = obj->getMBR();
-        objMBR.isEmpty = false;
-        FLAT::Box::expand(objMBR,epsilon * 1./2.);
+        TreeEntry* obj = dsB[i];
 
-        TreeEntry* nextNode;
-        TreeNode* ptr = tree.at(root->childIndex);
+        TreeNode* nextNode;
+        TreeNode* ptr = root;
 
         nextNode = NULL;
 
@@ -49,14 +46,14 @@ void TOUCH::assignment()
         {
             overlaps = false;
             assigned = false;
-            for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
+            for (NodeList::iterator it = ptr->entries.begin(); it != ptr->entries.end(); it++)
             {    
-                if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) )
+                if ( FLAT::Box::overlap(obj->mbr,(*it)->mbr) )
                 {
                     if(!overlaps)
                     {
                         overlaps = true;
-                        nextNode = ptr->entries.at(cChild);
+                        nextNode = (*it);
                     }
                     else
                     {
@@ -75,11 +72,11 @@ void TOUCH::assignment()
                     filtered[0] ++;
                     break;
             }
-            ptr = tree.at(nextNode->childIndex);
+            ptr = nextNode;
             if(ptr->leafnode)
             {
-                    ptr->attachedObjs[0].push_back(obj);
-                    break;
+                ptr->attachedObjs[0].push_back(obj);
+                break;
             }
         }
     }
@@ -88,13 +85,12 @@ void TOUCH::assignment()
 }
 
 
-void TOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
+void TOUCH::joinNodeToDesc(TreeNode* ancestorNode)
 {
     SpatialGridHash* spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
     spatialGridHash->epsilon = this->epsilon;
     queue<FLAT::uint64> leaves;
-    TreeNode* leaf, *ancestorNode;
-    ancestorNode = tree.at(ancestorNodeID);
+    TreeNode* leaf;
     if( localJoin == algo_SGrid )
     {
         gridCalculate.start();
@@ -102,10 +98,10 @@ void TOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
         gridCalculate.stop();
     }
 
-    leaves.push(ancestorNodeID);
+    leaves.push(ancestorNode);
     while(leaves.size()>0)
     {
-        leaf = tree.at(leaves.front());
+        leaf = leaves.front();
         leaves.pop();
         if(leaf->leafnode)
         {
@@ -123,25 +119,16 @@ void TOUCH::joinNodeToDesc(FLAT::uint64 ancestorNodeID)
         }
         else
         {
-            for (FLAT::uint64 child = 0; child < leaf->entries.size(); ++child)
+            for (NodeList::iterator it = leaf->entries.begin(); it != leaf->entries.end(); it++)
             {
-                leaves.push(leaf->entries.at(child)->childIndex);
+                leaves.push((*it));
             }
         }
     }
 
     if(localJoin == algo_SGrid)
     {
-        spatialGridHash->resultPairs.deDuplicateTime.start();
         spatialGridHash->resultPairs.deDuplicate();
-        spatialGridHash->resultPairs.deDuplicateTime.stop();
-
-        
-        this->ItemsCompared += spatialGridHash->ItemsCompared;
-        this->resultPairs.results += spatialGridHash->resultPairs.results;
-        this->resultPairs.duplicates += spatialGridHash->resultPairs.duplicates;
-        this->repA += spatialGridHash->repA;
-        this->repB += spatialGridHash->repB;
-        this->resultPairs.deDuplicateTime.add(spatialGridHash->resultPairs.deDuplicateTime);
+        SpatialGridHash::transferInfo(spatialGridHash,this);
     }
 }

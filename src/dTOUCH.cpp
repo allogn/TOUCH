@@ -133,25 +133,23 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     
     for (unsigned int i=0;i<ds.size();++i)
     {
-        FLAT::SpatialObject* obj = ds.at(i);
-        FLAT::Box objMBR = obj->getMBR();
-        objMBR.isEmpty = false;
-        FLAT::Box::expand(objMBR,epsilon * 1./2.);
+        TreeEntry* obj = ds[i];
+        
         TreeEntry* nextNode;
-        TreeNode* ptr = tree.at(root->childIndex);
+        TreeNode* ptr = root;
         
         while(true)
         {
             overlaps = false;
             assigned = false;
-            for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
+            for (NodeList::iterator it = ptr->entries.begin(); it != ptr->entries.end(); it++)
             {    
-                if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) )
+                if ( FLAT::Box::overlap(obj->mbr,(*it)->mbr) )
                 {
                     if(overlaps++ == 0)
                     {
                         overlaps = true;
-                        nextNode = ptr->entries.at(cChild);
+                        nextNode = (*it);
                     }
                     else
                     {
@@ -160,10 +158,9 @@ void dTOUCH::assignment(SpatialObjectList& ds)
                             //should be assigned to this level
                             double coin = (rand()/(double)(RAND_MAX));
 
-                            if (coin > exp(-(((double)ptr->level-1.) * maxLevelCoef/100.)/(double)Levels))
+                            if (coin > exp(-(((double)ptr->level) * maxLevelCoef/100.)/(double)Levels))
                             {
-                                vdsB.push_back(new TreeEntry(obj));
-                                vdsB.back()->expand(epsilon);
+                                vdsB.push_back(obj);
                             }
                             else
                             {
@@ -185,7 +182,6 @@ void dTOUCH::assignment(SpatialObjectList& ds)
             }
             if(assigned)
             {
-                //obj->cost = overlaps*((pow(nodesize,assigned_level+1)-1)/(nodesize - 1) - 1);
                 break;
             }
             if(!overlaps)
@@ -194,8 +190,8 @@ void dTOUCH::assignment(SpatialObjectList& ds)
                 filtered[obj->type]++;
                 break;
             }
-            ptr = tree.at(nextNode->childIndex);
-            if(ptr->leafnode /*|| ptr->level < 2*/)
+            ptr = nextNode;
+            if(ptr->leafnode)
             {
                 ptr->attachedObjs[0].push_back(obj);
                 break;
@@ -204,22 +200,16 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     }
 }
 
-void dTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID)
+void dTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
 {
-    queue<FLAT::uint64> nodes;
-    int nodeID;
+    queue<TreeNode*> nodes;
 
     TreeNode* node;
-    nodes.push(ancestorNodeID);
+    nodes.push(ancestorNode);
 
-    FLAT::Box objMBR = obj->getMBR();
-    objMBR.isEmpty = false;
-    FLAT::Box::expand(objMBR,epsilon * 1./2.);
     while(nodes.size()>0)
     {
-
-        nodeID = nodes.front();
-        node = tree.at(nodeID);
+        node = nodes.front();
         nodes.pop();
 
         if (node->leafnode == true)
@@ -244,7 +234,7 @@ void dTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNod
         {
             for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
             {
-                if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbr))
+                if (FLAT::Box::overlap(obj->mbr, node->entries.at(child)->mbr))
                 {
                     nodes.push(node->entries.at(child)->childIndex);
                 } 

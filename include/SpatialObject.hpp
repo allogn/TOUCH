@@ -15,9 +15,6 @@ class Vertex;   // To avoid Circular Includes
 	class SpatialObject
 	{
 	public:
-		int cost;
-		int type;
-                int id;
 		SpatialObject();
 
 		virtual ~SpatialObject();

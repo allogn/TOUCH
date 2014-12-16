@@ -77,22 +77,19 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     FLAT::SpatialObject* sobj;
 
     dsA.reserve(size_dsA);
+    vdsA.reserve(size_dsA);
     numA = size_dsA;
     while(inputA->hasNext() && (numA-- != 0))
     {
         sobj = inputA->getNext();
-        mbr = sobj->getMBR();
-        mbr.isEmpty = false;
+        newEntry = new TreeEntry(sobj,0,numA,epsilon);
+        
         for (int i=0;i<DIMENSION;i++)
         {
-            universeA.low.Vector[i] = min(universeA.low.Vector[i],mbr.low.Vector[i]);
-            universeA.high.Vector[i] = max(universeA.high.Vector[i],mbr.high.Vector[i]);
+            universeA.low.Vector[i] = min(universeA.low.Vector[i],newEntry->mbr.low.Vector[i]);
+            universeA.high.Vector[i] = max(universeA.high.Vector[i],newEntry->mbr.high.Vector[i]);
         }
-        sobj->type = 0;
-        sobj->cost = 0;
-        sobj->id = numA;
-        newEntry = new TreeEntry(sobj);
-        newEntry->expand(epsilon);
+        
         vdsA.push_back(newEntry);
         dsA.push_back(sobj);
         vdsAll.push_back(newEntry);
@@ -103,26 +100,19 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     while (inputB->hasNext() && (numB-- != 0))
     {
         sobj = inputB->getNext();
-        mbr = sobj->getMBR();
-        mbr.isEmpty = false;
+        newEntry = new TreeEntry(sobj,1,numB,epsilon);
+        
         for (int i=0;i<DIMENSION;i++)
         {
-                universeB.low.Vector[i] = min(universeB.low.Vector[i],mbr.low.Vector[i]);
-                universeB.high.Vector[i] = max(universeB.high.Vector[i],mbr.high.Vector[i]);
+                universeB.low.Vector[i] = min(universeB.low.Vector[i],newEntry->mbr.low.Vector[i]);
+                universeB.high.Vector[i] = max(universeB.high.Vector[i],newEntry->mbr.high.Vector[i]);
         }
-        sobj->type = 1;
-        sobj->cost = 0;
-        sobj->id = numB;
-        newEntry = new TreeEntry(sobj);
-        newEntry->expand(epsilon);
         dsB.push_back(sobj);
         vdsAll.push_back(newEntry);
     }
     
-    universeA.isEmpty = false;
     FLAT::Box::expand(universeA,epsilon);
     FLAT::Box::expand(universeB,epsilon);
-    universeB.isEmpty = false;
 
     dataLoad.stop();
 

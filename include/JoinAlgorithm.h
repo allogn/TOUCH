@@ -44,8 +44,9 @@ class JoinAlgorithm {
 public:
     FLAT::uint64 totalGridCells;
     std::vector<TreeNode*> tree;		// Append only structure can be replaced by a file "payload"
-    std::vector<TreeEntry*> nextInput;
-    TreeEntry* root;
+    std::vector<TreeNode*> nextInput;
+    TreeNode* root;
+    
     SpatialObjectList dsA, dsB;					//A is smaller than B
     int localPartitions;
     bool profilingEnable;
@@ -57,7 +58,7 @@ public:
 
     
     int base; // the base for S3 and SH algorithms
-    string logfilename;
+    std::string logfilename;
     double epsilon;
     unsigned int numA, numB;		//number of elements to be read from datasets
     
@@ -290,19 +291,9 @@ public:
             return false;
     }
     // Returns true if touch and false if not by comparing only the centers
-    inline bool istouching(FLAT::SpatialObject* sobj1, FLAT::SpatialObject* sobj2)
+    inline bool istouching(TreeEntry* sobj1, TreeEntry* sobj2)
     {
-            return istouchingV(sobj1,sobj2);
-
-            ItemsCompared++;
-            
-            FLAT::Box mbr1 = sobj1->getMBR();
-            FLAT::Box mbr2 = sobj2->getMBR();
-            mbr1.isEmpty = false;
-            mbr2.isEmpty = false;
-            FLAT::Box::expand(mbr1, epsilon);
-            
-            return FLAT::Box::overlap(mbr1, mbr2);
+            return istouchingV(sobj1->obj,sobj2->obj);
     }
 
     struct ComparatorTree_Xaxis : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
