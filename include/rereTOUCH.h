@@ -24,16 +24,16 @@ public:
     void assignmentB();
     void reassignmentB();
 
-    void joinObjectToDesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode);
+    void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);
 
-    void joinNodeToDesc(TreeEntry* ancestorNode);
+    void joinNodeToDesc(TreeNode* ancestorNode);
     
     /*
      * Function for creating valid R-tree from B objects assigned to nodes
      * after A objects removal from leafs
      */
-    FLAT::uint64 mergingMbrB(TreeEntry* startEntry, FLAT::Box &mbr, bool clearA);
-    FLAT::uint64 mergingMbrA(TreeEntry* startEntry, FLAT::Box &mbr);
+    FLAT::uint64 mergingMbrB(TreeNode* startNode, FLAT::Box &mbr, bool clearA);
+    FLAT::uint64 mergingMbrA(TreeNode* startNode, FLAT::Box &mbr);
     
     void run();
     

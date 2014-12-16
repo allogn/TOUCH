@@ -8,28 +8,28 @@ void ResultPairs::deDuplicate()
 {
         deDuplicateTime.start();
         results = 0;
-        std::set<std::pair<FLAT::SpatialObject*,FLAT::SpatialObject*> > uniqueResults;
+        ResultList uniqueResults;
         for (FLAT::uint64 i=0;i<objA.size();++i)
-                uniqueResults.insert( std::pair<FLAT::SpatialObject*,FLAT::SpatialObject*>(objA.at(i),objB.at(i)) );
+                uniqueResults.insert( ResultPair(objA[i],objB[i]) );
 
         duplicates = objA.size() - uniqueResults.size();
         objA.clear();
         objB.clear();
-        std::set< std::pair<FLAT::SpatialObject*,FLAT::SpatialObject*> >::iterator it;
+        ResultList::iterator it;
         for(it= uniqueResults.begin(); it!=uniqueResults.end(); it++)
                 addPair(it->first,it->second);
 
         deDuplicateTime.stop();
 }
 
-void ResultPairs::addPair(FLAT::SpatialObject* sobjA, FLAT::SpatialObject* sobjB)
+void ResultPairs::addPair(TreeEntry* sobjA, TreeEntry* sobjB)
 {
         results++;
 
         if (sobjA->type != 0)
         {
                 //swap objects
-                FLAT::SpatialObject* temp;
+                TreeEntry* temp;
                 temp = sobjA;
                 sobjA = sobjB;
                 sobjB = temp;

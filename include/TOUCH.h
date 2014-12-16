@@ -17,7 +17,7 @@ public:
     
     void run();
 private:
-    void joinNodeToDesc(TreeNode ancestorNode);
+    void joinNodeToDesc(TreeNode* ancestorNode);
     void assignment();
 };
 

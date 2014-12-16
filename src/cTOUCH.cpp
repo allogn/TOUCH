@@ -40,7 +40,7 @@ void cTOUCH::run()
  * Create entry iff it is not empty
  */
 
-void CommonTOUCH::writeNode(SpatialObjectList& objlist)
+void cTOUCH::writeNode(SpatialObjectList& objlist)
 {
     TreeNode* prNode = new TreeNode(0);
     FLAT::Box mbr[TYPES];
@@ -61,7 +61,7 @@ void CommonTOUCH::writeNode(SpatialObjectList& objlist)
     nextInput.push_back(prNode);
 }
 
-void CommonTOUCH::writeNode(NodeList& nodelist, int Level)
+void cTOUCH::writeNode(NodeList& nodelist, int Level)
 {
     TreeNode* prNode = new TreeNode(Level);
     FLAT::Box mbrA;
@@ -225,7 +225,7 @@ void cTOUCH::assignment()
                             break; // we are at root
                     ancestorNode = currentNode->parentNode;
                     ancestorNode->mbrL[current_type].isEmpty = true; // reset mbr
-                    for (vector<TreeEntry*>::iterator it=ancestorNode->entries.begin(); it!=ancestorNode->entries.end(); ++it)
+                    for (NodeList::iterator it=ancestorNode->entries.begin(); it!=ancestorNode->entries.end(); ++it)
                     {
                         ancestorNode->mbrL[current_type] = FLAT::Box::combineSafe((*it)->mbrL[current_type], ancestorNode->mbrL[current_type]);
                     }

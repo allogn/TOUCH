@@ -91,7 +91,7 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
         }
         
         vdsA.push_back(newEntry);
-        dsA.push_back(sobj);
+        dsA.push_back(newEntry);
         vdsAll.push_back(newEntry);
     }
 
@@ -107,7 +107,7 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
                 universeB.low.Vector[i] = min(universeB.low.Vector[i],newEntry->mbr.low.Vector[i]);
                 universeB.high.Vector[i] = max(universeB.high.Vector[i],newEntry->mbr.high.Vector[i]);
         }
-        dsB.push_back(sobj);
+        dsB.push_back(newEntry);
         vdsAll.push_back(newEntry);
     }
     

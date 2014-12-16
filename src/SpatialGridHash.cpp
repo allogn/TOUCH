@@ -156,7 +156,7 @@ void SpatialGridHash::probe(const SpatialObjectList& dsB)
     probing.stop();
 }
 
-static void SpatialGridHash::transferInfo(SpatialGridHash* sgh, JoinAlgorithm* alg)
+void SpatialGridHash::transferInfo(SpatialGridHash* sgh, JoinAlgorithm* alg)
 {
     alg->ItemsCompared += sgh->ItemsCompared;
     alg->resultPairs.results += sgh->resultPairs.results;

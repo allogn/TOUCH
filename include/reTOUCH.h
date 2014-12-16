@@ -23,9 +23,9 @@ public:
     void assignmentA();
     void assignmentB();
 
-    void joinObjectToDesc(TreeNode* obj, TreeNode* ancestorNode);
+    void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);
 
-    void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
+    void joinNodeToDesc(TreeNode* ancestorNode);
     
     void run();
     
@@ -33,8 +33,8 @@ public:
      * Function for creating valid R-tree from B objects assigned to nodes
      * after A objects removal from leafs
      */
-    FLAT::uint64 mergingMbrB(TreeEntry* startEntry, FLAT::Box &mbr);
-    FLAT::uint64 mergingMbrA(TreeEntry* startEntry, FLAT::Box &mbr);
+    FLAT::uint64 mergingMbrB(TreeNode* startNode, FLAT::Box &mbr);
+    FLAT::uint64 mergingMbrA(TreeNode* startNode, FLAT::Box &mbr);
     
     std::vector<FLAT::uint64> ItemPerLevelA,ItemPerLevelB,ItemPerLevelAans;
 };

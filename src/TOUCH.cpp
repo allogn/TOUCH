@@ -58,7 +58,7 @@ void TOUCH::assignment()
                     else
                     {
                         // assignment to current level
-                        ptr->attachedObjs[0].push_back(obj);
+                        ptr->attachedObjs[1].push_back(obj);
                         assigned = true;
                         break;
                     }
@@ -69,13 +69,13 @@ void TOUCH::assignment()
             if(!overlaps)
             {
                     //filtered
-                    filtered[0] ++;
+                    filtered[1] ++;
                     break;
             }
             ptr = nextNode;
             if(ptr->leafnode)
             {
-                ptr->attachedObjs[0].push_back(obj);
+                ptr->attachedObjs[1].push_back(obj);
                 break;
             }
         }
@@ -89,12 +89,12 @@ void TOUCH::joinNodeToDesc(TreeNode* ancestorNode)
 {
     SpatialGridHash* spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
     spatialGridHash->epsilon = this->epsilon;
-    queue<FLAT::uint64> leaves;
+    queue<TreeNode*> leaves;
     TreeNode* leaf;
     if( localJoin == algo_SGrid )
     {
         gridCalculate.start();
-        spatialGridHash->build(ancestorNode->attachedObjs[0]);
+        spatialGridHash->build(ancestorNode->attachedObjs[1]);
         gridCalculate.stop();
     }
 
@@ -105,15 +105,15 @@ void TOUCH::joinNodeToDesc(TreeNode* ancestorNode)
         leaves.pop();
         if(leaf->leafnode)
         {
-            ItemsMaxCompared += ancestorNode->attachedObjs[0].size()*leaf->entries.size();
+            ItemsMaxCompared += ancestorNode->attachedObjs[1].size()*leaf->attachedObjs[0].size();
             comparing.start();
             if(localJoin == algo_SGrid)
             {
-                spatialGridHash->probe(leaf);
+                spatialGridHash->probe(leaf->attachedObjs[0]);
             }
             else
             {
-                NL(leaf,ancestorNode->attachedObjs[0]);
+                NL(leaf->attachedObjs[0],ancestorNode->attachedObjs[1]);
             }
             comparing.stop();
         }

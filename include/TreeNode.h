@@ -8,7 +8,8 @@
 #define	TREENODE_H
 
 #include "TreeEntry.h"
-#include <vector>
+#include "ResultPairs.h"
+
 
 class SpatialGridHash;
 
@@ -26,7 +27,7 @@ public:
         
         FLAT::Box mbr; //for cTOUCH ?? @todo get rid ?? and for sorting somewhere
     
-	NodeList entries;
+	thrust::host_vector<TreeNode*> entries;
         
         TreeNode* parentNode;
         
@@ -36,8 +37,8 @@ public:
         SpatialGridHash* spatialGridHash[TYPES];   
         SpatialGridHash* spatialGridHashAns[TYPES];
 	
-	std::vector<TreeEntry*> attachedObjs[TYPES];
-        std::vector<TreeEntry*> attachedObjsAns[TYPES];
+	thrust::host_vector<TreeEntry*> attachedObjs[TYPES];
+        thrust::host_vector<TreeEntry*> attachedObjsAns[TYPES];
         
         double avrSize[TYPES];
         double stdSize[TYPES];
@@ -47,10 +48,10 @@ public:
 		level = Level;
 		if (Level==0) leafnode = true;
 		else leafnode = false;
-                mbr->isEmpty = true;
+                mbr.isEmpty = true;
 	}
 	
-	TreeEntry(const FLAT::Box& MbrA, const FLAT::Box& MbrB)
+	TreeNode(const FLAT::Box& MbrA, const FLAT::Box& MbrB)
 	{
 		mbrL[1] = MbrB;
 		mbrL[0] = MbrA;
@@ -59,6 +60,8 @@ public:
                 mbr = FLAT::Box::combineSafe(MbrA,MbrB);
 	}
 };
+
+
 
 #endif	/* TREENODE_H */
 

@@ -22,7 +22,7 @@ private:
     void writeNode(SpatialObjectList& objlist);
     void writeNode(NodeList& nodelist, int Level);
 
-    void assign(TreeNode* ptr, FLAT::SpatialObject* obj); //update parents
+    void assign(TreeNode* ptr, TreeEntry* obj); //update parents
 
 public:
 
@@ -31,7 +31,9 @@ public:
         algorithm = algo_cTOUCH;
     }
 
-    ~cTOUCH() {}
+    ~cTOUCH() {
+    
+    }
 
     void assignment();
 

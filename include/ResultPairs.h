@@ -14,15 +14,23 @@
 #define	RESULTPAIRS_H
 
 #include "TreeEntry.h"
+#include "TreeNode.h"
 #include <vector>
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
+
+
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+#include <thrust/sort.h>
+
 #include "Box.hpp"
 #include "Timer.hpp"
 
-typedef thrust::host_vector<TreeEntry*> SpatialObjectList;
 typedef thrust::host_vector<TreeNode*> NodeList;
-typedef thrust::pair<TreeEntry*,TreeEntry*> ResultPair;
+typedef thrust::host_vector<TreeEntry*> SpatialObjectList;
+
+typedef std::pair<TreeEntry*,TreeEntry*> ResultPair; //no boost set for thrust
 typedef boost::unordered_set< ResultPair > ResultList; // storing unique results
 
 class ResultPairs

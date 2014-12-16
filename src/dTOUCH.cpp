@@ -135,7 +135,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     {
         TreeEntry* obj = ds[i];
         
-        TreeEntry* nextNode;
+        TreeNode* nextNode;
         TreeNode* ptr = root;
         
         while(true)
@@ -225,18 +225,18 @@ void dTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
             }
             else
             {
-                NL(obj, node);
+                NL(obj, node->attachedObjs[0]);
             }
             comparing.stop();
 
         }
         else
         {
-            for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
+            for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
             {
-                if (FLAT::Box::overlap(obj->mbr, node->entries.at(child)->mbr))
+                if (FLAT::Box::overlap(obj->mbr, (*it)->mbr))
                 {
-                    nodes.push(node->entries.at(child)->childIndex);
+                    nodes.push((*it));
                 } 
             }
         }

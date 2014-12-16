@@ -110,15 +110,14 @@ void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
 {
     queue<TreeNode*> nodes;
     nodes.push(ancestorNode);
-
+    TreeNode* node;
     while(nodes.size()>0)
     {
         //start from checking children, each for intersection of MBR
         // then if intersects - check the assign objects of child
         // and if it is not a leaf node and intersects -> add to the queue
 
-        nodeID = nodes.front();
-        node = tree.at(nodeID);
+        node = nodes.front();
         nodes.pop();
 
         if (node->leafnode == true)
@@ -190,7 +189,7 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
             {
                 ItemsMaxCompared += node->attachedObjs[1].size();
                 comparing.start();
-                if (FLAT::Box::overlap((*it)->mbr, node->parentEntry->mbrSelfD[1]))
+                if (FLAT::Box::overlap((*it)->mbr, node->mbrSelfD[1]))
                     NL((*it), node->attachedObjs[1]);
                 comparing.stop();
             }
@@ -213,7 +212,7 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
             {
                 ItemsMaxCompared += node->attachedObjs[0].size();
                 comparing.start();
-                if (FLAT::Box::overlap((*it)->mbr, node->parentEntry->mbrSelfD[0]))
+                if (FLAT::Box::overlap((*it)->mbr, node->mbrSelfD[0]))
                 {
                     NL((*it), node->attachedObjs[0]);
                 }
@@ -327,7 +326,7 @@ void CommonTOUCH::countSpatialGrid()
             {
                 (*it)->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
                 (*it)->spatialGridHash[type]->epsilon = this->epsilon;
-                (*it)->spatialGridHash[type]->build((*it)->entries);
+                (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
                 continue;
             }
             
@@ -394,7 +393,7 @@ void CommonTOUCH::writeNode(NodeList& nodelist, int Level)
     FLAT::Box mbr;
     totalnodes++;
     
-    for (SpatialObjectList::iterator it=nodelist.begin(); it!=nodelist.end(); ++it)
+    for (NodeList::iterator it=nodelist.begin(); it!=nodelist.end(); ++it)
     {
             prNode->entries.push_back(*it);
             mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
@@ -437,12 +436,12 @@ void CommonTOUCH::createTreeLevel(SpatialObjectList& input)
     switch (PartitioningType)
     {
         case Hilbert_Sort:
-            thrust::sort(input.begin(),input.end(),ComparatorHilbert());
+            thrust::sort(input.begin(),input.end(),ComparatorHilbertEntry());
             break;
         case No_Sort:
             break;
         default:
-            thrust::sort(input.begin(),input.end(),Comparator());
+            thrust::sort(input.begin(),input.end(),ComparatorEntry());
             break;
     }
     sorting.stop();
@@ -450,7 +449,7 @@ void CommonTOUCH::createTreeLevel(SpatialObjectList& input)
     if (verbose) std::cout << "Sort "<< input.size()<< " leaf objects in " << sorting << std::endl;
     
     SpatialObjectList entries;
-    for (NodeList::iterator it=input.begin();it!=input.end();++it)
+    for (SpatialObjectList::iterator it=input.begin();it!=input.end();++it)
     {
             if (entries.size()<leafsize)
             {
@@ -488,10 +487,10 @@ void CommonTOUCH::createTreeLevel(NodeList& input, int Level)
     NodeList entries;
     for (NodeList::iterator it=input.begin();it!=input.end();++it)
     {
-            if (entries.size()<nodeSize)
+            if (entries.size()<nodesize)
             {
                     entries.push_back(*it);
-                    if (entries.size()>=nodeSize)
+                    if (entries.size()>=nodesize)
                     {
                             writeNode(entries,Level);
                             entries.clear();

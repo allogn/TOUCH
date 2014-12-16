@@ -46,11 +46,17 @@ public:
     void countSpatialGrid();
     void deduplicateSpatialGrid();
     
-    void NL(TreeEntry*& A, SpatialObjectList& B)
+    virtual void NL(TreeEntry*& A, SpatialObjectList& B)
     {
         for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
             if ( istouching(A , *itB) )
                 resultPairs.addPair( A , *itB );
+    }
+    
+    virtual void NL(SpatialObjectList& A, SpatialObjectList& B)
+    {
+        for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
+            NL((*itA),B);
     }
     
     TreeNode* root;
@@ -61,11 +67,11 @@ protected:
     * So create to entries that point to the new node of two types.
     * Create entry iff it is not empty
     */
-    void writeNode(SpatialObjectList& objlist);
-    void writeNode(NodeList& objlist, int Level);
+    virtual void writeNode(SpatialObjectList& objlist);
+    virtual void writeNode(NodeList& objlist, int Level);
     void createTreeLevel(SpatialObjectList& input);
     void createTreeLevel(NodeList& input, int Level);
-    void createPartitions(SpatialObjectList vds);
+    void createPartitions(SpatialObjectList& vds);
     
     void analyze();
     

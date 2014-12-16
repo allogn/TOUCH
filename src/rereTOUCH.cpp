@@ -315,7 +315,7 @@ void rereTOUCH::reassignmentB()
             overlapA = 0;
             overlapT = 0;
             //find the number of Boverlaps of belows and the number of Toverlaps of assings of This level
-            for (std::vector<TreeEntry*>::iterator ent=ptr->entries.begin();ent!=ptr->entries.end();++ent)
+            for (NodeList::iterator ent=ptr->entries.begin();ent!=ptr->entries.end();++ent)
             {
                 if(overlapA>1 || overlapT>1 || (overlapA==1 && overlapT==1 && Ansptr != nextNode))
 						break;
@@ -391,7 +391,7 @@ void rereTOUCH::reassignmentB()
 
 }
 
-void reTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
+void rereTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
 {
     queue<TreeNode*> nodes;
     TreeNode* node, * downnode;
@@ -474,7 +474,7 @@ void reTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
     }
 }
 
-void reTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
+void rereTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
 {
     //check for intersection all nodes below, where smth was attached with opposite color.
 
@@ -566,9 +566,9 @@ void reTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
 
 }
 
-FLAT::uint64 reTOUCH::mergingMbrB(TreeNode* startEntry, FLAT::Box &mbr)
+FLAT::uint64 rereTOUCH::mergingMbrB(TreeNode* startNode, FLAT::Box &mbr, bool clearA)
 {
-    TreeNode* ptr = startEntry;
+    TreeNode* ptr = startNode;
     FLAT::uint64 numB=0;
 
     if (ptr->leafnode)
@@ -583,7 +583,8 @@ FLAT::uint64 reTOUCH::mergingMbrB(TreeNode* startEntry, FLAT::Box &mbr)
     {
         numB += (*ent)->num[1];
         (*ent)->mbrL[0].isEmpty = true;
-        (*ent)->num[1] = mergingMbrB((*ent), (*ent)->mbrL[1]);
+        if (clearA) (*ent)->mbrL[0].isEmpty = true;
+        (*ent)->num[1] = mergingMbrB((*ent), (*ent)->mbrL[1], clearA);
         numB += (*ent)->num[1];
         mbr = FLAT::Box::combineSafe((*ent)->mbrL[1],mbr);
         mbr = FLAT::Box::combineSafe((*ent)->mbrSelfD[1],mbr);
