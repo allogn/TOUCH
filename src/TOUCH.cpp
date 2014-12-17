@@ -87,12 +87,13 @@ void TOUCH::assignment()
 
 void TOUCH::joinNodeToDesc(TreeNode* ancestorNode)
 {
-    SpatialGridHash* spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
-    spatialGridHash->epsilon = this->epsilon;
+    SpatialGridHash* spatialGridHash;
     queue<TreeNode*> leaves;
     TreeNode* leaf;
     if( localJoin == algo_SGrid )
     {
+        spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
+        spatialGridHash->epsilon = this->epsilon;
         gridCalculate.start();
         spatialGridHash->build(ancestorNode->attachedObjs[1]);
         gridCalculate.stop();

@@ -101,23 +101,6 @@ private:
 				}
 		return true;
 	}
-	bool getProjectedCells(FLAT::Box& mbr,vector<FLAT::uint64>& cells)
-	{
-
-		if (!FLAT::Box::overlap(mbr,universe)) return false;
-
-		int xMin,xMax,yMin,yMax,zMin,zMax;
-		vertex2GridLocation(mbr.low,xMin,yMin,zMin);
-		vertex2GridLocation(mbr.high,xMax,yMax,zMax);
-
-		for (int i=xMin;i<=xMax;++i)
-			for (int j=yMin;j<=yMax;++j)
-				for (int k=zMin;k<=zMax;++k)
-				{
-					cells.push_back( gridLocation2Index(i,j,k) );
-				}
-		return true;
-	}
 
 public:
 

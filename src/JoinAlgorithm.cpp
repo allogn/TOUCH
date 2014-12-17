@@ -83,7 +83,6 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
     {
         sobj = inputA->getNext();
         newEntry = new TreeEntry(sobj,0,numA,epsilon);
-        
         for (int i=0;i<DIMENSION;i++)
         {
             universeA.low.Vector[i] = min(universeA.low.Vector[i],newEntry->mbr.low.Vector[i]);
@@ -111,6 +110,8 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
         vdsAll.push_back(newEntry);
     }
     
+    universeA.isEmpty = false;
+    universeB.isEmpty = false;
     FLAT::Box::expand(universeA,epsilon);
     FLAT::Box::expand(universeB,epsilon);
 

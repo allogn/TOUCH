@@ -8,8 +8,6 @@
 
 CommonTOUCH::CommonTOUCH() {
     localPartitions = 100;
-    nodesize = base;
-    leafsize = partitions;
     PartitioningType = No_Sort;
     
     for (int t = 0; t < TYPES; t++)
@@ -106,6 +104,10 @@ void CommonTOUCH::saveLog() {
 
 }
 
+/*
+ * ancestorNode is node where obj is assigned.
+ * First ancestor node is not checked, go through children
+ */
 void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
 {
     queue<TreeNode*> nodes;
@@ -242,11 +244,7 @@ void CommonTOUCH::probe()
             {
                     Qnodes.push((*it));
             }
-
-        // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
-        if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()==0)
-            continue;
-
+        
         // just to display the level of the BFS traversal
         if (verbose)
             if(lvl!=currentNode->level)
@@ -254,6 +252,12 @@ void CommonTOUCH::probe()
                     lvl = currentNode->level;
                     cout << "\n### Level " << lvl <<endl;
             }
+        
+        // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
+        if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()==0)
+            continue;
+
+
 
         joinNodeToDesc(currentNode);
     }
@@ -382,6 +386,7 @@ void CommonTOUCH::writeNode(SpatialObjectList& objlist)
         mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
     }
     prNode->mbr = mbr;
+    prNode->mbrL[0] = mbr;
     
     tree.push_back(prNode);
     nextInput.push_back(prNode);
@@ -399,6 +404,7 @@ void CommonTOUCH::writeNode(NodeList& nodelist, int Level)
             mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
     }
     prNode->mbr = mbr;
+    prNode->mbrL[0] = mbr;
     
     tree.push_back(prNode);
     nextInput.push_back(prNode);
@@ -408,12 +414,14 @@ void CommonTOUCH::createPartitions(SpatialObjectList& vds)
 {
     partition.start();
 
-    Levels = 0;
+    Levels = 1;
     totalnodes = 0;
     
     createTreeLevel(vds);
+    if (verbose) std::cout << "Tree leafs sorted." << std::endl;
     NodeList nds;
     swap(nds,nextInput);
+    nextInput.clear();
     while(nds.size()>1)
     {
         if (verbose) 

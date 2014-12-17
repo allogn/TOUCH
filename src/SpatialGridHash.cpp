@@ -125,18 +125,8 @@ void SpatialGridHash::probe(const SpatialObjectList& dsB)
             filtered[(*i)->type]++;
             continue;
         }
-
         ///// Get Unique Objects from Grid Hash in Vicinity
         hashprobe += cells.size();
-
-        if ((*i)->id == 2572) 
-        for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
-        {
-            HashTable::iterator it = gridHashTable.find(*j);
-            if (it==gridHashTable.end()) continue;
-            HashValue* soList = it->second;
-        }
-
 
         for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
         {

@@ -28,6 +28,9 @@ public:
     TreeEntry(FLAT::SpatialObject* object, int ntype, int nid, double epsilon)
     {
         obj = object;
+        type = ntype;
+        id = nid;
+        
         mbr = obj->getMBR();
         mbr.isEmpty = false;
         FLAT::Box::expand(mbr, (double)epsilon/2.);
