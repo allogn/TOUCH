@@ -129,15 +129,15 @@ void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
         for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
         {
             //if intersects
-            ItemsMaxCompared += (*it)->attachedObjs[0].size();
+            ItemsMaxCompared += (*it)->attachedObjs[!obj->type].size();
             comparing.start();
             if(localJoin == algo_SGrid)
             {
-                (*it)->spatialGridHash[0]->probe(obj);
+                (*it)->spatialGridHash[!obj->type]->probe(obj);
             }
             else
             {
-                NL(obj, (*it)->attachedObjs[0]);
+                NL(obj, (*it)->attachedObjs[!obj->type]);
             }
             comparing.stop();
             if (FLAT::Box::overlap(obj->mbr, (*it)->mbr))
@@ -160,9 +160,6 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
     {
         joinObjectToDesc((*it), node);
     }
-    
-    if (algorithm == algo_dTOUCH)
-        return;
 
     /*
      * B -> A_below
@@ -189,17 +186,20 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
             for (SpatialObjectList::iterator it = node->attachedObjs[0].begin();
                                                             it != node->attachedObjs[0].end(); it++)
             {
-                ItemsMaxCompared += node->attachedObjs[1].size();
+                ItemsMaxCompared += node->attachedObjs[1].size();                                
                 comparing.start();
-                if (FLAT::Box::overlap((*it)->mbr, node->mbrSelfD[1]))
+                if ((algorithm == algo_dTOUCH) && (FLAT::Box::overlap((*it)->mbr, node->mbr)))
                     NL((*it), node->attachedObjs[1]);
+                else
+                    if (FLAT::Box::overlap((*it)->mbr, node->mbrSelfD[1]))
+                        NL((*it), node->attachedObjs[1]);
                 comparing.stop();
             }
         }
         
         
     }
-    else
+    else 
     {
         if(localJoin == algo_SGrid)
         {
@@ -214,10 +214,11 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
             {
                 ItemsMaxCompared += node->attachedObjs[0].size();
                 comparing.start();
-                if (FLAT::Box::overlap((*it)->mbr, node->mbrSelfD[0]))
-                {
+                if ((algorithm == algo_dTOUCH) && (FLAT::Box::overlap((*it)->mbr, node->mbr)))
                     NL((*it), node->attachedObjs[0]);
-                }
+                else
+                    if (FLAT::Box::overlap((*it)->mbr, node->mbrSelfD[0]))
+                        NL((*it), node->attachedObjs[0]);
                 comparing.stop();
             }
         }
@@ -326,13 +327,8 @@ void CommonTOUCH::countSpatialGrid()
             }
             
             
-            if (this->algorithm == algo_dTOUCH && (*it)->leafnode && type==0)
-            {
-                (*it)->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
-                (*it)->spatialGridHash[type]->epsilon = this->epsilon;
-                (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
+            if (this->algorithm == algo_dTOUCH && !(*it)->leafnode)
                 continue;
-            }
             
             (*it)->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
             (*it)->spatialGridHash[type]->epsilon = this->epsilon;
@@ -386,7 +382,6 @@ void CommonTOUCH::writeNode(SpatialObjectList& objlist)
         mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
     }
     prNode->mbr = mbr;
-    prNode->mbrL[0] = mbr;
     
     tree.push_back(prNode);
     nextInput.push_back(prNode);

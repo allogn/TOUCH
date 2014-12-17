@@ -129,7 +129,6 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     
     if (ds.size() == 0)
         return;
-    int assignedType = (*ds.begin())->type;
     
     for (unsigned int i=0;i<ds.size();++i)
     {
@@ -153,7 +152,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
                     }
                     else
                     {
-                        if (assignedType == 1)
+                        if (obj->type == 1)
                         {
                             //should be assigned to this level
                             double coin = (rand()/(double)(RAND_MAX));
@@ -164,7 +163,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
                             }
                             else
                             {
-                                ptr->attachedObjs[0].push_back(obj);
+                                ptr->attachedObjs[obj->type].push_back(obj);
                             }
                             assigned = true;
                             assigned_level = ptr->level;
@@ -172,7 +171,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
                         }
                         else
                         {
-                            ptr->attachedObjs[0].push_back(obj);
+                            ptr->attachedObjs[obj->type].push_back(obj);
                             assigned = true;
                             assigned_level = ptr->level;
                             break;
@@ -193,51 +192,8 @@ void dTOUCH::assignment(SpatialObjectList& ds)
             ptr = nextNode;
             if(ptr->leafnode)
             {
-                ptr->attachedObjs[0].push_back(obj);
+                ptr->attachedObjs[obj->type].push_back(obj);
                 break;
-            }
-        }
-    }
-}
-
-void dTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
-{
-    queue<TreeNode*> nodes;
-
-    TreeNode* node;
-    nodes.push(ancestorNode);
-
-    while(nodes.size()>0)
-    {
-        node = nodes.front();
-        nodes.pop();
-
-        if (node->leafnode == true)
-        {
-            //intersect with all non-null children
-                
-            //if intersects
-            ItemsMaxCompared += 1;
-            comparing.start();
-            if(localJoin == algo_SGrid)
-            {
-                node->spatialGridHash[0]->probe(obj);
-            }
-            else
-            {
-                NL(obj, node->attachedObjs[0]);
-            }
-            comparing.stop();
-
-        }
-        else
-        {
-            for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
-            {
-                if (FLAT::Box::overlap(obj->mbr, (*it)->mbr))
-                {
-                    nodes.push((*it));
-                } 
             }
         }
     }

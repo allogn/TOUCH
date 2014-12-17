@@ -18,8 +18,6 @@ class dTOUCH : public CommonTOUCH
 private:
     
     void assignment(SpatialObjectList& ds);
-    void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);
-
 public:
 
     dTOUCH();
