@@ -1,8 +1,8 @@
-data1="../../data/RandomData-160K.bin"
+data1="../../data/RawData-segment-object-1M-Dendrites.bin"
 
 for samplesize in {2000..10000..2000}
 do
-    mkdir ./samples/$samplesize
-    echo "../../bin/SampleGenerator -i $data1 -p ./samples/$samplesize/ -s $samplesize -n 10"
-    ../../bin/SampleGenerator -i $data1 -p ./samples/$samplesize/ -s $samplesize -n 10
+    mkdir ./samplesDendrites/$samplesize
+    echo "../../bin/SampleGenerator -i $data1 -p ./samplesDendrites/$samplesize/ -s $samplesize -n 10"
+    ../../bin/SampleGenerator -i $data1 -p ./samplesDendrites/$samplesize/ -s $samplesize -n 10
 done

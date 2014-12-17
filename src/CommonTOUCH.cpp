@@ -286,23 +286,23 @@ void CommonTOUCH::countSizeStatistics()
     FLAT::Box mbr;
     for (std::vector<TreeNode*>::iterator it = tree.begin(); it != tree.end(); it++)
     { 
-        (*it)->avrSize = 0;
-        (*it)->stdSize = 0;
         for (int type = 0; type < TYPES; type++)
         {
+            (*it)->avrSize[type] = 0;
+            (*it)->stdSize[type] = 0;
             for (SpatialObjectList::iterator oBit = (*it)->attachedObjs[type].begin();
                     oBit != (*it)->attachedObjs[type].end(); oBit++)
             {
                 double v = FLAT::Box::volume((*oBit)->getMBR());
-                (*it)->avrSize += v;
-                (*it)->stdSize += v*v;  
+                (*it)->avrSize[type] += v;
+                (*it)->stdSize[type] += v*v;  
             }
             for (SpatialObjectList::iterator oBit = (*it)->attachedObjsAns[type].begin();
                     oBit != (*it)->attachedObjsAns[type].end(); oBit++)
             {
                 double v = FLAT::Box::volume((*oBit)->getMBR());
-                (*it)->avrSize += v;
-                (*it)->stdSize += v*v;  
+                (*it)->avrSize[type] += v;
+                (*it)->stdSize[type] += v*v;  
             }
         }
     }
@@ -317,8 +317,27 @@ void CommonTOUCH::countSpatialGrid()
     { 
         for (int type = 0; type < TYPES; type++)
         {
-            mbr = (type == 0)?universeA:universeB;
-            mbr.isEmpty = false;
+            if (algorithm == algo_TOUCH || algorithm == algo_dTOUCH)
+            {
+                mbr = (*it)->parentEntry->mbrL[type];
+            } else {
+                mbr = (*it)->parentEntry->mbrSelfD[type];
+            }
+            
+            
+            //temporary ignore global localPartition. if success - remove it from parameters
+            
+            //resolution is number of cells per dimension
+            int resolution;
+            double spaceVol = FLAT::Box::volume(mbr);
+            if ((*it)->avrSize[type] == 0)
+            {
+                resolution = 100;
+            }
+            else
+            {
+                resolution = (int) std::pow(spaceVol/(*it)->avrSize[type],1./3.);
+            }
             
             if (this->algorithm == algo_dTOUCH && (*it)->leafnode && type==0)
             {
@@ -506,8 +525,8 @@ void CommonTOUCH::analyze()
                 if (maxMappedObjects < cursum) maxMappedObjects = cursum; // save maximum assigned objects
                 if (tree.at(ni)->level < 10)
                 {
-                    levelAvg[type][tree.at(ni)->level] += tree.at(ni)->avrSize;
-                    levelStd[type][tree.at(ni)->level] += tree.at(ni)->stdSize;
+                    levelAvg[type][tree.at(ni)->level] += tree.at(ni)->avrSize[type];
+                    levelStd[type][tree.at(ni)->level] += tree.at(ni)->stdSize[type];
                 }
         }
         if (verbose)

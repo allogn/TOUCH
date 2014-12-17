@@ -25,8 +25,8 @@ public:
 	std::vector<FLAT::SpatialObject*> attachedObjs[TYPES];
         std::vector<FLAT::SpatialObject*> attachedObjsAns[TYPES];
         
-        double avrSize;
-        double stdSize;
+        double avrSize[TYPES];
+        double stdSize[TYPES];
     
 	TreeNode(int Level)
 	{
