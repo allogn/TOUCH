@@ -151,7 +151,6 @@ void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
 
 void CommonTOUCH::joinNodeToDesc(TreeNode* node)
 {
-    
     /*
      * A -> B_below
      */
@@ -255,11 +254,10 @@ void CommonTOUCH::probe()
             }
         
         // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
-        if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()==0)
+       
+        if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()
+                + currentNode->attachedObjsAns[0].size() + currentNode->attachedObjsAns[1].size() ==0)
             continue;
-
-
-
         joinNodeToDesc(currentNode);
     }
     probing.stop();
@@ -382,6 +380,7 @@ void CommonTOUCH::writeNode(SpatialObjectList& objlist)
         mbr = FLAT::Box::combineSafe((*it)->mbr,mbr);
     }
     prNode->mbr = mbr;
+    prNode->mbrL[0] = mbr;
     
     tree.push_back(prNode);
     nextInput.push_back(prNode);

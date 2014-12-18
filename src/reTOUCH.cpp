@@ -176,7 +176,7 @@ void reTOUCH::assignmentA()
             overlapT = 0;
             //find the number of Boverlaps of belows and the number of Toverlaps of assings of This level
             for (NodeList::iterator ent=ptr->entries.begin();ent!=ptr->entries.end();++ent)
-            {
+            {   
                 if(overlapB>1 || overlapT>1 || (overlapB==1 && overlapT==1 && Ansptr != nextNode))
 						break;
                 if ( FLAT::Box::overlap(objA->mbr,(*ent)->mbrL[1]) )
@@ -445,6 +445,7 @@ FLAT::uint64 reTOUCH::mergingMbrB(TreeNode* startEntry, FLAT::Box &mbr)
     {
         numB += (*ent)->num[1];
         (*ent)->mbrL[0].isEmpty = true;
+        (*ent)->attachedObjs[0].clear();
         (*ent)->num[1] = mergingMbrB((*ent), (*ent)->mbrL[1]);
         numB += (*ent)->num[1];
         mbr = FLAT::Box::combineSafe((*ent)->mbrL[1],mbr);

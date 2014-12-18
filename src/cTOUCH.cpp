@@ -108,7 +108,6 @@ void cTOUCH::assignment()
     QParentNodes.push(root);
 
     //getting all leaf nodes and assigned objects to leafs
-    
     while(Qnodes.size()>0)
     {
         TreeNode* currentNode = Qnodes.front(); //take one node. if leaf -  assign its objects. if not - go further
@@ -138,6 +137,7 @@ void cTOUCH::assignment()
                  * For each object in the leaf node of type <current_type>
                  * do the assignment to the tree from the top
                  */
+                cout << "new type" << endl;
                 for (SpatialObjectList::iterator it = currentNode->attachedObjs[current_type].begin();
                         it != currentNode->attachedObjs[current_type].end(); it++) 
                 {
@@ -158,10 +158,13 @@ void cTOUCH::assignment()
                          * If <obj> intersects with one of Current Dark Mbr
                          * it can not be filtered anymore
                          */
+                cout << "test1" << nextNode->mbrSelfD[opType] << endl;
+                cout << currentNode->attachedObjs[current_type].size() << endl;
                         if (canFilter == true && FLAT::Box::overlap((*it)->mbr, nextNode->mbrSelfD[opType]))
                         {
                             canFilter = false;
                         }
+                cout << "test133" << endl;
                         
                         for (NodeList::iterator nit = ptr->entries.begin(); nit != ptr->entries.end(); nit++)
                         {
@@ -197,7 +200,6 @@ void cTOUCH::assignment()
                         {
                             if ( canFilter == false )
                             {
-                                // @todo maybe add log that it was not filtered
                                 assign(ptr, (*it));
                                 break;
                             }
@@ -213,17 +215,19 @@ void cTOUCH::assignment()
                             break;
                         }
                     }
+                    
                 }
                 /* End of object assignment */
 
                 //here - delete all leaf node (current type) and update light tree and black tree
                 //do not delete - only earse mbr's
                 currentNode->mbrL[current_type].isEmpty = true;
+                ancestorNode = currentNode;
                 while (1)
                 {
-                    if (currentNode->root == 1)
+                    if (ancestorNode->root == 1)
                             break; // we are at root
-                    ancestorNode = currentNode->parentNode;
+                    ancestorNode = ancestorNode->parentNode;
                     ancestorNode->mbrL[current_type].isEmpty = true; // reset mbr
                     for (NodeList::iterator it=ancestorNode->entries.begin(); it!=ancestorNode->entries.end(); ++it)
                     {
@@ -253,27 +257,24 @@ void cTOUCH::assign(TreeNode* ptr, TreeEntry* obj)
     int current_type = obj->type;
     int opType = (current_type == 0)?1:0; // opposite type
     
-    TreeNode* ancestorNode;
-    
     //should be assigned to this level
     ptr->attachedObjs[current_type].push_back(obj);
 
     //start updating from the first ancestor, but in the object only update SelfMBR
 
-    ancestorNode->mbrSelfD[current_type] = FLAT::Box::combineSafe(ancestorNode->mbrSelfD[current_type], obj->mbr);
-    ancestorNode->mbrK[current_type] = FLAT::Box::combineSafe(ancestorNode->mbrSelfD[current_type], ancestorNode->mbrK[current_type]);
-
+    ptr->mbrSelfD[current_type] = FLAT::Box::combineSafe(ptr->mbrSelfD[current_type], obj->mbr);
+    ptr->mbrK[current_type] = FLAT::Box::combineSafe(ptr->mbrSelfD[current_type], ptr->mbrK[current_type]);
     /*
      * Update MBR's and costs of ancestors
      */
     while (1)
     {
-        if (ancestorNode->root == 1)
+        if (ptr->root == 1)
             break; // we are at root
-        ancestorNode = ancestorNode->parentNode;
+        ptr = ptr->parentNode;
 
-        ancestorNode->mbrD[current_type] = FLAT::Box::combineSafe(ancestorNode->mbrD[current_type], obj->mbr);
-        ancestorNode->mbrK[current_type] = FLAT::Box::combineSafe(ancestorNode->mbrD[current_type], ancestorNode->mbrK[current_type]);
+        ptr->mbrD[current_type] = FLAT::Box::combineSafe(ptr->mbrD[current_type], obj->mbr);
+        ptr->mbrK[current_type] = FLAT::Box::combineSafe(ptr->mbrD[current_type], ptr->mbrK[current_type]);
 
         //here - update cost
 //        for (SpatialObjectList::iterator it = ancestorNode->attachedObjs[opType].begin();

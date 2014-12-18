@@ -46,6 +46,7 @@ public:
 	TreeNode(int Level)
 	{
 		level = Level;
+                root = 0;
 		if (Level==0) leafnode = true;
 		else leafnode = false;
                 mbr.isEmpty = true;

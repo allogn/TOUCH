@@ -422,10 +422,12 @@ void rereTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
                     if(localJoin == algo_SGrid)
                     {
                         (*it)->spatialGridHash[1]->probe(obj);
+                        (*it)->spatialGridHashAns[1]->probe(obj);
                     }
                     else
                     {
                         NL(obj, (*it)->attachedObjs[1]);
+                        NL(obj, (*it)->attachedObjsAns[1]);
                     }
                     comparing.stop();
                 }
@@ -487,12 +489,22 @@ void rereTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
     {
         joinObjectToDesc((*it), ancestorNode);
     }
+    for (SpatialObjectList::iterator it = node->attachedObjsAns[0].begin();
+                                                it != node->attachedObjsAns[0].end(); it++)
+    {
+        joinObjectToDesc((*it), ancestorNode);
+    }
 
     /*
      * B -> A_below
      */
     for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
                                                     it != node->attachedObjs[1].end(); it++)
+    {
+        joinObjectToDesc((*it), ancestorNode);
+    }
+    for (SpatialObjectList::iterator it = node->attachedObjsAns[1].begin();
+                                                it != node->attachedObjsAns[1].end(); it++)
     {
         joinObjectToDesc((*it), ancestorNode);
     }
@@ -508,6 +520,8 @@ void rereTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
             comparing.start();
             node->spatialGridHash[0]->probe(node->attachedObjs[1]);
             node->spatialGridHashAns[0]->probe(node->attachedObjs[1]);
+            node->spatialGridHash[0]->probe(node->attachedObjsAns[1]);
+            node->spatialGridHashAns[0]->probe(node->attachedObjsAns[1]);
             comparing.stop();
         }
         else
@@ -520,6 +534,7 @@ void rereTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[1]))
                 {
                     NL((*it), node->attachedObjs[1]);
+                    NL((*it), node->attachedObjsAns[1]);
                 }
                 comparing.stop();
             }
@@ -531,6 +546,7 @@ void rereTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[1]))
                 {
                     NL((*it), node->attachedObjs[1]);
+                    NL((*it), node->attachedObjsAns[1]);
                 }
                 comparing.stop();
             }
@@ -543,6 +559,8 @@ void rereTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
             comparing.start();
             node->spatialGridHash[1]->probe(node->attachedObjs[0]);
             node->spatialGridHash[1]->probe(node->attachedObjsAns[0]);
+            node->spatialGridHashAns[1]->probe(node->attachedObjs[0]);
+            node->spatialGridHashAns[1]->probe(node->attachedObjsAns[0]);
             comparing.stop();
         }
         else
@@ -560,15 +578,27 @@ void rereTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
                 comparing.stop();
 
             }
+            for (SpatialObjectList::iterator it = node->attachedObjsAns[1].begin();
+                                                it != node->attachedObjsAns[1].end(); it++)
+            {
+                FLAT::Box mbr = (*it)->getMBR();
+                comparing.start();
+                if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[0]))
+                {
+                    NL((*it), node->attachedObjs[0]);
+                    NL((*it), node->attachedObjsAns[0]);
+                }
+                comparing.stop();
+            }
         }
     }
 
 
 }
 
-FLAT::uint64 rereTOUCH::mergingMbrB(TreeNode* startNode, FLAT::Box &mbr, bool clearA)
+FLAT::uint64 rereTOUCH::mergingMbrB(TreeNode* startEntry, FLAT::Box &mbr, bool clearA)
 {
-    TreeNode* ptr = startNode;
+    TreeNode* ptr = startEntry;
     FLAT::uint64 numB=0;
 
     if (ptr->leafnode)
@@ -582,9 +612,14 @@ FLAT::uint64 rereTOUCH::mergingMbrB(TreeNode* startNode, FLAT::Box &mbr, bool cl
     for (NodeList::iterator ent = ptr->entries.begin(); ent!=ptr->entries.end(); ++ent)
     {
         numB += (*ent)->num[1];
-        (*ent)->mbrL[0].isEmpty = true;
-        if (clearA) (*ent)->mbrL[0].isEmpty = true;
+        
+        if (clearA) 
+        {
+            (*ent)->mbrL[0].isEmpty = true;
+            (*ent)->attachedObjs[0].clear();
+        }
         (*ent)->num[1] = mergingMbrB((*ent), (*ent)->mbrL[1], clearA);
+        
         numB += (*ent)->num[1];
         mbr = FLAT::Box::combineSafe((*ent)->mbrL[1],mbr);
         mbr = FLAT::Box::combineSafe((*ent)->mbrSelfD[1],mbr);
