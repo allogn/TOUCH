@@ -21,7 +21,7 @@ void reTOUCH::run()
     if(localJoin == algo_SGrid)
         countSpatialGrid();
     if (verbose) std::cout << "Probing, doing the join" << std::endl; 
-    probe();
+    probeDownUp();
     if(localJoin == algo_SGrid)
     {
         if (verbose) std::cout << "Removing duplicates" << std::endl; 

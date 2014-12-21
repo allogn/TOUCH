@@ -267,6 +267,47 @@ void CommonTOUCH::probe()
     probing.stop();
 }
 
+void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
+{
+    for (int type = 0; type < TYPES; type++)
+    {
+        if (localJoin == algo_SGrid)
+        {
+            node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
+            node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+        }
+        else
+        {
+            NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
+            NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
+        }
+    }
+}
+
+void CommonTOUCH::pathWayJoin(TreeNode* node)
+{
+    probingList.push_back(node);
+    if (!node->leafnode)
+    {
+        if (localJoin == algo_SGrid) countSpatialGrid(node);
+        for (NodeList::iterator cit = node->entries.begin(); cit != node->entries.end(); cit++)
+        {
+            pathWayJoin((*cit));
+        }
+    }
+    for (NodeList::iterator ancit = probingList.begin(); ancit != probingList.end(); ancit++)
+    {
+        JOIN((*ancit),node);
+    }
+    if (localJoin == algo_SGrid) deduplicateSpatialGrid(node);
+    probingList.pop_back();
+}
+
+void CommonTOUCH::probeDownUp()
+{
+    pathWayJoin(root);
+}
+
 void CommonTOUCH::countSizeStatistics()
 {
     //put Ans and not Ans together!
@@ -347,6 +388,52 @@ void CommonTOUCH::countSpatialGrid()
     gridCalculate.stop();
 }
 
+void CommonTOUCH::countSpatialGrid(TreeNode* node)
+{
+    gridCalculate.start();
+    FLAT::Box mbr;
+    for (int type = 0; type < TYPES; type++)
+    {
+        if (algorithm == algo_TOUCH || algorithm == algo_dTOUCH)
+        {
+            mbr = node->mbrL[type];
+        } else {
+            mbr = node->mbrSelfD[type];
+        }
+
+
+        //temporary ignore global localPartition. if success - remove it from parameters
+
+        //resolution is number of cells per dimension
+        int resolution;
+        double spaceVol = FLAT::Box::volume(mbr);
+        if (node->avrSize[type] == 0)
+        {
+            resolution = 1;
+        }
+        else
+        {
+            resolution = (int) std::pow(spaceVol/node->avrSize[type],1./3.);
+        }
+
+
+        if (this->algorithm == algo_dTOUCH && !node->leafnode)
+            continue;
+
+        node->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
+        node->spatialGridHash[type]->epsilon = this->epsilon;
+        node->spatialGridHash[type]->build(node->attachedObjs[type]);
+
+        if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
+        {
+            node->spatialGridHashAns[type] = new SpatialGridHash(mbr,localPartitions);
+            node->spatialGridHashAns[type]->epsilon = this->epsilon;
+            node->spatialGridHashAns[type]->build(node->attachedObjsAns[type]);
+        }
+    }
+    gridCalculate.stop();
+}
+
 void CommonTOUCH::deduplicateSpatialGrid()
 {
     for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
@@ -365,6 +452,26 @@ void CommonTOUCH::deduplicateSpatialGrid()
                 SpatialGridHash::transferInfo((*it)->spatialGridHashAns[type], this);
             }
         }
+    }
+    
+    //@todo free memory
+}
+
+void CommonTOUCH::deduplicateSpatialGrid(TreeNode* node)
+{
+    for (int type = 0; type < TYPES; type++)
+    {
+        if (this->algorithm == algo_dTOUCH && !node->leafnode)
+            continue;
+
+        node->spatialGridHash[type]->resultPairs.deDuplicate();
+        SpatialGridHash::transferInfo(node->spatialGridHash[type], this);
+
+        if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
+        {
+            node->spatialGridHashAns[type]->resultPairs.deDuplicate();
+            SpatialGridHash::transferInfo(node->spatialGridHashAns[type], this);
+        }   
     }
 }
 

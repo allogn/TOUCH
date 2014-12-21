@@ -29,6 +29,11 @@ public:
     
     unsigned int totalnodes;
     
+    NodeList probingList;
+    
+    void probeDownUp();
+    void pathWayJoin(TreeNode* node);
+    void JOIN(TreeNode* node, TreeNode* nodeObj);
     
     virtual void joinNodeToDesc(TreeNode* ancestorNode);
     virtual void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);
@@ -37,7 +42,9 @@ public:
     void countSizeStatistics();
     
     void countSpatialGrid();
+    void countSpatialGrid(TreeNode* node);
     void deduplicateSpatialGrid();
+    void deduplicateSpatialGrid(TreeNode* node);
     
     virtual void NL(TreeEntry*& A, SpatialObjectList& B)
     {

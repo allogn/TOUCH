@@ -24,7 +24,7 @@ public:
     ~dTOUCH();
     
     void run();
-    
+    void joinNodeToDesc(TreeNode* ancestorNode);
 };
 
 
