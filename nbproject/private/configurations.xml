@@ -1909,8 +1909,6 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
-        <gdb_signals>
-        </gdb_signals>
         <gdb_options>
           <DebugOptions>
             <option name="gdb_source_dirs" value="apps:include:src"/>
@@ -1927,7 +1925,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i ..\data\RandomData-10K.bin ..\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"/main -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i ..\data\RandomData-10K.bin ..\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./main -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./main -a 4 -p 100 -e 10 -b 3 -t 1 -J 2 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
@@ -1938,6 +1935,7 @@
           <runcommandpicklistitem>./SpatialJoin -a 6 -p 100 -e 10 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin -n 1000 1000 -v 1</runcommandpicklistitem>
           <runcommandpicklistitem>./SpatialJoin -e 15 -v 1 -n 1000 1000 -J -0 -a 6
 </runcommandpicklistitem>
+          <runcommandpicklistitem>./SpatialJoin -e 15 -v 1 -n 1000 1000 -J -0 -a 6</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>./SpatialJoin -e 15 -v 1 -n 1000 1000 -J -0 -a 6</runcommand>
         <rundir>/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/bin</rundir>

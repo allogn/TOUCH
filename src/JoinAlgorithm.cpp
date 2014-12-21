@@ -123,7 +123,27 @@ void JoinAlgorithm::readBinaryInput(string in_dsA, string in_dsB) {
 
 void JoinAlgorithm::print()
 {
- 
+    double avgs[TYPES];
+    double stds[TYPES];
+    avgs[0] = 0;
+    avgs[1] = 1;
+    stds[0] = 0;
+    stds[1] = 1;
+    int num[TYPES];
+    num[0] = 0;
+    num[1] = 0;
+    for (int type = 0; type < TYPES; type++)
+    {
+        for(int i = 0 ; i<Levels; i++)
+        {
+            avgs[type] += levelAvg[type][i]*levelAssigned[type][i];
+            num[type] += levelAssigned[type][i];
+        }
+        if (num[type] != 0)
+        {
+            avgs[type] = avgs[type]*1./num[type];
+        }
+    }
         
         if (verbose)
         {
@@ -143,6 +163,8 @@ void JoinAlgorithm::print()
             << " comparing " << comparing << " partition " << partition	<< '\n'
             << " deDuplicating " << resultPairs.deDuplicateTime	<< " analyzing " << analyzing << " sorting " << sorting << '\n'
             << "Partitions " << partitions << " epsilon " << epsilon << " Fanout " << nodesize << '\n'
+            << "Avg size: " << avgs[0] << " and " << avgs[1] << " ; "
+            << "Std size: " << stds[0] << " and " << stds[1]
             << "\n================================\n"
             << "\ndatasets\n" << file_dsA << '\n' << file_dsB << '\n';
 

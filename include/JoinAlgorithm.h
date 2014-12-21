@@ -181,6 +181,17 @@ public:
     FLAT::Timer gridCalculate;
     FLAT::Timer sizeCalculate;
     
+    
+    int Levels;
+    int LevelsD;
+    
+    //for logging
+    thrust::host_vector<int> levelAssigned[TYPES];
+    thrust::host_vector<double> levelAvg[TYPES];
+    thrust::host_vector<double> levelStd[TYPES];
+    thrust::host_vector<FLAT::uint64> ItemPerLevel[TYPES]; 
+    thrust::host_vector<FLAT::uint64> ItemPerLevelAns[TYPES]; 
+    
     struct Comparator : public std::binary_function<TreeNode* const, TreeNode* const, bool>
     {
             bool operator()(TreeNode* const r1, TreeNode* const r2)

@@ -121,7 +121,7 @@ void parse_args(int argc, const char* argv[]) {
 		case 'e':       /* epsilon */
 			sscanf(argv[++x], "%lf", &epsilon);
             break;
-		case 'p':       /* number of objects in a leaf */
+		case 'l':       /* number of objects in a leaf */
 			sscanf(argv[++x], "%u", &leafsize);
             break;
 		case 'b':       /* number of children for a node */

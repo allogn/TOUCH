@@ -129,6 +129,8 @@ void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
         for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
         {
             //if intersects
+            if (algorithm == algo_dTOUCH && !(*it)->leafnode)
+                continue;
             ItemsMaxCompared += (*it)->attachedObjs[!obj->type].size();
             comparing.start();
             if(localJoin == algo_SGrid)
@@ -172,6 +174,8 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
     /*
      * A -> B
      */
+    if (algorithm == algo_dTOUCH && !node->leafnode) return;
+        
     if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
     {
         if(localJoin == algo_SGrid)
@@ -349,12 +353,8 @@ void CommonTOUCH::deduplicateSpatialGrid()
     {
         for (int type = 0; type < TYPES; type++)
         {
-            if (this->algorithm == algo_dTOUCH && (*it)->leafnode && type == 0)
-            {
-                (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
-                SpatialGridHash::transferInfo((*it)->spatialGridHash[type], this);
+            if (this->algorithm == algo_dTOUCH && !(*it)->leafnode)
                 continue;
-            }
 
             (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
             SpatialGridHash::transferInfo((*it)->spatialGridHash[type], this);
@@ -516,8 +516,6 @@ void CommonTOUCH::analyze()
     //footprint += vdsA.size()*(sizeof(TreeEntry*));
     //footprint += dsB.size()*(sizeof(FLAT::SpatialObject*));
     FLAT::uint64 cursum;
-    thrust::host_vector<FLAT::uint64> ItemPerLevel[TYPES]; 
-    thrust::host_vector<FLAT::uint64> ItemPerLevelAns[TYPES]; 
     
     for (int type = 0; type < TYPES; type++)
     {
@@ -540,10 +538,6 @@ void CommonTOUCH::analyze()
                     levelStd[type][(*ni)->level] += (*ni)->stdSize[type];
                 }
         }
-        if (verbose)
-            for(int i = 0 ; i<Levels; i++)
-                std::cout<< "Type " << type << " Level " << i << ": Items " << ItemPerLevel[type][i] 
-                        <<  " Ans " << ItemPerLevelAns[type][i] << endl;
 
 
         int top10Level = (Levels>10)?10:Levels;
@@ -557,6 +551,11 @@ void CommonTOUCH::analyze()
             }
         }
         
+        if (verbose)
+            for(int i = 0 ; i<Levels; i++)
+                std::cout<< "Type " << type << " Level " << i << ": Items " << ItemPerLevel[type][i] 
+                        <<  " Ans " << ItemPerLevelAns[type][i] << " Avr size " << levelAvg[type][i]
+                        << " Std " << levelStd[type][i] << endl;
     }
     
     /*

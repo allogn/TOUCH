@@ -137,9 +137,13 @@ void cTOUCH::assignment()
                  * For each object in the leaf node of type <current_type>
                  * do the assignment to the tree from the top
                  */
-                cout << "new type" << endl;
-                for (SpatialObjectList::iterator it = currentNode->attachedObjs[current_type].begin();
-                        it != currentNode->attachedObjs[current_type].end(); it++) 
+                
+                //taken objects and target objects are in the same attachedObj,
+                //so must be copied before the assignment to another vector
+                SpatialObjectList leafObj = currentNode->attachedObjs[current_type];
+                currentNode->attachedObjs[current_type].clear();
+                
+                for (SpatialObjectList::iterator it = leafObj.begin(); it != leafObj.end(); it++) 
                 {
                     ptr = root;
                     canFilter = true;
@@ -158,13 +162,10 @@ void cTOUCH::assignment()
                          * If <obj> intersects with one of Current Dark Mbr
                          * it can not be filtered anymore
                          */
-                cout << "test1" << nextNode->mbrSelfD[opType] << endl;
-                cout << currentNode->attachedObjs[current_type].size() << endl;
                         if (canFilter == true && FLAT::Box::overlap((*it)->mbr, nextNode->mbrSelfD[opType]))
                         {
                             canFilter = false;
                         }
-                cout << "test133" << endl;
                         
                         for (NodeList::iterator nit = ptr->entries.begin(); nit != ptr->entries.end(); nit++)
                         {

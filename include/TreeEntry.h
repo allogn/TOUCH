@@ -32,6 +32,9 @@ public:
         id = nid;
         
         mbr = obj->getMBR();
+        
+        double expand = (double)rand()/(double)RAND_MAX*10;
+        FLAT::Box::expand(mbr,expand);
         mbr.isEmpty = false;
         FLAT::Box::expand(mbr, (double)epsilon/2.);
     }

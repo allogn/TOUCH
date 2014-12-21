@@ -67,7 +67,15 @@ void dTOUCH::run()
     levelStdTemp = levelStd[0];
     
     tree.clear();
-
+    ItemPerLevel[0].clear();
+    ItemPerLevelAns[0].clear();
+    ItemPerLevel[1].clear();
+    ItemPerLevelAns[1].clear();
+    levelAvg[0].clear();
+    levelAvg[1].clear();
+    levelStd[1].clear();
+    levelStd[0].clear();
+    
     //processing second tree
     if (vdsB.size() > 0)
     {

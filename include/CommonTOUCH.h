@@ -28,13 +28,6 @@ public:
     void saveLog();
     
     unsigned int totalnodes;
-    int Levels;
-    int LevelsD;
-    
-    //for logging
-    thrust::host_vector<int> levelAssigned[TYPES];
-    thrust::host_vector<double> levelAvg[TYPES];
-    thrust::host_vector<double> levelStd[TYPES];
     
     
     virtual void joinNodeToDesc(TreeNode* ancestorNode);

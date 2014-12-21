@@ -177,7 +177,6 @@ void generateSamples(std::string file_in, std::string path_out)
             if (vol < min) min = vol;
             avg += vol;
             std += vol*vol;
-            
             outputFile->write((*it));
             it++;
         }
