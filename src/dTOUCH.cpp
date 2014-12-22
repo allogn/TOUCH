@@ -107,7 +107,6 @@ void dTOUCH::run()
             deduplicateSpatialGrid();
         }
         
-    resultPairs.deDuplicate();
         if (verbose) std::cout << "Number of results: " << resultPairs.results << std::endl;
     }
     else
@@ -208,54 +207,54 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     }
 }
 
-void dTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
-{
-    for (int type = 0; type < TYPES; type++)
-    {
-        SpatialGridHash* spatialGridHash;
-        queue<TreeNode*> leaves;
-        TreeNode* leaf;
-        if( localJoin == algo_SGrid )
-        {
-            spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
-            spatialGridHash->epsilon = this->epsilon;
-            gridCalculate.start();
-            spatialGridHash->build(ancestorNode->attachedObjs[type]);
-            gridCalculate.stop();
-        }
-
-        leaves.push(ancestorNode);
-        while(leaves.size()>0)
-        {
-            leaf = leaves.front();
-            leaves.pop();
-            if(leaf->leafnode)
-            {
-                ItemsMaxCompared += ancestorNode->attachedObjs[type].size()*leaf->attachedObjs[!type].size();
-                comparing.start();
-                if(localJoin == algo_SGrid)
-                {
-                    spatialGridHash->probe(leaf->attachedObjs[!type]);
-                }
-                else
-                {
-                    NL(leaf->attachedObjs[!type],ancestorNode->attachedObjs[type]);
-                }
-                comparing.stop();
-            }
-            else
-            {
-                for (NodeList::iterator it = leaf->entries.begin(); it != leaf->entries.end(); it++)
-                {
-                    leaves.push((*it));
-                }
-            }
-        }
-
-        if(localJoin == algo_SGrid)
-        {
-            spatialGridHash->resultPairs.deDuplicate();
-            SpatialGridHash::transferInfo(spatialGridHash,this);
-        }
-    }
-}
+//void dTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
+//{
+//    for (int type = 0; type < TYPES; type++)
+//    {
+//        SpatialGridHash* spatialGridHash;
+//        queue<TreeNode*> leaves;
+//        TreeNode* leaf;
+//        if( localJoin == algo_SGrid )
+//        {
+//            spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
+//            spatialGridHash->epsilon = this->epsilon;
+//            gridCalculate.start();
+//            spatialGridHash->build(ancestorNode->attachedObjs[type]);
+//            gridCalculate.stop();
+//        }
+//
+//        leaves.push(ancestorNode);
+//        while(leaves.size()>0)
+//        {
+//            leaf = leaves.front();
+//            leaves.pop();
+//            if(leaf->leafnode)
+//            {
+//                ItemsMaxCompared += ancestorNode->attachedObjs[type].size()*leaf->attachedObjs[!type].size();
+//                comparing.start();
+//                if(localJoin == algo_SGrid)
+//                {
+//                    spatialGridHash->probe(leaf->attachedObjs[!type]);
+//                }
+//                else
+//                {
+//                    NL(leaf->attachedObjs[!type],ancestorNode->attachedObjs[type]);
+//                }
+//                comparing.stop();
+//            }
+//            else
+//            {
+//                for (NodeList::iterator it = leaf->entries.begin(); it != leaf->entries.end(); it++)
+//                {
+//                    leaves.push((*it));
+//                }
+//            }
+//        }
+//
+//        if(localJoin == algo_SGrid)
+//        {
+//            spatialGridHash->resultPairs.deDuplicate();
+//            SpatialGridHash::transferInfo(spatialGridHash,this);
+//        }
+//    }
+//}

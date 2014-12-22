@@ -129,19 +129,20 @@ void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
         for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
         {
             //if intersects
-            if (algorithm == algo_dTOUCH && !(*it)->leafnode)
-                continue;
-            ItemsMaxCompared += (*it)->attachedObjs[!obj->type].size();
-            comparing.start();
-            if(localJoin == algo_SGrid)
+            if (!(algorithm == algo_dTOUCH && !(*it)->leafnode))
             {
-                (*it)->spatialGridHash[!obj->type]->probe(obj);
+                ItemsMaxCompared += (*it)->attachedObjs[!obj->type].size();
+                comparing.start();
+                if(localJoin == algo_SGrid)
+                {
+                    (*it)->spatialGridHash[!obj->type]->probe(obj);
+                }
+                else
+                {
+                    NL(obj, (*it)->attachedObjs[!obj->type]);
+                }
+                comparing.stop();
             }
-            else
-            {
-                NL(obj, (*it)->attachedObjs[!obj->type]);
-            }
-            comparing.stop();
             if (FLAT::Box::overlap(obj->mbr, (*it)->mbr))
             {
                 nodes.push((*it));
@@ -175,7 +176,6 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
      * A -> B
      */
     if (algorithm == algo_dTOUCH && !node->leafnode) return;
-        
     if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
     {
         if(localJoin == algo_SGrid)
@@ -354,6 +354,8 @@ void CommonTOUCH::countSpatialGrid()
                 mbr = (*it)->mbrSelfD[type];
             }
             
+            if (this->algorithm == algo_dTOUCH && !(*it)->leafnode)
+                continue;
             
             //temporary ignore global localPartition. if success - remove it from parameters
             
@@ -370,8 +372,6 @@ void CommonTOUCH::countSpatialGrid()
             }
             
             
-            if (this->algorithm == algo_dTOUCH && !(*it)->leafnode)
-                continue;
             
             (*it)->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
             (*it)->spatialGridHash[type]->epsilon = this->epsilon;
@@ -488,6 +488,7 @@ void CommonTOUCH::writeNode(SpatialObjectList& objlist)
     }
     prNode->mbr = mbr;
     prNode->mbrL[0] = mbr;
+    prNode->mbrL[1] = mbr;
     
     tree.push_back(prNode);
     nextInput.push_back(prNode);
@@ -506,6 +507,7 @@ void CommonTOUCH::writeNode(NodeList& nodelist, int Level)
     }
     prNode->mbr = mbr;
     prNode->mbrL[0] = mbr;
+    prNode->mbrL[1] = mbr;
     
     tree.push_back(prNode);
     nextInput.push_back(prNode);
