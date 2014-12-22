@@ -9,9 +9,6 @@
 #include <string>
 #include <limits>
 
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
-
 #include "DataFileReader.hpp"
 #include "ResultPairs.h"
 #include "TreeNode.h"
@@ -44,8 +41,9 @@ class JoinAlgorithm {
 public:
     FLAT::uint64 totalGridCells;
     std::vector<TreeNode*> tree;		// Append only structure can be replaced by a file "payload"
-    std::vector<TreeEntry*> nextInput;
-    TreeEntry* root;
+    std::vector<TreeNode*> nextInput;
+    TreeNode* root;
+    
     SpatialObjectList dsA, dsB;					//A is smaller than B
     int localPartitions;
     bool profilingEnable;
@@ -57,7 +55,7 @@ public:
 
     
     int base; // the base for S3 and SH algorithms
-    string logfilename;
+    std::string logfilename;
     double epsilon;
     unsigned int numA, numB;		//number of elements to be read from datasets
     
@@ -132,9 +130,9 @@ public:
 
     void readBinaryInput(string file_dsA, string file_dsB);
 
-    std::vector<TreeEntry*> vdsAll;	//vector of the mixed Objects and their MBRs
-    std::vector<TreeEntry*> vdsA;	//vector of the Objects and their MBRs of the smaller dataset ??@todo smallest?
-    std::vector<TreeEntry*> vdsB;       
+    SpatialObjectList vdsAll;	//vector of the mixed Objects and their MBRs
+    SpatialObjectList vdsA;	//vector of the Objects and their MBRs of the smaller dataset ??@todo smallest?
+    SpatialObjectList vdsB;       
 
     FLAT::uint64 size_dsA,size_dsB;
 
@@ -143,7 +141,7 @@ public:
     
     
     
-    void NL(FLAT::SpatialObject*& A, SpatialObjectList& B)
+    void NL(TreeEntry*& A, SpatialObjectList& B)
     {
         for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
             if ( istouching(A , *itB) )
@@ -183,7 +181,33 @@ public:
     FLAT::Timer gridCalculate;
     FLAT::Timer sizeCalculate;
     
-    struct Comparator : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
+    
+    int Levels;
+    int LevelsD;
+    
+    //for logging
+    thrust::host_vector<int> levelAssigned[TYPES];
+    thrust::host_vector<double> levelAvg[TYPES];
+    thrust::host_vector<double> levelStd[TYPES];
+    thrust::host_vector<FLAT::uint64> ItemPerLevel[TYPES]; 
+    thrust::host_vector<FLAT::uint64> ItemPerLevelAns[TYPES]; 
+    
+    struct Comparator : public std::binary_function<TreeNode* const, TreeNode* const, bool>
+    {
+            bool operator()(TreeNode* const r1, TreeNode* const r2)
+            {
+
+                    FLAT::Vertex r1p,r2p;
+                    r1p = r1->mbr.getCenter();
+                    r2p = r2->mbr.getCenter();
+                    if(r1p[0]<r2p[0])return true;
+                    if(r1p[0]==r2p[0]&&r1p[1]<r2p[1])return true;
+                    if(r1p[0]==r2p[0]&&r1p[1]==r2p[1]&&r1p[2]<r2p[2])return true;
+                    return false;
+            }
+    };
+    
+    struct ComparatorEntry : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
     {
             bool operator()(TreeEntry* const r1, TreeEntry* const r2)
             {
@@ -198,9 +222,25 @@ public:
             }
     };
     
-    struct ComparatorHilbert : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
+    struct ComparatorHilbertEntry : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
     {
             bool operator()(TreeEntry* const r1, TreeEntry* const r2)
+            {
+
+                    FLAT::Vertex r1p,r2p;
+                    r1p = r1->mbr.getCenter();
+                    r2p = r2->mbr.getCenter();
+                    double d1[3],d2[3];
+                    d1[0]=r1p[0];d1[1]=r1p[1];d1[2]=r1p[2];
+                    d2[0]=r2p[0];d2[1]=r2p[1];d2[2]=r2p[2];
+                    if (hilbert_ieee_cmp(3,d1,d2)>=0)  return true;
+                    else return false;
+            }
+    };
+    
+    struct ComparatorHilbert : public std::binary_function<TreeNode* const, TreeNode* const, bool>
+    {
+            bool operator()(TreeNode* const r1, TreeNode* const r2)
             {
 
                     FLAT::Vertex r1p,r2p;
@@ -290,19 +330,9 @@ public:
             return false;
     }
     // Returns true if touch and false if not by comparing only the centers
-    inline bool istouching(FLAT::SpatialObject* sobj1, FLAT::SpatialObject* sobj2)
+    virtual inline bool istouching(TreeEntry* sobj1, TreeEntry* sobj2)
     {
-            return istouchingV(sobj1,sobj2);
-
-            ItemsCompared++;
-            
-            FLAT::Box mbr1 = sobj1->getMBR();
-            FLAT::Box mbr2 = sobj2->getMBR();
-            mbr1.isEmpty = false;
-            mbr2.isEmpty = false;
-            FLAT::Box::expand(mbr1, epsilon);
-            
-            return FLAT::Box::overlap(mbr1, mbr2);
+            return istouchingV(sobj1->obj,sobj2->obj);
     }
 
     struct ComparatorTree_Xaxis : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
@@ -320,9 +350,9 @@ public:
                             return false;
             }
     };
-    struct Comparator_Xaxis : public std::binary_function<FLAT::SpatialObject* const, FLAT::SpatialObject* const, bool>
+    struct Comparator_Xaxis : public std::binary_function<TreeEntry* const, TreeEntry* const, bool>
     {
-            bool operator()(FLAT::SpatialObject* const r1, FLAT::SpatialObject* const r2)
+            bool operator()(TreeEntry* const r1, TreeEntry* const r2)
             {
 
                     FLAT::Vertex r1p,r2p;

@@ -31,22 +31,22 @@ public:
 
 	//Sort the datasets based on their lower x coordinate
 	sorting.start();
-	std::sort(A.begin(), A.end(), Comparator_Xaxis());
-	std::sort(B.begin(), B.end(), Comparator_Xaxis());
+	thrust::sort(A.begin(), A.end(), Comparator_Xaxis());
+	thrust::sort(B.begin(), B.end(), Comparator_Xaxis());
 	sorting.stop();
 
 	//sweep
 	FLAT::uint64 iA=0,iB=0;
 	while(iA<A.size() && iB<B.size())
 	{
-            if(A.at(iA)->getMBR().low[0] < B.at(iB)->getMBR().low[0])
+            if(A[iA]->getMBR().low[0] < B[iB]->getMBR().low[0])
             {
                 FLAT::uint64 i = iB;
-                FLAT::spaceUnit border = A.at(iA)->getMBR().high[0]+epsilon;
-                while(i<B.size() && B.at(i)->getMBR().low[0] <= border)
+                FLAT::spaceUnit border = A[iA]->getMBR().high[0]+epsilon;
+                while(i<B.size() && B[i]->getMBR().low[0] <= border)
                 {
-                    if (istouching(B.at(i) , A.at(iA)))
-                        resultPairs.addPair( B.at(i) , A.at(iA) );
+                    if (istouching(B[i] , A[iA]))
+                        resultPairs.addPair( B[i] , A[iA] );
                     i++;
                 }
                 iA++;
@@ -54,12 +54,12 @@ public:
             else
             {
                 FLAT::uint64 i = iA;
-                FLAT::spaceUnit border = B.at(iB)->getMBR().high[0]+epsilon;
-                while(i<A.size() &&  A.at(i)->getMBR().low[0] <= border)
+                FLAT::spaceUnit border = B[iB]->getMBR().high[0]+epsilon;
+                while(i<A.size() &&  A[i]->getMBR().low[0] <= border)
                 {
-                    if ( istouching(B.at(iB) , A.at(i)) )
+                    if ( istouching(B[iB] , A[i]) )
                     {
-                        resultPairs.addPair( B.at(i) , A.at(iA) );
+                        resultPairs.addPair( B[i] , A[iA] );
                     }
                     i++;
                 }

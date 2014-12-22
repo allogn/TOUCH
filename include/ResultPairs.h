@@ -13,15 +13,24 @@
 #ifndef RESULTPAIRS_H
 #define	RESULTPAIRS_H
 
-#include "SpatialObject.hpp"
+#include "TreeEntry.h"
+#include "TreeNode.h"
 #include <vector>
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
+
+
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+#include <thrust/sort.h>
+
 #include "Box.hpp"
 #include "Timer.hpp"
 
-typedef std::vector<FLAT::SpatialObject*> SpatialObjectList;
-typedef std::pair<FLAT::SpatialObject*,FLAT::SpatialObject*> ResultPair;
+typedef thrust::host_vector<TreeNode*> NodeList;
+typedef thrust::host_vector<TreeEntry*> SpatialObjectList;
+
+typedef std::pair<TreeEntry*,TreeEntry*> ResultPair; //no boost set for thrust
 typedef boost::unordered_set< ResultPair > ResultList; // storing unique results
 
 class ResultPairs
@@ -45,7 +54,7 @@ public:
             objA.clear();
             objB.clear();
     }
-    void addPair(FLAT::SpatialObject* sobjA, FLAT::SpatialObject* sobjB);
+    void addPair(TreeEntry* sobjA, TreeEntry* sobjB);
     void deDuplicate();
     void printAllResults()
     {

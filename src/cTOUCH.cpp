@@ -32,85 +32,64 @@ void cTOUCH::run()
     totalTimeStop();
 }
 
-void cTOUCH::probe()
-{
-    probing.start();
-    queue<FLAT::uint64> Qnodes;
-    TreeNode* currentNode;
-    Qnodes.push(root->childIndex);
 
-    int lvl = Levels;
-    // A BFS on the tree then for each find all its leaf nodes by another BFS
-    while(Qnodes.size()>0)
-    {
-        FLAT::uint64 currentNodeID = Qnodes.front();
-        currentNode = tree.at(currentNodeID);
-        Qnodes.pop();
-
-        //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
-        if(!currentNode->leafnode)
-            for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
-            {
-                if (!(currentNode->entries.at(child)->mbrK[0].isEmpty))
-                {
-                    Qnodes.push(currentNode->entries.at(child)->childIndex);
-                }
-            }
-
-        // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
-        if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()==0)
-            continue;
-
-        // just to display the level of the BFS traversal
-        if (verbose)
-            if(lvl!=currentNode->level)
-            {
-                    lvl = currentNode->level;
-                    cout << "\n### Level " << lvl << "; Enter childIndex: " << currentNodeID << endl;
-            }
-
-        joinNodeToDesc(currentNodeID); //join node -> join each object -> join object to down tree -> join object with list of objects
-    }
-    probing.stop();
-}
 
 /*
  * Create new node according to set of TreeEntries. Entries can be of both types,
  * So create to entries that point to the new node of two types.
  * Create entry iff it is not empty
  */
-void cTOUCH::writeNode(vector<TreeEntry*> objlist,int Level)
+
+void cTOUCH::writeNode(SpatialObjectList& objlist)
 {
-        TreeNode* prNode = new TreeNode(Level);
-        FLAT::Box mbrA;
-        FLAT::Box mbrB;
-        FLAT::uint64 childIndex; //pointer to Node in the tree
+    TreeNode* prNode = new TreeNode(0);
+    FLAT::Box mbr[TYPES];
+    totalnodes++;
+    
+    for (SpatialObjectList::iterator it=objlist.begin(); it!=objlist.end(); ++it)
+    {
+        prNode->attachedObjs[(*it)->type].push_back(*it);
+        mbr[(*it)->type] = FLAT::Box::combineSafe((*it)->mbr,mbr[(*it)->type]);
+    }
+    prNode->mbr = FLAT::Box::combineSafe(mbr[0],mbr[1]);
+    prNode->mbrL[0] = mbr[0];
+    prNode->mbrL[1] = mbr[1];
+    prNode->mbrK[0] = mbr[0];
+    prNode->mbrK[1] = mbr[1];
+    
+    tree.push_back(prNode);
+    nextInput.push_back(prNode);
+}
 
-        childIndex = tree.size();
-        totalnodes++; //only one node
-
-        for (vector<TreeEntry*>::iterator it=objlist.begin(); it!=objlist.end(); ++it)
-        {
-                prNode->entries.push_back(*it);
-
-                mbrA = FLAT::Box::combineSafe((*it)->mbrL[0],mbrA);
-                mbrB = FLAT::Box::combineSafe((*it)->mbrL[1],mbrB);
-
-                (*it)->parentIndex = childIndex; //parent index of children = childIndex of new Entry				
-
-                //clear black MBR (now is used for L&D tree (traversing during join) @todo is it necessary??
-
-        }
-
-        tree.push_back(prNode);
-        nextInput.push_back(new TreeEntry(mbrA,mbrB,childIndex));
-        prNode->parentEntry = nextInput.back();
+void cTOUCH::writeNode(NodeList& nodelist, int Level)
+{
+    TreeNode* prNode = new TreeNode(Level);
+    FLAT::Box mbrA;
+    FLAT::Box mbrB;
+    totalnodes++;
+    
+    for (NodeList::iterator it=nodelist.begin(); it!=nodelist.end(); ++it)
+    {
+        prNode->entries.push_back(*it);
+        (*it)->parentNode = prNode;
+        mbrA = FLAT::Box::combineSafe((*it)->mbrL[0],mbrA);
+        mbrB = FLAT::Box::combineSafe((*it)->mbrL[1],mbrB);
+    }
+    prNode->mbr = FLAT::Box::combineSafe(mbrA,mbrB);
+    prNode->mbrL[0] = mbrA;
+    prNode->mbrL[1] = mbrB;
+    prNode->mbrK[0] = mbrA;
+    prNode->mbrK[1] = mbrB;
+    
+    tree.push_back(prNode);
+    nextInput.push_back(prNode);
 }
 
 void cTOUCH::assignment()
 {
     building.start();
-    queue<FLAT::uint64> Qnodes;
+    queue<TreeNode*> Qnodes;
+    queue<TreeNode*> QParentNodes;
     TreeNode* currentNode;
 
     bool overlaps;
@@ -119,23 +98,20 @@ void cTOUCH::assignment()
     int opType; // opposite type
 
     TreeNode* ptr;
-    TreeEntry* nextNode;
-    FLAT::Box objMBR;
-    FLAT::SpatialObject* obj;
+    TreeNode* nextNode;
     
-    TreeEntry* ancestorEntry;
     TreeNode* ancestorNode;
 
     bool canFilter; //flag that shows if current object intersects SelfMbr on some level. If so, it can not be filtered
 
-    Qnodes.push(root->childIndex);
+    Qnodes.push(root);
+    QParentNodes.push(root);
 
     //getting all leaf nodes and assigned objects to leafs
-    
     while(Qnodes.size()>0)
     {
-        FLAT::uint64 currentNodeID = Qnodes.front(); //take one node. if leaf -  assign its objects. if not - go further
-        currentNode = tree.at(currentNodeID);
+        TreeNode* currentNode = Qnodes.front(); //take one node. if leaf -  assign its objects. if not - go further
+        
         Qnodes.pop();
         if(currentNode->leafnode)
         {
@@ -161,17 +137,15 @@ void cTOUCH::assignment()
                  * For each object in the leaf node of type <current_type>
                  * do the assignment to the tree from the top
                  */
-                for (unsigned int i=0;i<currentNode->entries.size();++i) // set type of object that must be assigned!
+                
+                //taken objects and target objects are in the same attachedObj,
+                //so must be copied before the assignment to another vector
+                SpatialObjectList leafObj = currentNode->attachedObjs[current_type];
+                currentNode->attachedObjs[current_type].clear();
+                
+                for (SpatialObjectList::iterator it = leafObj.begin(); it != leafObj.end(); it++) 
                 {
-                    obj = currentNode->entries.at(i)->obj;
-                    if (obj->type != current_type)
-                    {
-                            continue;
-                    }
-                    objMBR = obj->getMBR();
-                    objMBR.isEmpty = false;
-                    FLAT::Box::expand(objMBR,epsilon * 1./2.);
-                    ptr = tree.at(root->childIndex);
+                    ptr = root;
                     canFilter = true;
 
                     nextNode = root; 
@@ -188,12 +162,12 @@ void cTOUCH::assignment()
                          * If <obj> intersects with one of Current Dark Mbr
                          * it can not be filtered anymore
                          */
-                        if (canFilter == true && FLAT::Box::overlap(objMBR, nextNode->mbrSelfD[opType]))
+                        if (canFilter == true && FLAT::Box::overlap((*it)->mbr, nextNode->mbrSelfD[opType]))
                         {
                             canFilter = false;
                         }
                         
-                        for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
+                        for (NodeList::iterator nit = ptr->entries.begin(); nit != ptr->entries.end(); nit++)
                         {
                             
                             /*
@@ -203,16 +177,16 @@ void cTOUCH::assignment()
                              *  - dark of descendants
                              *  - light current
                              */
-                            if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbrK[opType]) )
+                            if ( FLAT::Box::overlap((*it)->mbr,(*nit)->mbrK[opType]) )
                             {
                                 if(!overlaps)
                                 {
                                     overlaps = true;
-                                    nextNode = ptr->entries.at(cChild);
+                                    nextNode = (*nit);
                                 }
                                 else
                                 {
-                                    assign(ptr, obj);
+                                    assign(ptr, (*it));
                                     assigned = true;
                                     break;
                                 }
@@ -227,50 +201,50 @@ void cTOUCH::assignment()
                         {
                             if ( canFilter == false )
                             {
-                                // @todo maybe add log that it was not filtered
-                                assign(ptr, obj);
+                                assign(ptr, (*it));
                                 break;
                             }
                             //filtered
                             filtered[current_type]++;
                             break;
                         }
-                        ptr = tree.at(nextNode->childIndex);
+                        ptr = nextNode;
 
                         if(ptr->leafnode)
                         {
-                            assign(ptr, obj);
+                            assign(ptr, (*it));
                             break;
                         }
                     }
+                    
                 }
                 /* End of object assignment */
 
                 //here - delete all leaf node (current type) and update light tree and black tree
                 //do not delete - only earse mbr's
-                ancestorEntry = currentNode->parentEntry;
-                ancestorEntry->mbrL[current_type].isEmpty = true;
+                currentNode->mbrL[current_type].isEmpty = true;
+                ancestorNode = currentNode;
                 while (1)
                 {
-                    if (ancestorEntry->parentIndex == 0)
+                    if (ancestorNode->root == 1)
                             break; // we are at root
-                    ancestorNode = tree.at(ancestorEntry->parentIndex);
-                    ancestorEntry = ancestorNode->parentEntry;
-                    ancestorEntry->mbrL[current_type].isEmpty = true; // reset mbr
-                    for (vector<TreeEntry*>::iterator it=ancestorNode->entries.begin(); it!=ancestorNode->entries.end(); ++it)
+                    ancestorNode = ancestorNode->parentNode;
+                    ancestorNode->mbrL[current_type].isEmpty = true; // reset mbr
+                    for (NodeList::iterator it=ancestorNode->entries.begin(); it!=ancestorNode->entries.end(); ++it)
                     {
-                        ancestorEntry->mbrL[current_type] = FLAT::Box::combineSafe((*it)->mbrL[current_type], ancestorEntry->mbrL[current_type]);
+                        ancestorNode->mbrL[current_type] = FLAT::Box::combineSafe((*it)->mbrL[current_type], ancestorNode->mbrL[current_type]);
                     }
-                    ancestorEntry->mbrK[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrD[current_type],ancestorEntry->mbrL[current_type]); //update black
-                    ancestorEntry->mbrK[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrSelfD[current_type],ancestorEntry->mbrK[current_type]);
+                    ancestorNode->mbrK[current_type] = FLAT::Box::combineSafe(ancestorNode->mbrD[current_type],ancestorNode->mbrL[current_type]); //update black
+                    ancestorNode->mbrK[current_type] = FLAT::Box::combineSafe(ancestorNode->mbrSelfD[current_type],ancestorNode->mbrK[current_type]);
                 }
             }
         }
         else
         {
-            for (FLAT::uint64 child = 0; child < currentNode->entries.size(); ++child)
+            for (NodeList::iterator nextit = currentNode->entries.begin(); 
+                    nextit != currentNode->entries.end(); nextit++)
             {
-                    Qnodes.push(currentNode->entries.at(child)->childIndex);
+                    Qnodes.push((*nextit));
             }
         }
         
@@ -279,42 +253,29 @@ void cTOUCH::assignment()
     building.stop();
 }
 
-void cTOUCH::assign(TreeNode* ptr, FLAT::SpatialObject* obj)
+void cTOUCH::assign(TreeNode* ptr, TreeEntry* obj)
 {
     int current_type = obj->type;
     int opType = (current_type == 0)?1:0; // opposite type
     
-    TreeEntry* ancestorEntry;
-    TreeNode* ancestorNode;
-    
-    FLAT::Box objMBR = obj->getMBR();
-    objMBR.isEmpty = false;
-    FLAT::Box::expand(objMBR,epsilon * 1./2.);
     //should be assigned to this level
     ptr->attachedObjs[current_type].push_back(obj);
 
-    //update the cost function of current object according to level in the tree
-//    obj->cost += pow(nodesize,ptr->level);
-
-    ancestorEntry = ptr->parentEntry;  // take entry for the node where we assigning
-
     //start updating from the first ancestor, but in the object only update SelfMBR
 
-    ancestorEntry->mbrSelfD[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrSelfD[current_type], objMBR);
-    ancestorEntry->mbrK[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrSelfD[current_type], ancestorEntry->mbrK[current_type]);
-
+    ptr->mbrSelfD[current_type] = FLAT::Box::combineSafe(ptr->mbrSelfD[current_type], obj->mbr);
+    ptr->mbrK[current_type] = FLAT::Box::combineSafe(ptr->mbrSelfD[current_type], ptr->mbrK[current_type]);
     /*
      * Update MBR's and costs of ancestors
      */
     while (1)
     {
-        if (ancestorEntry->parentIndex == 0)
+        if (ptr->root == 1)
             break; // we are at root
-        ancestorNode = tree.at(ancestorEntry->parentIndex);
-        ancestorEntry = ancestorNode->parentEntry;
+        ptr = ptr->parentNode;
 
-        ancestorEntry->mbrD[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrD[current_type], objMBR);
-        ancestorEntry->mbrK[current_type] = FLAT::Box::combineSafe(ancestorEntry->mbrD[current_type], ancestorEntry->mbrK[current_type]);
+        ptr->mbrD[current_type] = FLAT::Box::combineSafe(ptr->mbrD[current_type], obj->mbr);
+        ptr->mbrK[current_type] = FLAT::Box::combineSafe(ptr->mbrD[current_type], ptr->mbrK[current_type]);
 
         //here - update cost
 //        for (SpatialObjectList::iterator it = ancestorNode->attachedObjs[opType].begin();
@@ -326,40 +287,35 @@ void cTOUCH::assign(TreeNode* ptr, FLAT::SpatialObject* obj)
     }
 }
 
-void cTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID)
+void cTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
 {
-        queue<FLAT::uint64> nodes;
-        int nodeID;
+        queue<TreeNode*> nodes;
         
         int opType = (obj->type)?0:1;
         
         TreeNode* node;
         TreeNode* downnode;
-        nodes.push(ancestorNodeID);
+        nodes.push(ancestorNode);
         
-        FLAT::Box objMBR = obj->getMBR();
-        objMBR.isEmpty = false;
-        FLAT::Box::expand(objMBR,epsilon * 1./2.);
         while(nodes.size()>0)
         {
                 //start from checking children, each for intersection of MBR
                 // then if intersects - check the assign objects of child
                 // and if it is not a leaf node and intersects -> add to the queue
 
-                nodeID = nodes.front();
-                node = tree.at(nodeID);
+                node = nodes.front();
                 nodes.pop();
                 
                 if (node->leafnode == true)
                     continue;
 
                 //intersect with all non-null children
-                for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
+                for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
                 {
-                        downnode = tree.at(node->entries.at(child)->childIndex );
+                        downnode = (*it);
                         
                         //if intersects
-                        if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrSelfD[opType]))
+                        if (FLAT::Box::overlap(obj->mbr, (*it)->mbrSelfD[opType]))
                         {
                             ItemsMaxCompared += downnode->attachedObjs[opType].size();
                             comparing.start();
@@ -373,9 +329,9 @@ void cTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNod
                             }
                             comparing.stop();
                         } 
-                        if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbrD[opType]))
+                        if (FLAT::Box::overlap(obj->mbr, (*it)->mbrD[opType]))
                         {
-                            nodes.push(node->entries.at(child)->childIndex);
+                            nodes.push((*it));
                         } 
                 }
 

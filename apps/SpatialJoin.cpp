@@ -38,7 +38,7 @@ double epsilon				=  0.5;             // the epsilon of the similarity join
 int leafsize				=  100;             // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
 unsigned int numA = 0 ,numB = 0;                            //number of elements to be read from datasets
 int nodesize                            = 2;                // number of children per node if not leaf
-int maxLevelCoef                        = 500;              // coefficient in probability to assign object to first tree in dTOUCH
+int maxLevelCoef                        = 1;              // coefficient in probability to assign object to first tree in dTOUCH
 
 std::string input_dsA = "../data/RandomData-100K.bin";
 std::string input_dsB = "../data/RandomData-1600K.bin";
@@ -121,7 +121,7 @@ void parse_args(int argc, const char* argv[]) {
 		case 'e':       /* epsilon */
 			sscanf(argv[++x], "%lf", &epsilon);
             break;
-		case 'p':       /* number of objects in a leaf */
+		case 'l':       /* number of objects in a leaf */
 			sscanf(argv[++x], "%u", &leafsize);
             break;
 		case 'b':       /* number of children for a node */

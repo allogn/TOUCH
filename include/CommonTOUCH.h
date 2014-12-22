@@ -28,47 +28,38 @@ public:
     void saveLog();
     
     unsigned int totalnodes;
-    int Levels;
-    int LevelsD;
     
-    //for logging
-    thrust::host_vector<int> levelAssigned[TYPES];
-    thrust::host_vector<double> levelAvg[TYPES];
-    thrust::host_vector<double> levelStd[TYPES];
+    NodeList probingList;
     
+    void probeDownUp();
+    void pathWayJoin(TreeNode* node);
+    void JOIN(TreeNode* node, TreeNode* nodeObj);
     
-    virtual void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
-    virtual void joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);
+    virtual void joinNodeToDesc(TreeNode* ancestorNode);
+    virtual void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);
     void probe();
     
     void countSizeStatistics();
     
     void countSpatialGrid();
+    void countSpatialGrid(TreeNode* node);
     void deduplicateSpatialGrid();
+    void deduplicateSpatialGrid(TreeNode* node);
     
-    void NL(FLAT::SpatialObject*& A, SpatialObjectList& B)
+    virtual void NL(TreeEntry*& A, SpatialObjectList& B)
     {
         for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
             if ( istouching(A , *itB) )
                 resultPairs.addPair( A , *itB );
     }
     
-    //Nested Loop join algorithm
-    void NL(FLAT::SpatialObject*& A, TreeNode* node)
+    virtual void NL(SpatialObjectList& A, SpatialObjectList& B)
     {
-        for(vector<TreeEntry*>::iterator itA = node->entries.begin(); itA != node->entries.end(); ++itA)
-            if ( istouching(A , (*itA)->obj ) )
-                resultPairs.addPair( A , (*itA)->obj );
+        for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
+            NL((*itA),B);
     }
     
-    //Nested Loop join algorithm
-    void NL(TreeNode* node, SpatialObjectList& B)
-    {
-        for(vector<TreeEntry*>::iterator itA = node->entries.begin(); itA != node->entries.end(); ++itA)
-            NL((*itA)->obj, B);
-    }
-    
-    TreeEntry* root;
+    TreeNode* root;
 protected:
     
     /*
@@ -76,14 +67,16 @@ protected:
     * So create to entries that point to the new node of two types.
     * Create entry iff it is not empty
     */
-    void writeNode(vector<TreeEntry*> objlist, int Level);
-    void createTreeLevel(vector<TreeEntry*>& input, int Level);
-    void createPartitions(std::vector<TreeEntry*> vds);
+    virtual void writeNode(SpatialObjectList& objlist);
+    virtual void writeNode(NodeList& objlist, int Level);
+    void createTreeLevel(SpatialObjectList& input);
+    void createTreeLevel(NodeList& input, int Level);
+    void createPartitions(SpatialObjectList& vds);
     
     void analyze();
     
-    std::vector<TreeNode*> tree;
-    std::vector<TreeEntry*> nextInput;
+    NodeList tree;
+    NodeList nextInput;
 };
 
 #endif	/* CommonTOUCH_H */

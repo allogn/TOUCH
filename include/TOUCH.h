@@ -17,7 +17,7 @@ public:
     
     void run();
 private:
-    void joinNodeToDesc(FLAT::uint64 ancestorNodeID);
+    void joinNodeToDesc(TreeNode* ancestorNode);
     void assignment();
 };
 

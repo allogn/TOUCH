@@ -867,47 +867,9 @@
       </df>
       <df name="run">
         <df name="16.12">
-          <df name="reresults">
-          </df>
-          <df name="reresultsE=1">
+          <df name="reresultsE=5">
           </df>
           <df name="resultsWithDynamicGrid">
-          </df>
-          <df name="samples">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
-          </df>
-          <df name="samplesAxons">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
-          </df>
-          <df name="samplesDendrites">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
           </df>
         </df>
         <df name="23.11">
@@ -1252,47 +1214,9 @@
       </df>
       <df name="run">
         <df name="16.12">
-          <df name="reresults">
-          </df>
-          <df name="reresultsE=1">
+          <df name="reresultsE=5">
           </df>
           <df name="resultsWithDynamicGrid">
-          </df>
-          <df name="samples">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
-          </df>
-          <df name="samplesAxons">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
-          </df>
-          <df name="samplesDendrites">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
           </df>
         </df>
         <df name="23.11">
@@ -1598,47 +1522,9 @@
       </df>
       <df name="run">
         <df name="16.12">
-          <df name="reresults">
-          </df>
-          <df name="reresultsE=1">
+          <df name="reresultsE=5">
           </df>
           <df name="resultsWithDynamicGrid">
-          </df>
-          <df name="samples">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
-          </df>
-          <df name="samplesAxons">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
-          </df>
-          <df name="samplesDendrites">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
           </df>
         </df>
         <df name="23.11">
@@ -1944,47 +1830,9 @@
       </df>
       <df name="run">
         <df name="16.12">
-          <df name="reresults">
-          </df>
-          <df name="reresultsE=1">
+          <df name="reresultsE=5">
           </df>
           <df name="resultsWithDynamicGrid">
-          </df>
-          <df name="samples">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
-          </df>
-          <df name="samplesAxons">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
-          </df>
-          <df name="samplesDendrites">
-            <df name="10000">
-            </df>
-            <df name="2000">
-            </df>
-            <df name="4000">
-            </df>
-            <df name="6000">
-            </df>
-            <df name="8000">
-            </df>
           </df>
         </df>
         <df name="23.11">
@@ -2063,6 +1911,11 @@
         </gdb_interceptlist>
         <gdb_options>
           <DebugOptions>
+            <option name="gdb_source_dirs" value="apps:include:src"/>
+            <option name="debug_command"
+                    value="./SpatialJoin -e 15 -v 1 -n 1000 1000 -J -0 -a 6"/>
+            <option name="debug_dir"
+                    value="/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/bin"/>
           </DebugOptions>
         </gdb_options>
         <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
@@ -2072,20 +1925,21 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>main -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i C:\Project\Brain\SpatialIndex\data\RandomData-10K.bin C:\Project\Brain\SpatialIndex\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
-          <runcommandpicklistitem>main -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i ..\data\RandomData-10K.bin ..\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i ..\data\RandomData-10K.bin ..\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"/main -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i ..\data\RandomData-10K.bin ..\data\RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./main -a 0 -p 100 -e 10 -b 3 -t 1 -J 2 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./main -a 4 -p 100 -e 10 -b 3 -t 1 -J 2 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./SpatialJoin -a 4 -p 100 -e 10 -b 3 -t 1 -J 2 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./SpatialJoin -a 4 -p 100 -e 10 -b 3 -t 1 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin</runcommandpicklistitem>
           <runcommandpicklistitem>./SpatialJoin -a 6 -p 100 -e 10 -b 3 -t 1 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin -n 1000 1000</runcommandpicklistitem>
+          <runcommandpicklistitem>./SpatialJoin -a 6 -p 100 -e 10 -b 3 -t 1 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin -n 1000 1000 -v 1</runcommandpicklistitem>
+          <runcommandpicklistitem>./SpatialJoin -a 6 -p 100 -e 10 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin -n 1000 1000 -v 1</runcommandpicklistitem>
+          <runcommandpicklistitem>./SpatialJoin -e 15 -v 1 -n 1000 1000 -J -0 -a 6
+</runcommandpicklistitem>
+          <runcommandpicklistitem>./SpatialJoin -e 15 -v 1 -n 1000 1000 -J -0 -a 6</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>./SpatialJoin -a 6 -p 100 -e 10 -b 3 -t 1 -J 0 -i ../data/RandomData-10K.bin ../data/RandomData-Normal-500-250-10K.bin -n 1000 1000</runcommand>
-        <rundir>/media/alvis/Data/Term2/SpatialIndex/bin</rundir>
-        <buildfirst>false</buildfirst>
+        <runcommand>./SpatialJoin -e 15 -v 1 -n 1000 1000 -J -0 -a 6</runcommand>
+        <rundir>/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/bin</rundir>
+        <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
         <environment>

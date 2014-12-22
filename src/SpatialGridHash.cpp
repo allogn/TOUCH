@@ -30,15 +30,10 @@ void SpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectLi
 {
 
         analyzing.start();
-        footprint += dsA.capacity()*(sizeof(FLAT::SpatialObject*));
-        footprint += dsB.capacity()*(sizeof(FLAT::SpatialObject*));
+        footprint += dsA.capacity()*(sizeof(TreeEntry*));
+        footprint += dsB.capacity()*(sizeof(TreeEntry*));
         cout << "Cell Width: " << universeWidth  << endl;
-//		cout << "Bucket Count: " << gridHashTable.bucket_count() <<endl;
-//		cout << "Max Bucket Count: " << gridHashTable.max_bucket_count() << endl;
-//		cout << "The average number of elements per bucket: " << gridHashTable.load_factor() << endl;
-//		cout << "Max Load Factor: " << gridHashTable.max_load_factor() << endl;
-//		cout << "size(" << gridHashTable.size() << ") of the largest possible container: " << gridHashTable.max_size();
-
+        
         FLAT::uint64 sum=0,sqsum=0;
         for (HashTable::iterator it = gridHashTable.begin(); it!=gridHashTable.end(); ++it)
         {
@@ -47,7 +42,7 @@ void SpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectLi
                 sqsum += ptrs*ptrs;
                 if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
         }
-        footprint += sum*sizeof(FLAT::SpatialObject*) +  sizeof(HashValue)*localPartitions;
+        footprint += sum*sizeof(TreeEntry*) +  sizeof(HashValue)*localPartitions;
         avg = (sum+0.0) / (localPartitions+0.0);
         percentageEmpty = (double)(localPartitions - gridHashTable.size()) / (double)(localPartitions)*100.0;
         repA = (double)(sum)/(double)size_dsA;
@@ -83,32 +78,6 @@ void SpatialGridHash::build(SpatialObjectList& dsA)
         building.stop();
 }
 
-void SpatialGridHash::build(std::vector<TreeEntry*>& entries)
-{
-    building.start();
-    gridHashTable.clear();
-    for(std::vector<TreeEntry*>::iterator i=entries.begin(); i!=entries.end(); ++i)
-    {
-        std::vector<FLAT::uint64> cells;
-        getOverlappingCells((*i)->obj,cells);
-        for (vector<FLAT::uint64>::iterator j = cells.begin(); j!=cells.end(); ++j)
-        {
-            HashTable::iterator it= gridHashTable.find(*j);
-            if (it==gridHashTable.end())
-            {
-                HashValue* soList = new HashValue();
-                soList->push_back((*i)->obj);
-                gridHashTable.insert( ValuePair(*j,soList) );
-            }
-            else
-            {
-                it->second->push_back((*i)->obj);
-            }
-        }
-    }
-    building.stop();
-}
-
 void SpatialGridHash::clear()
 {
         gridHashTable.clear();
@@ -116,14 +85,9 @@ void SpatialGridHash::clear()
         // delete	it->second;
 }
 
-void SpatialGridHash::probe(FLAT::SpatialObject*& obj)
+void SpatialGridHash::probe(TreeEntry*& obj)
 {
         probing.start();
-        
-        //set to zero variables to use same grid many times
-//        filtered[obj->type] = 0;
-//        hashprobe = 0;
-//        resultPairs = ResultPairs();
         
         vector<FLAT::uint64> cells;
         if (!getProjectedCells( obj , cells ))
@@ -151,87 +115,44 @@ void SpatialGridHash::probe(FLAT::SpatialObject*& obj)
 
 void SpatialGridHash::probe(const SpatialObjectList& dsB)
 {
-        probing.start();
- 
-//        filtered[0] = 0;
-//        filtered[1] = 0;
-//        hashprobe = 0;
-//        resultPairs = ResultPairs();
-        
-        
-        for(SpatialObjectList::const_iterator i=dsB.begin(); i!=dsB.end(); ++i)
-        {
-          // if ((*i)->id == 5579) cout << "----------------- ============== probe 5579" << endl;
-           // if ((*i)->id == 2572) cout << "----------------- ============== probe 2572" << endl;
-                vector<FLAT::uint64> cells;
-                if (!getProjectedCells( *i , cells ))
-                {
-                        filtered[(*i)->type]++;
-                        continue;
-                }
-                
-          //  if ((*i)->id == 2572) cout << "----------------- ============== probe 2572 test 2" << endl;
-                ///// Get Unique Objects from Grid Hash in Vicinity
-                hashprobe += cells.size();
-                
-                if ((*i)->id == 2572) 
-                for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
-                {
-                        HashTable::iterator it = gridHashTable.find(*j);
-                        if (it==gridHashTable.end()) continue;
-                        HashValue* soList = it->second;
-//                        for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
-//                        {
-//                            cout << "list of objects of " << it->first << " " << (*k)->id << endl;
-//                        }
-                }
-                
-                
-                for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
-                {
-                        HashTable::iterator it = gridHashTable.find(*j);
-                        if (it==gridHashTable.end()) continue;
-                        HashValue* soList = it->second;
-                        for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
-                        {
-                                if ( istouching( *i , *k) )
-                                {
-                                    resultPairs.addPair(*i , *k);
-                                }
-                        }
-                }
-        }
+    probing.start();
 
-        probing.stop();
+    for(SpatialObjectList::const_iterator i=dsB.begin(); i!=dsB.end(); ++i)
+    {
+        vector<FLAT::uint64> cells;
+        if (!getProjectedCells( *i , cells ))
+        {
+            filtered[(*i)->type]++;
+            continue;
+        }
+        ///// Get Unique Objects from Grid Hash in Vicinity
+        hashprobe += cells.size();
+
+        for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
+        {
+            HashTable::iterator it = gridHashTable.find(*j);
+            if (it==gridHashTable.end()) continue;
+            HashValue* soList = it->second;
+            for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
+            {
+                if ( istouching( *i , *k) )
+                {
+                    resultPairs.addPair(*i , *k);
+                }
+            }
+        }
+    }
+
+    probing.stop();
 }
 
-void SpatialGridHash::probe(TreeNode* leaf)
+void SpatialGridHash::transferInfo(SpatialGridHash* sgh, JoinAlgorithm* alg)
 {
-        probing.start();
-        for (unsigned int child = 0; child < leaf->entries.size(); ++child)
-        {
-                vector<FLAT::uint64> cells;
-                if (!getProjectedCells( leaf->entries.at(child)->mbr  , cells ))
-                {
-                        filtered[0]++;
-                        continue;
-                }
-                ///// Get Unique Objects from Grid Hash in Vicinity
-                hashprobe += cells.size();
-                for (vector<FLAT::uint64>::const_iterator j = cells.begin(); j!=cells.end(); ++j)
-                {
-                        HashTable::iterator it = gridHashTable.find(*j);
-                        if (it==gridHashTable.end()) continue;
-                                HashValue* soList = it->second;
-                        for (HashValue::const_iterator k=soList->begin(); k!=soList->end(); ++k)
-                        {
-                                if ( istouching( leaf->entries.at(child)->obj , *k) )
-                                {
-                                    resultPairs.addPair(leaf->entries.at(child)->obj , *k);
-                                }
-                        }
-                }
-
-        }
-        probing.stop();
+    alg->ItemsCompared += sgh->ItemsCompared;
+    alg->resultPairs.results += sgh->resultPairs.results;
+    alg->resultPairs.duplicates += sgh->resultPairs.duplicates;
+    alg->repA += sgh->repA;
+    alg->repB += sgh->repB;
+    alg->resultPairs.deDuplicateTime.add(sgh->resultPairs.deDuplicateTime);
+    alg->initialize.add(sgh->initialize);
 }

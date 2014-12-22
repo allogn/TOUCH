@@ -18,15 +18,13 @@ class dTOUCH : public CommonTOUCH
 private:
     
     void assignment(SpatialObjectList& ds);
-    void joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID);
-
 public:
 
     dTOUCH();
     ~dTOUCH();
     
     void run();
-    
+    //void joinNodeToDesc(TreeNode* ancestorNode);
 };
 
 

@@ -11,34 +11,6 @@
 
 class rereTOUCH : public CommonTOUCH
 {
-private:
-
-    void NL(SpatialObjectList& A, SpatialObjectList& B)
-    {
-        for(SpatialObjectList::iterator itA = A.begin(); itA != A.end(); ++itA)
-            for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-                if ( istouching(*itA , *itB) )
-                {
-                    resultPairs.addPair(*itA , *itB);
-                }
-    }
-    
-    //Nested Loop join algorithm cTOUCH
-    void NL(FLAT::SpatialObject* A, SpatialObjectList& B)
-    {
-        for(SpatialObjectList::iterator itB = B.begin(); itB != B.end(); ++itB)
-            if ( istouching(A , *itB) )
-                resultPairs.addPair( A , *itB );
-    }
-
-    /*
-    Create new node according to set of TreeEntries. Entries can be of both types,
-    So create to entries that point to the new node of two types.
-    Create entry iff it is not empty
-    */
-    void writeNode(std::vector<TreeEntry*> objlist,int Level);
-    //void createTreeLevel(std::vector<TreeEntry*>& input,int Level);
-
 public:
 
     rereTOUCH()
@@ -52,21 +24,16 @@ public:
     void assignmentB();
     void reassignmentB();
 
-    void joinObjectToDesc(FLAT::SpatialObject* obj, TreeEntry* ancestorNode);
+    void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);
 
-    void joinNodeToDesc(TreeEntry* ancestorNode);
-
-    void probe();
-    
+    void joinNodeToDesc(TreeNode* ancestorNode);
     
     /*
      * Function for creating valid R-tree from B objects assigned to nodes
      * after A objects removal from leafs
      */
-    FLAT::uint64 mergingMbrB(TreeEntry* startEntry, FLAT::Box &mbr, bool clearA);
-    FLAT::uint64 mergingMbrA(TreeEntry* startEntry, FLAT::Box &mbr);
-    
-    bool verifyMBR(TreeEntry* ent);
+    FLAT::uint64 mergingMbrB(TreeNode* startNode, FLAT::Box &mbr, bool clearA);
+    FLAT::uint64 mergingMbrA(TreeNode* startNode, FLAT::Box &mbr);
     
     void run();
     

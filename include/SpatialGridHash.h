@@ -56,15 +56,10 @@ private:
 
 	}
 
-	void getOverlappingCells(FLAT::SpatialObject* sobj,vector<FLAT::uint64>& cells)
+	void getOverlappingCells(TreeEntry* sobj,vector<FLAT::uint64>& cells)
 	{
 		FLAT::Box mbr = sobj->getMBR();
-                mbr.isEmpty = false;
-		//cout<<mbr.low << " " << mbr.high << " " << epsilon<< endl;
-		FLAT::Box::expand(mbr,epsilon*1./2.);
-		
-		//cout<<mbr.low << " " << mbr.high << " " << epsilon<< endl;
-
+                
 		int xMin,yMin,zMin;
 		vertex2GridLocation(mbr.low,xMin,yMin,zMin);
 
@@ -88,28 +83,10 @@ private:
 		extent.high = extent.high + universe.low;
 	}
 
-	bool getProjectedCells(FLAT::SpatialObject* sobj,vector<FLAT::uint64>& cells)
+	bool getProjectedCells(TreeEntry* sobj, vector<FLAT::uint64>& cells)
 	{
 		FLAT::Box mbr = sobj->getMBR();
-                mbr.isEmpty = false;
-                FLAT::Box::expand(mbr,epsilon*1./2.);
-		if (!FLAT::Box::overlap(mbr,universe)) return false;
-
-		int xMin,xMax,yMin,yMax,zMin,zMax;
-		vertex2GridLocation(mbr.low,xMin,yMin,zMin);
-		vertex2GridLocation(mbr.high,xMax,yMax,zMax);
-
-		for (int i=xMin;i<=xMax;++i)
-			for (int j=yMin;j<=yMax;++j)
-				for (int k=zMin;k<=zMax;++k)
-				{
-					cells.push_back( gridLocation2Index(i,j,k) );
-				}
-		return true;
-	}
-	bool getProjectedCells(FLAT::Box& mbr,vector<FLAT::uint64>& cells)
-	{
-
+                
 		if (!FLAT::Box::overlap(mbr,universe)) return false;
 
 		int xMin,xMax,yMin,yMax,zMin,zMax;
@@ -131,12 +108,12 @@ public:
 	~SpatialGridHash();
     
 	void build(SpatialObjectList& dsA);
-        void build(std::vector<TreeEntry*>& entries);
 	void clear();
 	void probe(const SpatialObjectList& dsB);
-	void probe(TreeNode* leaf);
-        void probe(FLAT::SpatialObject*& obj);
+        void probe(TreeEntry*& obj);
 	void analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB);
+        
+        static void transferInfo(SpatialGridHash* sgh, JoinAlgorithm* alg);
 };
 
 #endif	/* SPATIALGRIDHASH_H */

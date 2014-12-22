@@ -67,7 +67,15 @@ void dTOUCH::run()
     levelStdTemp = levelStd[0];
     
     tree.clear();
-
+    ItemPerLevel[0].clear();
+    ItemPerLevelAns[0].clear();
+    ItemPerLevel[1].clear();
+    ItemPerLevelAns[1].clear();
+    levelAvg[0].clear();
+    levelAvg[1].clear();
+    levelStd[1].clear();
+    levelStd[0].clear();
+    
     //processing second tree
     if (vdsB.size() > 0)
     {
@@ -129,45 +137,49 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     
     if (ds.size() == 0)
         return;
-    int assignedType = (*ds.begin())->type;
     
     for (unsigned int i=0;i<ds.size();++i)
     {
-        FLAT::SpatialObject* obj = ds.at(i);
-        FLAT::Box objMBR = obj->getMBR();
-        objMBR.isEmpty = false;
-        FLAT::Box::expand(objMBR,epsilon * 1./2.);
-        TreeEntry* nextNode;
-        TreeNode* ptr = tree.at(root->childIndex);
+        TreeEntry* obj = ds[i];
+        
+        TreeNode* nextNode;
+        TreeNode* ptr = root;
         
         while(true)
         {
             overlaps = false;
             assigned = false;
-            for (unsigned int cChild = 0; cChild < ptr->entries.size(); ++cChild)
+            for (NodeList::iterator it = ptr->entries.begin(); it != ptr->entries.end(); it++)
             {    
-                if ( FLAT::Box::overlap(objMBR,ptr->entries.at(cChild)->mbr) )
+                if ( FLAT::Box::overlap(obj->mbr,(*it)->mbr) )
                 {
                     if(overlaps++ == 0)
                     {
                         overlaps = true;
-                        nextNode = ptr->entries.at(cChild);
+                        nextNode = (*it);
                     }
                     else
                     {
-                        if (assignedType == 1)
+                        if (obj->type == 1)
                         {
                             //should be assigned to this level
                             double coin = (rand()/(double)(RAND_MAX));
 
-                            if (coin > exp(-(((double)ptr->level-1.) * maxLevelCoef/100.)/(double)Levels))
+                            
+                            //old good version
+                            //if (coin > exp(-(((double)ptr->level) * maxLevelCoef/100.)/(double)Levels))
+                            
+                            
+                            
+                            double x = (double)(ptr->level)/(double)Levels; // zero level is below and is always one
+                            //cout << coin << " < " << exp(-x*maxLevelCoef)*(1-x) << " with level " << ptr->level << endl;
+                            if (coin > exp(-x*maxLevelCoef)*(1-x))
                             {
-                                vdsB.push_back(new TreeEntry(obj));
-                                vdsB.back()->expand(epsilon);
+                                vdsB.push_back(obj);
                             }
                             else
                             {
-                                ptr->attachedObjs[0].push_back(obj);
+                                ptr->attachedObjs[obj->type].push_back(obj);
                             }
                             assigned = true;
                             assigned_level = ptr->level;
@@ -175,7 +187,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
                         }
                         else
                         {
-                            ptr->attachedObjs[0].push_back(obj);
+                            ptr->attachedObjs[obj->type].push_back(obj);
                             assigned = true;
                             assigned_level = ptr->level;
                             break;
@@ -185,7 +197,6 @@ void dTOUCH::assignment(SpatialObjectList& ds)
             }
             if(assigned)
             {
-                //obj->cost = overlaps*((pow(nodesize,assigned_level+1)-1)/(nodesize - 1) - 1);
                 break;
             }
             if(!overlaps)
@@ -194,61 +205,64 @@ void dTOUCH::assignment(SpatialObjectList& ds)
                 filtered[obj->type]++;
                 break;
             }
-            ptr = tree.at(nextNode->childIndex);
-            if(ptr->leafnode /*|| ptr->level < 2*/)
+            ptr = nextNode;
+            if(ptr->leafnode)
             {
-                ptr->attachedObjs[0].push_back(obj);
+                ptr->attachedObjs[obj->type].push_back(obj);
                 break;
             }
         }
     }
 }
 
-void dTOUCH::joinObjectToDesc(FLAT::SpatialObject* obj, FLAT::uint64 ancestorNodeID)
-{
-    queue<FLAT::uint64> nodes;
-    int nodeID;
-
-    TreeNode* node;
-    nodes.push(ancestorNodeID);
-
-    FLAT::Box objMBR = obj->getMBR();
-    objMBR.isEmpty = false;
-    FLAT::Box::expand(objMBR,epsilon * 1./2.);
-    while(nodes.size()>0)
-    {
-
-        nodeID = nodes.front();
-        node = tree.at(nodeID);
-        nodes.pop();
-
-        if (node->leafnode == true)
-        {
-            //intersect with all non-null children
-                
-            //if intersects
-            ItemsMaxCompared += 1;
-            comparing.start();
-            if(localJoin == algo_SGrid)
-            {
-                node->spatialGridHash[0]->probe(obj);
-            }
-            else
-            {
-                NL(obj, node);
-            }
-            comparing.stop();
-
-        }
-        else
-        {
-            for (FLAT::uint64 child = 0; child < node->entries.size(); ++child)
-            {
-                if (FLAT::Box::overlap(objMBR, node->entries.at(child)->mbr))
-                {
-                    nodes.push(node->entries.at(child)->childIndex);
-                } 
-            }
-        }
-    }
-}
+//void dTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
+//{
+//    for (int type = 0; type < TYPES; type++)
+//    {
+//        SpatialGridHash* spatialGridHash;
+//        queue<TreeNode*> leaves;
+//        TreeNode* leaf;
+//        if( localJoin == algo_SGrid )
+//        {
+//            spatialGridHash = new SpatialGridHash(this->universeA,localPartitions);
+//            spatialGridHash->epsilon = this->epsilon;
+//            gridCalculate.start();
+//            spatialGridHash->build(ancestorNode->attachedObjs[type]);
+//            gridCalculate.stop();
+//        }
+//
+//        leaves.push(ancestorNode);
+//        while(leaves.size()>0)
+//        {
+//            leaf = leaves.front();
+//            leaves.pop();
+//            if(leaf->leafnode)
+//            {
+//                ItemsMaxCompared += ancestorNode->attachedObjs[type].size()*leaf->attachedObjs[!type].size();
+//                comparing.start();
+//                if(localJoin == algo_SGrid)
+//                {
+//                    spatialGridHash->probe(leaf->attachedObjs[!type]);
+//                }
+//                else
+//                {
+//                    NL(leaf->attachedObjs[!type],ancestorNode->attachedObjs[type]);
+//                }
+//                comparing.stop();
+//            }
+//            else
+//            {
+//                for (NodeList::iterator it = leaf->entries.begin(); it != leaf->entries.end(); it++)
+//                {
+//                    leaves.push((*it));
+//                }
+//            }
+//        }
+//
+//        if(localJoin == algo_SGrid)
+//        {
+//            spatialGridHash->resultPairs.deDuplicate();
+//            SpatialGridHash::transferInfo(spatialGridHash,this);
+//        }
+//    }
+//}
