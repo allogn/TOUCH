@@ -165,7 +165,15 @@ void dTOUCH::assignment(SpatialObjectList& ds)
                             //should be assigned to this level
                             double coin = (rand()/(double)(RAND_MAX));
 
-                            if (coin > exp(-(((double)ptr->level) * maxLevelCoef/100.)/(double)Levels))
+                            
+                            //old good version
+                            //if (coin > exp(-(((double)ptr->level) * maxLevelCoef/100.)/(double)Levels))
+                            
+                            
+                            
+                            double x = (double)(ptr->level)/(double)Levels; // zero level is below and is always one
+                            //cout << coin << " < " << exp(-x*maxLevelCoef)*(1-x) << " with level " << ptr->level << endl;
+                            if (coin > exp(-x*maxLevelCoef)*(1-x))
                             {
                                 vdsB.push_back(obj);
                             }
