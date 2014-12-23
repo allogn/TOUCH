@@ -1,0 +1,11 @@
+Filename, Average, Standard deviation, Minimum, Maximum
+./samplesDendrites/4000/sample1.bin,3.61964,822.999,0,494.18
+./samplesDendrites/4000/sample2.bin,2.25931,506.062,0,360.159
+./samplesDendrites/4000/sample3.bin,2.56222,609.057,0,240.767
+./samplesDendrites/4000/sample4.bin,2.70349,523.565,0,286.094
+./samplesDendrites/4000/sample5.bin,3.411,907.426,0.00611345,455.785
+./samplesDendrites/4000/sample6.bin,3.48476,829.977,0,269.049
+./samplesDendrites/4000/sample7.bin,1.77536,320.195,0,146.815
+./samplesDendrites/4000/sample8.bin,3.84584,756.521,0.00259851,372.121
+./samplesDendrites/4000/sample9.bin,3.33466,759.787,0.00615997,334.207
+./samplesDendrites/4000/sample10.bin,3.41248,1303.68,0,1086.5

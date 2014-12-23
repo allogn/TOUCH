@@ -364,7 +364,7 @@ void CommonTOUCH::countSpatialGrid()
             double spaceVol = FLAT::Box::volume(mbr);
             if ((*it)->avrSize[type] == 0)
             {
-                resolution = 1;
+                resolution = 1; // no objects
             }
             else
             {
@@ -373,13 +373,13 @@ void CommonTOUCH::countSpatialGrid()
             
             
             
-            (*it)->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
+            (*it)->spatialGridHash[type] = new SpatialGridHash(mbr,resolution);
             (*it)->spatialGridHash[type]->epsilon = this->epsilon;
             (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
             
             if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
             {
-                (*it)->spatialGridHashAns[type] = new SpatialGridHash(mbr,localPartitions);
+                (*it)->spatialGridHashAns[type] = new SpatialGridHash(mbr,resolution);
                 (*it)->spatialGridHashAns[type]->epsilon = this->epsilon;
                 (*it)->spatialGridHashAns[type]->build((*it)->attachedObjsAns[type]);
             }

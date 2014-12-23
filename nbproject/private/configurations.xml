@@ -867,10 +867,52 @@
       </df>
       <df name="run">
         <df name="16.12">
+          <df name="reresultRandomE5">
+          </df>
+          <df name="reresultsE=1">
+          </df>
           <df name="reresultsE=5">
           </df>
           <df name="resultsWithDynamicGrid">
           </df>
+          <df name="samples">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+          <df name="samplesAxons">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+          <df name="samplesDendrites">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+        </df>
+        <df name="22.12">
         </df>
         <df name="23.11">
         </df>
@@ -1214,10 +1256,52 @@
       </df>
       <df name="run">
         <df name="16.12">
+          <df name="reresultRandomE5">
+          </df>
+          <df name="reresultsE=1">
+          </df>
           <df name="reresultsE=5">
           </df>
           <df name="resultsWithDynamicGrid">
           </df>
+          <df name="samples">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+          <df name="samplesAxons">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+          <df name="samplesDendrites">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+        </df>
+        <df name="22.12">
         </df>
         <df name="23.11">
         </df>
@@ -1522,10 +1606,52 @@
       </df>
       <df name="run">
         <df name="16.12">
+          <df name="reresultRandomE5">
+          </df>
+          <df name="reresultsE=1">
+          </df>
           <df name="reresultsE=5">
           </df>
           <df name="resultsWithDynamicGrid">
           </df>
+          <df name="samples">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+          <df name="samplesAxons">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+          <df name="samplesDendrites">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+        </df>
+        <df name="22.12">
         </df>
         <df name="23.11">
         </df>
@@ -1830,10 +1956,52 @@
       </df>
       <df name="run">
         <df name="16.12">
+          <df name="reresultRandomE5">
+          </df>
+          <df name="reresultsE=1">
+          </df>
           <df name="reresultsE=5">
           </df>
           <df name="resultsWithDynamicGrid">
           </df>
+          <df name="samples">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+          <df name="samplesAxons">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+          <df name="samplesDendrites">
+            <df name="10000">
+            </df>
+            <df name="2000">
+            </df>
+            <df name="4000">
+            </df>
+            <df name="6000">
+            </df>
+            <df name="8000">
+            </df>
+          </df>
+        </df>
+        <df name="22.12">
         </df>
         <df name="23.11">
         </df>
