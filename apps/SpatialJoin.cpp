@@ -38,7 +38,8 @@ double epsilon				=  0.5;             // the epsilon of the similarity join
 int leafsize				=  100;             // # of partitions: in S3 is # of levels; in SGrid is resolution. Leafnode size.
 unsigned int numA = 0 ,numB = 0;                            //number of elements to be read from datasets
 int nodesize                            = 2;                // number of children per node if not leaf
-int maxLevelCoef                        = 1;              // coefficient in probability to assign object to first tree in dTOUCH
+int maxLevelCoef                        = 1;                // coefficient in probability to assign object to first tree in dTOUCH
+int traversalType                       = join_UD;          // join traversal of a tree
 
 std::string input_dsA = "../data/RandomData-100K.bin";
 std::string input_dsB = "../data/RandomData-1600K.bin";
@@ -67,6 +68,7 @@ void usage(const char *program_name) {
     printf("   -e               Epsilon of the similarity join\n");
     printf("   -i               <path> <path>  Dataset A followed by B\n");
     printf("   -n               #A #B  number of element to be read\n");
+    printf("   -t               type of tree traversal (UD 1, BU 0)\n");
     printf("   -v               verbose\n");
 
 }
@@ -130,6 +132,9 @@ void parse_args(int argc, const char* argv[]) {
 		case 'm':       /* maximum level in dTOUCH parameter */
 			sscanf(argv[++x], "%u", &maxLevelCoef);
             break;
+		case 't':       /* maximum level in dTOUCH parameter */
+			sscanf(argv[++x], "%u", &traversalType);
+            break;
 		case 'g':       /* base for the number of components to merge in every level of the hierarchy */
 			sscanf(argv[++x], "%u", &localPartitions);
             break;
@@ -158,6 +163,7 @@ void dTOUCHrun()
     touch->epsilon          = epsilon;	
     touch->numA             = numA;
     touch->numB             = numB;
+    touch->treeTraversal    = traversalType;
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
@@ -180,6 +186,7 @@ void cTOUCHrun()
     touch->epsilon          = epsilon;	
     touch->numA             = numA;
     touch->numB             = numB;
+    touch->treeTraversal    = traversalType;
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
@@ -202,6 +209,7 @@ void TOUCHrun()
     touch->epsilon          = epsilon;	
     touch->numA             = numA;
     touch->numB             = numB;
+    touch->treeTraversal    = traversalType;
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
@@ -224,6 +232,7 @@ void reTOUCHrun()
     touch->epsilon          = epsilon;	
     touch->numA             = numA;
     touch->numB             = numB;
+    touch->treeTraversal    = traversalType;
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
@@ -246,6 +255,7 @@ void rereTOUCHrun()
     touch->epsilon          = epsilon;	
     touch->numA             = numA;
     touch->numB             = numB;
+    touch->treeTraversal    = traversalType;
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;

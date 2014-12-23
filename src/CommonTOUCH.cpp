@@ -361,14 +361,22 @@ void CommonTOUCH::countSpatialGrid()
             
             //resolution is number of cells per dimension
             int resolution;
-            double spaceVol = FLAT::Box::volume(mbr);
-            if ((*it)->avrSize[type] == 0)
+            
+            if (localPartitions == 0)
             {
-                resolution = 1; // no objects
+                double spaceVol = FLAT::Box::volume(mbr);
+                if ((*it)->avrSize[type] == 0)
+                {
+                    resolution = 1; // no objects
+                }
+                else
+                {
+                    resolution = (int) std::pow(spaceVol/(*it)->avrSize[type],1./3.);
+                }
             }
             else
             {
-                resolution = (int) std::pow(spaceVol/(*it)->avrSize[type],1./3.);
+                resolution = localPartitions;
             }
             
             

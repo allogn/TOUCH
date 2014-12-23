@@ -32,6 +32,9 @@
 #define X_axis_Sort			2
 #define STR_Sort			3
 
+#define join_BU                         0
+#define join_UD                         1
+
 typedef SpatialObjectList HashValue;
 typedef pair<FLAT::uint64,HashValue*> ValuePair;
 typedef boost::unordered_map <FLAT::uint64,HashValue*> HashTable;
@@ -59,6 +62,7 @@ public:
     double epsilon;
     unsigned int numA, numB;		//number of elements to be read from datasets
     
+    int treeTraversal;
     
     FLAT::Box universeA, universeB;
     FLAT::Timer dataLoad;	//The time for copying the data to memory
