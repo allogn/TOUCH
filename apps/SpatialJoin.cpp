@@ -68,7 +68,7 @@ void usage(const char *program_name) {
     printf("   -e               Epsilon of the similarity join\n");
     printf("   -i               <path> <path>  Dataset A followed by B\n");
     printf("   -n               #A #B  number of element to be read\n");
-    printf("   -t               type of tree traversal (UD 1, BU 0)\n");
+    printf("   -y               type of tree traversal (UD 1, BU 0)\n");
     printf("   -v               verbose\n");
 
 }
@@ -132,7 +132,7 @@ void parse_args(int argc, const char* argv[]) {
 		case 'm':       /* maximum level in dTOUCH parameter */
 			sscanf(argv[++x], "%u", &maxLevelCoef);
             break;
-		case 't':       /* maximum level in dTOUCH parameter */
+		case 'y':       /* maximum level in dTOUCH parameter */
 			sscanf(argv[++x], "%u", &traversalType);
             break;
 		case 'g':       /* base for the number of components to merge in every level of the hierarchy */

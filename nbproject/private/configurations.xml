@@ -51,6 +51,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -104,6 +106,42 @@
       <df name="cmake">
       </df>
       <df name="data">
+        <df name="samplesAxons">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
+        <df name="samplesDendrites">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
+        <df name="samplesRandomUni">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
       </df>
       <df name="doc">
         <df name="Articles">
@@ -913,6 +951,16 @@
           </df>
         </df>
         <df name="22.12">
+          <df name="Axons">
+          </df>
+          <df name="Random">
+            <df name="E1">
+            </df>
+            <df name="E16">
+            </df>
+            <df name="E25">
+            </df>
+          </df>
         </df>
         <df name="23.11">
         </df>
@@ -1038,6 +1086,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1091,6 +1141,42 @@
       <df name="cmake">
       </df>
       <df name="data">
+        <df name="samplesAxons">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
+        <df name="samplesDendrites">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
+        <df name="samplesRandomUni">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
       </df>
       <df name="doc">
         <df name="Articles">
@@ -1302,6 +1388,16 @@
           </df>
         </df>
         <df name="22.12">
+          <df name="Axons">
+          </df>
+          <df name="Random">
+            <df name="E1">
+            </df>
+            <df name="E16">
+            </df>
+            <df name="E25">
+            </df>
+          </df>
         </df>
         <df name="23.11">
         </df>
@@ -1388,6 +1484,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1441,6 +1539,42 @@
       <df name="cmake">
       </df>
       <df name="data">
+        <df name="samplesAxons">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
+        <df name="samplesDendrites">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
+        <df name="samplesRandomUni">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
       </df>
       <df name="doc">
         <df name="Articles">
@@ -1652,6 +1786,16 @@
           </df>
         </df>
         <df name="22.12">
+          <df name="Axons">
+          </df>
+          <df name="Random">
+            <df name="E1">
+            </df>
+            <df name="E16">
+            </df>
+            <df name="E25">
+            </df>
+          </df>
         </df>
         <df name="23.11">
         </df>
@@ -1738,6 +1882,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1791,6 +1937,42 @@
       <df name="cmake">
       </df>
       <df name="data">
+        <df name="samplesAxons">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
+        <df name="samplesDendrites">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
+        <df name="samplesRandomUni">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
       </df>
       <df name="doc">
         <df name="Articles">
@@ -2002,6 +2184,16 @@
           </df>
         </df>
         <df name="22.12">
+          <df name="Axons">
+          </df>
+          <df name="Random">
+            <df name="E1">
+            </df>
+            <df name="E16">
+            </df>
+            <df name="E25">
+            </df>
+          </df>
         </df>
         <df name="23.11">
         </df>
