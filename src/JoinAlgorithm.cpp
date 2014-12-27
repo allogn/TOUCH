@@ -25,6 +25,7 @@ JoinAlgorithm::JoinAlgorithm() {
     partitions              = 4;
     profilingEnable         = true;
     epsilon                 = 1.5;
+    treeTraversal           = 1;
     
     verbose                 =  true;
     

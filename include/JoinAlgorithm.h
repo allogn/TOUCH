@@ -122,7 +122,14 @@ public:
         }
     }
     
-    std::string algoname() { return getAlgName(algorithm); };
+    std::string algoname() {
+        if (treeTraversal == join_UD)
+        {
+            return (getAlgName(algorithm)).append(":UD");
+        }
+        return getAlgName(algorithm); 
+    
+    };
     std::string basealgo() { return getAlgName(localJoin); };
       
     JoinAlgorithm();

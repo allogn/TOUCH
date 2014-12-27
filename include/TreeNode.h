@@ -16,6 +16,7 @@ class SpatialGridHash;
 class TreeNode
 {
 public:
+    int id;
     
     	FLAT::Box mbrK[TYPES]; //combined black and light MBR of each type
         FLAT::uint64 num[TYPES];// number of objects assigned below

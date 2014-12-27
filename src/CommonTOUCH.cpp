@@ -230,56 +230,100 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
 
 void CommonTOUCH::probe()
 {
+    
+    if(localJoin == algo_SGrid && treeTraversal == join_UD)
+        countSpatialGrid();
+    
+    
     probing.start();
-
-    std::queue<TreeNode*> Qnodes;
-    TreeNode* currentNode;
-    Qnodes.push(root);
-
-    int lvl = Levels;
-    // A BFS on the tree then for each find all its leaf nodes by another BFS
-    while(Qnodes.size()>0)
+    
+    
+    if (treeTraversal == join_BU)
     {
-        currentNode = Qnodes.front();
-        Qnodes.pop();
-        //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
-        if(!currentNode->leafnode)
-            for (NodeList::iterator it = currentNode->entries.begin(); it != currentNode->entries.end(); it++)
-            {
-                    Qnodes.push((*it));
-            }
-        
-        // just to display the level of the BFS traversal
-        if (verbose)
-            if(lvl!=currentNode->level)
-            {
-                    lvl = currentNode->level;
-                    cout << "\n### Level " << lvl <<endl;
-            }
-        
-        // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
-       
-        if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()
-                + currentNode->attachedObjsAns[0].size() + currentNode->attachedObjsAns[1].size() ==0)
-            continue;
-        joinNodeToDesc(currentNode);
+        probeDownUp();
+    }
+    else
+    {
+        std::queue<TreeNode*> Qnodes;
+        TreeNode* currentNode;
+        Qnodes.push(root);
+
+        int lvl = Levels;
+        // A BFS on the tree then for each find all its leaf nodes by another BFS
+        while(Qnodes.size()>0)
+        {
+            currentNode = Qnodes.front();
+            Qnodes.pop();
+            //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
+            if(!currentNode->leafnode)
+                for (NodeList::iterator it = currentNode->entries.begin(); it != currentNode->entries.end(); it++)
+                {
+                        Qnodes.push((*it));
+                }
+
+            // just to display the level of the BFS traversal
+            if (verbose)
+                if(lvl!=currentNode->level)
+                {
+                        lvl = currentNode->level;
+                        cout << "\n### Level " << lvl <<endl;
+                }
+
+            // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
+
+            if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()
+                    + currentNode->attachedObjsAns[0].size() + currentNode->attachedObjsAns[1].size() ==0)
+                continue;
+            joinNodeToDesc(currentNode);
+        }   
     }
     probing.stop();
+    
+    if(localJoin == algo_SGrid && treeTraversal == join_UD)
+    {
+        deduplicateSpatialGrid();
+    }
 }
 
 void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
 {
+    int type;
+    if (node == nodeObj)
+    {
+        if (node->attachedObjs[0].size()+node->attachedObjsAns[0].size() < 
+                node->attachedObjs[1].size() + node->attachedObjsAns[1].size())
+        {
+            type = 0;;
+        }
+        else 
+        {
+            type = 1;
+        }
+        if (localJoin == algo_SGrid)
+        {
+            node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
+            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
+        }
+        else
+        {
+            NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
+            NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
+            NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
+            NL(node->attachedObjsAns[type],nodeObj->attachedObjsAns[!type]);
+        }
+        return;
+    }
     for (int type = 0; type < TYPES; type++)
     {
         if (localJoin == algo_SGrid)
         {
             node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
-            node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
         }
         else
         {
             NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
-            NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
+            NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
         }
     }
 }
@@ -287,17 +331,16 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
 void CommonTOUCH::pathWayJoin(TreeNode* node)
 {
     probingList.push_back(node);
-    if (!node->leafnode)
+    for (NodeList::iterator cit = node->entries.begin(); cit != node->entries.end(); cit++)
     {
-        if (localJoin == algo_SGrid) countSpatialGrid(node);
-        for (NodeList::iterator cit = node->entries.begin(); cit != node->entries.end(); cit++)
-        {
-            pathWayJoin((*cit));
-        }
+        pathWayJoin((*cit));
     }
+    
+    if (localJoin == algo_SGrid) countSpatialGrid(node);
+    
     for (NodeList::iterator ancit = probingList.begin(); ancit != probingList.end(); ancit++)
     {
-        JOIN((*ancit),node);
+        JOIN(node,(*ancit));
     }
     if (localJoin == algo_SGrid) deduplicateSpatialGrid(node);
     probingList.pop_back();
@@ -497,7 +540,7 @@ void CommonTOUCH::writeNode(SpatialObjectList& objlist)
     prNode->mbr = mbr;
     prNode->mbrL[0] = mbr;
     prNode->mbrL[1] = mbr;
-    
+    prNode->id = tree.size();
     tree.push_back(prNode);
     nextInput.push_back(prNode);
 }
@@ -516,7 +559,7 @@ void CommonTOUCH::writeNode(NodeList& nodelist, int Level)
     prNode->mbr = mbr;
     prNode->mbrL[0] = mbr;
     prNode->mbrL[1] = mbr;
-    
+    prNode->id = tree.size();
     tree.push_back(prNode);
     nextInput.push_back(prNode);
 }

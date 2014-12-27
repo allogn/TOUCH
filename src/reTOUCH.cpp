@@ -17,19 +17,10 @@ void reTOUCH::run()
     assignmentA();
     if (verbose) std::cout << "Assigning Done." << std::endl; 
     analyze();
-    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
-    if(localJoin == algo_SGrid)
-        countSpatialGrid();
+    if (verbose) std::cout << "Analysis Done." << std::endl; 
+    
     if (verbose) std::cout << "Probing, doing the join" << std::endl; 
-    if (treeTraversal == join_UD)
-        probe();
-    else
-        probeDownUp();
-    if(localJoin == algo_SGrid)
-    {
-        if (verbose) std::cout << "Removing duplicates" << std::endl; 
-        deduplicateSpatialGrid();
-    }
+    probe();
     if (verbose) std::cout << "Done." << std::endl; 
     totalTimeStop();
 }
@@ -415,6 +406,7 @@ void reTOUCH::joinNodeToDesc(TreeNode* ancestorNode)
             for (SpatialObjectList::iterator it = node->attachedObjs[1].begin();
                                     it != node->attachedObjs[1].end(); it++)
             {
+                
                 FLAT::Box mbr = (*it)->getMBR();
                 comparing.start();
                 if (FLAT::Box::overlap(mbr, ancestorNode->mbrSelfD[0]))
