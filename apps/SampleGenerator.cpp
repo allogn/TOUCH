@@ -20,6 +20,7 @@ std::string outputPath  = "./samples/";
 std::string logName     = "stats.csv";
 int num                 = 1;
 bool verbose            = false;
+bool expand             = false;
 
 void usage(const char *program_name) {
 
@@ -30,6 +31,7 @@ void usage(const char *program_name) {
     printf("   -s               Sample size\n");
     printf("   -v               Verbose\n");
     printf("   -n               Number of files\n");
+    printf("   -e               (boolean) Expand\n");
 
 }
 
@@ -63,6 +65,11 @@ void parse_args(int argc, const char* argv[]) {
                 sscanf(argv[++x], "%u", &num);
                 break;
             case 'v':  
+                t = 1;
+                sscanf(argv[++x], "%u", &t);
+                verbose = (t == 1) ? true : false;
+                break;
+            case 'e':  
                 t = 1;
                 sscanf(argv[++x], "%u", &t);
                 verbose = (t == 1) ? true : false;
@@ -180,6 +187,10 @@ void generateSamples(std::string file_in, std::string path_out)
         for (int i = 0; i < sampleSize; i++)
         {
             vol = FLAT::Box::volume((*it)->getMBR());
+            
+            if (expand)
+                (*it)->randomExpand(20.);
+            
             if (vol > max) max = vol;
             if (vol < min) min = vol;
             avg += vol;

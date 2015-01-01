@@ -51,6 +51,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -977,10 +979,6 @@
             <df name="E7">
             </df>
           </df>
-          <df name="fanout">
-          </df>
-          <df name="leafsize">
-          </df>
           <df name="traversalType">
             <df name="E1">
             </df>
@@ -990,6 +988,24 @@
         </df>
         <df name="25.11">
           <in>runFromBash.m</in>
+        </df>
+        <df name="26.12">
+          <df name="traversalType">
+          </df>
+        </df>
+        <df name="28.12">
+          <df name="fanout">
+          </df>
+          <df name="leafsize">
+          </df>
+          <df name="traveralTypeRandomSizeConstantGrid">
+          </df>
+          <df name="traversalType">
+          </df>
+          <df name="traversalTypeCase3WithFiltering">
+          </df>
+          <df name="traversalTypeWithConstantGrid">
+          </df>
         </df>
         <df name="6.12">
           <df name="1">
@@ -1110,6 +1126,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1438,10 +1456,6 @@
             <df name="E7">
             </df>
           </df>
-          <df name="fanout">
-          </df>
-          <df name="leafsize">
-          </df>
           <df name="traversalType">
             <df name="E1">
             </df>
@@ -1450,6 +1464,24 @@
           </df>
         </df>
         <df name="25.11">
+        </df>
+        <df name="26.12">
+          <df name="traversalType">
+          </df>
+        </df>
+        <df name="28.12">
+          <df name="fanout">
+          </df>
+          <df name="leafsize">
+          </df>
+          <df name="traveralTypeRandomSizeConstantGrid">
+          </df>
+          <df name="traversalType">
+          </df>
+          <df name="traversalTypeCase3WithFiltering">
+          </df>
+          <df name="traversalTypeWithConstantGrid">
+          </df>
         </df>
         <df name="6.12">
           <df name="1">
@@ -1532,6 +1564,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1860,10 +1894,6 @@
             <df name="E7">
             </df>
           </df>
-          <df name="fanout">
-          </df>
-          <df name="leafsize">
-          </df>
           <df name="traversalType">
             <df name="E1">
             </df>
@@ -1872,6 +1902,24 @@
           </df>
         </df>
         <df name="25.11">
+        </df>
+        <df name="26.12">
+          <df name="traversalType">
+          </df>
+        </df>
+        <df name="28.12">
+          <df name="fanout">
+          </df>
+          <df name="leafsize">
+          </df>
+          <df name="traveralTypeRandomSizeConstantGrid">
+          </df>
+          <df name="traversalType">
+          </df>
+          <df name="traversalTypeCase3WithFiltering">
+          </df>
+          <df name="traversalTypeWithConstantGrid">
+          </df>
         </df>
         <df name="6.12">
           <df name="1">
@@ -1954,6 +2002,8 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -2282,10 +2332,6 @@
             <df name="E7">
             </df>
           </df>
-          <df name="fanout">
-          </df>
-          <df name="leafsize">
-          </df>
           <df name="traversalType">
             <df name="E1">
             </df>
@@ -2294,6 +2340,24 @@
           </df>
         </df>
         <df name="25.11">
+        </df>
+        <df name="26.12">
+          <df name="traversalType">
+          </df>
+        </df>
+        <df name="28.12">
+          <df name="fanout">
+          </df>
+          <df name="leafsize">
+          </df>
+          <df name="traveralTypeRandomSizeConstantGrid">
+          </df>
+          <df name="traversalType">
+          </df>
+          <df name="traversalTypeCase3WithFiltering">
+          </df>
+          <df name="traversalTypeWithConstantGrid">
+          </df>
         </df>
         <df name="6.12">
           <df name="1">

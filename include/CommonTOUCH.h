@@ -32,8 +32,16 @@ public:
     NodeList probingList;
     
     void probeDownUp();
+    void probeUpDown();
+    void probeUpDownFilter();
     void pathWayJoin(TreeNode* node);
+    void pathWayJoinDown(TreeNode* node);
+    void JoinDownR(TreeNode* node, TreeNode* nodeObj);
+    void pathWayJoinFilter(TreeNode* node);
+    void pathWayJoinDownFilter(TreeNode* node);
+    void JoinDownRFilter(TreeNode* node, TreeNode* nodeObj);
     void JOIN(TreeNode* node, TreeNode* nodeObj);
+    void JOINdown(TreeNode* node, TreeNode* nodeObj);
     
     virtual void joinNodeToDesc(TreeNode* ancestorNode);
     virtual void joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode);

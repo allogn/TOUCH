@@ -230,56 +230,62 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
 
 void CommonTOUCH::probe()
 {
-    
-    if(localJoin == algo_SGrid && treeTraversal == join_UD)
+    if(localJoin == algo_SGrid && treeTraversal == join_TD)
         countSpatialGrid();
     
     
     probing.start();
     
+    switch (treeTraversal)
+    {
+        case join_BU:
+            probeDownUp();
+            break;
+        case join_TDD:
+            probeUpDown();
     
-    if (treeTraversal == join_BU)
-    {
-        probeDownUp();
-    }
-    else
-    {
-        std::queue<TreeNode*> Qnodes;
-        TreeNode* currentNode;
-        Qnodes.push(root);
+            break;
+        case join_TDF:
+            probeUpDownFilter();
+            break;
+        case join_TD:
+            std::queue<TreeNode*> Qnodes;
+            TreeNode* currentNode;
+            Qnodes.push(root);
 
-        int lvl = Levels;
-        // A BFS on the tree then for each find all its leaf nodes by another BFS
-        while(Qnodes.size()>0)
-        {
-            currentNode = Qnodes.front();
-            Qnodes.pop();
-            //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
-            if(!currentNode->leafnode)
-                for (NodeList::iterator it = currentNode->entries.begin(); it != currentNode->entries.end(); it++)
-                {
-                        Qnodes.push((*it));
-                }
+            int lvl = Levels;
+            // A BFS on the tree then for each find all its leaf nodes by another BFS
+            while(Qnodes.size()>0)
+            {
+                currentNode = Qnodes.front();
+                Qnodes.pop();
+                //BFS on the tree using Qnodes as the queue for memorizing the future nodes to be traversed
+                if(!currentNode->leafnode)
+                    for (NodeList::iterator it = currentNode->entries.begin(); it != currentNode->entries.end(); it++)
+                    {
+                            Qnodes.push((*it));
+                    }
 
-            // just to display the level of the BFS traversal
-            if (verbose)
-                if(lvl!=currentNode->level)
-                {
-                        lvl = currentNode->level;
-                        cout << "\n### Level " << lvl <<endl;
-                }
+                // just to display the level of the BFS traversal
+                if (verbose)
+                    if(lvl!=currentNode->level)
+                    {
+                            lvl = currentNode->level;
+                            cout << "\n### Level " << lvl <<endl;
+                    }
 
-            // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
+                // If the current node has no objects assigned to it, no join is needed for the current node to the leaf nodes.
 
-            if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()
-                    + currentNode->attachedObjsAns[0].size() + currentNode->attachedObjsAns[1].size() ==0)
-                continue;
-            joinNodeToDesc(currentNode);
-        }   
+                if(currentNode->attachedObjs[0].size() + currentNode->attachedObjs[1].size()
+                        + currentNode->attachedObjsAns[0].size() + currentNode->attachedObjsAns[1].size() ==0)
+                    continue;
+                joinNodeToDesc(currentNode);
+            }   
+            break;
     }
     probing.stop();
     
-    if(localJoin == algo_SGrid && treeTraversal == join_UD)
+    if(localJoin == algo_SGrid && treeTraversal == join_TD)
     {
         deduplicateSpatialGrid();
     }
@@ -303,6 +309,8 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
         {
             node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
             node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
+            node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjsAns[!type]);
         }
         else
         {
@@ -311,6 +319,10 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
             NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
             NL(node->attachedObjsAns[type],nodeObj->attachedObjsAns[!type]);
         }
+        
+        ItemsMaxCompared += (node->attachedObjs[type].size()+node->attachedObjsAns[type].size())*
+                            (nodeObj->attachedObjs[!type].size() + nodeObj->attachedObjsAns[!type].size());
+        
         return;
     }
     for (int type = 0; type < TYPES; type++)
@@ -325,6 +337,59 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
             NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
             NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
         }
+        ItemsMaxCompared += (node->attachedObjs[type].size()+node->attachedObjsAns[type].size())*
+                            (nodeObj->attachedObjs[!type].size());
+    }
+}
+
+void CommonTOUCH::JOINdown(TreeNode* node, TreeNode* nodeObj)
+{
+    int type;
+    if (node == nodeObj)
+    {
+        if (node->attachedObjs[0].size()+node->attachedObjsAns[0].size() < 
+                node->attachedObjs[1].size() + node->attachedObjsAns[1].size())
+        {
+            type = 0;;
+        }
+        else 
+        {
+            type = 1;
+        }
+        if (localJoin == algo_SGrid)
+        {
+            node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
+            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
+            node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjsAns[!type]);
+        }
+        else
+        {
+            NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
+            NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
+            NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
+            NL(node->attachedObjsAns[type],nodeObj->attachedObjsAns[!type]);
+        }
+        
+        ItemsMaxCompared += (node->attachedObjs[type].size()+node->attachedObjsAns[type].size())*
+                            (nodeObj->attachedObjs[!type].size() + nodeObj->attachedObjsAns[!type].size());
+        
+        return;
+    }
+    for (int type = 0; type < TYPES; type++)
+    {
+        if (localJoin == algo_SGrid)
+        {
+            node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
+            node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+        }
+        else
+        {
+            NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
+            NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
+        }
+        ItemsMaxCompared += (node->attachedObjs[type].size())*
+                            (nodeObj->attachedObjs[!type].size()+nodeObj->attachedObjsAns[!type].size());
     }
 }
 
@@ -346,9 +411,66 @@ void CommonTOUCH::pathWayJoin(TreeNode* node)
     probingList.pop_back();
 }
 
+void CommonTOUCH::JoinDownR(TreeNode* node, TreeNode* nodeObj)
+{
+    JOINdown(node, nodeObj);
+    for (NodeList::iterator entr = nodeObj->entries.begin();
+            entr != nodeObj->entries.end(); entr++)
+    {
+        JoinDownR(node, (*entr));
+    }
+}
+
+void CommonTOUCH::JoinDownRFilter(TreeNode* node, TreeNode* nodeObj)
+{
+    JOINdown(node, nodeObj);
+    for (NodeList::iterator entr = nodeObj->entries.begin();
+            entr != nodeObj->entries.end(); entr++)
+    {
+        if (FLAT::Box::overlap((*entr)->mbr,node->mbr))
+        {
+            JoinDownRFilter(node, (*entr));
+        }
+    }
+}
+
+void CommonTOUCH::pathWayJoinDown(TreeNode* node)
+{
+    if (localJoin == algo_SGrid) countSpatialGrid(node);
+    JoinDownR(node, node);
+    if (localJoin == algo_SGrid) deduplicateSpatialGrid(node);
+    
+    for (NodeList::iterator cit = node->entries.begin(); cit != node->entries.end(); cit++)
+    {
+        pathWayJoinDown((*cit));
+    }
+}
+
+void CommonTOUCH::pathWayJoinDownFilter(TreeNode* node)
+{
+    if (localJoin == algo_SGrid) countSpatialGrid(node);
+    JoinDownRFilter(node, node);
+    if (localJoin == algo_SGrid) deduplicateSpatialGrid(node);
+    
+    for (NodeList::iterator cit = node->entries.begin(); cit != node->entries.end(); cit++)
+    {
+        pathWayJoinDownFilter((*cit));
+    }
+}
+
 void CommonTOUCH::probeDownUp()
 {
     pathWayJoin(root);
+}
+
+void CommonTOUCH::probeUpDown()
+{
+    pathWayJoinDown(root);
+}
+
+void CommonTOUCH::probeUpDownFilter()
+{
+    pathWayJoinDownFilter(root);
 }
 
 void CommonTOUCH::countSizeStatistics()
@@ -420,6 +542,14 @@ void CommonTOUCH::countSpatialGrid()
             else
             {
                 resolution = localPartitions;
+                if (type == 0)
+                {
+                    mbr = this->universeA;
+                }
+                else
+                {
+                    mbr = this->universeB;
+                }
             }
             
             

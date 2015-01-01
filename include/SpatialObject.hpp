@@ -37,6 +37,9 @@ class Vertex;   // To avoid Circular Includes
 
 		virtual SpatialObjectType getType()=0;
 
+                
+                inline void randomExpand(double size) {};
+                
 		virtual bigSpaceUnit pointDistance(Vertex& p)=0;
 	};
 
@@ -59,6 +62,7 @@ class Vertex;   // To avoid Circular Includes
 	{
 		bool operator()(SpatialObject* const r1, SpatialObject* const r2);
 	};
+        
 
 }
 

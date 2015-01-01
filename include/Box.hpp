@@ -72,6 +72,7 @@ namespace FLAT
 		static bigSpaceUnit overlapVolume(const Box&b1,const Box &b2);
 		static void expand(Box&b1,spaceUnit width);
 		static Box make_box (const std::vector<std::string> & coords);
+                void randomExpand(double size);
 
 		// Spatial Object virtual functions
 		Box getMBR();
@@ -169,6 +170,14 @@ namespace FLAT
 			}
 		}
 	}
+        
+        //expand box size randomly
+        inline void Box::randomExpand(double size)
+        {
+            double expCoef = size*((double)rand()/(double)RAND_MAX);
+            this->low = this->low-expCoef;
+            this->high = this->high+expCoef;
+        }
 
 }
 

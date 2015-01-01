@@ -33,7 +33,9 @@
 #define STR_Sort			3
 
 #define join_BU                         0
-#define join_UD                         1
+#define join_TD                         1
+#define join_TDD                        2
+#define join_TDF                        3
 
 typedef SpatialObjectList HashValue;
 typedef pair<FLAT::uint64,HashValue*> ValuePair;
@@ -123,9 +125,20 @@ public:
     }
     
     std::string algoname() {
-        if (treeTraversal == join_UD)
+        switch (treeTraversal)
         {
-            return (getAlgName(algorithm)).append(":UD");
+            case join_TD:
+                return (getAlgName(algorithm)).append(":TD(Case1)");
+                break;
+            case join_BU:
+                return (getAlgName(algorithm)).append(":BU(Case4)");
+                break;
+            case join_TDD:
+                return (getAlgName(algorithm)).append(":TDDemand(Case3)");
+                break;
+            case join_TDF:
+                return (getAlgName(algorithm)).append(":TDDemand(Case3WithFiltering)");
+                break;
         }
         return getAlgName(algorithm); 
     
