@@ -587,21 +587,37 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
 
         //resolution is number of cells per dimension
         int resolution;
-        double spaceVol = FLAT::Box::volume(mbr);
-        if (node->avrSize[type] == 0)
+            
+        if (localPartitions == 0)
         {
-            resolution = 1;
+            double spaceVol = FLAT::Box::volume(mbr);
+            if (node->avrSize[type] == 0)
+            {
+                resolution = 1; // no objects
+            }
+            else
+            {
+                resolution = (int) std::pow(spaceVol/node->avrSize[type],1./3.);
+            }
         }
         else
         {
-            resolution = (int) std::pow(spaceVol/node->avrSize[type],1./3.);
+            resolution = localPartitions;
+            if (type == 0)
+            {
+                mbr = this->universeA;
+            }
+            else
+            {
+                mbr = this->universeB;
+            }
         }
 
 
         if (this->algorithm == algo_dTOUCH && !node->leafnode)
             continue;
 
-        node->spatialGridHash[type] = new SpatialGridHash(mbr,localPartitions);
+        node->spatialGridHash[type] = new SpatialGridHash(mbr,resolution);
         node->spatialGridHash[type]->epsilon = this->epsilon;
         node->spatialGridHash[type]->build(node->attachedObjs[type]);
 

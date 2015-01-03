@@ -130,6 +130,18 @@
           <df name="8000">
           </df>
         </df>
+        <df name="samplesRandomExpand">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
         <df name="samplesRandomUni">
           <df name="10000">
           </df>
@@ -1006,6 +1018,8 @@
           </df>
           <df name="traversalTypeWithConstantGrid">
           </df>
+          <df name="traversalTypeWithConstantGridFixed">
+          </df>
         </df>
         <df name="6.12">
           <df name="1">
@@ -1205,6 +1219,18 @@
           <df name="8000">
           </df>
         </df>
+        <df name="samplesRandomExpand">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
         <df name="samplesRandomUni">
           <df name="10000">
           </df>
@@ -1481,6 +1507,8 @@
           <df name="traversalTypeCase3WithFiltering">
           </df>
           <df name="traversalTypeWithConstantGrid">
+          </df>
+          <df name="traversalTypeWithConstantGridFixed">
           </df>
         </df>
         <df name="6.12">
@@ -1643,6 +1671,18 @@
           <df name="8000">
           </df>
         </df>
+        <df name="samplesRandomExpand">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
         <df name="samplesRandomUni">
           <df name="10000">
           </df>
@@ -1919,6 +1959,8 @@
           <df name="traversalTypeCase3WithFiltering">
           </df>
           <df name="traversalTypeWithConstantGrid">
+          </df>
+          <df name="traversalTypeWithConstantGridFixed">
           </df>
         </df>
         <df name="6.12">
@@ -2081,6 +2123,18 @@
           <df name="8000">
           </df>
         </df>
+        <df name="samplesRandomExpand">
+          <df name="10000">
+          </df>
+          <df name="2000">
+          </df>
+          <df name="4000">
+          </df>
+          <df name="6000">
+          </df>
+          <df name="8000">
+          </df>
+        </df>
         <df name="samplesRandomUni">
           <df name="10000">
           </df>
@@ -2357,6 +2411,8 @@
           <df name="traversalTypeCase3WithFiltering">
           </df>
           <df name="traversalTypeWithConstantGrid">
+          </df>
+          <df name="traversalTypeWithConstantGridFixed">
           </df>
         </df>
         <df name="6.12">
