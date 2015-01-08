@@ -8,6 +8,7 @@
 #include "algoNL.h"
 #include "algoPS.h"
 #include "S3Hash.h"
+#include "PBSMHash.h"
 #include "TOUCH.h"
 #include "dTOUCH.h"
 #include "cTOUCH.h"
@@ -37,15 +38,19 @@ int maxLevelCoef                        = 500;              // coefficient in pr
 bool testRun()
 {
     bool isError = false;
-    vector<JoinAlgorithm*> allAlg(8);
+    vector<JoinAlgorithm*> allAlg(10);
+    
+    
     allAlg[0] = new algoNL();
-    allAlg[1] = new TOUCH();
-    allAlg[2] = new dTOUCH();
-    allAlg[3] = new cTOUCH();
-    allAlg[4] = new reTOUCH();
-    allAlg[5] = new rereTOUCH();
-    allAlg[6] = new algoPS();
-    allAlg[7] = new S3Hash();
+    allAlg[1] = new algoPS();
+    allAlg[2] = new SpatialGridHash();
+    allAlg[3] = new S3Hash();
+    allAlg[4] = new TOUCH();
+    allAlg[5] = new PBSMHash();
+    allAlg[6] = new cTOUCH();
+    allAlg[7] = new dTOUCH();
+    allAlg[8] = new reTOUCH();
+    allAlg[9] = new rereTOUCH();
     
     for (int i = 0; i < allAlg.size(); i++)
     {

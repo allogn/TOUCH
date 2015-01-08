@@ -18,16 +18,8 @@ void cTOUCH::run()
     if (verbose) std::cout << "Assigning Done." << std::endl; 
     countSizeStatistics(); // MUST BE BEFORE analyze
     analyze();
-    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
-    if(localJoin == algo_SGrid)
-        countSpatialGrid();
-    if (verbose) std::cout << "Probing, doing the join" << std::endl; 
+    if (verbose) std::cout << "Analysis Done, probing." << std::endl; 
     probe();
-    if(localJoin == algo_SGrid)
-    {
-        if (verbose) std::cout << "Removing duplicates" << std::endl; 
-        deduplicateSpatialGrid();
-    }
     if (verbose) std::cout << "Done." << std::endl;
     totalTimeStop();
 }

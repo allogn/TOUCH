@@ -35,7 +35,6 @@
         <in>ResultPairs.cpp</in>
         <in>RtreeIndex.cpp</in>
         <in>S3Hash.cpp</in>
-        <in>STRIndex.cpp</in>
         <in>SeedBuilder.cpp</in>
         <in>Segment.cpp</in>
         <in>Soma.cpp</in>
@@ -426,24 +425,6 @@
         </ccTool>
       </item>
       <item path="src/S3Hash.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-          <incDir>
-            <pElem>include</pElem>
-            <pElem>/usr/include/boost</pElem>
-            <pElem>lib/bbpdias/BBPSDK/include</pElem>
-            <pElem>lib/RTree/include</pElem>
-            <pElem>build</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>DEBUG</Elem>
-            <Elem>FATAL</Elem>
-            <Elem>INFORMATION</Elem>
-            <Elem>PROFILING</Elem>
-            <Elem>PROGRESS</Elem>
-          </preprocessorList>
-        </ccTool>
-      </item>
-      <item path="src/STRIndex.cpp" ex="false" tool="1" flavor2="4">
         <ccTool flags="0">
           <incDir>
             <pElem>include</pElem>

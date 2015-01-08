@@ -104,16 +104,32 @@ private:
 
 public:
 
-	SpatialGridHash(const FLAT::Box& universeExtent,const int gridResolutionPerDimension);
+	SpatialGridHash()
+        {
+            algorithm = algo_SGrid;
+        };
 	~SpatialGridHash();
     
 	void build(SpatialObjectList& dsA);
 	void clear();
 	void probe(const SpatialObjectList& dsB);
         void probe(TreeEntry*& obj);
+        void init(const FLAT::Box& universeExtent,const int gridResolutionPerDimension);
 	void analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB);
         
         static void transferInfo(SpatialGridHash* sgh, JoinAlgorithm* alg);
+        
+        void run()
+        {
+            totalTimeStart();
+            readBinaryInput(file_dsA, file_dsB);
+            FLAT::Box universe = FLAT::Box::combineSafe(universeA,universeB);
+            init(universe,localPartitions);
+            build(dsA);
+            probe(dsB);
+            resultPairs.deDuplicate();
+            totalTimeStop();
+        }
 };
 
 #endif	/* SPATIALGRIDHASH_H */

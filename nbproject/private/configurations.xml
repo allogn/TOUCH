@@ -51,8 +51,6 @@
               </df>
             </df>
           </df>
-          <df name="Progress">
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -184,7 +182,6 @@
         <in>ResultPairs.h</in>
         <in>RtreeIndex.hpp</in>
         <in>S3Hash.h</in>
-        <in>STRIndex.h</in>
         <in>SeedBuilder.hpp</in>
         <in>Segment.hpp</in>
         <in>SegmentObjectReader.hpp</in>
@@ -1045,6 +1042,10 @@
           <df name="4">
           </df>
         </df>
+        <df name="8.01">
+          <df name="E5">
+          </df>
+        </df>
         <df name="8.12">
           <df name="1">
           </df>
@@ -1078,7 +1079,6 @@
         <in>ResultPairs.cpp</in>
         <in>RtreeIndex.cpp</in>
         <in>S3Hash.cpp</in>
-        <in>STRIndex.cpp</in>
         <in>SeedBuilder.cpp</in>
         <in>Segment.cpp</in>
         <in>Soma.cpp</in>
@@ -1144,8 +1144,6 @@
               </df>
             </df>
           </df>
-          <df name="Progress">
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1537,6 +1535,10 @@
           <df name="3">
           </df>
           <df name="4">
+          </df>
+        </df>
+        <df name="8.01">
+          <df name="E5">
           </df>
         </df>
         <df name="8.12">
@@ -1600,8 +1602,6 @@
               </df>
             </df>
           </df>
-          <df name="Progress">
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1993,6 +1993,10 @@
           <df name="3">
           </df>
           <df name="4">
+          </df>
+        </df>
+        <df name="8.01">
+          <df name="E5">
           </df>
         </df>
         <df name="8.12">
@@ -2056,8 +2060,6 @@
               </df>
             </df>
           </df>
-          <df name="Progress">
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -2449,6 +2451,10 @@
           <df name="3">
           </df>
           <df name="4">
+          </df>
+        </df>
+        <df name="8.01">
+          <df name="E5">
           </df>
         </df>
         <df name="8.12">

@@ -11,7 +11,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/reTOUCH.cpp</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/JoinAlgorithm.h</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/S3Hash.h</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/algoPS.h</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/PBSMHash.h</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/apps/SpatialJoin.cpp</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/PBSMHash.cpp</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.cpp</file>
         </group>
     </open-files>
 </project-private>

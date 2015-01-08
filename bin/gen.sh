@@ -1,7 +1,10 @@
 #!/bin/bash
-for size in {2000..10000..2000}
+rm ./SJ.csv
+for num in {1000..5000..1000}
 do
-    mkdir ./sampleExt/$size
-    ./SampleGenerator -i ../data/RandomData-320K.bin -p ./sampleExt/$size/ -s $size -v 1 -n 10 -e 1
-    #echo "./SampleGenerator -i ../data/RandomData-320K.bin -p ./sampleExt/$size/ -s $size -v -n 10 -e 1"
+    for alg in {1..9..1}
+    do
+        echo "./SpatialJoin -e 5 -J 2 -n $num $num -a $alg"
+        ./SpatialJoin -e 5 -J 2 -n $num $num -a $alg
+    done
 done

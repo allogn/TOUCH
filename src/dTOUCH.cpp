@@ -38,19 +38,9 @@ void dTOUCH::run()
         if (verbose) std::cout << "Analysis A Done." << std::endl; 
     }
     
-    if(localJoin == algo_SGrid)
-    {
-        countSpatialGrid();
-        if (verbose) std::cout << "Counting grid A Done." << std::endl; 
-    }
-    
     if (verbose) std::cout << "Probing A, doing the join" << std::endl; 
     probe();
-    if(localJoin == algo_SGrid)
-    {
-        if (verbose) std::cout << "Removing duplicates A" << std::endl; 
-        deduplicateSpatialGrid();
-    }
+    
     if (verbose) 
     {
         std::cout << "Done with first tree. Clear tree." << std::endl;
@@ -92,20 +82,8 @@ void dTOUCH::run()
             if (verbose) std::cout << "Analysis B Done." << std::endl; 
         }
 
-        if(localJoin == algo_SGrid)
-        {
-            if (verbose) std::cout << "Counting grid B Done." << std::endl; 
-            countSpatialGrid();
-        }
-
         if (verbose) std::cout << "Probing A, doing the join" << std::endl; 
         probe();
-        
-        if(localJoin == algo_SGrid)
-        {
-            if (verbose) std::cout << "Removing duplicates A" << std::endl; 
-            deduplicateSpatialGrid();
-        }
         
         if (verbose) std::cout << "Number of results: " << resultPairs.results << std::endl;
     }

@@ -392,10 +392,12 @@ public:
     
     void totalTimeStart() { total.start(); };
     void totalTimeStop() { total.stop(); };
-    
+    void saveLog();
     virtual void run() {};
     
 };
+
+
 
 #endif	/* JOINALGORITHM_H */
 

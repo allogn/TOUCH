@@ -32,6 +32,98 @@ JoinAlgorithm::JoinAlgorithm() {
     base = 2; // the base for S3 and SH algorithms
     logfilename = "SJ.csv"; //@todo add to parameters
     numA = 0, numB = 0;
+    
+    for (int t = 0; t < TYPES; t++)
+    {
+        levelAssigned[t].resize(10,0);
+        levelAvg[t].resize(10,0);
+        levelStd[t].resize(10,0);
+    }
+}
+
+
+
+void JoinAlgorithm::saveLog() {
+    
+    bool headers;
+    headers = ( access( logfilename.c_str(), F_OK ) == -1 );
+    
+    ofstream fout(logfilename.c_str(),ios_base::app);
+    
+    /*
+     * If there is file - append
+     * If not - create and (probably?) create headers
+     */
+    if (headers)
+    {
+        fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Leaf size, gridSize, " // common parameters
+        << "Compared #, Compared %, ComparedMax, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
+        << "t loading, t init, t build, t probe, t comparing, t partition, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate, t sizeCalculate,"
+        << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB, max level, gridP robe, tree height A, tree height B,"
+        << "l0 assigned, l1 assigned, l2 assigned, l3 assigned, l4 assigned, l5 assigned, l6 assigned, l7 assigned, l8 assigned, l9 assigned,"
+        << "l0 assigned B, l1 assigned B, l2 assigned B, l3 assigned B, l4 assigned B, l5 assigned B, l6 assigned B, l7 assigned B, l8 assigned B, l9 assigned B,"
+        << "l0 avg, l1 avg, l2 avg, l3 avg, l4 avg, l5 avg, l6 avg, l7 avg, l8 avg, l9 avg,"
+        << "l0 avg B, l1 avg B, l2 avg B, l3 avg B, l4 avg B, l5 avg B, l6 avg B, l7 avg B, l8 avg B, l9 avg B,"
+        << "l0 std, l1 std, l2 std, l3 std, l4 std, l5 std, l6 std, l7 std, l8 std, l9 std, "
+        << "l0 std B, l1 std B, l2 std B, l3 std B, l4 std B, l5 std B, l6 std B, l7 std B, l8 std B, l9 std B"
+        << "\n";
+    }
+    //check if file exists
+    
+    FLAT::Timer t;
+    t.add(probing);
+    t.add(gridCalculate);
+            
+    fout
+    << algoname() << "," << epsilon << "," << size_dsA << "," << size_dsB << "," << file_dsA << "," << file_dsB << ","
+    << basealgo() << "," << nodesize << "," << leafsize << "," << localPartitions << ","
+            
+    << ItemsCompared << "," 
+            << 100 * (double)(ItemsCompared) / (double)(size_dsA * size_dsB) << ","
+            << ItemsMaxCompared << ","
+    << resultPairs.duplicates << ","
+            << resultPairs.results << ","
+            << 100.0*(double)resultPairs.results/(double)(size_dsA*size_dsB) << "," 
+    << filtered[0] << "," 
+            << filtered[1] << "," 
+            << dataLoad << ","
+            << initialize << ","
+            << building << "," 
+            << probing << "," 
+    << comparing << ","
+            << partition << ","
+            << total << "," 
+            << resultPairs.deDuplicateTime << "," 
+    << analyzing << ","
+            << sorting << ","
+            << gridCalculate << ","
+            << sizeCalculate << ","
+            << percentageEmpty << ","
+            << maxMappedObjects << "," 
+    << avg << "," 
+            << std << "," 
+            << repA << ","
+            << repB << ","
+            << maxLevelCoef << ","
+            << t << ","
+            << Levels << ","
+            << LevelsD << ",";
+    for (int t = 0; t < TYPES; t++)
+        for (int i = 0; i < 10; i++)
+            fout << levelAssigned[t][i] << ",";
+    
+    
+    for (int t = 0; t < TYPES; t++)
+        for (int i = 0; i < 10; i++)
+            fout << levelAvg[t][i] << ",";
+    
+    
+    for (int t = 0; t < TYPES; t++)
+        for (int i = 0; i < 10; i++)
+            fout << levelStd[t][i] << ",";
+    
+            fout << "\n";
+
 }
 
 JoinAlgorithm::~JoinAlgorithm() {}

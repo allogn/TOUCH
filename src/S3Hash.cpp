@@ -21,7 +21,6 @@ void S3Hash::init(int level)
     universeWidth = (FLAT::Vertex*)malloc(sizeof(FLAT::Vertex)*levels);
 
     universe = FLAT::Box::combineSafe(universeA,universeB);
-    FLAT::Box::expand(universe,1000); // @todo
     resolution[0] = 1;
     indexOffset[0] = 0;
     FLAT::Vertex difference;
@@ -58,12 +57,9 @@ S3Hash::~S3Hash() {
 void S3Hash::build(SpatialObjectList& a, SpatialObjectList& b)
 {
         building.start();
-        double exp = epsilon * 0.5;
         for(SpatialObjectList::iterator A=a.begin(); A!=a.end(); ++A)
         {
                 FLAT::Box mbr = (*A)->getMBR();
-
-                FLAT::Box::expand(mbr,exp);
 
                 int xMin,yMin,zMin;
                 int xMax,yMax,zMax;
@@ -91,8 +87,6 @@ void S3Hash::build(SpatialObjectList& a, SpatialObjectList& b)
         for(SpatialObjectList::iterator B=b.begin(); B!=b.end(); ++B)
         {
                 FLAT::Box mbr = (*B)->getMBR();
-
-                FLAT::Box::expand(mbr,exp);
 
                 int xMin,yMin,zMin;
                 int xMax,yMax,zMax;
@@ -134,9 +128,9 @@ void S3Hash::probe()
 
                                         int xMin,yMin,zMin;
                                         //int xMax,yMax,zMax;
-                                        //xMin = Ai*universeWidth[levelA][0];
-                                        //yMin = Aj*universeWidth[levelA][1];
-                                        //zMin = Ak*universeWidth[levelA][2];
+                                        xMin = Ai*universeWidth[levelA][0];
+                                        yMin = Aj*universeWidth[levelA][1];
+                                        zMin = Ak*universeWidth[levelA][2];
 
                                         //xMax = (Ai+1)*universeWidth[levelA][0];
                                         //yMax = (Aj+1)*universeWidth[levelA][1];

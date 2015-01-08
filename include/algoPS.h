@@ -42,8 +42,7 @@ public:
             if(A[iA]->getMBR().low[0] < B[iB]->getMBR().low[0])
             {
                 FLAT::uint64 i = iB;
-                FLAT::spaceUnit border = A[iA]->getMBR().high[0]+epsilon;
-                while(i<B.size() && B[i]->getMBR().low[0] <= border)
+                while(i<B.size() && B[i]->getMBR().low[0] <= A[iA]->getMBR().high[0])
                 {
                     if (istouching(B[i] , A[iA]))
                         resultPairs.addPair( B[i] , A[iA] );
@@ -54,8 +53,7 @@ public:
             else
             {
                 FLAT::uint64 i = iA;
-                FLAT::spaceUnit border = B[iB]->getMBR().high[0]+epsilon;
-                while(i<A.size() &&  A[i]->getMBR().low[0] <= border)
+                while(i<A.size() &&  A[i]->getMBR().low[0] <= B[iB]->getMBR().high[0])
                 {
                     if ( istouching(B[iB] , A[i]) )
                     {
@@ -66,9 +64,6 @@ public:
                 iB++;
             }
 	}
-        //resultPairs.deDuplicateTime.start();
-        resultPairs.deDuplicate();
-        //resultPairs.deDuplicateTime.stop();
     }
 };
 

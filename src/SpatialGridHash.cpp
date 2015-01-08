@@ -7,7 +7,7 @@
 
 #include "SpatialGridHash.h"
 
-SpatialGridHash::SpatialGridHash(const FLAT::Box& universeExtent,const int gridResolutionPerDimension)	
+void SpatialGridHash::init(const FLAT::Box& universeExtent,const int gridResolutionPerDimension)	
 {
         initialize.start();
         resolution = gridResolutionPerDimension;

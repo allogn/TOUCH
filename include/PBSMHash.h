@@ -77,7 +77,7 @@ public:
         {
             totalTimeStart();
             readBinaryInput(file_dsA, file_dsB);
-            init(10);
+            init(100);
             build(dsA,dsB);
             probe();
             resultPairs.deDuplicate();

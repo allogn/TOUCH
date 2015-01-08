@@ -278,6 +278,7 @@ void algoNLrun()
     nl->file_dsB            = input_dsB;
     
     nl->run();
+    nl->saveLog();
     nl->print();
 }
 
@@ -293,6 +294,7 @@ void algoPSrun()
     ps->file_dsB            = input_dsB;
     
     ps->run();
+    ps->saveLog();
     ps->print();
 }
 
@@ -308,6 +310,24 @@ void S3run()
     ps->file_dsB            = input_dsB;
     
     ps->run();
+    ps->saveLog();
+    ps->print();
+}
+
+void SGridrun()
+{
+    SpatialGridHash* ps = new SpatialGridHash();
+    
+    ps->verbose             = verbose;
+    ps->epsilon             = epsilon;
+    ps->numA                = numA;
+    ps->numB                = numB;
+    ps->file_dsA            = input_dsA;
+    ps->file_dsB            = input_dsB;
+    ps->localPartitions  = localPartitions;	
+    
+    ps->run();
+    ps->saveLog();
     ps->print();
 }
 
@@ -323,6 +343,7 @@ void algoPBSMrun()
     ps->file_dsB            = input_dsB;
     
     ps->run();
+    ps->saveLog();
     ps->print();
 }
 
@@ -359,6 +380,9 @@ int main(int argc, const char* argv[])
         break;
         case algo_PBSM:
             algoPBSMrun();
+        break;
+        case algo_SGrid:
+            SGridrun();
         break;
         default:
             std::cout << "No such an algorithm!" << std::endl;

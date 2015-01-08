@@ -19,16 +19,9 @@ void rereTOUCH::run()
     reassignmentB();
     if (verbose) std::cout << "Assigning Done." << std::endl; 
     analyze();
-    if (verbose) std::cout << "Analysis Done, counting grids if necessary." << std::endl; 
-    if(localJoin == algo_SGrid)
-        countSpatialGrid();
+    if (verbose) std::cout << "Analysis Done." << std::endl; 
     if (verbose) std::cout << "Probing, doing the join" << std::endl; 
     probe();
-    if(localJoin == algo_SGrid)
-    {
-        if (verbose) std::cout << "Removing duplicates" << std::endl; 
-        deduplicateSpatialGrid();
-    }
     if (verbose) std::cout << "Done." << std::endl; 
     totalTimeStop();
 }

@@ -25,8 +25,6 @@ public:
     CommonTOUCH();
     virtual ~CommonTOUCH();
     
-    void saveLog();
-    
     unsigned int totalnodes;
     
     NodeList probingList;
