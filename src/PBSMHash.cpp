@@ -7,14 +7,14 @@
 
 #include "PBSMHash.h"
 
-PBSMHash::PBSMHash(const Box& universeExtent, uint64 partitionPerDim)
+void PBSMHash::init(FLAT::uint64 partitionPerDim)
 {
     initialize.start();
     resolution = partitionPerDim;
     totalGridCells = pow(resolution,3);
-    universe = universeExtent;
-    Vertex difference;
-    Vertex::differenceVector(universe.high,universe.low,difference);
+    universe = FLAT::Box::combineSafe(universeA,universeB);
+    FLAT::Vertex difference;
+    FLAT::Vertex::differenceVector(universe.high,universe.low,difference);
 
     localPartitions = totalGridCells;
 
@@ -34,12 +34,12 @@ PBSMHash::~PBSMHash() {
 void PBSMHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
 {
         analyzing.start();
-        footprint += dsA.capacity()*(sizeof(SpatialObject*));
-        footprint += dsB.capacity()*(sizeof(SpatialObject*));
-        uint64 sum=0,sqsum=0,sumA,sumB;
+        footprint += dsA.capacity()*(sizeof(FLAT::SpatialObject*));
+        footprint += dsB.capacity()*(sizeof(FLAT::SpatialObject*));
+        FLAT::uint64 sum=0,sqsum=0,sumA,sumB;
         for (HashTable::iterator it = hashTableA.begin(); it!=hashTableA.end(); ++it)
         {
-                uint64 ptrs=((SpatialObjectList*)(it->second))->size();
+                FLAT::uint64 ptrs=((SpatialObjectList*)(it->second))->size();
                 sumA += ptrs;
                 sqsum += ptrs*ptrs;
                 if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
@@ -47,13 +47,13 @@ void PBSMHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB
 
         for (HashTable::iterator it = hashTableB.begin(); it!=hashTableB.end(); ++it)
         {
-                uint64 ptrs=((SpatialObjectList*)(it->second))->size();
+                FLAT::uint64 ptrs=((SpatialObjectList*)(it->second))->size();
                 sumB += ptrs;
                 sqsum += ptrs*ptrs;
                 if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
         }
         sum = sumA+sumB;
-        footprint += sum*sizeof(SpatialObject*) + 2*sizeof(HashValue)*localPartitions;
+        footprint += sum*sizeof(FLAT::SpatialObject*) + 2*sizeof(HashValue)*localPartitions;
         avg = (sum+0.0) / (2*localPartitions+0.0);
         repA = (double)(sumA)/(double)size_dsA;
         repB = (double)(sumB)/(double)size_dsB;
@@ -72,7 +72,7 @@ void PBSMHash::probe()
             for(int j = 0 ; j < resolution ; j++)
                     for(int k = 0 ; k < resolution ; k++)
                     {
-                            uint64 index = gridLocation2Index(i,j,k);
+                            FLAT::uint64 index = gridLocation2Index(i,j,k);
                             // Join indexA of the two hash tables A and B
                             joincells(index, index);
                     }
@@ -81,7 +81,7 @@ void PBSMHash::probe()
 }
 
 //join two given cells at the given level
-void PBSMHash::joincells(const uint64 indexA, const uint64 indexB)
+void PBSMHash::joincells(const FLAT::uint64 indexA, const FLAT::uint64 indexB)
 {
         // join objects in the cells A and B
         SpatialObjectList A,B;
@@ -102,9 +102,9 @@ void PBSMHash::build(SpatialObjectList& a, SpatialObjectList& b)
         double exp = epsilon * 0.5;
         for(SpatialObjectList::iterator A=a.begin(); A!=a.end(); ++A)
         {
-                Box mbr = (*A)->getMBR();
+                FLAT::Box mbr = (*A)->getMBR();
 
-                Box::expand(mbr,exp);
+                FLAT::Box::expand(mbr,exp);
 
                 int xMin,yMin,zMin;
                 int xMax,yMax,zMax;
@@ -115,7 +115,7 @@ void PBSMHash::build(SpatialObjectList& a, SpatialObjectList& b)
                         for(int y=yMin; y<=yMax; y++)
                                 for(int z=zMin; z<=zMax; z++)
                                 {
-                                        uint64 index = gridLocation2Index(x,y,z);
+                                        FLAT::uint64 index = gridLocation2Index(x,y,z);
                                         HashTable::iterator it= hashTableA.find(index);
                                         if (it==hashTableA.end())
                                         {
@@ -132,10 +132,10 @@ void PBSMHash::build(SpatialObjectList& a, SpatialObjectList& b)
         }
         for(SpatialObjectList::iterator B=b.begin(); B!=b.end(); ++B)
         {
-                Box mbr = (*B)->getMBR();
+                FLAT::Box mbr = (*B)->getMBR();
 
-                Box::expand(mbr,exp);
-                if (!Box::overlap(mbr,universe))
+                FLAT::Box::expand(mbr,exp);
+                if (!FLAT::Box::overlap(mbr,universe))
                 {
                         filtered[0]++;
                         continue;
@@ -155,7 +155,7 @@ void PBSMHash::build(SpatialObjectList& a, SpatialObjectList& b)
                         for(int y=yMin; y<=yMax; y++)
                                 for(int z=zMin; z<=zMax; z++)
                                 {
-                                        uint64 index = gridLocation2Index(x,y,z);
+                                        FLAT::uint64 index = gridLocation2Index(x,y,z);
                                         HashTable::iterator it= hashTableB.find(index);
                                         if (it==hashTableB.end())
                                         {

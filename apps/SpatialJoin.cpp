@@ -17,6 +17,7 @@
 #include "algoPS.h"
 #include "algoNL.h"
 #include "S3Hash.h"
+#include "PBSMHash.h"
 #include "TOUCH.h"
 #include "dTOUCH.h"
 #include "cTOUCH.h"
@@ -310,6 +311,21 @@ void S3run()
     ps->print();
 }
 
+void algoPBSMrun()
+{
+    PBSMHash* ps = new PBSMHash();
+    
+    ps->verbose             = verbose;
+    ps->epsilon             = epsilon;
+    ps->numA                = numA;
+    ps->numB                = numB;
+    ps->file_dsA            = input_dsA;
+    ps->file_dsB            = input_dsB;
+    
+    ps->run();
+    ps->print();
+}
+
 int main(int argc, const char* argv[])
 {
     //Parsing the arguments
@@ -340,6 +356,9 @@ int main(int argc, const char* argv[])
         break;
         case algo_rereTOUCH:
             rereTOUCHrun();
+        break;
+        case algo_PBSM:
+            algoPBSMrun();
         break;
         default:
             std::cout << "No such an algorithm!" << std::endl;

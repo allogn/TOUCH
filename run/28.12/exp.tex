@@ -109,9 +109,9 @@ Fanout does not influence the performance of algorithms in selected fanout range
 
 \subsection{Traversal types}
 \subsubsection{Methodology}
-For reTOUCH 4 cases of tree traversal during joining step were implemented. Here are the explanation of these cases:
+We implement the "following" 4 cases  for reTOUCH:
 \begin{itemize}
-\item Case 1: Top-Down travesal. This traversal type was used originally in TOUCH and other variations of EVERGREEN. Grids are precalculated just before joining step. Every object in every node is joined with all objects of those nodes below, where the overlap of current object and MBR of descendant node is not empty.
+\item Case 1: Top-Down travesal. This traversal type was used originally for variations of EVERGREEN. Grids are precalculated just before joining step. Every object in every node is joined with all objects of those nodes below, where the overlap of current object and MBR of descendant node is not empty.
 \item Case 3: Top-Down traversal without filtering. For each node in the tree we create a grid and for each descendant node we join all assigned objects of the descendant node with created grid.
 \item Case 3 with filtering: For each node in the tree we create a grid and for each descendant node we join all assigned objects if MBR of descendant node overlaps with a node with created grid.
 \item Case 4: Bottom-up traversal. Using depth-first tree traversal for each node create a grid and for each ancestor of this node join all assigned objects with created grid.

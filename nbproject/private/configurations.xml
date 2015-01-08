@@ -1012,9 +1012,13 @@
           </df>
           <df name="traveralTypeRandomSizeConstantGrid">
           </df>
+          <df name="traveralTypeRandomSizeConstantGridFixed">
+          </df>
           <df name="traversalType">
           </df>
           <df name="traversalTypeCase3WithFiltering">
+          </df>
+          <df name="traversalTypeFixed">
           </df>
           <df name="traversalTypeWithConstantGrid">
           </df>
@@ -1502,9 +1506,13 @@
           </df>
           <df name="traveralTypeRandomSizeConstantGrid">
           </df>
+          <df name="traveralTypeRandomSizeConstantGridFixed">
+          </df>
           <df name="traversalType">
           </df>
           <df name="traversalTypeCase3WithFiltering">
+          </df>
+          <df name="traversalTypeFixed">
           </df>
           <df name="traversalTypeWithConstantGrid">
           </df>
@@ -1954,9 +1962,13 @@
           </df>
           <df name="traveralTypeRandomSizeConstantGrid">
           </df>
+          <df name="traveralTypeRandomSizeConstantGridFixed">
+          </df>
           <df name="traversalType">
           </df>
           <df name="traversalTypeCase3WithFiltering">
+          </df>
+          <df name="traversalTypeFixed">
           </df>
           <df name="traversalTypeWithConstantGrid">
           </df>
@@ -2406,9 +2418,13 @@
           </df>
           <df name="traveralTypeRandomSizeConstantGrid">
           </df>
+          <df name="traveralTypeRandomSizeConstantGridFixed">
+          </df>
           <df name="traversalType">
           </df>
           <df name="traversalTypeCase3WithFiltering">
+          </df>
+          <df name="traversalTypeFixed">
           </df>
           <df name="traversalTypeWithConstantGrid">
           </df>

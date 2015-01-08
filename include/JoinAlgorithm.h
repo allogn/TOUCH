@@ -125,21 +125,21 @@ public:
     }
     
     std::string algoname() {
-        switch (treeTraversal)
-        {
-            case join_TD:
-                return (getAlgName(algorithm)).append(":TD(Case1)");
-                break;
-            case join_BU:
-                return (getAlgName(algorithm)).append(":BU(Case4)");
-                break;
-            case join_TDD:
-                return (getAlgName(algorithm)).append(":TDDemand(Case3)");
-                break;
-            case join_TDF:
-                return (getAlgName(algorithm)).append(":TDDemand(Case3WithFiltering)");
-                break;
-        }
+//        switch (treeTraversal)
+//        {
+//            case join_TD:
+//                return (getAlgName(algorithm)).append(":TD(Case1)");
+//                break;
+//            case join_BU:
+//                return (getAlgName(algorithm)).append(":BU(Case4)");
+//                break;
+//            case join_TDD:
+//                return (getAlgName(algorithm)).append(":TDDemand(Case3)");
+//                break;
+//            case join_TDF:
+//                return (getAlgName(algorithm)).append(":TDDemand(Case3WithFiltering)");
+//                break;
+//        }
         return getAlgName(algorithm); 
     
     };
