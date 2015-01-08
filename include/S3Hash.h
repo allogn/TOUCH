@@ -46,8 +46,8 @@ public:
     {
         totalTimeStart();
         readBinaryInput(file_dsA, file_dsB);
-        this->base = 3;
-        init(4);
+        this->base = 2;
+        init(5);
         build(dsA,dsB);
         probe();
         totalTimeStop();

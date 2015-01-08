@@ -151,7 +151,7 @@ void S3Hash::probe()
 
                                         for(int levelB = levelA+1; levelB < levels ; levelB++)
                                         {
-                                                int bucketPerDim = pow(2,levelB-levelA);//res[levelB]/res[levelA]
+                                                int bucketPerDim = pow(base,levelB-levelA);//res[levelB]/res[levelA]
                                                 for(int Bi=0 ; Bi<bucketPerDim ; Bi++)
                                                         for(int Bj=0 ; Bj<bucketPerDim ; Bj++)
                                                                 for(int Bk=0 ; Bk<bucketPerDim ; Bk++)
@@ -163,7 +163,6 @@ void S3Hash::probe()
                                         }
                                 }
         }
-
         probing.stop();
 }
 
