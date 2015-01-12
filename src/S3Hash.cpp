@@ -125,7 +125,6 @@ void S3Hash::probe()
                                 for(int Ak = 0 ; Ak < resolution[levelA] ; Ak++)
                                 {
                                         FLAT::uint64 indexA = gridLocation2Index(Ai,Aj,Ak,levelA);
-
                                         int xMin,yMin,zMin;
                                         //int xMax,yMax,zMax;
                                         xMin = Ai*universeWidth[levelA][0];
@@ -139,9 +138,9 @@ void S3Hash::probe()
 
                                         for(int levelB = 0; levelB < levelA ; levelB++)
                                         {
-                                                int Bi = xMin/universeWidth[levelB][0];
-                                                int Bj = yMin/universeWidth[levelB][1];
-                                                int Bk = zMin/universeWidth[levelB][2];
+                                                int Bi = floor((double)xMin/universeWidth[levelB][0]);
+                                                int Bj = floor((double)yMin/universeWidth[levelB][1]);
+                                                int Bk = floor((double)zMin/universeWidth[levelB][2]);
                                                 FLAT::uint64 indexB = gridLocation2Index(Bi,Bj,Bk,levelB);
                                                 // Join indexA of the hash tables A with indexB of Hash Table B
                                                 joincells(indexA, indexB);

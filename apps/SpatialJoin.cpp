@@ -237,7 +237,7 @@ void reTOUCHrun()
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
-
+    
     touch->run();
     touch->saveLog();
     touch->print();
@@ -324,7 +324,7 @@ void SGridrun()
     ps->numB                = numB;
     ps->file_dsA            = input_dsA;
     ps->file_dsB            = input_dsB;
-    ps->localPartitions  = localPartitions;	
+    ps->localPartitions  = 100;//localPartitions;	
     
     ps->run();
     ps->saveLog();

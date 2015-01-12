@@ -43,7 +43,7 @@ void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
             {
                 ItemsMaxCompared += (*it)->attachedObjs[!obj->type].size();
                 comparing.start();
-                if(localJoin == algo_SGrid)
+                if(localJoin == algo_SGrid && (*it)->attachedObjs[!obj->type].size() > 0)
                 {
                     (*it)->spatialGridHash[!obj->type]->probe(obj);
                 }
@@ -88,7 +88,7 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
     if (algorithm == algo_dTOUCH && !node->leafnode) return;
     if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
     {
-        if(localJoin == algo_SGrid)
+        if(localJoin == algo_SGrid && node->attachedObjs[0].size() > 0)
         {
             comparing.start();
             node->spatialGridHash[0]->probe(node->attachedObjs[1]);
@@ -114,7 +114,7 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
     }
     else 
     {
-        if(localJoin == algo_SGrid)
+        if(localJoin == algo_SGrid && node->attachedObjs[1].size() > 0)
         {
             comparing.start();
             node->spatialGridHash[1]->probe(node->attachedObjs[0]);
@@ -140,7 +140,7 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
 
 void CommonTOUCH::probe()
 {
-    if(localJoin == algo_SGrid && treeTraversal == join_TD)
+    if(localJoin == algo_SGrid && treeTraversal == join_TD && algorithm != algo_TOUCH)
         countSpatialGrid();
     
     
@@ -195,7 +195,7 @@ void CommonTOUCH::probe()
     }
     probing.stop();
     
-    if(localJoin == algo_SGrid && treeTraversal == join_TD)
+    if(localJoin == algo_SGrid && treeTraversal == join_TD && algorithm != algo_TOUCH)
     {
         deduplicateSpatialGrid();
     }
@@ -217,10 +217,16 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
         }
         if (localJoin == algo_SGrid)
         {
-            node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
-            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
-            node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
-            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjsAns[!type]);
+            if (node->attachedObjs[type].size() > 0)
+            {
+                node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
+                node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+            }
+            if (node->attachedObjsAns[type].size() > 0)
+            {
+                node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
+                node->spatialGridHashAns[type]->probe(nodeObj->attachedObjsAns[!type]);
+            }
         }
         else
         {
@@ -239,8 +245,8 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
     {
         if (localJoin == algo_SGrid)
         {
-            node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
-            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
+            if (node->attachedObjs[type].size() > 0) node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
+            if (node->attachedObjsAns[type].size() > 0) node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
         }
         else
         {
@@ -416,78 +422,22 @@ void CommonTOUCH::countSizeStatistics()
 
 void CommonTOUCH::countSpatialGrid()
 {
-    gridCalculate.start();
-    FLAT::Box mbr;
     for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
     { 
-        for (int type = 0; type < TYPES; type++)
-        {
-            if (algorithm == algo_TOUCH || algorithm == algo_dTOUCH)
-            {
-                mbr = (*it)->mbrL[type];
-            } else {
-                mbr = (*it)->mbrSelfD[type];
-            }
-            
-            if (this->algorithm == algo_dTOUCH && !(*it)->leafnode)
-                continue;
-            
-            //temporary ignore global localPartition. if success - remove it from parameters
-            
-            //resolution is number of cells per dimension
-            int resolution;
-            
-            if (localPartitions == 0)
-            {
-                double spaceVol = FLAT::Box::volume(mbr);
-                if ((*it)->avrSize[type] == 0)
-                {
-                    resolution = 1; // no objects
-                }
-                else
-                {
-                    resolution = (int) std::pow(spaceVol/(*it)->avrSize[type],1./3.);
-                }
-            }
-            else
-            {
-                resolution = localPartitions;
-                if (type == 0)
-                {
-                    mbr = this->universeA;
-                }
-                else
-                {
-                    mbr = this->universeB;
-                }
-            }
-            
-            
-            
-            (*it)->spatialGridHash[type] = new SpatialGridHash();
-            (*it)->spatialGridHash[type]->init(mbr,resolution);
-            (*it)->spatialGridHash[type]->epsilon = this->epsilon;
-            (*it)->spatialGridHash[type]->build((*it)->attachedObjs[type]);
-            
-            if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
-            {
-                (*it)->spatialGridHashAns[type] = new SpatialGridHash();
-                (*it)->spatialGridHashAns[type]->init(mbr,resolution);
-                (*it)->spatialGridHashAns[type]->epsilon = this->epsilon;
-                (*it)->spatialGridHashAns[type]->build((*it)->attachedObjsAns[type]);
-            }
-        }
+        countSpatialGrid((*it));
     }
-    gridCalculate.stop();
 }
 
 void CommonTOUCH::countSpatialGrid(TreeNode* node)
 {
+    if ((this->algorithm == algo_dTOUCH) && !node->leafnode)
+        return;
+    
     gridCalculate.start();
     FLAT::Box mbr;
     for (int type = 0; type < TYPES; type++)
     {
-        if (algorithm == algo_TOUCH || algorithm == algo_dTOUCH)
+        if (algorithm == algo_dTOUCH)
         {
             mbr = node->mbrL[type];
         } else {
@@ -498,39 +448,37 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
         //temporary ignore global localPartition. if success - remove it from parameters
 
         //resolution is number of cells per dimension
-        int resolution;
+        double resolution;
             
-        if (localPartitions == 0)
-        {
-            double spaceVol = FLAT::Box::volume(mbr);
-            if (node->avrSize[type] == 0)
-            {
-                resolution = 1; // no objects
-            }
-            else
-            {
-                resolution = (int) std::pow(spaceVol/node->avrSize[type],1./3.);
-            }
-        }
-        else
-        {
-            resolution = localPartitions;
-            if (type == 0)
-            {
-                mbr = this->universeA;
-            }
-            else
-            {
-                mbr = this->universeB;
-            }
-        }
+        /*
+         * USE ALWAYS ONLY DYNAMIC GRID! (hardcode otherwise)
+         * reason: localPartitions are registered for TOUCH, that must always use static
+         * must add new flag if both types must be used.
+         */
+        
+        
+//        if (localPartitions == 0)
+//        {
+//            double spaceVol = FLAT::Box::volume(mbr);
+//            if (node->avrSize[type] == 0)
+//            {
+//                resolution = 1; // no objects
+//            }
+//            else
+//            {
+//                resolution = (double) std::pow(spaceVol/node->avrSize[type],1./3.);
+//            }
+//        }
+//        else
+//        {
+//            resolution = localPartitions;
+//        }
 
-
-        if (this->algorithm == algo_dTOUCH && !node->leafnode)
-            continue;
-
+        //cout << "res: " << resolution << endl;
+//        node->spatialGridHash[type] = new LocalSpatialGridHash();
+//        node->spatialGridHash[type]->init(mbr,resolution);
         node->spatialGridHash[type] = new SpatialGridHash();
-        node->spatialGridHash[type]->init(mbr,resolution);
+        node->spatialGridHash[type]->init(mbr,localPartitions);
         node->spatialGridHash[type]->epsilon = this->epsilon;
         node->spatialGridHash[type]->build(node->attachedObjs[type]);
 
@@ -538,6 +486,8 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
         {
             node->spatialGridHashAns[type] = new SpatialGridHash();
             node->spatialGridHashAns[type]->init(mbr,localPartitions);
+//            node->spatialGridHashAns[type] = new LocalSpatialGridHash();
+//            node->spatialGridHashAns[type]->init(mbr,resolution);
             node->spatialGridHashAns[type]->epsilon = this->epsilon;
             node->spatialGridHashAns[type]->build(node->attachedObjsAns[type]);
         }
@@ -551,7 +501,7 @@ void CommonTOUCH::deduplicateSpatialGrid()
     {
         for (int type = 0; type < TYPES; type++)
         {
-            if (this->algorithm == algo_dTOUCH && !(*it)->leafnode)
+            if ((this->algorithm == algo_dTOUCH || this->algorithm == algo_TOUCH) && !(*it)->leafnode)
                 continue;
 
             (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
@@ -572,7 +522,7 @@ void CommonTOUCH::deduplicateSpatialGrid(TreeNode* node)
 {
     for (int type = 0; type < TYPES; type++)
     {
-        if (this->algorithm == algo_dTOUCH && !node->leafnode)
+        if ((this->algorithm == algo_dTOUCH || this->algorithm == algo_TOUCH) && !node->leafnode)
             continue;
 
         node->spatialGridHash[type]->resultPairs.deDuplicate();

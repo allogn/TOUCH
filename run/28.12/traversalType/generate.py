@@ -19,7 +19,6 @@ allcols = [ (lambda row: float(row[11]),"Number of compared objects (%)", "objnu
             (lambda row: float(row[20]), "Time for assignment step (s)", "assignment"), \
             (lambda row: float(row[37]), "Time for probing + SGH building (s)", "probingSGH"), \
             (lambda row: float(row[28]), "Time for building SGH (s)", "building"), \
-            (lambda row: float(row[28]), "Time for building SGH (s)", "building"), \
             (lambda row: float(row[12]), "ComparedMax objects", "NLjoin"), \
             (lambda row: float(row[20])+float(row[21])+float(row[23])+float(row[29])+float(row[26]), 'Total time (build+assign+join+sgh grid+deduplication) (s)', "total") ]
 

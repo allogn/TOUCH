@@ -18,6 +18,7 @@
 #include "JoinAlgorithm.h"
 #include "TreeNode.h"
 #include "TreeEntry.h"
+#include "LocalSpatialGridHash.h"
 #include "SpatialGridHash.h"
 
 class CommonTOUCH : public JoinAlgorithm {

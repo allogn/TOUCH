@@ -28,6 +28,7 @@
         <in>ExternalSort.cpp</in>
         <in>Hilbert.cpp</in>
         <in>JoinAlgorithm.cpp</in>
+        <in>LocalSpatialGridHash.cpp</in>
         <in>Mesh.cpp</in>
         <in>Metadata.cpp</in>
         <in>PBSMHash.cpp</in>
@@ -299,6 +300,24 @@
         </ccTool>
       </item>
       <item path="src/JoinAlgorithm.cpp" ex="false" tool="1" flavor2="4">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>/usr/include/boost</pElem>
+            <pElem>lib/bbpdias/BBPSDK/include</pElem>
+            <pElem>lib/RTree/include</pElem>
+            <pElem>build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+            <Elem>FATAL</Elem>
+            <Elem>INFORMATION</Elem>
+            <Elem>PROFILING</Elem>
+            <Elem>PROGRESS</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/LocalSpatialGridHash.cpp" ex="false" tool="1" flavor2="4">
         <ccTool flags="0">
           <incDir>
             <pElem>include</pElem>

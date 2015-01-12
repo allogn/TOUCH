@@ -11,6 +11,7 @@
 #include "ResultPairs.h"
 
 
+class LocalSpatialGridHash;
 class SpatialGridHash;
 
 class TreeNode

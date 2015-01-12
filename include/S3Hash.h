@@ -33,6 +33,9 @@ private:
 		x = (v[0] > universe.low[0])?(int)floor( (v[0] - universe.low[0]) / universeWidth[level][0]):0;
 		y = (v[1] > universe.low[1])?(int)floor( (v[1] - universe.low[1]) / universeWidth[level][1]):0;
 		z = (v[2] > universe.low[2])?(int)floor( (v[2] - universe.low[2]) / universeWidth[level][2]):0;
+                
+                if (v[0] < 1034.06 && v[0] > 1034.04)
+                cout << (v[1] - universe.low[1]) << " - " << universeWidth[level][1] << endl;
 
 		// if cell not valid assign last corner cells
 		if (x>=resolution[level]) x=resolution[level]-1;

@@ -10,7 +10,7 @@
 #define	DTOUCH_H
 
 #include "CommonTOUCH.h"
-#include "SpatialGridHash.h"
+#include "LocalSpatialGridHash.h"
 
 class dTOUCH : public CommonTOUCH
 {
