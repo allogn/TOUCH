@@ -10,9 +10,9 @@
 #define TYPES 2
 
 #include <Box.hpp>
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
-#include <thrust/sort.h>
+//#include <thrust/host_vector.h>
+//#include <thrust/device_vector.h>
+//#include <thrust/sort.h>
 
 class TreeEntry
 {

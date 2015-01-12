@@ -608,12 +608,12 @@ void CommonTOUCH::createTreeLevel(SpatialObjectList& input)
     switch (PartitioningType)
     {
         case Hilbert_Sort:
-            thrust::sort(input.begin(),input.end(),ComparatorHilbertEntry());
+            std::sort(input.begin(),input.end(),ComparatorHilbertEntry());
             break;
         case No_Sort:
             break;
         default:
-            thrust::sort(input.begin(),input.end(),ComparatorEntry());
+            std::sort(input.begin(),input.end(),ComparatorEntry());
             break;
     }
     sorting.stop();
@@ -644,12 +644,12 @@ void CommonTOUCH::createTreeLevel(NodeList& input, int Level)
     switch (PartitioningType)
     {
         case Hilbert_Sort:
-            thrust::sort(input.begin(),input.end(),ComparatorHilbert());
+            std::sort(input.begin(),input.end(),ComparatorHilbert());
             break;
         case No_Sort:
             break;
         default:
-            thrust::sort(input.begin(),input.end(),Comparator());
+            std::sort(input.begin(),input.end(),Comparator());
             break;
     }
     sorting.stop();

@@ -49,9 +49,9 @@ void dTOUCH::run()
     
     //Transfer Statistics to another variables
     int LevelsA = Levels;
-    thrust::host_vector<int> levelAssignedTemp;
-    thrust::host_vector<double> levelAvgTemp;
-    thrust::host_vector<double> levelStdTemp;
+    std::vector<int> levelAssignedTemp;
+    std::vector<double> levelAvgTemp;
+    std::vector<double> levelStdTemp;
     levelAssignedTemp = levelAssigned[0];
     levelAvgTemp = levelAvg[0];
     levelStdTemp = levelStd[0];

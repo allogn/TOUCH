@@ -29,7 +29,7 @@ public:
         
         FLAT::Box mbr; //for cTOUCH ?? @todo get rid ?? and for sorting somewhere
     
-	thrust::host_vector<TreeNode*> entries;
+	std::vector<TreeNode*> entries;
         
         TreeNode* parentNode;
         
@@ -39,8 +39,8 @@ public:
         SpatialGridHash* spatialGridHash[TYPES];   
         SpatialGridHash* spatialGridHashAns[TYPES];
 	
-	thrust::host_vector<TreeEntry*> attachedObjs[TYPES];
-        thrust::host_vector<TreeEntry*> attachedObjsAns[TYPES];
+	std::vector<TreeEntry*> attachedObjs[TYPES];
+        std::vector<TreeEntry*> attachedObjsAns[TYPES];
         
         double avrSize[TYPES];
         double stdSize[TYPES];
