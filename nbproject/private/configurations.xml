@@ -920,6 +920,12 @@
           <df name="E5RandomExpand">
           </df>
         </df>
+        <df name="12.01">
+          <df name="traversalType">
+          </df>
+          <df name="traversalTypeCheckAllAlgorithms">
+          </df>
+        </df>
         <df name="16.12">
           <df name="reresultRandomE5">
           </df>
@@ -1427,6 +1433,12 @@
           <df name="E5RandomExpand">
           </df>
         </df>
+        <df name="12.01">
+          <df name="traversalType">
+          </df>
+          <df name="traversalTypeCheckAllAlgorithms">
+          </df>
+        </df>
         <df name="16.12">
           <df name="reresultRandomE5">
           </df>
@@ -1895,6 +1907,12 @@
           <df name="E5RandomExpand">
           </df>
         </df>
+        <df name="12.01">
+          <df name="traversalType">
+          </df>
+          <df name="traversalTypeCheckAllAlgorithms">
+          </df>
+        </df>
         <df name="16.12">
           <df name="reresultRandomE5">
           </df>
@@ -2361,6 +2379,12 @@
           <df name="E5Random">
           </df>
           <df name="E5RandomExpand">
+          </df>
+        </df>
+        <df name="12.01">
+          <df name="traversalType">
+          </df>
+          <df name="traversalTypeCheckAllAlgorithms">
           </df>
         </df>
         <df name="16.12">

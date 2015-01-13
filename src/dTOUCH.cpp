@@ -116,6 +116,8 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     if (ds.size() == 0)
         return;
     
+    dTOUCHleafType = !ds.front()->type;
+    
     for (unsigned int i=0;i<ds.size();++i)
     {
         TreeEntry* obj = ds[i];

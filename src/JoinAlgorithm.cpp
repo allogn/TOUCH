@@ -59,7 +59,7 @@ void JoinAlgorithm::saveLog() {
         fout << "Algorithm, Epsilon, #A, #B, infile A, infile B, LocalJoin Alg, Fanout, Leaf size, gridSize, " // common parameters
         << "Compared #, Compared %, ComparedMax, Duplicates, Results, Selectivity, filtered A, filtered B," // TOUCH
         << "t loading, t init, t build, t probe, t comparing, t partition, t total, t deDuplicating, t analyzing, t sorting, t gridCalculate, t sizeCalculate,"
-        << "EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB, max level, gridP robe, tree height A, tree height B,"
+        << "Total sum time, EmptyCells(%), MaxObj, AveObj, StdObj, repA, repB, max level, gridP robe, tree height A, tree height B,"
         << "l0 assigned, l1 assigned, l2 assigned, l3 assigned, l4 assigned, l5 assigned, l6 assigned, l7 assigned, l8 assigned, l9 assigned,"
         << "l0 assigned B, l1 assigned B, l2 assigned B, l3 assigned B, l4 assigned B, l5 assigned B, l6 assigned B, l7 assigned B, l8 assigned B, l9 assigned B,"
         << "l0 avg, l1 avg, l2 avg, l3 avg, l4 avg, l5 avg, l6 avg, l7 avg, l8 avg, l9 avg,"
@@ -73,6 +73,12 @@ void JoinAlgorithm::saveLog() {
     FLAT::Timer t;
     t.add(probing);
     t.add(gridCalculate);
+    
+    FLAT::Timer totalSum;
+    totalSum.add(dataLoad);
+    totalSum.add(building);
+    totalSum.add(probing);
+    totalSum.add(partition);
             
     fout
     << algoname() << "," << epsilon << "," << size_dsA << "," << size_dsB << "," << file_dsA << "," << file_dsB << ","
@@ -98,6 +104,7 @@ void JoinAlgorithm::saveLog() {
             << sorting << ","
             << gridCalculate << ","
             << sizeCalculate << ","
+            << totalSum << ","
             << percentageEmpty << ","
             << maxMappedObjects << "," 
     << avg << "," 
