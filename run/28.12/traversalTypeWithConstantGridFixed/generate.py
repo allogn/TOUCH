@@ -23,7 +23,7 @@ allcols = [ (lambda row: float(row[11]),"Number of compared objects (%)", "objnu
             (lambda row: float(row[12]), "ComparedMax objects", "NLjoin"), \
             (lambda row: float(row[20])+float(row[21])+float(row[23])+float(row[29])+float(row[26]), 'Total time (build+assign+join+sgh grid+deduplication) (s)', "total") ]
 
-allalg = [ ['reTOUCH:TD(Case1)','r-'],['reTOUCH:TDDemand(Case3WithFiltering)','y-'],['reTOUCH:BU(Case4)','g--'],['reTOUCH:TDDemand(Case3)','b:'] ]
+allalg = [ ['reTOUCH:TD(Case1)','r-'],['reTOUCH:BU(Case4)','g--'],['reTOUCH:TDDemand(Case3)','b:'] ]
 
 def getFileName(name):
     t = name.find('/', 0, len(name))
@@ -64,7 +64,7 @@ alldata = np.array(alldata)
 
 # x : arbitrary
 xcol = (3,'Number of objects used from datasets')
-epsilon = 1
+epsilon = 10
 
 epsilondata = alldata[np.array(alldata[:,1],dtype=float)==epsilon,:]
 

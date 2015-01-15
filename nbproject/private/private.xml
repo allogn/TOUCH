@@ -10,20 +10,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/TreeNode.h</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/LocalSpatialGridHash.h</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/LocalSpatialGridHash.cpp</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/SpatialGridHash.h</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/JoinAlgorithm.h</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/dTOUCH.cpp</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/SpatialGridHash.cpp</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/TOUCH.h</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/S3Hash.h</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/apps/SpatialJoin.cpp</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/dTOUCH.h</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/S3Hash.cpp</file>
+            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/JoinAlgorithm.cpp</file>
             <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/CommonTOUCH.cpp</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/include/CommonTOUCH.h</file>
-            <file>file:/media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/src/TOUCH.cpp</file>
         </group>
     </open-files>
 </project-private>

@@ -11,6 +11,7 @@
 dTOUCH::dTOUCH()
 {
     algorithm = algo_dTOUCH;
+    dTOUCHalgoLeafType = 1;
 }
 
 dTOUCH::~dTOUCH()
@@ -113,6 +114,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
     int assigned_level;
     bool assigned;
     
+    dTOUCHalgoLeafType = !dTOUCHalgoLeafType;
     if (ds.size() == 0)
         return;
     
@@ -122,6 +124,19 @@ void dTOUCH::assignment(SpatialObjectList& ds)
         
         TreeNode* nextNode;
         TreeNode* ptr = root;
+        
+        /*
+         * process root separately
+         */
+        if ( FLAT::Box::overlap(obj->mbr,root->mbrL[0]) && root->entries.size() == 0)
+        {
+            root->attachedObjs[1].push_back(obj);
+            continue;
+        }
+
+        /*
+         * end of root processing
+         */
         
         while(true)
         {
@@ -179,7 +194,6 @@ void dTOUCH::assignment(SpatialObjectList& ds)
             }
             if(!overlaps)
             {
-                //filtered
                 filtered[obj->type]++;
                 break;
             }

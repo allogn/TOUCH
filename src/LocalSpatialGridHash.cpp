@@ -22,10 +22,10 @@ void LocalSpatialGridHash::init(const FLAT::Box& universeExtent,const double gri
         for (int i=0;i<DIMENSION;++i)
         {
                 universeWidth[i] = ceil(difference[i]/resolution);
-                //cout << universeWidth[i] << " " << difference[i] << " " << resolution << " ";
+                //if (resolution != 1) cout << "Number of cells: " << universeWidth[i] << " Universe width:" << difference[i] << " Resolution:" << resolution << " ;;; ";
                 localPartitions *= universeWidth[i];
         }
-        //cout << endl;
+        //if (resolution != 1) cout << endl;
         initialize.stop();
 }
 

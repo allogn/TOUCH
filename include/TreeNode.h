@@ -36,8 +36,8 @@ public:
 	bool leafnode;
         bool root;
 	int level;
-        SpatialGridHash* spatialGridHash[TYPES];   
-        SpatialGridHash* spatialGridHashAns[TYPES];
+        LocalSpatialGridHash* spatialGridHash[TYPES];   
+        LocalSpatialGridHash* spatialGridHashAns[TYPES];
 	
 	std::vector<TreeEntry*> attachedObjs[TYPES];
         std::vector<TreeEntry*> attachedObjsAns[TYPES];

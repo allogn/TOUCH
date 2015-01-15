@@ -38,9 +38,9 @@ void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
         //intersect with all non-null children
         for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
         {
-            //if intersects
-            if (!(algorithm == algo_dTOUCH && !(*it)->leafnode))
+            if (algorithm != algo_dTOUCH || (!obj->type == dTOUCHalgoLeafType && (*it)->leafnode))
             {
+                //if intersects
                 ItemsMaxCompared += (*it)->attachedObjs[!obj->type].size();
                 comparing.start();
                 if(localJoin == algo_SGrid && (*it)->attachedObjs[!obj->type].size() > 0)
@@ -85,8 +85,11 @@ void CommonTOUCH::joinNodeToDesc(TreeNode* node)
     /*
      * A -> B
      */
-    if (algorithm == algo_dTOUCH && !node->leafnode) return;
-    if (node->attachedObjs[0].size() < node->attachedObjs[1].size())
+    if (algorithm == algo_dTOUCH && !node->leafnode)
+        return;
+    
+    if (((algorithm != algo_dTOUCH) && (node->attachedObjs[0].size() < node->attachedObjs[1].size())) || 
+            (algorithm == algo_dTOUCH && 0 == dTOUCHalgoLeafType))
     {
         if(localJoin == algo_SGrid && node->attachedObjs[0].size() > 0)
         {
@@ -153,7 +156,7 @@ void CommonTOUCH::probe()
             break;
         case join_TDD:
             probeUpDown();
-    
+            //NOT SUPPORTED BY ANYTHING EXCEPT reTOUCH
             break;
         case join_TDF:
             probeUpDownFilter();
@@ -194,7 +197,6 @@ void CommonTOUCH::probe()
             break;
     }
     probing.stop();
-    
     if(localJoin == algo_SGrid && treeTraversal == join_TD && algorithm != algo_TOUCH)
     {
         deduplicateSpatialGrid();
@@ -206,34 +208,50 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
     int type;
     if (node == nodeObj)
     {
-        if (node->attachedObjs[0].size()+node->attachedObjsAns[0].size() < 
-                node->attachedObjs[1].size() + node->attachedObjsAns[1].size())
+        if (algorithm == algo_dTOUCH)
         {
-            type = 0;;
+            type = dTOUCHalgoLeafType;
         }
-        else 
+        else
         {
-            type = 1;
+            if (node->attachedObjs[0].size()+node->attachedObjsAns[0].size() < 
+                    node->attachedObjs[1].size() + node->attachedObjsAns[1].size())
+            {
+                type = 0;
+            }
+            else 
+            {
+                type = 1;
+            }
         }
         if (localJoin == algo_SGrid)
         {
             if (node->attachedObjs[type].size() > 0)
             {
                 node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
-                node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+                if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
             }
             if (node->attachedObjsAns[type].size() > 0)
             {
                 node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
-                node->spatialGridHashAns[type]->probe(nodeObj->attachedObjsAns[!type]);
+                if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) node->spatialGridHashAns[type]->probe(nodeObj->attachedObjsAns[!type]);
             }
         }
         else
         {
             NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
-            NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
-            NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
-            NL(node->attachedObjsAns[type],nodeObj->attachedObjsAns[!type]);
+            for (int i = 0; i < node->attachedObjs[type].size(); i++)
+            {
+                cout << node->attachedObjs[type][i]->id << endl;
+            }
+            cout << endl;
+            for (int i = 0; i < nodeObj->attachedObjs[!type].size(); i++)
+            {
+                cout << nodeObj->attachedObjs[!type][i]->id << endl;
+            }
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjsAns[type],nodeObj->attachedObjsAns[!type]);
         }
         
         ItemsMaxCompared += (node->attachedObjs[type].size()+node->attachedObjsAns[type].size())*
@@ -243,6 +261,8 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
     }
     for (int type = 0; type < TYPES; type++)
     {
+        if (algorithm == algo_dTOUCH && type != dTOUCHalgoLeafType)
+                continue;
         if (localJoin == algo_SGrid)
         {
             if (node->attachedObjs[type].size() > 0) node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
@@ -251,7 +271,7 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
         else
         {
             NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
-            NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
         }
         ItemsMaxCompared += (node->attachedObjs[type].size()+node->attachedObjsAns[type].size())*
                             (nodeObj->attachedObjs[!type].size());
@@ -272,19 +292,21 @@ void CommonTOUCH::JOINdown(TreeNode* node, TreeNode* nodeObj)
         {
             type = 1;
         }
+        if (algorithm == algo_dTOUCH && type == dTOUCHalgoLeafType && node->leafnode)
+                type = !type;
         if (localJoin == algo_SGrid)
         {
             node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
-            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
-            node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
-            node->spatialGridHashAns[type]->probe(nodeObj->attachedObjsAns[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) node->spatialGridHashAns[type]->probe(nodeObj->attachedObjs[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) node->spatialGridHashAns[type]->probe(nodeObj->attachedObjsAns[!type]);
         }
         else
         {
             NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
-            NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
-            NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
-            NL(node->attachedObjsAns[type],nodeObj->attachedObjsAns[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjsAns[type],nodeObj->attachedObjsAns[!type]);
         }
         
         ItemsMaxCompared += (node->attachedObjs[type].size()+node->attachedObjsAns[type].size())*
@@ -294,15 +316,17 @@ void CommonTOUCH::JOINdown(TreeNode* node, TreeNode* nodeObj)
     }
     for (int type = 0; type < TYPES; type++)
     {
+        if (algorithm == algo_dTOUCH && type == dTOUCHalgoLeafType && node->leafnode)
+                continue;
         if (localJoin == algo_SGrid)
         {
             node->spatialGridHash[type]->probe(nodeObj->attachedObjs[!type]);
-            node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) node->spatialGridHash[type]->probe(nodeObj->attachedObjsAns[!type]);
         }
         else
         {
             NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
-            NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
+            if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
         }
         ItemsMaxCompared += (node->attachedObjs[type].size())*
                             (nodeObj->attachedObjs[!type].size()+nodeObj->attachedObjsAns[!type].size());
@@ -316,7 +340,11 @@ void CommonTOUCH::pathWayJoin(TreeNode* node)
     {
         pathWayJoin((*cit));
     }
-    
+    if (algorithm == algo_dTOUCH && !node->leafnode)
+    {
+        probingList.pop_back();
+        return;
+    }
     if (localJoin == algo_SGrid) countSpatialGrid(node);
     
     for (NodeList::iterator ancit = probingList.begin(); ancit != probingList.end(); ancit++)
@@ -429,10 +457,7 @@ void CommonTOUCH::countSpatialGrid()
 }
 
 void CommonTOUCH::countSpatialGrid(TreeNode* node)
-{
-    if ((this->algorithm == algo_dTOUCH) && !node->leafnode)
-        return;
-    
+{    
     gridCalculate.start();
     FLAT::Box mbr;
     for (int type = 0; type < TYPES; type++)
@@ -443,6 +468,18 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
         } else {
             mbr = node->mbrSelfD[type];
         }
+        
+//        if (node->id == 35) 
+//        {
+//        cout << "--------" << endl;
+//            cout << "MBR: " << node->mbrSelfD[type] << " Vol:" << pow(FLAT::Box::volume(node->mbrSelfD[type]),1./3.) << endl;
+//            
+//            for (int p = 0; p < node->attachedObjs[type].size(); p++)
+//            {
+//                cout << ".. " << node->attachedObjs[type][p]->getMBR() << " Vol: " << pow(FLAT::Box::volume(node->attachedObjs[type][p]->getMBR()),1./3.) << endl;
+//            }
+//        cout << "-------" << endl;
+//        }
 
 
         //temporary ignore global localPartition. if success - remove it from parameters
@@ -459,15 +496,17 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
         
 //        if (localPartitions == 0)
 //        {
-//            double spaceVol = FLAT::Box::volume(mbr);
-//            if (node->avrSize[type] == 0)
-//            {
-//                resolution = 1; // no objects
-//            }
-//            else
-//            {
-//                resolution = (double) std::pow(spaceVol/node->avrSize[type],1./3.);
-//            }
+            double spaceVol = FLAT::Box::volume(mbr);
+            if (node->avrSize[type] == 0)
+            {
+                resolution = 1; // no objects
+            }
+            else
+            {
+                resolution = (double) std::pow(node->avrSize[type]/(node->attachedObjs[type].size()+
+                        node->attachedObjsAns[type].size()),1./3.);
+            }
+            
 //        }
 //        else
 //        {
@@ -475,19 +514,20 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
 //        }
 
         //cout << "res: " << resolution << endl;
-//        node->spatialGridHash[type] = new LocalSpatialGridHash();
-//        node->spatialGridHash[type]->init(mbr,resolution);
-        node->spatialGridHash[type] = new SpatialGridHash();
-        node->spatialGridHash[type]->init(mbr,localPartitions);
+        if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !node->leafnode))
+            continue;
+        node->spatialGridHash[type] = new LocalSpatialGridHash();
+        node->spatialGridHash[type]->init(mbr,resolution);
+//        node->spatialGridHash[type] = new SpatialGridHash();
+//        node->spatialGridHash[type]->init(mbr,localPartitions);
         node->spatialGridHash[type]->epsilon = this->epsilon;
         node->spatialGridHash[type]->build(node->attachedObjs[type]);
-
         if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
         {
-            node->spatialGridHashAns[type] = new SpatialGridHash();
-            node->spatialGridHashAns[type]->init(mbr,localPartitions);
-//            node->spatialGridHashAns[type] = new LocalSpatialGridHash();
-//            node->spatialGridHashAns[type]->init(mbr,resolution);
+//            node->spatialGridHashAns[type] = new SpatialGridHash();
+//            node->spatialGridHashAns[type]->init(mbr,localPartitions);
+            node->spatialGridHashAns[type] = new LocalSpatialGridHash();
+            node->spatialGridHashAns[type]->init(mbr,resolution);
             node->spatialGridHashAns[type]->epsilon = this->epsilon;
             node->spatialGridHashAns[type]->build(node->attachedObjsAns[type]);
         }
@@ -501,16 +541,16 @@ void CommonTOUCH::deduplicateSpatialGrid()
     {
         for (int type = 0; type < TYPES; type++)
         {
-            if ((this->algorithm == algo_dTOUCH || this->algorithm == algo_TOUCH) && !(*it)->leafnode)
+            if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !(*it)->leafnode))
                 continue;
-
+            
             (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
-            SpatialGridHash::transferInfo((*it)->spatialGridHash[type], this);
+            LocalSpatialGridHash::transferInfo((*it)->spatialGridHash[type], this);
 
             if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
             {
                 (*it)->spatialGridHashAns[type]->resultPairs.deDuplicate();
-                SpatialGridHash::transferInfo((*it)->spatialGridHashAns[type], this);
+                LocalSpatialGridHash::transferInfo((*it)->spatialGridHashAns[type], this);
             }
         }
     }
@@ -522,16 +562,15 @@ void CommonTOUCH::deduplicateSpatialGrid(TreeNode* node)
 {
     for (int type = 0; type < TYPES; type++)
     {
-        if ((this->algorithm == algo_dTOUCH || this->algorithm == algo_TOUCH) && !node->leafnode)
-            continue;
-
+        if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !node->leafnode))
+                        continue;
         node->spatialGridHash[type]->resultPairs.deDuplicate();
-        SpatialGridHash::transferInfo(node->spatialGridHash[type], this);
+        LocalSpatialGridHash::transferInfo(node->spatialGridHash[type], this);
 
         if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
         {
             node->spatialGridHashAns[type]->resultPairs.deDuplicate();
-            SpatialGridHash::transferInfo(node->spatialGridHashAns[type], this);
+            LocalSpatialGridHash::transferInfo(node->spatialGridHashAns[type], this);
         }   
     }
 }

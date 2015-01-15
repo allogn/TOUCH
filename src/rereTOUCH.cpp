@@ -45,7 +45,12 @@ void rereTOUCH::assignmentB()
         nextNode = root;
         prevNode = nextNode;
         TreeNode* ptr = nextNode;
-
+        
+        if ( root->entries.size() == 0 && FLAT::Box::overlap(objB->mbr,root->mbrL[0]))
+        {
+            root->attachedObjs[1].push_back(objB);
+            continue;
+        }
 
         while(true)
         {

@@ -40,7 +40,13 @@ void TOUCH::assignment()
         TreeNode* nextNode;
         TreeNode* ptr = root;
 
-        nextNode = NULL;
+        nextNode = NULL;        
+        
+        if ( FLAT::Box::overlap(obj->mbr,root->mbrL[0]) && root->entries.size() == 0)
+        {
+            root->attachedObjs[1].push_back(obj);
+            continue;
+        }
 
         while(true)
         {
@@ -68,9 +74,8 @@ void TOUCH::assignment()
                     break;
             if(!overlaps)
             {
-                    //filtered
-                    filtered[1] ++;
-                    break;
+                filtered[1] ++;
+                break;
             }
             ptr = nextNode;
             if(ptr->leafnode)
