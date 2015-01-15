@@ -37,6 +37,10 @@
 #define join_TDD                        2
 #define join_TDF                        3
 
+#define Static_SG_Resolution            0       //old static grid with equal number of cells per dimension
+#define Dynamic_Equal_SG_Resolution     1       //all cells are cubic
+#define Dynamic_Flex_SG_Resolution      2       //cells use mean length per dimension
+
 typedef SpatialObjectList HashValue;
 typedef pair<FLAT::uint64,HashValue*> ValuePair;
 typedef boost::unordered_map <FLAT::uint64,HashValue*> HashTable;
@@ -57,7 +61,7 @@ public:
     double maxLevelCoef;
     
     int PartitioningType;	// Sorting algorithm
-
+    int SGResol;                // SGrid resolution type
     
     int base; // the base for S3 and SH algorithms
     std::string logfilename;

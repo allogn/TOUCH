@@ -1,13 +1,14 @@
 /* 
- * File:   LocalSpatialGridHash.cpp
+ * File:   FlexLocalSpatialGridHash.cpp
  * Author: Alvis
  * 
  * Created on 30 октября 2014 г., 23:21
  */
 
-#include "LocalSpatialGridHash.h"
+#include "FlexLocalSpatialGridHash.h"
 
-void LocalSpatialGridHash::init(const FLAT::Box& universeExtent,const double gridResolutionPerDimension)	
+void FlexLocalSpatialGridHash::init(const FLAT::Box& universeExtent,const double gridResolutionPerDimension0,
+        const double gridResolutionPerDimension1,const double gridResolutionPerDimension2)	
 {
         initialize.start();
         /*
@@ -15,26 +16,27 @@ void LocalSpatialGridHash::init(const FLAT::Box& universeExtent,const double gri
          * resolution - size of square cell
          */
         universe = universeExtent;
-        resolution = gridResolutionPerDimension;
+        resolution[0] = gridResolutionPerDimension0;
+        resolution[1] = gridResolutionPerDimension1;
+        resolution[2] = gridResolutionPerDimension2;
         FLAT::Vertex difference;
         FLAT::Vertex::differenceVector(universeExtent.high,universeExtent.low,difference);
         localPartitions=1;
         for (int i=0;i<DIMENSION;++i)
         {
-                universeWidth[i] = ceil(difference[i]/resolution);
-                //if (resolution != 1) cout << "Number of cells: " << universeWidth[i] << " Universe width:" << difference[i] << " Resolution:" << resolution << " ;;; ";
+                universeWidth[i] = ceil(difference[i]/resolution[i]);
+                //if (resolution[i] != 1) cout << "Number of cells: " << universeWidth[i] << " Universe width:" << difference[i] << " Resolution:" << resolution[i] << " ;;; \n";
                 localPartitions *= universeWidth[i];
         }
-        //if (resolution != 1) cout << endl;
         initialize.stop();
 }
 
-LocalSpatialGridHash::~LocalSpatialGridHash() {
+FlexLocalSpatialGridHash::~FlexLocalSpatialGridHash() {
     for (HashTable::iterator it = gridHashTable.begin(); it!=gridHashTable.end(); ++it)
             delete it->second;
 }
 
-void LocalSpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
+void FlexLocalSpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
 {
 
         analyzing.start();
@@ -60,7 +62,7 @@ void LocalSpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObj
         analyzing.stop();
 }
 
-void LocalSpatialGridHash::build(SpatialObjectList& dsA)
+void FlexLocalSpatialGridHash::build(SpatialObjectList& dsA)
 {
         building.start();
         gridHashTable.clear();
@@ -86,14 +88,14 @@ void LocalSpatialGridHash::build(SpatialObjectList& dsA)
         building.stop();
 }
 
-void LocalSpatialGridHash::clear()
+void FlexLocalSpatialGridHash::clear()
 {
         gridHashTable.clear();
         //for (HashTable::iterator it = gridHashTable.begin(); it!=gridHashTable.end(); ++it)
         // delete	it->second;
 }
 
-void LocalSpatialGridHash::probe(TreeEntry*& obj)
+void FlexLocalSpatialGridHash::probe(TreeEntry*& obj)
 {
         probing.start();
         
@@ -121,7 +123,7 @@ void LocalSpatialGridHash::probe(TreeEntry*& obj)
 }
 
 
-void LocalSpatialGridHash::probe(const SpatialObjectList& dsB)
+void FlexLocalSpatialGridHash::probe(const SpatialObjectList& dsB)
 {
     probing.start();
 

@@ -41,6 +41,7 @@ unsigned int numA = 0 ,numB = 0;                            //number of elements
 int nodesize                            = 2;                // number of children per node if not leaf
 int maxLevelCoef                        = 1;                // coefficient in probability to assign object to first tree in dTOUCH
 int traversalType                       = join_TD;          // join traversal of a tree
+int SGridResolution                     = Dynamic_Flex_SG_Resolution;          // SGrid resolution type
 
 std::string input_dsA = "../data/RandomData-100K.bin";
 std::string input_dsB = "../data/RandomData-1600K.bin";
@@ -69,7 +70,8 @@ void usage(const char *program_name) {
     printf("   -e               Epsilon of the similarity join\n");
     printf("   -i               <path> <path>  Dataset A followed by B\n");
     printf("   -n               #A #B  number of element to be read\n");
-    printf("   -y               type of tree traversal (TTD2, TD 1, BU 0)\n");
+    printf("   -y               type of tree traversal ( 0 - BU(Case4); 1 - TD(Case1))\n");
+    printf("   -s               type of SGrid resolution ( 0 - Static; 1 - Dynamic Square; 2 - Dynamic Mean-Length )\n");
     printf("   -v               verbose\n");
 
 }
@@ -139,6 +141,9 @@ void parse_args(int argc, const char* argv[]) {
 		case 'g':       /* base for the number of components to merge in every level of the hierarchy */
 			sscanf(argv[++x], "%u", &localPartitions);
             break;
+		case 's':       /* type of SGrid resolution */
+			sscanf(argv[++x], "%u", &SGridResolution);
+            break;
 		case 'v':       /* verbose */
                         t = 1;
 			sscanf(argv[++x], "%u", &t);
@@ -168,6 +173,7 @@ void dTOUCHrun()
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
+    touch->SGResol          = SGridResolution;
     
     touch->run();
     touch->saveLog();
@@ -191,6 +197,7 @@ void cTOUCHrun()
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
+    touch->SGResol          = SGridResolution;
 
     touch->run();
     touch->saveLog();
@@ -214,6 +221,7 @@ void TOUCHrun()
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
+    touch->SGResol          = SGridResolution;
 
     touch->run();
     touch->saveLog();
@@ -237,6 +245,7 @@ void reTOUCHrun()
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
+    touch->SGResol          = SGridResolution;
     
     touch->run();
     touch->saveLog();
@@ -260,6 +269,7 @@ void rereTOUCHrun()
     touch->maxLevelCoef     = maxLevelCoef;
     touch->file_dsA         = input_dsA;
     touch->file_dsB         = input_dsB;
+    touch->SGResol          = SGridResolution;
 
     touch->run();
     touch->saveLog();

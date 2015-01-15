@@ -23,7 +23,6 @@ void reTOUCH::run()
     probe();
     if (verbose) std::cout << "Done." << std::endl; 
     totalTimeStop();
-    resultPairs.printAllResults();
 }
 
 void reTOUCH::assignmentB()

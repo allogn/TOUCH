@@ -240,15 +240,6 @@ void CommonTOUCH::JOIN(TreeNode* node, TreeNode* nodeObj)
         else
         {
             NL(node->attachedObjs[type],nodeObj->attachedObjs[!type]);
-            for (int i = 0; i < node->attachedObjs[type].size(); i++)
-            {
-                cout << node->attachedObjs[type][i]->id << endl;
-            }
-            cout << endl;
-            for (int i = 0; i < nodeObj->attachedObjs[!type].size(); i++)
-            {
-                cout << nodeObj->attachedObjs[!type][i]->id << endl;
-            }
             if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjsAns[type],nodeObj->attachedObjs[!type]);
             if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjs[type],nodeObj->attachedObjsAns[!type]);
             if (algorithm != algo_cTOUCH && algorithm != algo_dTOUCH) NL(node->attachedObjsAns[type],nodeObj->attachedObjsAns[!type]);
@@ -423,25 +414,43 @@ void CommonTOUCH::countSizeStatistics()
     
     sizeCalculate.start();
     FLAT::Box mbr;
+    FLAT::Vertex vec;
+    double v;
     for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
     { 
         for (int type = 0; type < TYPES; type++)
         {
-            (*it)->avrSize[type] = 0;
-            (*it)->stdSize[type] = 0;
+            for (int dim = 0; dim < DIMENSION; dim++)
+            {
+                (*it)->avrSize[type][dim] = 0;
+                (*it)->stdSize[type][dim] = 0;
+            }
+            (*it)->avrVol[type] = 0;
+            
+            
             for (SpatialObjectList::iterator oBit = (*it)->attachedObjs[type].begin();
                     oBit != (*it)->attachedObjs[type].end(); oBit++)
             {
-                double v = FLAT::Box::volume((*oBit)->getMBR());
-                (*it)->avrSize[type] += v;
-                (*it)->stdSize[type] += v*v;  
+                FLAT::Vertex::differenceVector((*oBit)->getMBR().high,(*oBit)->getMBR().low,vec);
+                v = FLAT::Box::volume((*oBit)->getMBR());
+                for (int dim = 0; dim < DIMENSION; dim++)
+                {
+                    (*it)->avrSize[type][dim] += vec[dim];
+                    (*it)->stdSize[type][dim] += vec[dim]*vec[dim];
+                }
+                (*it)->avrVol[type] += v;
             }
             for (SpatialObjectList::iterator oBit = (*it)->attachedObjsAns[type].begin();
                     oBit != (*it)->attachedObjsAns[type].end(); oBit++)
             {
-                double v = FLAT::Box::volume((*oBit)->getMBR());
-                (*it)->avrSize[type] += v;
-                (*it)->stdSize[type] += v*v;  
+                FLAT::Vertex::differenceVector((*oBit)->getMBR().high,(*oBit)->getMBR().low,vec);
+                v = FLAT::Box::volume((*oBit)->getMBR());
+                for (int dim = 0; dim < DIMENSION; dim++)
+                {
+                    (*it)->avrSize[type][dim] += vec[dim];
+                    (*it)->stdSize[type][dim] += vec[dim]*vec[dim];
+                }
+                (*it)->avrVol[type] += v;
             }
         }
     }
@@ -460,6 +469,8 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
 {    
     gridCalculate.start();
     FLAT::Box mbr;
+    double resolution;
+    double resolution3d[DIMENSION];
     for (int type = 0; type < TYPES; type++)
     {
         if (algorithm == algo_dTOUCH)
@@ -469,68 +480,83 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
             mbr = node->mbrSelfD[type];
         }
         
-//        if (node->id == 35) 
-//        {
-//        cout << "--------" << endl;
-//            cout << "MBR: " << node->mbrSelfD[type] << " Vol:" << pow(FLAT::Box::volume(node->mbrSelfD[type]),1./3.) << endl;
-//            
-//            for (int p = 0; p < node->attachedObjs[type].size(); p++)
-//            {
-//                cout << ".. " << node->attachedObjs[type][p]->getMBR() << " Vol: " << pow(FLAT::Box::volume(node->attachedObjs[type][p]->getMBR()),1./3.) << endl;
-//            }
-//        cout << "-------" << endl;
-//        }
-
-
-        //temporary ignore global localPartition. if success - remove it from parameters
-
-        //resolution is number of cells per dimension
-        double resolution;
-            
-        /*
-         * USE ALWAYS ONLY DYNAMIC GRID! (hardcode otherwise)
-         * reason: localPartitions are registered for TOUCH, that must always use static
-         * must add new flag if both types must be used.
-         */
-        
-        
-//        if (localPartitions == 0)
-//        {
-            double spaceVol = FLAT::Box::volume(mbr);
-            if (node->avrSize[type] == 0)
-            {
-                resolution = 1; // no objects
-            }
-            else
-            {
-                resolution = (double) std::pow(node->avrSize[type]/(node->attachedObjs[type].size()+
-                        node->attachedObjsAns[type].size()),1./3.);
-            }
-            
-//        }
-//        else
-//        {
-//            resolution = localPartitions;
-//        }
-
-        //cout << "res: " << resolution << endl;
-        if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !node->leafnode))
-            continue;
-        node->spatialGridHash[type] = new LocalSpatialGridHash();
-        node->spatialGridHash[type]->init(mbr,resolution);
-//        node->spatialGridHash[type] = new SpatialGridHash();
-//        node->spatialGridHash[type]->init(mbr,localPartitions);
-        node->spatialGridHash[type]->epsilon = this->epsilon;
-        node->spatialGridHash[type]->build(node->attachedObjs[type]);
-        if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
+        switch (SGResol)
         {
-//            node->spatialGridHashAns[type] = new SpatialGridHash();
-//            node->spatialGridHashAns[type]->init(mbr,localPartitions);
-            node->spatialGridHashAns[type] = new LocalSpatialGridHash();
-            node->spatialGridHashAns[type]->init(mbr,resolution);
-            node->spatialGridHashAns[type]->epsilon = this->epsilon;
-            node->spatialGridHashAns[type]->build(node->attachedObjsAns[type]);
+            case Static_SG_Resolution:
+                if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !node->leafnode))
+                    continue;
+                node->spatialGridHash[type] = new SpatialGridHash();
+                node->spatialGridHash[type]->init(mbr,localPartitions);
+                node->spatialGridHash[type]->epsilon = this->epsilon;
+                node->spatialGridHash[type]->build(node->attachedObjs[type]);
+                if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
+                {
+                    node->spatialGridHashAns[type] = new SpatialGridHash();
+                    node->spatialGridHashAns[type]->init(mbr,localPartitions);
+                    node->spatialGridHashAns[type]->epsilon = this->epsilon;
+                    node->spatialGridHashAns[type]->build(node->attachedObjsAns[type]);
+                }
+                break;
+            case Dynamic_Equal_SG_Resolution:
+                for (int dim = 0; dim < DIMENSION; dim++)
+                {
+                    if (node->avrVol[type] == 0)
+                    {
+                        resolution = 1; // no objects
+                    }
+                    else
+                    {
+                        resolution = (double) std::pow(node->avrVol[type]/(node->attachedObjs[type].size()+
+                                node->attachedObjsAns[type].size()),1./3.);
+                    }
+                }
+                if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !node->leafnode))
+                    continue;
+                node->spatialGridHash[type] = new LocalSpatialGridHash();
+                node->spatialGridHash[type]->init(mbr,resolution);
+                node->spatialGridHash[type]->epsilon = this->epsilon;
+                node->spatialGridHash[type]->build(node->attachedObjs[type]);
+                if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
+                {
+                    node->spatialGridHashAns[type] = new LocalSpatialGridHash();
+                    node->spatialGridHashAns[type]->init(mbr,resolution);
+                    node->spatialGridHashAns[type]->epsilon = this->epsilon;
+                    node->spatialGridHashAns[type]->build(node->attachedObjsAns[type]);
+                }
+                break;
+            case Dynamic_Flex_SG_Resolution:
+                FLAT::Vertex spaceVec;
+                FLAT::Vertex::differenceVector(mbr.high,mbr.low,spaceVec);
+
+                for (int dim = 0; dim < DIMENSION; dim++)
+                {
+                    if (node->avrSize[type][dim] == 0)
+                    {
+                        resolution3d[dim] = 1; // no objects
+                    }
+                    else
+                    {
+                        resolution3d[dim] = (double) node->avrSize[type][dim]/(node->attachedObjs[type].size()+
+                                node->attachedObjsAns[type].size());
+                    }
+                }
+                
+                if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !node->leafnode))
+                    continue;
+                node->spatialGridHash[type] = new FlexLocalSpatialGridHash();
+                node->spatialGridHash[type]->init(mbr,resolution3d[0],resolution3d[1],resolution3d[2]);
+                node->spatialGridHash[type]->epsilon = this->epsilon;
+                node->spatialGridHash[type]->build(node->attachedObjs[type]);
+                if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
+                {
+                    node->spatialGridHashAns[type] = new FlexLocalSpatialGridHash();
+                    node->spatialGridHashAns[type]->init(mbr,resolution3d[0],resolution3d[1],resolution3d[2]);
+                    node->spatialGridHashAns[type]->epsilon = this->epsilon;
+                    node->spatialGridHashAns[type]->build(node->attachedObjsAns[type]);
+                }
+                break;
         }
+
     }
     gridCalculate.stop();
 }
@@ -539,20 +565,7 @@ void CommonTOUCH::deduplicateSpatialGrid()
 {
     for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
     {
-        for (int type = 0; type < TYPES; type++)
-        {
-            if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !(*it)->leafnode))
-                continue;
-            
-            (*it)->spatialGridHash[type]->resultPairs.deDuplicate();
-            LocalSpatialGridHash::transferInfo((*it)->spatialGridHash[type], this);
-
-            if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
-            {
-                (*it)->spatialGridHashAns[type]->resultPairs.deDuplicate();
-                LocalSpatialGridHash::transferInfo((*it)->spatialGridHashAns[type], this);
-            }
-        }
+        deduplicateSpatialGrid((*it));
     }
     
     //@todo free memory
@@ -565,12 +578,13 @@ void CommonTOUCH::deduplicateSpatialGrid(TreeNode* node)
         if (algorithm == algo_dTOUCH && (type != dTOUCHalgoLeafType || !node->leafnode))
                         continue;
         node->spatialGridHash[type]->resultPairs.deDuplicate();
-        LocalSpatialGridHash::transferInfo(node->spatialGridHash[type], this);
+        
+        SpatialGridHash::transferInfo(node->spatialGridHash[type], this);
 
         if (this->algorithm == algo_reTOUCH || this->algorithm == algo_rereTOUCH)
         {
             node->spatialGridHashAns[type]->resultPairs.deDuplicate();
-            LocalSpatialGridHash::transferInfo(node->spatialGridHashAns[type], this);
+            SpatialGridHash::transferInfo(node->spatialGridHashAns[type], this);
         }   
     }
 }
@@ -743,8 +757,8 @@ void CommonTOUCH::analyze()
                 if (maxMappedObjects < cursum) maxMappedObjects = cursum; // save maximum assigned objects
                 if ((*ni)->level < 10)
                 {
-                    levelAvg[type][(*ni)->level] += (*ni)->avrSize[type];
-                    levelStd[type][(*ni)->level] += (*ni)->stdSize[type];
+                    levelAvg[type][(*ni)->level] += ((*ni)->avrSize[type][0]+(*ni)->avrSize[type][1]+(*ni)->avrSize[type][2])/3.;
+                    levelStd[type][(*ni)->level] += ((*ni)->stdSize[type][0]+(*ni)->stdSize[type][1]+(*ni)->stdSize[type][2])/3.; //not right, but just for visibility
                 }
         }
 

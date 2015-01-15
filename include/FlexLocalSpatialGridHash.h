@@ -1,19 +1,19 @@
 /* 
- * File:   LocalSpatialGridHash.h
+ * File:   FlexLocalSpatialGridHash.h
  * Author: Alvis
  *
  * Created on 30 октября 2014 г., 23:21
  */
 
-#ifndef LOCALSPATIALGRIDHASH_H
-#define	LOCALSPATIALGRIDHASH_H
+#ifndef FLEXLOCALSPATIALGRIDHASH_H
+#define	FLEXLOCALSPATIALGRIDHASH_H
 
 #include "JoinAlgorithm.h"
 #include "Vertex.hpp"
 #include "SpatialGridHash.h"
 
 // The class for doing the Spatial Grid Join
-class LocalSpatialGridHash : public SpatialGridHash
+class FlexLocalSpatialGridHash : public SpatialGridHash
 {
 
 private:
@@ -21,7 +21,7 @@ private:
 	HashTable gridHashTable;
 	FLAT::Box universe;
 	FLAT::int64 universeWidth[DIMENSION];
-	double resolution;
+	double resolution[DIMENSION];
 
 	FLAT::int64 gridLocation2Index(const int x,const int y,const int z)
 	{
@@ -30,9 +30,9 @@ private:
 
 	void vertex2GridLocation(const FLAT::Vertex& v,int& x,int& y,int &z)
 	{
-		x = (int)floor( (v[0] - universe.low[0]) / resolution);
-		y = (int)floor( (v[1] - universe.low[1]) / resolution);
-		z = (int)floor( (v[2] - universe.low[2]) / resolution);
+		x = (int)floor( (v[0] - universe.low[0]) / resolution[0]);
+		y = (int)floor( (v[1] - universe.low[1]) / resolution[1]);
+		z = (int)floor( (v[2] - universe.low[2]) / resolution[2]);
 
 		if (x<0) x=0; if (x>=universeWidth[0]) x=universeWidth[0]-1;
 		if (y<0) y=0; if (y>=universeWidth[1]) y=universeWidth[1]-1;
@@ -40,9 +40,9 @@ private:
 	}
 	bool vertex2GridLocation(const FLAT::Vertex& v,int& x,int& y,int &z, bool islower)
 	{
-		x = (int)floor( (v[0] - universe.low[0]) / resolution);
-		y = (int)floor( (v[1] - universe.low[1]) / resolution);
-		z = (int)floor( (v[2] - universe.low[2]) / resolution);
+		x = (int)floor( (v[0] - universe.low[0]) / resolution[0]);
+		y = (int)floor( (v[1] - universe.low[1]) / resolution[1]);
+		z = (int)floor( (v[2] - universe.low[2]) / resolution[2]);
 
 		if ( (!islower) && ( x<0 || y<0 || z<0 ))
 			return true;
@@ -106,19 +106,20 @@ private:
 
 public:
 
-	LocalSpatialGridHash()
+	FlexLocalSpatialGridHash()
         {
             algorithm = algo_SGrid;
         };
-	~LocalSpatialGridHash();
+	~FlexLocalSpatialGridHash();
     
 	void build(SpatialObjectList& dsA);
 	void clear();
 	void probe(const SpatialObjectList& dsB);
         void probe(TreeEntry*& obj);
-        void init(const FLAT::Box& universeExtent,const double gridResolutionPerDimension);	
+        void init(const FLAT::Box& universeExtent,const double gridResolutionPerDimension0,
+                const double gridResolutionPerDimension1,const double gridResolutionPerDimension2);	
 	void analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB);
 };
 
-#endif	/* LOCALSPATIALGRIDHASH_H */
+#endif	/* FLEXLOCALSPATIALGRIDHASH_H */
 

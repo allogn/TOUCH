@@ -21,12 +21,12 @@ private:
 	FLAT::Vertex universeWidth;
 	FLAT::int64 resolution;
 
-	FLAT::int64 gridLocation2Index(const int x,const int y,const int z)
+	virtual FLAT::int64 gridLocation2Index(const int x,const int y,const int z)
 	{
 		return (x + (y*resolution) + (z*resolution*resolution));
 	}
 
-	void vertex2GridLocation(const FLAT::Vertex& v,int& x,int& y,int &z)
+	virtual void vertex2GridLocation(const FLAT::Vertex& v,int& x,int& y,int &z)
 	{
 		x = (int)floor( (v[0] - universe.low[0]) / universeWidth[0]);
 		y = (int)floor( (v[1] - universe.low[1]) / universeWidth[1]);
@@ -36,7 +36,7 @@ private:
 		if (y<0) y=0; if (y>=resolution) y=resolution-1;
 		if (z<0) z=0; if (z>=resolution) z=resolution-1;
 	}
-	bool vertex2GridLocation(const FLAT::Vertex& v,int& x,int& y,int &z, bool islower)
+	virtual bool vertex2GridLocation(const FLAT::Vertex& v,int& x,int& y,int &z, bool islower)
 	{
 		x = (int)floor( (v[0] - universe.low[0]) / universeWidth[0]);
 		y = (int)floor( (v[1] - universe.low[1]) / universeWidth[1]);
@@ -56,7 +56,7 @@ private:
 
 	}
 
-	void getOverlappingCells(TreeEntry* sobj,vector<FLAT::uint64>& cells)
+	virtual void getOverlappingCells(TreeEntry* sobj,vector<FLAT::uint64>& cells)
 	{
 		FLAT::Box mbr = sobj->getMBR();
                 
@@ -73,7 +73,7 @@ private:
 
 	}
 
-	void getCellMbr(FLAT::Box& extent,const int x,const int y,const int z)
+	virtual void getCellMbr(FLAT::Box& extent,const int x,const int y,const int z)
 	{
 		extent.low[0] = x*universeWidth[0]; extent.high[0] = (x+1)*universeWidth[0];
 		extent.low[1] = y*universeWidth[1]; extent.high[1] = (y+1)*universeWidth[1];
@@ -83,7 +83,7 @@ private:
 		extent.high = extent.high + universe.low;
 	}
 
-	bool getProjectedCells(TreeEntry* sobj, vector<FLAT::uint64>& cells)
+	virtual bool getProjectedCells(TreeEntry* sobj, vector<FLAT::uint64>& cells)
 	{
 		FLAT::Box mbr = sobj->getMBR();
                 
@@ -110,16 +110,19 @@ public:
         };
 	~SpatialGridHash();
     
-	void build(SpatialObjectList& dsA);
-	void clear();
-	void probe(const SpatialObjectList& dsB);
-        void probe(TreeEntry*& obj);
-        void init(const FLAT::Box& universeExtent,const int gridResolutionPerDimension);
+	virtual void build(SpatialObjectList& dsA);
+	virtual void clear();
+	virtual void probe(const SpatialObjectList& dsB);
+        virtual void probe(TreeEntry*& obj);
+        virtual void init(const FLAT::Box& universeExtent,const int gridResolutionPerDimension);
+        virtual void init(const FLAT::Box& universeExtent,const double gridResolutionPerDimension) {};
+        virtual void init(const FLAT::Box& universeExtent,const double gridResolutionPerDimension0,
+                const double gridResolutionPerDimension1,const double gridResolutionPerDimension2) {};
 	void analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB);
         
         static void transferInfo(SpatialGridHash* sgh, JoinAlgorithm* alg);
         
-        void run()
+        virtual void run()
         {
             totalTimeStart();
             readBinaryInput(file_dsA, file_dsB);

@@ -45,12 +45,6 @@
               </df>
             </df>
           </df>
-          <df name="FLATIndexCuda.dir">
-            <df name="__">
-              <df name="src">
-              </df>
-            </df>
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -170,6 +164,7 @@
         <in>DendriteReader.hpp</in>
         <in>ExternalSort.hpp</in>
         <in>FLATIndex.hpp</in>
+        <in>FlexLocalSpatialGridHash.h</in>
         <in>GlobalCommon.hpp</in>
         <in>Hilbert.hpp</in>
         <in>JoinAlgorithm.h</in>
@@ -944,8 +939,12 @@
           <df name="verybigStatic">
           </df>
         </df>
-        <df name="14.01">
-          <df name="checkAllTraversals">
+        <df name="16.01">
+          <df name="checkAllTraversalsD1">
+          </df>
+          <df name="checkAllTraversalsD2">
+          </df>
+          <df name="checkAllTraversalsD3">
           </df>
         </df>
         <df name="16.12">
@@ -1107,6 +1106,7 @@
         <in>Cone.cpp</in>
         <in>DataFileReader.cpp</in>
         <in>ExternalSort.cpp</in>
+        <in>FlexLocalSpatialGridHash.cpp</in>
         <in>Hilbert.cpp</in>
         <in>JoinAlgorithm.cpp</in>
         <in>LocalSpatialGridHash.cpp</in>
@@ -1173,12 +1173,6 @@
                     </df>
                   </df>
                 </df>
-              </df>
-            </df>
-          </df>
-          <df name="FLATIndexCuda.dir">
-            <df name="__">
-              <df name="src">
               </df>
             </df>
           </df>
@@ -1477,8 +1471,12 @@
           <df name="verybigStatic">
           </df>
         </df>
-        <df name="14.01">
-          <df name="checkAllTraversals">
+        <df name="16.01">
+          <df name="checkAllTraversalsD1">
+          </df>
+          <df name="checkAllTraversalsD2">
+          </df>
+          <df name="checkAllTraversalsD3">
           </df>
         </df>
         <df name="16.12">
@@ -1670,12 +1668,6 @@
               </df>
             </df>
           </df>
-          <df name="FLATIndexCuda.dir">
-            <df name="__">
-              <df name="src">
-              </df>
-            </df>
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1971,8 +1963,12 @@
           <df name="verybigStatic">
           </df>
         </df>
-        <df name="14.01">
-          <df name="checkAllTraversals">
+        <df name="16.01">
+          <df name="checkAllTraversalsD1">
+          </df>
+          <df name="checkAllTraversalsD2">
+          </df>
+          <df name="checkAllTraversalsD3">
           </df>
         </df>
         <df name="16.12">
@@ -2164,12 +2160,6 @@
               </df>
             </df>
           </df>
-          <df name="FLATIndexCuda.dir">
-            <df name="__">
-              <df name="src">
-              </df>
-            </df>
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -2465,8 +2455,12 @@
           <df name="verybigStatic">
           </df>
         </df>
-        <df name="14.01">
-          <df name="checkAllTraversals">
+        <df name="16.01">
+          <df name="checkAllTraversalsD1">
+          </df>
+          <df name="checkAllTraversalsD2">
+          </df>
+          <df name="checkAllTraversalsD3">
           </df>
         </df>
         <df name="16.12">
