@@ -22,7 +22,8 @@ allcols = [ (lambda row: float(row[11]),"Number of compared objects (%)", "objnu
             (lambda row: float(row[12]), "ComparedMax objects", "NLjoin"), \
             (lambda row: float(row[24]), 'Total time (s)', "total") ]
 
-allalg = [ ['reTOUCH:BU(Case4)-D1','yp-'],['reTOUCH:BU(Case4)','c8:'] ]
+allalg = [ ['cTOUCH:BU(Case4)D1','rs-'],['dTOUCH:BU(Case4)D1','g.--'],['reTOUCH:BU(Case4)D1','yp-'],\
+ ['cTOUCH:BU(Case4)','kx-'],['dTOUCH:BU(Case4)','c8:'],['reTOUCH:BU(Case4)','bo:'] ]
 
 
 def getFileName(name):
@@ -49,7 +50,7 @@ with open(filename, 'rb') as csvfile:
         else:
             newrow = []
             newrow.append(row[0])
-            newrow.append(float(row[1]))
+            newrow.append(float(row[1]))    
             newrow.append(float(row[2]))
             newrow.append(float(row[3]))
             newrow.append(getFileName(row[4]))
@@ -64,7 +65,7 @@ alldata = np.array(alldata)
 
 # x : arbitrary
 xcol = (3,'Number of objects')
-epsilon = 50
+epsilon = 1
 
 epsilondata = alldata[np.array(alldata[:,1],dtype=float)==epsilon,:]
 allobjnum = np.unique(np.array(alldata[:,3],dtype=float))

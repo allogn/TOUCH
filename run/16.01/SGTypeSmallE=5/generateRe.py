@@ -64,7 +64,7 @@ alldata = np.array(alldata)
 
 # x : arbitrary
 xcol = (3,'Number of objects')
-epsilon = 50
+epsilon = 1
 
 epsilondata = alldata[np.array(alldata[:,1],dtype=float)==epsilon,:]
 allobjnum = np.unique(np.array(alldata[:,3],dtype=float))

@@ -22,7 +22,7 @@ allcols = [ (lambda row: float(row[11]),"Number of compared objects (%)", "objnu
             (lambda row: float(row[12]), "ComparedMax objects", "NLjoin"), \
             (lambda row: float(row[24]), 'Total time (s)', "total") ]
 
-allalg = [ ['reTOUCH:BU(Case4)-D1','yp-'],['reTOUCH:BU(Case4)','c8:'] ]
+allalg = [ ['reTOUCH:BU(Case4)D2','yp-'],['reTOUCH:BU(Case4)','c8:'] ]
 
 
 def getFileName(name):
@@ -64,7 +64,7 @@ alldata = np.array(alldata)
 
 # x : arbitrary
 xcol = (3,'Number of objects')
-epsilon = 50
+epsilon = 5
 
 epsilondata = alldata[np.array(alldata[:,1],dtype=float)==epsilon,:]
 allobjnum = np.unique(np.array(alldata[:,3],dtype=float))
