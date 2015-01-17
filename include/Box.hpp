@@ -174,9 +174,15 @@ namespace FLAT
         //expand box size randomly
         inline void Box::randomExpand(double size)
         {
-            double expCoef = size*((double)rand()/(double)RAND_MAX);
-            this->low = this->low-expCoef;
-            this->high = this->high+expCoef;
+            double expCoef[3];
+            expCoef[1] = size*((double)rand()/(double)RAND_MAX);
+            expCoef[2] = size*((double)rand()/(double)RAND_MAX);
+            expCoef[0] = size*((double)rand()/(double)RAND_MAX);
+            for (int i = 0; i < DIMENSION; i++)
+            {
+                this->low[i] = this->low[i]-expCoef[i];
+                this->high[i] = this->high[i]+expCoef[i];
+            }
         }
 
 }
