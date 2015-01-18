@@ -98,6 +98,48 @@
       <df name="cmake">
       </df>
       <df name="data">
+        <df name="samplesAxExpDifLen">
+          <df name="10000">
+          </df>
+          <df name="100000">
+          </df>
+          <df name="15000">
+          </df>
+          <df name="20000">
+          </df>
+          <df name="25000">
+          </df>
+          <df name="30000">
+          </df>
+          <df name="40000">
+          </df>
+          <df name="5000">
+          </df>
+          <df name="50000">
+          </df>
+          <df name="60000">
+          </df>
+          <df name="70000">
+          </df>
+          <df name="80000">
+          </df>
+          <df name="90000">
+          </df>
+        </df>
+        <df name="samplesAxExpDifLenSmall">
+          <df name="10000">
+          </df>
+          <df name="15000">
+          </df>
+          <df name="20000">
+          </df>
+          <df name="25000">
+          </df>
+          <df name="30000">
+          </df>
+          <df name="5000">
+          </df>
+        </df>
         <df name="samplesAxons">
           <df name="10000">
           </df>
@@ -950,6 +992,12 @@
           </df>
           <df name="SGTypeBigAxonE5">
           </df>
+          <df name="SGTypeBigAxonRandomLengthExpanded">
+          </df>
+          <df name="SGTypeBigAxonRandomLengthExpandedSmall">
+          </df>
+          <df name="SGTypeBigAxonRandomLengthExpandedTest">
+          </df>
           <df name="SGTypeSmallE=5">
           </df>
         </df>
@@ -998,6 +1046,8 @@
             <df name="8000">
             </df>
           </df>
+        </df>
+        <df name="17.01">
         </df>
         <df name="22.12">
           <df name="Random">
@@ -1235,6 +1285,48 @@
       <df name="cmake">
       </df>
       <df name="data">
+        <df name="samplesAxExpDifLen">
+          <df name="10000">
+          </df>
+          <df name="100000">
+          </df>
+          <df name="15000">
+          </df>
+          <df name="20000">
+          </df>
+          <df name="25000">
+          </df>
+          <df name="30000">
+          </df>
+          <df name="40000">
+          </df>
+          <df name="5000">
+          </df>
+          <df name="50000">
+          </df>
+          <df name="60000">
+          </df>
+          <df name="70000">
+          </df>
+          <df name="80000">
+          </df>
+          <df name="90000">
+          </df>
+        </df>
+        <df name="samplesAxExpDifLenSmall">
+          <df name="10000">
+          </df>
+          <df name="15000">
+          </df>
+          <df name="20000">
+          </df>
+          <df name="25000">
+          </df>
+          <df name="30000">
+          </df>
+          <df name="5000">
+          </df>
+        </df>
         <df name="samplesAxons">
           <df name="10000">
           </df>
@@ -1488,6 +1580,12 @@
           </df>
           <df name="SGTypeBigAxonE5">
           </df>
+          <df name="SGTypeBigAxonRandomLengthExpanded">
+          </df>
+          <df name="SGTypeBigAxonRandomLengthExpandedSmall">
+          </df>
+          <df name="SGTypeBigAxonRandomLengthExpandedTest">
+          </df>
           <df name="SGTypeSmallE=5">
           </df>
         </df>
@@ -1536,6 +1634,8 @@
             <df name="8000">
             </df>
           </df>
+        </df>
+        <df name="17.01">
         </df>
         <df name="22.12">
           <df name="Random">
@@ -1733,6 +1833,48 @@
       <df name="cmake">
       </df>
       <df name="data">
+        <df name="samplesAxExpDifLen">
+          <df name="10000">
+          </df>
+          <df name="100000">
+          </df>
+          <df name="15000">
+          </df>
+          <df name="20000">
+          </df>
+          <df name="25000">
+          </df>
+          <df name="30000">
+          </df>
+          <df name="40000">
+          </df>
+          <df name="5000">
+          </df>
+          <df name="50000">
+          </df>
+          <df name="60000">
+          </df>
+          <df name="70000">
+          </df>
+          <df name="80000">
+          </df>
+          <df name="90000">
+          </df>
+        </df>
+        <df name="samplesAxExpDifLenSmall">
+          <df name="10000">
+          </df>
+          <df name="15000">
+          </df>
+          <df name="20000">
+          </df>
+          <df name="25000">
+          </df>
+          <df name="30000">
+          </df>
+          <df name="5000">
+          </df>
+        </df>
         <df name="samplesAxons">
           <df name="10000">
           </df>
@@ -1986,6 +2128,12 @@
           </df>
           <df name="SGTypeBigAxonE5">
           </df>
+          <df name="SGTypeBigAxonRandomLengthExpanded">
+          </df>
+          <df name="SGTypeBigAxonRandomLengthExpandedSmall">
+          </df>
+          <df name="SGTypeBigAxonRandomLengthExpandedTest">
+          </df>
           <df name="SGTypeSmallE=5">
           </df>
         </df>
@@ -2034,6 +2182,8 @@
             <df name="8000">
             </df>
           </df>
+        </df>
+        <df name="17.01">
         </df>
         <df name="22.12">
           <df name="Random">
@@ -2231,6 +2381,48 @@
       <df name="cmake">
       </df>
       <df name="data">
+        <df name="samplesAxExpDifLen">
+          <df name="10000">
+          </df>
+          <df name="100000">
+          </df>
+          <df name="15000">
+          </df>
+          <df name="20000">
+          </df>
+          <df name="25000">
+          </df>
+          <df name="30000">
+          </df>
+          <df name="40000">
+          </df>
+          <df name="5000">
+          </df>
+          <df name="50000">
+          </df>
+          <df name="60000">
+          </df>
+          <df name="70000">
+          </df>
+          <df name="80000">
+          </df>
+          <df name="90000">
+          </df>
+        </df>
+        <df name="samplesAxExpDifLenSmall">
+          <df name="10000">
+          </df>
+          <df name="15000">
+          </df>
+          <df name="20000">
+          </df>
+          <df name="25000">
+          </df>
+          <df name="30000">
+          </df>
+          <df name="5000">
+          </df>
+        </df>
         <df name="samplesAxons">
           <df name="10000">
           </df>
@@ -2484,6 +2676,12 @@
           </df>
           <df name="SGTypeBigAxonE5">
           </df>
+          <df name="SGTypeBigAxonRandomLengthExpanded">
+          </df>
+          <df name="SGTypeBigAxonRandomLengthExpandedSmall">
+          </df>
+          <df name="SGTypeBigAxonRandomLengthExpandedTest">
+          </df>
           <df name="SGTypeSmallE=5">
           </df>
         </df>
@@ -2532,6 +2730,8 @@
             <df name="8000">
             </df>
           </df>
+        </df>
+        <df name="17.01">
         </df>
         <df name="22.12">
           <df name="Random">

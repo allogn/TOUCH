@@ -658,6 +658,11 @@ void CommonTOUCH::createPartitions(SpatialObjectList& vds)
 void CommonTOUCH::createTreeLevel(SpatialObjectList& input)
 {
     sorting.start();
+//    for (int i = 0; i < input.size(); i++)
+//    {
+//        cout << "good " << input[i]->id << endl;
+//    }
+//    cout << " endl " << endl;
     switch (PartitioningType)
     {
         case Hilbert_Sort:

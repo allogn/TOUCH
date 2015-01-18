@@ -255,7 +255,6 @@ public:
     {
             bool operator()(TreeEntry* const r1, TreeEntry* const r2)
             {
-
                     FLAT::Vertex r1p,r2p;
                     r1p = r1->mbr.getCenter();
                     r2p = r2->mbr.getCenter();
