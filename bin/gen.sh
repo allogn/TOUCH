@@ -1,6 +1,6 @@
 #!/bin/bash
 num=128
-for exp in {1..2..1}
+for exp in {1..8..1}
 do
     num=$(expr $num \* 2)
     num2=$(expr $num \* 1000)
