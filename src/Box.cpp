@@ -392,16 +392,16 @@ namespace FLAT
 		}
 		else
 		{
-			bb.low = vertices.at(0);
-			bb.high = vertices.at(0);
+			bb.low = vertices[0];
+			bb.high = vertices[0];
 		}
 		int size= vertices.size();
 		for (int i=0;i<size;i++)
 		{
 			for (int j=0;j<DIMENSION;j++)
 			{
-				if (bb.low.Vector[j]>vertices.at(i).Vector[j]) bb.low.Vector[j] = vertices.at(i).Vector[j];
-				if (bb.high.Vector[j]<vertices.at(i).Vector[j]) bb.high.Vector[j] = vertices.at(i).Vector[j];
+				if (bb.low.Vector[j]>vertices[i].Vector[j]) bb.low.Vector[j] = vertices[i].Vector[j];
+				if (bb.high.Vector[j]<vertices[i].Vector[j]) bb.high.Vector[j] = vertices[i].Vector[j];
 			}
 		}
 	}

@@ -19,16 +19,15 @@
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
 
-//
-//#include <thrust/host_vector.h>
-//#include <thrust/device_vector.h>
-//#include <thrust/sort.h>
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+#include <thrust/sort.h>
 
 #include "Box.hpp"
 #include "Timer.hpp"
 
-typedef std::vector<TreeNode*> NodeList;
-typedef std::vector<TreeEntry*> SpatialObjectList;
+typedef thrust::host_vector<TreeNode*> NodeList;
+typedef thrust::host_vector<TreeEntry*> SpatialObjectList;
 
 typedef std::pair<TreeEntry*,TreeEntry*> ResultPair; //no boost set for thrust
 typedef boost::unordered_set< ResultPair > ResultList; // storing unique results

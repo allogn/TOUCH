@@ -5,6 +5,10 @@
 #include "Vertex.hpp"
 #include <vector>
 
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+#include <thrust/sort.h>
+
 namespace FLAT
 {
 /*
@@ -162,7 +166,7 @@ namespace FLAT
 		int size=items.size();
 		for (int i=0;i<size;i++)
 		{
-			Box temp = items.at(i)->getMBR();
+			Box temp = items[i]->getMBR();
 			for (int j=0;j<DIMENSION;j++)
 			{
 				if (bb.low.Vector[j]>temp.low.Vector[j])   bb.low.Vector[j]  = temp.low.Vector[j];

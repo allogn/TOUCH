@@ -31,8 +31,8 @@ public:
 
 	//Sort the datasets based on their lower x coordinate
 	sorting.start();
-	std::sort(A.begin(), A.end(), Comparator_Xaxis());
-	std::sort(B.begin(), B.end(), Comparator_Xaxis());
+	thrust::sort(A.begin(), A.end(), Comparator_Xaxis());
+	thrust::sort(B.begin(), B.end(), Comparator_Xaxis());
 	sorting.stop();
 
 	//sweep

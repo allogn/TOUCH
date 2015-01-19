@@ -36,5 +36,5 @@ public:
     FLAT::uint64 mergingMbrB(TreeNode* startNode, FLAT::Box &mbr);
     FLAT::uint64 mergingMbrA(TreeNode* startNode, FLAT::Box &mbr);
     
-    std::vector<FLAT::uint64> ItemPerLevelA,ItemPerLevelB,ItemPerLevelAans;
+    thrust::host_vector<FLAT::uint64> ItemPerLevelA,ItemPerLevelB,ItemPerLevelAans;
 };

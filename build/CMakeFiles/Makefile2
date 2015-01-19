@@ -88,13 +88,49 @@ clean: CMakeFiles/FLATIndex.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/FLATIndexCuda.dir
+
+# All Build rule for target.
+CMakeFiles/FLATIndexCuda.dir/all:
+	$(MAKE) -f CMakeFiles/FLATIndexCuda.dir/build.make CMakeFiles/FLATIndexCuda.dir/depend
+	$(MAKE) -f CMakeFiles/FLATIndexCuda.dir/build.make CMakeFiles/FLATIndexCuda.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  36
+	@echo "Built target FLATIndexCuda"
+.PHONY : CMakeFiles/FLATIndexCuda.dir/all
+
+# Include target in all.
+all: CMakeFiles/FLATIndexCuda.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/FLATIndexCuda.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/FLATIndexCuda.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 0
+.PHONY : CMakeFiles/FLATIndexCuda.dir/rule
+
+# Convenience name for target.
+FLATIndexCuda: CMakeFiles/FLATIndexCuda.dir/rule
+.PHONY : FLATIndexCuda
+
+# clean rule for target.
+CMakeFiles/FLATIndexCuda.dir/clean:
+	$(MAKE) -f CMakeFiles/FLATIndexCuda.dir/build.make CMakeFiles/FLATIndexCuda.dir/clean
+.PHONY : CMakeFiles/FLATIndexCuda.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/FLATIndexCuda.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/SampleGenerator.dir
 
 # All Build rule for target.
+CMakeFiles/SampleGenerator.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 CMakeFiles/SampleGenerator.dir/all: CMakeFiles/FLATIndex.dir/all
 	$(MAKE) -f CMakeFiles/SampleGenerator.dir/build.make CMakeFiles/SampleGenerator.dir/depend
 	$(MAKE) -f CMakeFiles/SampleGenerator.dir/build.make CMakeFiles/SampleGenerator.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  36
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  37
 	@echo "Built target SampleGenerator"
 .PHONY : CMakeFiles/SampleGenerator.dir/all
 
@@ -104,7 +140,7 @@ all: CMakeFiles/SampleGenerator.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SampleGenerator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 36
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 37
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SampleGenerator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 0
 .PHONY : CMakeFiles/SampleGenerator.dir/rule
@@ -126,10 +162,11 @@ clean: CMakeFiles/SampleGenerator.dir/clean
 # Target rules for target CMakeFiles/SpatialJoin.dir
 
 # All Build rule for target.
+CMakeFiles/SpatialJoin.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 CMakeFiles/SpatialJoin.dir/all: CMakeFiles/FLATIndex.dir/all
 	$(MAKE) -f CMakeFiles/SpatialJoin.dir/build.make CMakeFiles/SpatialJoin.dir/depend
 	$(MAKE) -f CMakeFiles/SpatialJoin.dir/build.make CMakeFiles/SpatialJoin.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  37
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  38
 	@echo "Built target SpatialJoin"
 .PHONY : CMakeFiles/SpatialJoin.dir/all
 
@@ -139,7 +176,7 @@ all: CMakeFiles/SpatialJoin.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SpatialJoin.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 36
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 37
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SpatialJoin.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 0
 .PHONY : CMakeFiles/SpatialJoin.dir/rule
@@ -161,10 +198,11 @@ clean: CMakeFiles/SpatialJoin.dir/clean
 # Target rules for target CMakeFiles/SystemCheck.dir
 
 # All Build rule for target.
+CMakeFiles/SystemCheck.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 CMakeFiles/SystemCheck.dir/all: CMakeFiles/FLATIndex.dir/all
 	$(MAKE) -f CMakeFiles/SystemCheck.dir/build.make CMakeFiles/SystemCheck.dir/depend
 	$(MAKE) -f CMakeFiles/SystemCheck.dir/build.make CMakeFiles/SystemCheck.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  38
+	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  39
 	@echo "Built target SystemCheck"
 .PHONY : CMakeFiles/SystemCheck.dir/all
 
@@ -174,7 +212,7 @@ all: CMakeFiles/SystemCheck.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SystemCheck.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 36
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 37
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SystemCheck.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles 0
 .PHONY : CMakeFiles/SystemCheck.dir/rule

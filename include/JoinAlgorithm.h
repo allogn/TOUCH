@@ -49,8 +49,8 @@ class JoinAlgorithm {
 
 public:
     FLAT::uint64 totalGridCells;
-    std::vector<TreeNode*> tree;		// Append only structure can be replaced by a file "payload"
-    std::vector<TreeNode*> nextInput;
+    thrust::host_vector<TreeNode*> tree;		// Append only structure can be replaced by a file "payload"
+    thrust::host_vector<TreeNode*> nextInput;
     TreeNode* root;
     
     SpatialObjectList dsA, dsB;					//A is smaller than B
@@ -152,8 +152,8 @@ public:
     JoinAlgorithm();
     virtual ~JoinAlgorithm();
     
-    virtual void writeNode(std::vector<TreeEntry*> objlist,int Level) {};
-    virtual void createTreeLevel(std::vector<TreeEntry*>& input,int Level) {};
+    virtual void writeNode(thrust::host_vector<TreeEntry*> objlist,int Level) {};
+    virtual void createTreeLevel(thrust::host_vector<TreeEntry*>& input,int Level) {};
     virtual void probe() {};
 
     void readBinaryInput(string file_dsA, string file_dsB);
@@ -215,11 +215,11 @@ public:
     int LevelsD;
     
     //for logging
-    std::vector<int> levelAssigned[TYPES];
-    std::vector<double> levelAvg[TYPES];
-    std::vector<double> levelStd[TYPES];
-    std::vector<FLAT::uint64> ItemPerLevel[TYPES]; 
-    std::vector<FLAT::uint64> ItemPerLevelAns[TYPES]; 
+    thrust::host_vector<int> levelAssigned[TYPES];
+    thrust::host_vector<double> levelAvg[TYPES];
+    thrust::host_vector<double> levelStd[TYPES];
+    thrust::host_vector<FLAT::uint64> ItemPerLevel[TYPES]; 
+    thrust::host_vector<FLAT::uint64> ItemPerLevelAns[TYPES]; 
     
     struct Comparator : public std::binary_function<TreeNode* const, TreeNode* const, bool>
     {
@@ -317,8 +317,8 @@ public:
     // Returns true if touch and false if not by comparing The corners of the MBRs
     inline bool istouchingV(FLAT::SpatialObject* sobj1, FLAT::SpatialObject* sobj2)
     {
-            vector<FLAT::Vertex> vertices1;
-            vector<FLAT::Vertex> vertices2;
+            std::vector<FLAT::Vertex> vertices1;
+            std::vector<FLAT::Vertex> vertices2;
             FLAT::Box mbr1 = sobj1->getMBR();
             FLAT::Box mbr2 = sobj2->getMBR();
             FLAT::Box::getAllVertices(sobj1->getMBR(),vertices1);
@@ -327,7 +327,7 @@ public:
             
             for (unsigned int i=0;i<vertices1.size();++i)
             {
-                if (FLAT::Box::enclose(mbr2,vertices1.at(i)))
+                if (FLAT::Box::enclose(mbr2,vertices1[i]))
                 {
                     return true;
                 }
@@ -335,7 +335,7 @@ public:
             
             for (unsigned int i=0;i<vertices2.size();++i)
             {
-                if (FLAT::Box::enclose(mbr1,vertices2.at(i)))
+                if (FLAT::Box::enclose(mbr1,vertices2[i]))
                 {
                     return true;
                 }
@@ -343,14 +343,14 @@ public:
             
             for (unsigned int i=0;i<vertices1.size();++i)
             {
-                if (mbr2.pointDistance(vertices1.at(i)) < epsilon)
+                if (mbr2.pointDistance(vertices1[i]) < epsilon)
                 {
                     return true;
                 }
             }
             for (unsigned int i=0;i<vertices2.size();++i)
             {
-                if (mbr1.pointDistance(vertices2.at(i)) < epsilon)
+                if (mbr1.pointDistance(vertices2[i]) < epsilon)
                 {
                     return true;
                 }
