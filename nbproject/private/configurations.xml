@@ -51,8 +51,6 @@
               </df>
             </df>
           </df>
-          <df name="Progress">
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -173,8 +171,6 @@
           </df>
         </df>
         <df name="samplesExpNum">
-          <df name="256000">
-          </df>
         </df>
         <df name="samplesRandomExpand">
           <df name="10000">
@@ -203,6 +199,8 @@
       </df>
       <df name="doc">
         <df name="Articles">
+        </df>
+        <df name="figures">
         </df>
         <df name="Images">
         </df>
@@ -1258,8 +1256,6 @@
               </df>
             </df>
           </df>
-          <df name="Progress">
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1380,8 +1376,6 @@
           </df>
         </df>
         <df name="samplesExpNum">
-          <df name="256000">
-          </df>
         </df>
         <df name="samplesRandomExpand">
           <df name="10000">
@@ -1410,6 +1404,8 @@
       </df>
       <df name="doc">
         <df name="Articles">
+        </df>
+        <df name="figures">
         </df>
         <df name="Images">
         </df>
@@ -1826,8 +1822,6 @@
               </df>
             </df>
           </df>
-          <df name="Progress">
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -1948,8 +1942,6 @@
           </df>
         </df>
         <df name="samplesExpNum">
-          <df name="256000">
-          </df>
         </df>
         <df name="samplesRandomExpand">
           <df name="10000">
@@ -1978,6 +1970,8 @@
       </df>
       <df name="doc">
         <df name="Articles">
+        </df>
+        <df name="figures">
         </df>
         <df name="Images">
         </df>
@@ -2394,8 +2388,6 @@
               </df>
             </df>
           </df>
-          <df name="Progress">
-          </df>
           <df name="SampleGenerator.dir">
             <df name="media">
               <df name="alvis">
@@ -2516,8 +2508,6 @@
           </df>
         </df>
         <df name="samplesExpNum">
-          <df name="256000">
-          </df>
         </df>
         <df name="samplesRandomExpand">
           <df name="10000">
@@ -2546,6 +2536,8 @@
       </df>
       <df name="doc">
         <df name="Articles">
+        </df>
+        <df name="figures">
         </df>
         <df name="Images">
         </df>

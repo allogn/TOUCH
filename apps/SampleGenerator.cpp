@@ -385,11 +385,11 @@ void generateNewSamples(std::string path_out)
         std::vector<FLAT::SpatialObject*>::iterator it = dsA.begin();
         for (int i = 0; i < sampleSize; i++)
         {
-            vol = FLAT::Box::volume((*it)->getMBR());
             
             if (expand)
                 (*it)->randomExpand(maxExpand);
             
+            vol = FLAT::Box::volume((*it)->getMBR());
             if (vol > max) max = vol;
             if (vol < min) min = vol;
             avg += vol;

@@ -265,7 +265,7 @@ void JoinAlgorithm::print()
         }
         else
         {
-            std::cout << algoname() << " done. Result: " << resultPairs.results << std::endl;
+            std::cout << algoname() << " done. Result: " << resultPairs.results << "; Total time: " << total << std::endl;
         }
 
 }

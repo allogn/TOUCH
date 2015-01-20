@@ -126,8 +126,8 @@ clean: CMakeFiles/FLATIndexCuda.dir/clean
 # Target rules for target CMakeFiles/SampleGenerator.dir
 
 # All Build rule for target.
-CMakeFiles/SampleGenerator.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 CMakeFiles/SampleGenerator.dir/all: CMakeFiles/FLATIndex.dir/all
+CMakeFiles/SampleGenerator.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 	$(MAKE) -f CMakeFiles/SampleGenerator.dir/build.make CMakeFiles/SampleGenerator.dir/depend
 	$(MAKE) -f CMakeFiles/SampleGenerator.dir/build.make CMakeFiles/SampleGenerator.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  37
@@ -162,8 +162,8 @@ clean: CMakeFiles/SampleGenerator.dir/clean
 # Target rules for target CMakeFiles/SpatialJoin.dir
 
 # All Build rule for target.
-CMakeFiles/SpatialJoin.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 CMakeFiles/SpatialJoin.dir/all: CMakeFiles/FLATIndex.dir/all
+CMakeFiles/SpatialJoin.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 	$(MAKE) -f CMakeFiles/SpatialJoin.dir/build.make CMakeFiles/SpatialJoin.dir/depend
 	$(MAKE) -f CMakeFiles/SpatialJoin.dir/build.make CMakeFiles/SpatialJoin.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  38
@@ -198,8 +198,8 @@ clean: CMakeFiles/SpatialJoin.dir/clean
 # Target rules for target CMakeFiles/SystemCheck.dir
 
 # All Build rule for target.
-CMakeFiles/SystemCheck.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 CMakeFiles/SystemCheck.dir/all: CMakeFiles/FLATIndex.dir/all
+CMakeFiles/SystemCheck.dir/all: CMakeFiles/FLATIndexCuda.dir/all
 	$(MAKE) -f CMakeFiles/SystemCheck.dir/build.make CMakeFiles/SystemCheck.dir/depend
 	$(MAKE) -f CMakeFiles/SystemCheck.dir/build.make CMakeFiles/SystemCheck.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /media/alvis/Data/Term2/SeqSpatialIndex/TOUCH/build/CMakeFiles  39

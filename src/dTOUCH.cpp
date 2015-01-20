@@ -128,7 +128,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
         /*
          * process root separately
          */
-        if ( FLAT::Box::overlap(obj->mbr,root->mbrL[0]) && root->entries.size() == 0)
+        if ( root->entries.size() == 0 && FLAT::Box::overlap(obj->mbr,root->mbrL[0]))
         {
             root->attachedObjs[1].push_back(obj);
             continue;
