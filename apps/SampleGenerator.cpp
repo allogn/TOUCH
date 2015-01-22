@@ -87,7 +87,7 @@ void parse_args(int argc, const char* argv[]) {
             case 'e':  
                 t = 1;
                 sscanf(argv[++x], "%u", &t);
-                verbose = (t == 1) ? true : false;
+                expand = (t == 1) ? true : false;
                 break;
             default:
                 fprintf(stderr, "Error: Invalid command line parameter, %c\n", argv[x][1]);
@@ -276,8 +276,8 @@ void generateNewSamples(std::string path_out)
     FLAT::Box* b;
     ENG eng;
     
-    double baseSize = 60;
-    double maxExpand = 10.;
+    double baseSize = 0.1;
+    double maxExpand = 100.;
     int numOfClusters = 5;
     srand (time(NULL));
     std::vector<FLAT::Vertex> clusterCenter(numOfClusters);
@@ -387,8 +387,9 @@ void generateNewSamples(std::string path_out)
         {
             
             if (expand)
+            {
                 (*it)->randomExpand(maxExpand);
-            
+            }
             vol = FLAT::Box::volume((*it)->getMBR());
             if (vol > max) max = vol;
             if (vol < min) min = vol;

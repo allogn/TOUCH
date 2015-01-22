@@ -610,5 +610,19 @@ namespace FLAT
 
 		return sqrt(distance);
 	}
+        
+        //expand box size randomly
+        void Box::randomExpand(double size)
+        {
+            double expCoef[3];
+            expCoef[1] = size*((double)rand()/(double)RAND_MAX);
+            expCoef[2] = size*((double)rand()/(double)RAND_MAX);
+            expCoef[0] = size*((double)rand()/(double)RAND_MAX);
+            for (int i = 0; i < DIMENSION; i++)
+            {
+                this->low[i] = this->low[i]-expCoef[i];
+                this->high[i] = this->high[i]+expCoef[i];
+            }
+        }
 }
 

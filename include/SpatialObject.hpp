@@ -2,6 +2,7 @@
 #define SPATIAL_OBJECT_HPP
 
 #include "SpatialObjectFactory.hpp"
+#include <iostream>
 
 namespace FLAT
 {
@@ -38,7 +39,9 @@ class Vertex;   // To avoid Circular Includes
 		virtual SpatialObjectType getType()=0;
 
                 
-                inline void randomExpand(double size) {};
+                virtual void randomExpand(double size) {
+                    std::cout << "Error! No random expansion implementation." << std::endl;
+                };
                 
 		virtual bigSpaceUnit pointDistance(Vertex& p)=0;
 	};
