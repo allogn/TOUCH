@@ -277,7 +277,7 @@ void generateNewSamples(std::string path_out)
     ENG eng;
     
     double baseSize = 0.1;
-    double maxExpand = 100.;
+    double maxExpand = 10.;
     int numOfClusters = 5;
     srand (time(NULL));
     std::vector<FLAT::Vertex> clusterCenter(numOfClusters);
