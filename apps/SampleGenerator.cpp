@@ -276,7 +276,7 @@ void generateNewSamples(std::string path_out)
     FLAT::Box* b;
     ENG eng;
     
-    double baseSize = .1;
+    double baseSize = 20;
     double maxExpand = 10.;
     int numOfClusters = 5;
     srand (time(NULL));

@@ -9,6 +9,7 @@
 CommonTOUCH::CommonTOUCH() {
     localPartitions = 100;
     PartitioningType = Hilbert_Sort;
+    addFilter = 0;
 }
 
 CommonTOUCH::~CommonTOUCH() {

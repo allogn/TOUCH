@@ -28,6 +28,7 @@ public:
     virtual ~CommonTOUCH();
     
     unsigned int totalnodes;
+    int addFilter;
     
     NodeList probingList;
     

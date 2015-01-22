@@ -21,6 +21,8 @@ void cTOUCH::run()
     if (verbose) std::cout << "Analysis Done, probing." << std::endl; 
     probe();
     if (verbose) std::cout << "Done." << std::endl;
+    
+    cout << "Additional filtering: " << addFilter << endl;
     totalTimeStop();
 }
 
@@ -325,6 +327,10 @@ void cTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
                         {
                             nodes.push((*it));
                         } 
+                        else
+                        {
+                            addFilter+=(*it)->level; //@remove
+                        }
                 }
 
         }
