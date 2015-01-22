@@ -77,6 +77,8 @@ public:
     ResultPairs resultPairs;
     bool verbose;		// Output everything or not?
     
+    double ramMem;
+    double swapMem;
 
     unsigned int leafsize, nodesize;
     unsigned int totalnodes;
@@ -396,6 +398,8 @@ public:
     
     void totalTimeStart() { total.start(); };
     void totalTimeStop() { total.stop(); };
+    
+    void process_mem_usage(double& vm_usage, double& resident_set);
     void saveLog();
     virtual void run() {};
     

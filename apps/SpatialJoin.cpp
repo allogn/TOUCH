@@ -14,6 +14,12 @@
  * 
  */
 
+#include <unistd.h>
+#include <ios>
+#include <iostream>
+#include <fstream>
+#include <string>
+
 #include "algoPS.h"
 #include "algoNL.h"
 #include "S3Hash.h"
@@ -357,6 +363,7 @@ void algoPBSMrun()
     ps->print();
 }
 
+
 int main(int argc, const char* argv[])
 {
     //Parsing the arguments
@@ -400,6 +407,8 @@ int main(int argc, const char* argv[])
         break;
     }
     
+    double a1, a2;
     std::cout << "Terminated." << std::endl;
+    
     return 0;
 }

@@ -191,5 +191,6 @@ void S3Hash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
         double differenceSquared=0;
         differenceSquared = ((double)sqsum/(double)localPartitions)-avg*avg;
         std = sqrt(differenceSquared);
+        process_mem_usage(swapMem, ramMem);
         analyzing.stop();
 }

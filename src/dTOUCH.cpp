@@ -104,6 +104,7 @@ void dTOUCH::run()
     levelStd[0] = levelStdTemp;
     
     if (verbose) std::cout << "Done." << std::endl;
+    totalTimeStop();
     
 }
 
@@ -128,11 +129,11 @@ void dTOUCH::assignment(SpatialObjectList& ds)
         /*
          * process root separately
          */
-        if ( root->entries.size() == 0 && FLAT::Box::overlap(obj->mbr,root->mbrL[0]))
-        {
-            root->attachedObjs[1].push_back(obj);
-            continue;
-        }
+//        if ( root->entries.size() == 0 && FLAT::Box::overlap(obj->mbr,root->mbrL[0]))
+//        {
+//            root->attachedObjs[1].push_back(obj);
+//            continue;
+//        }
 
         /*
          * end of root processing
@@ -205,6 +206,7 @@ void dTOUCH::assignment(SpatialObjectList& ds)
             }
         }
     }
+    building.stop();
 }
 
 //void dTOUCH::joinNodeToDesc(TreeNode* ancestorNode)

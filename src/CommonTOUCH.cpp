@@ -797,6 +797,9 @@ void CommonTOUCH::analyze()
     differenceSquared = ((double)sqsum/(TYPES*(double)tree.size()))-avg*avg;
     std = sqrt(differenceSquared);
     
+    
+    process_mem_usage(swapMem, ramMem);
+    
     analyzing.stop();
 
 }
