@@ -130,6 +130,7 @@ public:
             init(universe,localPartitions);
             build(dsA);
             probe(dsB);
+            process_mem_usage(swapMem, ramMem);
             resultPairs.deDuplicate();
             totalTimeStop();
         }

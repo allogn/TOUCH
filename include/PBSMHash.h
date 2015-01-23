@@ -80,6 +80,8 @@ public:
             init(100);
             build(dsA,dsB);
             probe();
+            
+            process_mem_usage(swapMem, ramMem);
             resultPairs.deDuplicate();
             totalTimeStop();
         }
