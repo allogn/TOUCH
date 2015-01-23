@@ -127,14 +127,12 @@
         </makeTool>
       </makefileType>
       <item path="apps/SampleGenerator.cpp" ex="false" tool="1" flavor2="4">
+        <ccTool flags="0">
+        </ccTool>
       </item>
       <item path="apps/SpatialJoin.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="apps/SystemCheck.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="build/CMakeFiles/3.0.2/CompilerIdC/CMakeCCompilerId.c"
             ex="false"
@@ -153,6 +151,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -185,6 +184,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -203,6 +203,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -221,6 +222,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -239,6 +241,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -257,6 +260,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -275,6 +279,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -293,6 +298,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -311,6 +317,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -329,6 +336,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -347,6 +355,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -365,6 +374,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -383,6 +393,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -401,6 +412,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -419,6 +431,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -437,6 +450,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -455,6 +469,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -473,6 +488,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -491,6 +507,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -509,6 +526,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -527,6 +545,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -545,6 +564,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -563,6 +583,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -581,6 +602,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -599,6 +621,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -617,6 +640,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -635,6 +659,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -653,6 +678,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -671,6 +697,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -689,6 +716,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -707,6 +735,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -725,6 +754,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -743,6 +773,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -761,6 +792,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -779,6 +811,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
@@ -797,6 +830,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>lib/bbpdias/BBPSDK/include</pElem>
             <pElem>lib/RTree/include</pElem>
+            <pElem>/usr/local/cuda/include</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>

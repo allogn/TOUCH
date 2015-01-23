@@ -46,7 +46,7 @@ public:
         double avrVol[TYPES];
         double stdSize[TYPES][DIMENSION];
         
-        int objBelow[TYPES];
+        FLAT::uint64 objBelow[TYPES];
     
 	TreeNode(int Level)
 	{
@@ -55,8 +55,6 @@ public:
 		if (Level==0) leafnode = true;
 		else leafnode = false;
                 mbr.isEmpty = true;
-                objBelow[0] = 0;
-                objBelow[1] = 0;
 	}
 	
 	TreeNode(const FLAT::Box& MbrA, const FLAT::Box& MbrB)

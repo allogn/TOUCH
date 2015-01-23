@@ -8,7 +8,6 @@
 
 CommonTOUCH::CommonTOUCH() {
     localPartitions = 100;
-    PartitioningType = Hilbert_Sort;
     addFilter = 0;
 }
 
@@ -810,22 +809,23 @@ void CommonTOUCH::analyze()
 
 unsigned int CommonTOUCH::countObjBelow(TreeNode* node, int type)
 {
-    int res = 0;
+    FLAT::uint64 res = 0;
+    node->objBelow[type]=0;
     for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
     {
         node->objBelow[type] += countObjBelow((*it),type);
-        res += node->objBelow[type];
+        //res += node->objBelow[type];
     }
     res += node->attachedObjs[type].size();
     res += node->attachedObjsAns[type].size();
-    return res;
+    return node->objBelow[type]+res;
 }
 
 void CommonTOUCH::countObjBelowStart()
 {
-    int temp;
     for (int i = 0; i < TYPES; i++)
     {
-        temp = countObjBelow(root, i);
+        countObjBelow(root, i);
     }
+    cout << countObjBelow(root, 0) << " ; " << countObjBelow(root, 1) << " -------" << endl;
 }
