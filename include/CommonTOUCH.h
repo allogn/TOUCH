@@ -28,7 +28,6 @@ public:
     virtual ~CommonTOUCH();
     
     unsigned int totalnodes;
-    int addFilter;
     
     NodeList probingList;
     
@@ -54,6 +53,9 @@ public:
     void countSpatialGrid(TreeNode* node);
     void deduplicateSpatialGrid();
     void deduplicateSpatialGrid(TreeNode* node);
+    
+    int countObjBelow(TreeNode* node, int type);
+    void countObjBelowStart();
     
     virtual void NL(TreeEntry*& A, SpatialObjectList& B)
     {

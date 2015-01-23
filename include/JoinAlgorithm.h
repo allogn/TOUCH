@@ -79,6 +79,7 @@ public:
     
     double ramMem;
     double swapMem;
+    int addFilter;
 
     unsigned int leafsize, nodesize;
     unsigned int totalnodes;

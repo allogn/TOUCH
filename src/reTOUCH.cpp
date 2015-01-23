@@ -297,6 +297,10 @@ void reTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
                         if (!(*it)->leafnode)
                                 nodes.push((*it));
                 }
+                else
+                {
+                    addFilter+=(*it)->objBelow[!obj->type];
+                }
             }
         }
         else
@@ -328,6 +332,10 @@ void reTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
                         //add child to the queue if it is not a leaf (even in dark)
                         if (!downnode->leafnode)
                                 nodes.push((*it));
+                }
+                else
+                {
+                    addFilter+=(*it)->objBelow[!obj->type];
                 }
 
             }

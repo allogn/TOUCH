@@ -340,7 +340,7 @@ void SGridrun()
     ps->numB                = numB;
     ps->file_dsA            = input_dsA;
     ps->file_dsB            = input_dsB;
-    ps->localPartitions  = 100;//localPartitions;	
+    ps->localPartitions     = localPartitions;	
     
     ps->run();
     ps->saveLog();

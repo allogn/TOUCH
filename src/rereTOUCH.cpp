@@ -435,6 +435,10 @@ void rereTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
                         if (!(*it)->leafnode)
                                 nodes.push((*it));
                 }
+                        else
+                        {
+                            addFilter+=(*it)->objBelow[!obj->type];
+                        }
             }
         }
         else
@@ -467,6 +471,10 @@ void rereTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
                         if (!downnode->leafnode)
                                 nodes.push((*it));
                 }
+                        else
+                        {
+                            addFilter+=(*it)->objBelow[!obj->type];
+                        }
 
             }
         }

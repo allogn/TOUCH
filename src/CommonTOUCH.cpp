@@ -58,6 +58,10 @@ void CommonTOUCH::joinObjectToDesc(TreeEntry* obj, TreeNode* ancestorNode)
             {
                 nodes.push((*it));
             } 
+            else
+            {
+                addFilter+=(*it)->objBelow[!obj->type];
+            }
         }
 
     }
@@ -799,7 +803,29 @@ void CommonTOUCH::analyze()
     
     
     process_mem_usage(swapMem, ramMem);
-    
+    countObjBelowStart();
     analyzing.stop();
 
+}
+
+int CommonTOUCH::countObjBelow(TreeNode* node, int type)
+{
+    int res = 0;
+    for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)
+    {
+        node->objBelow[type] += countObjBelow((*it),type);
+        res += node->objBelow[type];
+    }
+    res += node->attachedObjs[type].size();
+    res += node->attachedObjsAns[type].size();
+    return res;
+}
+
+void CommonTOUCH::countObjBelowStart()
+{
+    int temp;
+    for (int i = 0; i < TYPES; i++)
+    {
+        temp = countObjBelow(root, i);
+    }
 }
