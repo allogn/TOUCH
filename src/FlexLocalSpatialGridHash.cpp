@@ -25,6 +25,9 @@ void FlexLocalSpatialGridHash::init(const FLAT::Box& universeExtent,const double
         for (int i=0;i<DIMENSION;++i)
         {
                 universeWidth[i] = ceil(difference[i]/resolution[i]);
+                if (universeWidth[i] > 100)
+                    universeWidth[i] = 100;
+                
                 //if (resolution[i] != 1) cout << "Number of cells: " << universeWidth[i] << " Universe width:" << difference[i] << " Resolution:" << resolution[i] << " ;;; \n";
                 localPartitions *= universeWidth[i];
         }

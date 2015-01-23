@@ -467,7 +467,7 @@ void CommonTOUCH::countSpatialGrid()
 }
 
 void CommonTOUCH::countSpatialGrid(TreeNode* node)
-{    
+{   
     gridCalculate.start();
     FLAT::Box mbr;
     double resolution;
@@ -480,7 +480,6 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
         } else {
             mbr = node->mbrSelfD[type];
         }
-        
         switch (SGResol)
         {
             case Static_SG_Resolution:
@@ -526,6 +525,7 @@ void CommonTOUCH::countSpatialGrid(TreeNode* node)
                 }
                 break;
             case Dynamic_Flex_SG_Resolution:
+                
                 FLAT::Vertex spaceVec;
                 FLAT::Vertex::differenceVector(mbr.high,mbr.low,spaceVec);
 
@@ -634,7 +634,6 @@ void CommonTOUCH::createPartitions(SpatialObjectList& vds)
 
     Levels = 1;
     totalnodes = 0;
-    
     createTreeLevel(vds);
     if (verbose) std::cout << "Tree leafs sorted." << std::endl;
     NodeList nds;
