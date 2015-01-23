@@ -808,7 +808,7 @@ void CommonTOUCH::analyze()
 
 }
 
-int CommonTOUCH::countObjBelow(TreeNode* node, int type)
+unsigned int CommonTOUCH::countObjBelow(TreeNode* node, int type)
 {
     int res = 0;
     for (NodeList::iterator it = node->entries.begin(); it != node->entries.end(); it++)

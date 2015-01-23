@@ -20,7 +20,7 @@ public:
     FLAT::Box mbr;
     FLAT::SpatialObject* obj;
 
-    int cost;
+    unsigned int cost;
     int id;
     int type;
 

@@ -113,7 +113,7 @@ void generateSamples(std::string file_in, std::string path_out)
     std::string prefix = "sample"; //prefix to names of result files
     std::ostringstream filename;
     int fileNum = 1; //index of a file
-    int mixInd; //variable for randomization
+    unsigned int mixInd; //variable for randomization
     FLAT::SpatialObject* temp;
     double vol;
     
@@ -159,7 +159,7 @@ void generateSamples(std::string file_in, std::string path_out)
      * Delete from the array
      * Until the array becomes empty
      */
-    int donenum = 0;
+    unsigned int donenum = 0;
     while (dsA.size() >= sampleSize && donenum < num)
     {
         donenum++;
@@ -255,7 +255,7 @@ void generateNewSamples(std::string path_out)
     std::string prefix = "sample"; //prefix to names of result files
     std::ostringstream filename;
     int fileNum = 1; //index of a file
-    int mixInd; //variable for randomization
+    unsigned int mixInd; //variable for randomization
     FLAT::SpatialObject* temp;
     double vol;
     
@@ -343,7 +343,7 @@ void generateNewSamples(std::string path_out)
      * Delete from the array
      * Until the array becomes empty
      */
-    int donenum = 0;
+    unsigned int donenum = 0;
     while (dsA.size() >= sampleSize && donenum < num)
     {
         donenum++;

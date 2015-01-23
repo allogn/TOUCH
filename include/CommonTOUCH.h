@@ -54,7 +54,7 @@ public:
     void deduplicateSpatialGrid();
     void deduplicateSpatialGrid(TreeNode* node);
     
-    int countObjBelow(TreeNode* node, int type);
+    unsigned int countObjBelow(TreeNode* node, int type);
     void countObjBelowStart();
     
     virtual void NL(TreeEntry*& A, SpatialObjectList& B)

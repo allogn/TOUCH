@@ -79,7 +79,7 @@ public:
     
     double ramMem;
     double swapMem;
-    int addFilter;
+    FLAT::uint64 addFilter;
 
     unsigned int leafsize, nodesize;
     unsigned int totalnodes;
