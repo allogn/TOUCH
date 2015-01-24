@@ -47,9 +47,9 @@ void usage(const char *program_name) {
     printf("   -n               Number of files\n");
     printf("   -d               Type of random distribution (0 - Random, 1 - Gauss, 2 - Clustered)\n");
     printf("   -e               (boolean) Expand\n");
-    printf("   -b               Base, Starting size of samples");
-    printf("   -g               Maximum expanding size (over base)");
-    printf("   -c               Number of Clusters");
+    printf("   -b               Base, Starting size of samples\n");
+    printf("   -g               Maximum expanding size (over base)\n");
+    printf("   -c               Number of Clusters\n");
 
 }
 
