@@ -88,6 +88,57 @@ protected:
     
     NodeList tree;
     NodeList nextInput;
+        
+    double getMemFootprint(TreeNode* node)
+    {
+        FLAT::uint32 tsize;
+        FLAT::uint32 objSize;
+
+
+        //adding size of all objects that are assigned and the size of SGH
+        for (int type = 0; type < TYPES; type++)
+        {
+            if (node->attachedObjs[type].size() > 0)
+                objSize = node->attachedObjs[type].front()->obj->getSize();
+            else if (node->attachedObjsAns[type].size() > 0)
+                objSize = node->attachedObjs[type].front()->obj->getSize();
+            else
+                objSize = 0;
+
+            tsize += (node->attachedObjs[type].size() + node->attachedObjsAns[type].size())*(objSize + sizeof(TreeEntry*));
+        }
+
+        switch (algorithm)
+        {
+            case algo_TOUCH:
+                tsize += node->mbr.getSize() + node->mbrL[0].getSize();
+                break;
+            case algo_dTOUCH:
+                tsize += node->mbr.getSize() + node->mbrL[0].getSize();
+                tsize += node->spatialGridHash[0]->getMemFootprint() + node->spatialGridHash[1]->getMemFootprint();
+                tsize += sizeof(double) * TYPES * DIMENSION; // statistics about the size
+                break;
+            case algo_cTOUCH:
+                tsize += node->mbr.getSize() + (node->mbrL[0].getSize() + node->mbrD[0].getSize() + node->mbrK[0].getSize() + node->mbrSelfD[0].getSize())*TYPES;
+                tsize += node->spatialGridHash[0]->getMemFootprint() + node->spatialGridHash[1]->getMemFootprint();
+                tsize += sizeof(double) * TYPES * DIMENSION;
+                break;
+            case algo_reTOUCH:
+                tsize += node->mbr.getSize() + (node->mbrL[0].getSize() + node->mbrSelfD[0].getSize())*TYPES;
+                tsize += node->spatialGridHash[0]->getMemFootprint() + node->spatialGridHash[1]->getMemFootprint() +
+                         node->spatialGridHashAns[0]->getMemFootprint() + node->spatialGridHashAns[1]->getMemFootprint();
+                tsize += sizeof(double) * TYPES * DIMENSION;
+                break;
+            case algo_rereTOUCH:
+                tsize += node->mbr.getSize() + (node->mbrL[0].getSize() + node->mbrSelfD[0].getSize())*TYPES;
+                tsize += node->spatialGridHash[0]->getMemFootprint() + node->spatialGridHash[1]->getMemFootprint() +
+                         node->spatialGridHashAns[0]->getMemFootprint() + node->spatialGridHashAns[1]->getMemFootprint();
+                tsize += sizeof(double) * TYPES * DIMENSION;
+                break;
+        }
+
+        tsize += node->entries.size()*sizeof(TreeNode*); // entries
+    }
 };
 
 #endif	/* CommonTOUCH_H */

@@ -803,6 +803,15 @@ void CommonTOUCH::analyze()
     
     process_mem_usage(swapMem, ramMem);
     countObjBelowStart();
+    
+    
+    clearMem = 0;
+    for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
+    {
+        clearMem += getMemFootprint((*it));
+    }
+    clearMem += sizeof(TreeNode*)*(tree.size()+1);
+    
     analyzing.stop();
 
 }
@@ -827,5 +836,4 @@ void CommonTOUCH::countObjBelowStart()
     {
         countObjBelow(root, i);
     }
-    cout << countObjBelow(root, 0) << " ; " << countObjBelow(root, 1) << " -------" << endl;
 }

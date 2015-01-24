@@ -79,6 +79,7 @@ public:
     
     double ramMem;
     double swapMem;
+    double clearMem;
     FLAT::uint64 addFilter;
 
     unsigned int leafsize, nodesize;

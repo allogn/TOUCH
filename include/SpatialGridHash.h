@@ -118,7 +118,7 @@ public:
         virtual void init(const FLAT::Box& universeExtent,const double gridResolutionPerDimension) {};
         virtual void init(const FLAT::Box& universeExtent,const double gridResolutionPerDimension0,
                 const double gridResolutionPerDimension1,const double gridResolutionPerDimension2) {};
-	void analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB);
+	virtual void analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB);
         
         static void transferInfo(SpatialGridHash* sgh, JoinAlgorithm* alg);
         
@@ -133,6 +133,16 @@ public:
             process_mem_usage(swapMem, ramMem);
             resultPairs.deDuplicate();
             totalTimeStop();
+        }
+        
+        FLAT::uint64 getMemFootprint()
+        {
+            cout << "test" << endl;
+            cout << dsA.size() << dsB.size() << endl;
+            cout << "tt" << endl;
+            this->analyze(dsA, dsB);
+            cout << "end of anal" << endl;
+            return footprint;
         }
 };
 

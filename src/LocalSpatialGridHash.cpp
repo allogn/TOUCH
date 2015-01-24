@@ -37,10 +37,11 @@ LocalSpatialGridHash::~LocalSpatialGridHash() {
 void LocalSpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
 {
 
+    cout << "test3" << endl;
         analyzing.start();
         footprint += dsA.capacity()*(sizeof(TreeEntry*));
         footprint += dsB.capacity()*(sizeof(TreeEntry*));
-        cout << "Cell Width: " << universeWidth  << endl;
+        cout << "Cell Width Local: " << universeWidth  << endl;
         
         FLAT::uint64 sum=0,sqsum=0;
         for (HashTable::iterator it = gridHashTable.begin(); it!=gridHashTable.end(); ++it)

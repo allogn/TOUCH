@@ -25,6 +25,9 @@ std::string outputPath  = "./samples/";
 std::string logName     = "stats.csv";
 int num                 = 1;
 int distribution        = 0;
+double baseSize             = 0.1;
+double maxExpand          = 10.;
+unsigned int numOfClusters   = 5;
 bool verbose            = false;
 bool expand             = false;
 typedef boost::mt19937 ENG;
@@ -44,6 +47,9 @@ void usage(const char *program_name) {
     printf("   -n               Number of files\n");
     printf("   -d               Type of random distribution (0 - Random, 1 - Gauss, 2 - Clustered)\n");
     printf("   -e               (boolean) Expand\n");
+    printf("   -b               Base, Starting size of samples");
+    printf("   -g               Maximum expanding size (over base)");
+    printf("   -c               Number of Clusters");
 
 }
 
@@ -78,6 +84,15 @@ void parse_args(int argc, const char* argv[]) {
                 break;
             case 'd':
                 sscanf(argv[++x], "%u", &distribution);
+                break;
+            case 'b':
+                sscanf(argv[++x], "%u", &baseSize);
+                break;
+            case 'g':
+                sscanf(argv[++x], "%u", &maxExpand);
+                break;
+            case 'c':
+                sscanf(argv[++x], "%u", &numOfClusters);
                 break;
             case 'v':  
                 t = 1;
@@ -276,9 +291,6 @@ void generateNewSamples(std::string path_out)
     FLAT::Box* b;
     ENG eng;
     
-    double baseSize = 0.1;
-    double maxExpand = .1;
-    int numOfClusters = 5;
     //srand (time(NULL));
     std::vector<FLAT::Vertex> clusterCenter(numOfClusters);
     if (distribution == 2)

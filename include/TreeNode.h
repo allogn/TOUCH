@@ -10,7 +10,6 @@
 #include "TreeEntry.h"
 #include "ResultPairs.h"
 
-
 class LocalSpatialGridHash;
 class SpatialGridHash;
 

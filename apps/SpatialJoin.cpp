@@ -73,6 +73,7 @@ void usage(const char *program_name) {
     printf("   -b               fanout\n");
     printf("   -g               number of SGH cells per dimension\n");
     printf("   -m               maximum level parameter for dTOUCH\n");
+    printf("   -t               type of sorting (0 - No Sort, 1 - Hilbert)\n");
     printf("   -e               Epsilon of the similarity join\n");
     printf("   -i               <path> <path>  Dataset A followed by B\n");
     printf("   -n               #A #B  number of element to be read\n");
