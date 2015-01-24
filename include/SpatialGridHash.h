@@ -130,17 +130,15 @@ public:
             init(universe,localPartitions);
             build(dsA);
             probe(dsB);
-            analyze(dsA,dsB);
-            clearMem = footprint;
             resultPairs.deDuplicate();
             totalTimeStop();
         }
         
-        FLAT::uint64 getMemFootprint()
-        {
-            analyze(dsA, dsB);
-            return footprint;
-        }
+//        FLAT::uint64 getMemFootprint()
+//        {
+//            analyze(dsA, dsB);
+//            return footprint;
+//        }
 };
 
 #endif	/* SPATIALGRIDHASH_H */

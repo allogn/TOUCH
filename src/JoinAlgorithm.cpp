@@ -274,7 +274,7 @@ void JoinAlgorithm::print()
         else
         {
             std::cout << algoname() << " done. Result: " << resultPairs.results << "; Total time: " << total << "; Total memory: Swap/File "
-                    << swapMem << " KB RAM " << ramMem << " KB Clear " << clearMem/1000 << " KB" << std::endl;
+                    << swapMem << " KB RAM " << ramMem << " KB" << std::endl;
         }
 
 }

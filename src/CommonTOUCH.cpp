@@ -202,15 +202,15 @@ void CommonTOUCH::probe()
     }
     probing.stop();
     
-        clearMem = 0; //memory footprint
-        
-    if (localJoin == algo_SGrid) {
-        for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
-        {
-            clearMem += getMemFootprint((*it));
-        }
-        clearMem += sizeof(TreeNode*)*(tree.size()+1);
-    }
+//        clearMem = 0; //memory footprint
+//        
+//    if (localJoin == algo_SGrid) {
+//        for (NodeList::iterator it = tree.begin(); it != tree.end(); it++)
+//        {
+//            clearMem += getMemFootprint((*it));
+//        }
+//        clearMem += sizeof(TreeNode*)*(tree.size()+1);
+//    }
         
     if(localJoin == algo_SGrid && treeTraversal == join_TD && algorithm != algo_TOUCH)
     {
