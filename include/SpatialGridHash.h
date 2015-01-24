@@ -132,6 +132,7 @@ public:
             probe(dsB);
             resultPairs.deDuplicate();
             totalTimeStop();
+            process_mem_usage(swapMem, ramMem);
         }
         
 //        FLAT::uint64 getMemFootprint()

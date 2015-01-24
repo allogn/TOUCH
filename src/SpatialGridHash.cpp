@@ -47,7 +47,6 @@ void SpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectLi
         double differenceSquared=0;
         differenceSquared = ((double)sqsum/(double)localPartitions)-avg*avg;
         std = sqrt(differenceSquared);
-        process_mem_usage(swapMem, ramMem);
         analyzing.stop();
 }
 
