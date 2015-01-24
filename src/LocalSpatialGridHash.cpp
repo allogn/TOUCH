@@ -36,8 +36,7 @@ LocalSpatialGridHash::~LocalSpatialGridHash() {
 
 void LocalSpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
 {
-
-    cout << "test3" << endl;
+    cout << "Wrong analyze function (local)" << endl;
         analyzing.start();
         footprint += dsA.capacity()*(sizeof(TreeEntry*));
         footprint += dsB.capacity()*(sizeof(TreeEntry*));

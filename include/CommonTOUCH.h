@@ -115,7 +115,7 @@ protected:
                 break;
             case algo_dTOUCH:
                 tsize += node->mbr.getSize() + node->mbrL[0].getSize();
-                tsize += node->spatialGridHash[0]->getMemFootprint() + node->spatialGridHash[1]->getMemFootprint();
+                if (node->leafnode) tsize += node->spatialGridHash[dTOUCHalgoLeafType]->getMemFootprint();
                 tsize += sizeof(double) * TYPES * DIMENSION; // statistics about the size
                 break;
             case algo_cTOUCH:
@@ -138,6 +138,7 @@ protected:
         }
 
         tsize += node->entries.size()*sizeof(TreeNode*); // entries
+        return tsize;
     }
 };
 

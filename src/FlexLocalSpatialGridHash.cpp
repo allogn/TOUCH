@@ -40,7 +40,7 @@ FlexLocalSpatialGridHash::~FlexLocalSpatialGridHash() {
 
 void FlexLocalSpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
 {
-    cout << "test" << endl;
+    cout << "Wrong analyze function (flex)" << endl;
         analyzing.start();
         footprint += dsA.capacity()*(sizeof(TreeEntry*));
         footprint += dsB.capacity()*(sizeof(TreeEntry*));

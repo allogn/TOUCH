@@ -28,20 +28,17 @@ SpatialGridHash::~SpatialGridHash() {
 
 void SpatialGridHash::analyze(const SpatialObjectList& dsA,const SpatialObjectList& dsB)
 {
-
-    cout << "test2" << endl;
         analyzing.start();
-        footprint += dsA.capacity()*(sizeof(TreeEntry*));
-        footprint += dsB.capacity()*(sizeof(TreeEntry*));
-        if (verbose) cout << "Cell Width: " << universeWidth  << endl;
-        
+        footprint = 0;
+        footprint += dsA.size()*(sizeof(TreeEntry*));
+        footprint += dsB.size()*(sizeof(TreeEntry*));
         FLAT::uint64 sum=0,sqsum=0;
         for (HashTable::iterator it = gridHashTable.begin(); it!=gridHashTable.end(); ++it)
         {
                 FLAT::uint64 ptrs=((SpatialObjectList*)(it->second))->size();
                 sum += ptrs;
                 sqsum += ptrs*ptrs;
-                if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
+                //if (maxMappedObjects<ptrs) maxMappedObjects = ptrs;
         }
         footprint += sum*sizeof(TreeEntry*) +  sizeof(HashValue)*localPartitions;
         avg = (sum+0.0) / (localPartitions+0.0);

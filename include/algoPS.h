@@ -24,6 +24,8 @@ public:
         readBinaryInput(file_dsA, file_dsB);
         PS(dsA,dsB);
         totalTimeStop();
+        clearMem = (dsA.size()+dsB.size())*(sizeof(TreeEntry*)+dsA.front()->obj->getSize());
+        process_mem_usage(swapMem, ramMem);
     }
     
     void PS(SpatialObjectList& A, SpatialObjectList& B)

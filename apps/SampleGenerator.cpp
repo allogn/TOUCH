@@ -25,9 +25,9 @@ std::string outputPath  = "./samples/";
 std::string logName     = "stats.csv";
 int num                 = 1;
 int distribution        = 0;
-double baseSize             = 0.1;
-double maxExpand          = 10.;
-unsigned int numOfClusters   = 5;
+float baseSize             = 0.1;
+float maxExpand          = 10.;
+int numOfClusters   = 5;
 bool verbose            = false;
 bool expand             = false;
 typedef boost::mt19937 ENG;
@@ -86,10 +86,10 @@ void parse_args(int argc, const char* argv[]) {
                 sscanf(argv[++x], "%u", &distribution);
                 break;
             case 'b':
-                sscanf(argv[++x], "%u", &baseSize);
+                sscanf(argv[++x], "%f", &baseSize);
                 break;
             case 'g':
-                sscanf(argv[++x], "%u", &maxExpand);
+                sscanf(argv[++x], "%f", &maxExpand);
                 break;
             case 'c':
                 sscanf(argv[++x], "%u", &numOfClusters);
@@ -150,7 +150,6 @@ void generateSamples(std::string file_in, std::string path_out)
             universe.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
             universe.high.Vector[i]  = std::numeric_limits<FLAT::spaceUnit>::min();
     }
-    FLAT::SpatialObject* sobj;
 
     /*
      * Read all file
@@ -219,7 +218,7 @@ void generateSamples(std::string file_in, std::string path_out)
             vol = FLAT::Box::volume((*it)->getMBR());
             
             if (expand)
-                (*it)->randomExpand(20.);
+                (*it)->randomExpand(maxExpand);
             
             if (vol > max) max = vol;
             if (vol < min) min = vol;
@@ -282,7 +281,6 @@ void generateNewSamples(std::string path_out)
             universe.low.Vector[i] = std::numeric_limits<FLAT::spaceUnit>::max();
             universe.high.Vector[i]  = std::numeric_limits<FLAT::spaceUnit>::min();
     }
-    FLAT::SpatialObject* sobj;
     if (verbose) cout << "Universe created" << endl;
     
     dsA.reserve(sampleSize*num);
@@ -412,7 +410,7 @@ void generateNewSamples(std::string path_out)
             it++;
         }
         avg /= sampleSize;
-        std = sqrt(std - avg*avg);
+        std = sqrt(std/sampleSize - avg*avg);
         
         dsA.erase(dsA.begin(),--it);
         
